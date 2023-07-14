@@ -21,7 +21,7 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      desription: {
+      description: {
         type: Sequelize.STRING
       },
       length: {

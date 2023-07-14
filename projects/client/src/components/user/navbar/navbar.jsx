@@ -14,7 +14,7 @@ export default function Navbar() {
                 />
             </div>
             {/* middle => pages */}
-            <div className="flex gap-9 items-center text-xl">
+            <div className="hidden md:block md:flex gap-9 items-center text-xl">
                 <Link to={'/'}>
                     <div>Home</div>
                 </Link>
