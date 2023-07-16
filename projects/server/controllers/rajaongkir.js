@@ -1,10 +1,5 @@
 const axios = require('axios');
 
-// axios.defaults.baseUrl = 'https://api.rajaongkir.com/starter/province';
-// axios.defaults.headers.common['key'] = `${process.env.RO_API_KEY}`;
-// axios.defaults.headers.post['Content-Type'] =
-//     'application/x-www-form-urlencoded';
-
 module.exports = {
     getProvinces: async (req, res) => {
         try {
@@ -18,7 +13,6 @@ module.exports = {
                 },
             );
             const dataProvinces = getData.data.rajaongkir.results;
-            console.log('provinces', dataProvinces);
 
             return res.status(200).send(dataProvinces);
         } catch (error) {
@@ -41,7 +35,6 @@ module.exports = {
                 },
             );
             const dataCities = getData.data.rajaongkir.results;
-            console.log('cities', dataCities);
 
             return res.status(200).send(dataCities);
         } catch (error) {

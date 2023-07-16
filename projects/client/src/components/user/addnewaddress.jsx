@@ -1,8 +1,25 @@
 import { useEffect, useState } from 'react';
 import { Modal } from 'flowbite-react';
 import axios from 'axios';
+import { useRef } from 'react';
 
 export default function NewAddress({ showModal }) {
+    // Input
+    const documentBodyRef = useRef(null);
+    const [countFullAddress, setCountFullAddress] = useState(0);
+    const [inputReceiverName, setInputReceiverName] = useState('');
+    const [inputReceiverNumber, setInputReceiverNumber] = useState('');
+    const [inputFullAddress, setInputFullAddress] = useState('');
+    const [inputProvince, setInputProvince] = useState('');
+    const [inputProvinceId, setInputProvinceId] = useState('');
+    const [inputCity, setInputCity] = useState('');
+    const [inputCityId, setInputCityId] = useState('')
+    const [inputSubdistrict, setInputSubDistrict] = useState('');
+    const [inputPostalCode, setInputPostalCode] = useState('');
+    console.log(inputPostalCode);
+    console.log(inputProvince);
+    console.log(inputProvinceId);
+
     // Get Data RajaOngkir
     const [dataProvinces, setDataProvinces] = useState([]);
     const [dataCities, setDataCities] = useState([]);
@@ -11,6 +28,7 @@ export default function NewAddress({ showModal }) {
     useEffect(() => {
         getDataProvinces();
         getDataCities();
+        documentBodyRef.current = document.body;
     }, []);
 
     const getDataProvinces = async () => {
@@ -23,7 +41,6 @@ export default function NewAddress({ showModal }) {
             console.log(error);
         }
     };
-    console.log(dataProvinces);
 
     const getDataCities = async () => {
         try {
@@ -35,7 +52,6 @@ export default function NewAddress({ showModal }) {
             console.log(error);
         }
     };
-    console.log(dataCities);
 
     // FIND CITY IN PROVINCE
     const filterCity = (id) => {
@@ -53,6 +69,7 @@ export default function NewAddress({ showModal }) {
     return (
         <>
             <Modal
+                root={documentBodyRef.current}
                 dismissible
                 show={() => showModal('show')}
                 onClose={() => showModal('')}
@@ -65,7 +82,13 @@ export default function NewAddress({ showModal }) {
                                 Receiver Name
                             </span>
                             <input
-                                className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                                className="border border-gray-400 w-[300px] rounded-md px-2 h-10 w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                                placeholder="Receiver Name"
+                                onChange={(e) => {
+                                    setInputReceiverName(e.target.value);
+                                }}
+                                value={inputReceiverName}
+                                type="text"
                                 name="receiver_name"
                             />
                         </div>
@@ -76,16 +99,34 @@ export default function NewAddress({ showModal }) {
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="receiver_number"
+                                placeholder="Receiver Number"
+                                onChange={(e) => {
+                                    setInputReceiverNumber(e.target.value);
+                                }}
+                                value={inputReceiverNumber}
+                                type="tel"
+                                maxlength="12"
                             />
                         </div>
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1">
                                 Full Address
                             </span>
-                            <input
-                                className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                            <textarea
+                                maxLength={200}
+                                type="text"
+                                placeholder="Full Address"
+                                className="resize-none border border-gray-400 w-[300px] rounded-md px-2 h-24 w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="street"
+                                onChange={(e) => {
+                                    setInputFullAddress(e.target.value);
+                                    setCountFullAddress(e.target.value.length);
+                                }}
+                                value={inputFullAddress}
                             />
+                            <div className="flex justify-end">
+                                <p>{countFullAddress} / 200</p>
+                            </div>
                         </div>
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1">
@@ -93,7 +134,25 @@ export default function NewAddress({ showModal }) {
                             </span>
                             <select
                                 type="text"
-                                onChange={(e) => filterCity(e.target.value)}
+                                onChange={(e) => {
+                                    setInputProvince(
+                                        e.target.value
+                                            .split(' ')
+                                            .splice(1)
+                                            .toString()
+                                            .replace(/,/g, ' '),
+                                    );
+                                    setInputProvinceId(
+                                        e.target.value
+                                            .split(' ')[0]
+                                            .replace(/,/g, ''),
+                                    );
+                                    filterCity(
+                                        e.target.value
+                                            .split(' ')[0]
+                                            .replace(/,/g, ''),
+                                    );
+                                }}
                                 className='className="border border-gray-400 w-[300px] rounded-md px-2 h-11 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"'
                                 name="province"
                             >
@@ -103,9 +162,7 @@ export default function NewAddress({ showModal }) {
                                 {dataProvinces.map((value, index) => {
                                     return (
                                         <option
-                                            // value={`${value.province_id}, ${value.province}`}
-                                            // bisa displit pake split operator
-                                            value={value.province_id}
+                                            value={`${value.province_id}, ${value.province}`}
                                             key={index}
                                         >
                                             {value.province}
@@ -122,7 +179,10 @@ export default function NewAddress({ showModal }) {
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-11 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="city"
                             >
-                                <option value="" className="w-1/2 disabled selected">
+                                <option
+                                    value=""
+                                    className="w-1/2 disabled selected"
+                                >
                                     Select City
                                 </option>
                                 {filterCities.map((value, index) => {
@@ -144,6 +204,11 @@ export default function NewAddress({ showModal }) {
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="subdistrict"
+                                placeholder="Subdistrict"
+                                onChange={(e) =>
+                                    setInputSubDistrict(e.target.value)
+                                }
+                                value={inputSubdistrict}
                             />
                         </div>
                         <div className="block">
@@ -153,6 +218,12 @@ export default function NewAddress({ showModal }) {
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="postcode"
+                                placeholder="Postal Code"
+                                onChange={(e) =>
+                                    setInputPostalCode(e.target.value)
+                                }
+                                value={inputPostalCode}
+                                maxlength="5"
                             />
                         </div>
                     </form>

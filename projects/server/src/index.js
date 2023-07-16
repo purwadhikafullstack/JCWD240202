@@ -2,19 +2,31 @@ require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const { join } = require('path');
-const { rajaOngkirRouter, addressRouter } = require('../routers');
+const path = require('path');
+const {
+    rajaOngkirRouter,
+    addressRouter,
+    authRouter,
+    userRouter,
+    openCageRouter,
+} = require('../routers');
 
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
 
 app.use(express.json());
+// app.use(express.static('public'));
+app.use('/Public', express.static(path.join(__dirname, '/public')));
 
 // #region API ROUTES
 // ===========================
 // NOTE : Add your routes here
-app.use('/api/rajaongkir', rajaOngkirRouter);
 app.use('/api/addresses', addressRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', userRouter);
+app.use('/api/rajaongkir', rajaOngkirRouter);
+app.use('/api/opencage', openCageRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

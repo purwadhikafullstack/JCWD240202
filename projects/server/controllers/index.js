@@ -1,7 +1,13 @@
 const rajaOngkirController = require('./rajaongkir');
-const addressController = require('./address')
+const addressController = require('./address');
+const authController = require('./authController');
+const userController = require('./userController');
+const openCageController = require('./opencage');
 
 module.exports = {
     rajaOngkirController,
-    addressController
+    addressController,
+    authController,
+    userController,
+    openCageController,
 };

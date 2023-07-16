@@ -6,15 +6,24 @@ import NewAddress from '../../components/user/addnewaddress';
 import axios from 'axios';
 
 export default function Address() {
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState('');
-    const [showAddModal, setShowAddModal] = useState('');
     const [addresses, setAddresses] = useState([]);
+    const [showAddModal, setShowAddModal] = useState('');
+    const [showEditModal, setShowEditModal] = useState('');
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedEdit, setSelectedEdit] = useState({});
+
+    const dataLogin = JSON.parse(localStorage?.getItem('user'));
+    console.log(dataLogin);
 
     const getAddress = async () => {
         try {
-            const dataAddress = await axios(
+            const dataAddress = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/addresses',
+                {
+                    headers: {
+                        authorization: `Bearer ${dataLogin}`,
+                    },
+                },
             );
             setAddresses(dataAddress?.data?.data);
         } catch (error) {
@@ -53,7 +62,7 @@ export default function Address() {
                                 </p>
                                 <div className="flex justify-start gap-5 items-center mt-5">
                                     <button
-                                        className="text-blue-700 text-white text-sm hover:underline focus:underline"
+                                        className="text-[#0051BA] text-sm hover:underline focus:underline"
                                         onClick={() => setShowEditModal('show')}
                                     >
                                         Edit Address
@@ -64,7 +73,7 @@ export default function Address() {
                                         <>
                                             <div className="border-r border-black h-4"></div>
                                             <button
-                                                className="text-blue-700 text-white text-sm hover:underline focus:underline"
+                                                className="text-[#0051BA] text-sm hover:underline focus:underline"
                                                 onClick={() =>
                                                     setShowDeleteModal(
                                                         !showDeleteModal,
@@ -110,6 +119,7 @@ export default function Address() {
                             </div>
                             <div className="flex items-center">
                                 <button
+                                    onClick={() => selectPrimary(value.id)}
                                     className={
                                         value.is_primary === false
                                             ? 'text-white text-xs border p-3 rounded-lg bg-[#0051BA] hover:bg-gray-400 font-bold focus:ring-2 focus:ring-main-500 w-[150px] mt-5 md:mt-0 md:mr-3'
@@ -124,6 +134,27 @@ export default function Address() {
                 })}
             </div>
         );
+    };
+
+    const selectPrimary = async (address_id) => {
+        try {
+            const updatePrimary = await axios.patch(
+                process.env.REACT_APP_API_BASE_URL +
+                    `/addresses/primary/${address_id}`,
+                {},
+                {
+                    headers: {
+                        authorization: `Bearer ${dataLogin}`,
+                    },
+                },
+            );
+
+            if (updatePrimary.data.success) {
+                getAddress();
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

@@ -13,14 +13,9 @@ module.exports = {
             type: Sequelize.INTEGER,
             defaultValue: 0,
         });
-
         await queryInterface.addColumn('user_addresses', 'city_id', {
             type: Sequelize.INTEGER,
             defaultValue: 0,
-        });
-
-        await queryInterface.addColumn('user_addresses', 'token_edit_email', {
-            type: Sequelize.STRING,
         });
         await queryInterface.addColumn('user_addresses', 'receiver_number', {
             type: Sequelize.STRING,
@@ -36,13 +31,7 @@ module.exports = {
          */
         await queryInterface.removeColumn('user_addresses', 'province_id');
         await queryInterface.removeColumn('user_addresses', 'city_id');
-        await queryInterface.removeColumn(
-            'user_addresses',
-            'token_edit_email',
-        );
-        await queryInterface.removeColumn(
-            'user_addresses',
-            'receiver_number',
-        );
+        await queryInterface.removeColumn('user_addresses', 'token_edit_email');
+        await queryInterface.removeColumn('user_addresses', 'receiver_number');
     },
 };

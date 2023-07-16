@@ -25,8 +25,7 @@ module.exports = (sequelize, DataTypes) => {
             postcode: DataTypes.INTEGER,
             longitude: DataTypes.STRING,
             latitude: DataTypes.STRING,
-            token_edit_email: DataTypes.STRING,
-            is_primary: DataTypes.BOOLEAN,
+            is_primary: { type: DataTypes.BOOLEAN, defaultValue: true },
         },
         {
             sequelize,
