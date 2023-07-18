@@ -4,6 +4,7 @@ import { Modal } from 'flowbite-react';
 import EditModal from '../../components/user/modaleditaddress';
 import NewAddress from '../../components/user/addnewaddress';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Address() {
     const [addresses, setAddresses] = useState([]);
@@ -12,8 +13,7 @@ export default function Address() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedEdit, setSelectedEdit] = useState({});
 
-    const dataLogin = JSON.parse(localStorage?.getItem('user'));
-    console.log(dataLogin);
+    const token = JSON.parse(localStorage?.getItem('user'));
 
     const getAddress = async () => {
         try {
@@ -21,7 +21,7 @@ export default function Address() {
                 process.env.REACT_APP_API_BASE_URL + '/addresses',
                 {
                     headers: {
-                        authorization: `Bearer ${dataLogin}`,
+                        authorization: `Bearer ${token}`,
                     },
                 },
             );
@@ -30,11 +30,10 @@ export default function Address() {
             console.log(error);
         }
     };
-    console.log(addresses);
 
     useEffect(() => {
         getAddress();
-    }, []);
+    }, [showAddModal, showEditModal]);
 
     const listAddress = () => {
         return (
@@ -42,6 +41,7 @@ export default function Address() {
                 {addresses.map((value, index) => {
                     return (
                         <div
+                            key={index}
                             className={
                                 value.is_primary === true
                                     ? 'shadow-lg border-2 rounded-lg bg-blue-200 border-[#0051BA] my-2 p-3 md:flex'
@@ -63,7 +63,10 @@ export default function Address() {
                                 <div className="flex justify-start gap-5 items-center mt-5">
                                     <button
                                         className="text-[#0051BA] text-sm hover:underline focus:underline"
-                                        onClick={() => setShowEditModal('show')}
+                                        onClick={() => {
+                                            setShowEditModal('show');
+                                            setSelectedEdit(value);
+                                        }}
                                     >
                                         Edit Address
                                     </button>
@@ -75,9 +78,7 @@ export default function Address() {
                                             <button
                                                 className="text-[#0051BA] text-sm hover:underline focus:underline"
                                                 onClick={() =>
-                                                    setShowDeleteModal(
-                                                        !showDeleteModal,
-                                                    )
+                                                    setShowDeleteModal(true)
                                                 }
                                             >
                                                 Delete Address
@@ -89,7 +90,7 @@ export default function Address() {
                                         dismissible
                                         show={showDeleteModal}
                                         onClose={() =>
-                                            setShowDeleteModal(!showDeleteModal)
+                                            setShowDeleteModal(false)
                                         }
                                     >
                                         <Modal.Header>
@@ -100,15 +101,18 @@ export default function Address() {
                                             address ?
                                         </Modal.Body>
                                         <div className="flex justify-start gap-3 m-5">
-                                            <button className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3">
+                                            <button
+                                                className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3"
+                                                onClick={() =>
+                                                    onDeleteAddress(value.id)
+                                                }
+                                            >
                                                 Delete Address
                                             </button>
                                             <button
-                                                className="bg-rose-600 hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3"
+                                                className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3"
                                                 onClick={() =>
-                                                    setShowDeleteModal(
-                                                        !showDeleteModal,
-                                                    )
+                                                    setShowDeleteModal(false)
                                                 }
                                             >
                                                 Cancel
@@ -144,12 +148,53 @@ export default function Address() {
                 {},
                 {
                     headers: {
-                        authorization: `Bearer ${dataLogin}`,
+                        authorization: `Bearer ${token}`,
                     },
                 },
             );
 
             if (updatePrimary.data.success) {
+                getAddress();
+                toast.success('Changes save!', {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const onDeleteAddress = async (address_id) => {
+        try {
+            const deleteAddress = await axios.delete(
+                process.env.REACT_APP_API_BASE_URL +
+                    `/addresses/delete/${address_id}`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            if (deleteAddress.data.success) {
+                setShowDeleteModal(false);
+                toast.success('Address removed!', {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
                 getAddress();
             }
         } catch (error) {
@@ -159,6 +204,7 @@ export default function Address() {
 
     return (
         <>
+            <Toaster />
             <div className="mt-[5px] p-[20px]">
                 <div className="w-full flex justify-center">
                     <div className="w-full md:w-[80%] flex justify-center">
@@ -179,7 +225,10 @@ export default function Address() {
 
                             {/* Modal Edit Address */}
                             {showEditModal === 'show' ? (
-                                <EditModal showModal={setShowEditModal} />
+                                <EditModal
+                                    showModal={setShowEditModal}
+                                    selected={selectedEdit}
+                                />
                             ) : (
                                 ''
                             )}

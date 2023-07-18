@@ -12,4 +12,14 @@ const deleteFiles = (files) => {
     });
 };
 
-module.exports = deleteFiles;
+const deleteSingleFile = (file) => {
+    fs.unlink(file, function (err) {
+        try {
+            if (err) throw err;
+        } catch (error) {
+            console.log(error);
+        }
+    });
+};
+
+module.exports = { deleteFiles, deleteSingleFile };

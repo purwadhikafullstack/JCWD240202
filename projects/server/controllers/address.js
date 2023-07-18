@@ -176,7 +176,7 @@ module.exports = {
             ) {
                 res.status(400).send({
                     success: false,
-                    message: "Field can't be Empty",
+                    message: "Field can't be empty",
                     data: null,
                 });
             }
@@ -269,7 +269,6 @@ module.exports = {
         try {
             const { is_verified } = req.User;
             const { address_id } = req.params;
-            console.log(address_id);
 
             if (is_verified === false) {
                 return res.status(401).send({
@@ -307,7 +306,7 @@ module.exports = {
 
             res.status(200).send({
                 success: true,
-                message: 'Update Primary Address Success!',
+                message: 'Update primary address success!',
                 data: changeNotPrimary,
             });
         } catch (error) {

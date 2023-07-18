@@ -1,11 +1,15 @@
+/* eslint-disable no-throw-literal */
 import { useEffect, useState } from 'react';
 import { Modal } from 'flowbite-react';
 import axios from 'axios';
 import { useRef } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function NewAddress({ showModal }) {
-    // Input
+    // Handle bug Modal Flowbite
     const documentBodyRef = useRef(null);
+
+    // Input
     const [countFullAddress, setCountFullAddress] = useState(0);
     const [inputReceiverName, setInputReceiverName] = useState('');
     const [inputReceiverNumber, setInputReceiverNumber] = useState('');
@@ -13,17 +17,16 @@ export default function NewAddress({ showModal }) {
     const [inputProvince, setInputProvince] = useState('');
     const [inputProvinceId, setInputProvinceId] = useState('');
     const [inputCity, setInputCity] = useState('');
-    const [inputCityId, setInputCityId] = useState('')
+    const [inputCityId, setInputCityId] = useState('');
     const [inputSubdistrict, setInputSubDistrict] = useState('');
     const [inputPostalCode, setInputPostalCode] = useState('');
-    console.log(inputPostalCode);
-    console.log(inputProvince);
-    console.log(inputProvinceId);
 
     // Get Data RajaOngkir
     const [dataProvinces, setDataProvinces] = useState([]);
     const [dataCities, setDataCities] = useState([]);
     const [filterCities, setFilterCities] = useState([]);
+
+    const token = JSON.parse(localStorage?.getItem('user'));
 
     useEffect(() => {
         getDataProvinces();
@@ -66,8 +69,86 @@ export default function NewAddress({ showModal }) {
         setFilterCities(temp);
     };
 
+    const addNewAddress = async () => {
+        try {
+            if (
+                inputReceiverName === '' ||
+                inputReceiverNumber === '' ||
+                inputFullAddress === '' ||
+                inputProvince === '' ||
+                inputCity === '' ||
+                inputSubdistrict === '' ||
+                inputPostalCode === ''
+            ) {
+                throw { message: "Field can't be empty" };
+            } else if (inputReceiverNumber.match(/[a-zA-Z]/)) {
+                throw { message: 'Invalid phone number!' };
+            } else if (inputPostalCode.match(/[a-zA-Z]/)) {
+                throw { message: 'Invalid postal code!' };
+            } else {
+                const addAddress = await axios.post(
+                    process.env.REACT_APP_API_BASE_URL + '/addresses/add',
+                    {
+                        receiver_name: inputReceiverName,
+                        receiver_number: inputReceiverNumber,
+                        province: inputProvince,
+                        province_id: inputProvinceId,
+                        city: inputCity,
+                        city_id: inputCityId,
+                        subdistrict: inputSubdistrict,
+                        street: inputFullAddress,
+                        postcode: inputPostalCode,
+                    },
+                    {
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                        },
+                    },
+                );
+                if (addAddress.data.success) {
+                    toast.success('Create new address success!', {
+                        position: 'top-center',
+                        duration: 2000,
+                        style: {
+                            border: '2px solid #000',
+                            borderRadius: '10px',
+                            background: '#0051BA',
+                            color: 'white',
+                        },
+                    });
+                    setTimeout(() => {
+                        setCountFullAddress(0);
+                        setInputReceiverName('');
+                        setInputReceiverNumber('');
+                        setInputProvince('');
+                        setInputProvinceId('');
+                        setInputCity('');
+                        setInputCityId('');
+                        setInputSubDistrict('');
+                        setInputFullAddress('');
+                        setInputPostalCode('');
+                        showModal('');
+                    }, 1000);
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
+        }
+    };
+
     return (
         <>
+            <Toaster />
             <Modal
                 root={documentBodyRef.current}
                 dismissible
@@ -105,7 +186,7 @@ export default function NewAddress({ showModal }) {
                                 }}
                                 value={inputReceiverNumber}
                                 type="tel"
-                                maxlength="12"
+                                maxLength="12"
                             />
                         </div>
                         <div className="block mb-3">
@@ -156,7 +237,10 @@ export default function NewAddress({ showModal }) {
                                 className='className="border border-gray-400 w-[300px] rounded-md px-2 h-11 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"'
                                 name="province"
                             >
-                                <option value="" className="w-1/2">
+                                <option
+                                    value=""
+                                    className="w-1/2 text-gray-200"
+                                >
                                     Select Province
                                 </option>
                                 {dataProvinces.map((value, index) => {
@@ -178,18 +262,27 @@ export default function NewAddress({ showModal }) {
                             <select
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-11 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="city"
+                                onChange={(e) => {
+                                    setInputCity(
+                                        e.target.value
+                                            .split(' ')
+                                            .slice(1)
+                                            .toString()
+                                            .replace(/,/g, ' '),
+                                    );
+                                    setInputCityId(
+                                        e.target.value.split(' ').shift(),
+                                    );
+                                }}
                             >
-                                <option
-                                    value=""
-                                    className="w-1/2 disabled selected"
-                                >
+                                <option value="" className="w-1/2">
                                     Select City
                                 </option>
                                 {filterCities.map((value, index) => {
                                     return (
                                         <option
-                                            value={value.city_id}
-                                            key={index}
+                                            value={`${value.city_id} ${value.type} ${value.city_name}`}
+                                            key={value.city_id}
                                         >
                                             {value.type} {value.city_name}
                                         </option>
@@ -223,18 +316,33 @@ export default function NewAddress({ showModal }) {
                                     setInputPostalCode(e.target.value)
                                 }
                                 value={inputPostalCode}
-                                maxlength="5"
+                                maxLength="5"
                             />
                         </div>
                     </form>
                 </Modal.Body>
                 <div className="flex justify-start gap-3 mb-5 ml-6">
-                    <button className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3">
+                    <button
+                        className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
+                        onClick={() => addNewAddress()}
+                    >
                         Add New Address
                     </button>
                     <button
-                        onClick={() => showModal('')}
-                        className="bg-rose-600 hover:bg-gray-400 rounded-lg text-white text-sm text-white py-2 text-sm p-3"
+                        onClick={() => {
+                            setCountFullAddress(0);
+                            setInputReceiverName('');
+                            setInputReceiverNumber('');
+                            setInputProvince('');
+                            setInputProvinceId('');
+                            setInputCity('');
+                            setInputCityId('');
+                            setInputSubDistrict('');
+                            setInputFullAddress('');
+                            setInputPostalCode('');
+                            showModal('');
+                        }}
+                        className="bg-red-600 hover:bg-gray-400 rounded-lg text-white text-sm text-white py-2 text-sm p-3"
                     >
                         Cancel
                     </button>

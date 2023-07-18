@@ -17,7 +17,7 @@ function App() {
                 <Route path="/users/profile" element={<ProfilePage />} />
                 <Route path="/users/address" element={<Address />} />
                 <Route
-                    path="/users/reset-password"
+                    path="/users/change-password"
                     element={<ResetPassword />}
                 />
             </Routes>

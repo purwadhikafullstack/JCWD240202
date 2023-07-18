@@ -8,7 +8,6 @@ const {
     addressRouter,
     authRouter,
     userRouter,
-    openCageRouter,
 } = require('../routers');
 
 const PORT = process.env.PORT || 8000;
@@ -16,8 +15,8 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
-// app.use(express.static('public'));
-app.use('/Public', express.static(path.join(__dirname, '/public')));
+app.use(express.static('public/images'));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // #region API ROUTES
 // ===========================
@@ -26,7 +25,6 @@ app.use('/api/addresses', addressRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/rajaongkir', rajaOngkirRouter);
-app.use('/api/opencage', openCageRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);
