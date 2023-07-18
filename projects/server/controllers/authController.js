@@ -34,43 +34,43 @@ module.exports = {
                     data: null,
                 });
             } else {
-                // const result = await user.create({
-                //     email,
-                // });
-                // const data = await fs.readFileSync(
-                //     './email_template/activation.html',
-                //     'utf-8',
-                // );
+                const result = await user.create({
+                    email,
+                });
+                const data = await fs.readFileSync(
+                    './email_template/activation.html',
+                    'utf-8',
+                );
 
-                // let payload = {
-                //     id: result.id,
-                //     email: result.email,
-                //     is_verified: false,
-                // };
-                // const token = jwt.sign(payload, 'coding-its-easy');
-                // console.log(token)
-                // const inputToken = await user.update(
-                //     {
-                //         token_verification : token,
-                //     },
-                //     {
-                //         where: {
-                //             id: result.id,
-                //         },
-                //     },
-                // );
+                let payload = {
+                    id: result.id,
+                    email: result.email,
+                    is_verified: false,
+                };
+                const token = jwt.sign(payload, 'coding-its-easy');
+                console.log(token)
+                const inputToken = await user.update(
+                    {
+                        token_verification : token,
+                    },
+                    {
+                        where: {
+                            id: result.id,
+                        },
+                    },
+                );
 
-                // const tempCompile = await handlebars.compile(data);
-                // const tempResult = tempCompile({
-                //     email: email,
-                //     link: `http://localhost:3000/activation/${token}`,
-                // });
-                // await transporter.sendMail({
-                //     from: 'Admin',
-                //     to: 'jcwd2402@gmail.com',
-                //     subject: 'Verification Account',
-                //     html: tempResult,
-                // });
+                const tempCompile = await handlebars.compile(data);
+                const tempResult = tempCompile({
+                    email: email,
+                    link: `http://localhost:3000/activation/${token}`,
+                });
+                await transporter.sendMail({
+                    from: 'Admin',
+                    to: 'jcwd2402@gmail.com',
+                    subject: 'Verification Account',
+                    html: tempResult,
+                });
                 return res.status(201).send({
                     success: true,
                     message: 'Resgister success!',

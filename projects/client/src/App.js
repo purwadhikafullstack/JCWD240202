@@ -1,12 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/user/homepage';
 import Navbar from './components/user/navbar/navbar';
-import RegisterPage from './pages/user/registerPage';
 import LoginPage from './pages/user/loginPage';
-import VerificationPage from './pages/user/verificationPage';
+// import VerificationPage from './pages/user/verificationPage';
+// import RegisterPage from './pages/user/registerPage';
+import ProfilePage from './pages/user/profilepage';
+import Address from './pages/user/address';
+import ResetPassword from './pages/user/resetpassword';
 import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
-
 
 function App() {
     return (
@@ -14,7 +16,7 @@ function App() {
             <Navbar />
 
             <Routes>
-                <Route
+            <Route
                     path="/"
                     element={
                         <>
@@ -32,7 +34,7 @@ function App() {
                         </>
                     }
                 />
-                <Route path="/register" element={<RegisterPage />} />
+                {/* <Route path="/register" element={<RegisterPage />} /> */}
                 <Route
                     path="/login"
                     element={
@@ -42,7 +44,13 @@ function App() {
                         </>
                     }
                 />
-                <Route path="/verification" element={<VerificationPage />} />
+                {/* <Route path="/verification" element={<VerificationPage />} /> */}
+                <Route path="/users/profile" element={<ProfilePage />} />
+                <Route path="/users/address" element={<Address />} />
+                <Route
+                    path="/users/change-password"
+                    element={<ResetPassword />}
+                />
             </Routes>
         </>
     );
