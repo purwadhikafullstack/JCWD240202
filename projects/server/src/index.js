@@ -9,11 +9,15 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(express.static('Public'));
 
 // #region API ROUTES
 // ===========================
 // NOTE : Add your routes here
 app.use('/api/home', homepageRouter);
+
+const { authRouter } = require('../routers');
+app.use('/api/auth', authRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);
