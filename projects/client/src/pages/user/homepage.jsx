@@ -1,5 +1,4 @@
 import Carousel from '../../components/user/homepage/carousel';
-import { Button } from 'flowbite-react';
 
 export default function Homepage() {
     return (

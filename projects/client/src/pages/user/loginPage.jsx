@@ -25,21 +25,20 @@ export default function LoginPage() {
         setInput({ ...input, [name]: value });
     };
 
-    const test = () => {
+    const defaultValue = () => {
         if (isLogin) {
             setInput({
                 email: '',
                 password: '',
             });
+            setTimeout(() => {
+                navigate('/');
+            }, 3000);
         }
     };
-    if (isLogin) {
-        setTimeout(() => {
-            navigate('/');
-        }, 2000);
-    }
+    
     useEffect(() => {
-        test();
+        defaultValue();
     }, [isLogin]);
 
     if (userLogin) {
@@ -49,16 +48,16 @@ export default function LoginPage() {
     return (
         <>
             <Toaster />
-            <div className="flex flex-col md:flex-row m-20">
+            <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center">
                     <div>
-                        <div className="text-4xl font-bold mb-10 w-72">
+                        <div className="text-4xl text-center font-bold mb-10 w-72">
                             Login personal account
                         </div>
                     </div>
                 </div>
                 <div className="flex-1">
-                    <div className="border shadow-md p-2 mt-2 rounded w-[80%] flex flex-col ">
+                    <div className="border shadow-md p-2 mt-2 rounded lg:w-[80%] flex flex-col ">
                         <form>
                             <label htmlFor="email" className="flex">
                                 <div className="text-slate-700 mb-2">Email</div>
@@ -112,19 +111,20 @@ export default function LoginPage() {
                                 )}
                             </div>
                         </form>
-                        <div className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1">
+                        <Link to='/forgot-password' className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1">
                             forgot your password?
-                        </div>
+                        </Link>
                         <button
                             onClick={() => dispatch(login(input.email, input.password))}
                             type="submit"
-                            className="mt-4 bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3"
+                            className="mt-4 bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
+                            disabled = {!input.email || !input.password || !input.email.includes('@') || !input.email.includes('.co')}
                         >
                             Login
                         </button>
                         <Link
                             to="/register"
-                            className="text-[#0258a3] text-center my-5 text-[15px] hover:text-black cursor-pointer"
+                            className="text-[#0258a3] text-center my-5 text-[13px] hover:text-black cursor-pointer"
                         >
                             Register a new account
                         </Link>
