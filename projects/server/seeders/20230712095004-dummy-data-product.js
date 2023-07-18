@@ -109,7 +109,7 @@ module.exports = {
                 color_id: 5,
                 price: 3195000,
                 description:
-                    'KLIPPAN sofa is and old fashioned sofa and long time favourite. It\'s comfortable, fits almost everywhere and has many covers to choose from. A modern and timeless classic!',
+                    "KLIPPAN sofa is and old fashioned sofa and long time favourite. It's comfortable, fits almost everywhere and has many covers to choose from. A modern and timeless classic!",
                 length: 180,
                 width: 88,
                 height: 66,
@@ -154,7 +154,7 @@ module.exports = {
                 color_id: 2,
                 price: 5695000,
                 description:
-                    'This sofa is easy on the eyes and body. The design is welcoming, the deep seat and the high back and armrests embrace you and it\'s also super easy to remove the cover and wash it.',
+                    "This sofa is easy on the eyes and body. The design is welcoming, the deep seat and the high back and armrests embrace you and it's also super easy to remove the cover and wash it.",
                 length: 165,
                 width: 94,
                 height: 85,
@@ -199,7 +199,7 @@ module.exports = {
                 color_id: 1,
                 price: 1295000,
                 description:
-                    'POANG armchair has stylish curved lines in bentwood, providing nice support for the neck and comfy resilience. It\'s been in our range for several decades and is still just as popular. Want to try it too?',
+                    "POANG armchair has stylish curved lines in bentwood, providing nice support for the neck and comfy resilience. It's been in our range for several decades and is still just as popular. Want to try it too?",
                 length: 82,
                 width: 68,
                 height: 100,
@@ -229,7 +229,7 @@ module.exports = {
                 color_id: 2,
                 price: 4275000,
                 description:
-                    'It\'s not only the TV that\'s smart! GESTA TV benches combine contemporary good looks with practical function. You get lots of storage space and relief from cables that tend to get messy and gather dust.',
+                    "It's not only the TV that's smart! GESTA TV benches combine contemporary good looks with practical function. You get lots of storage space and relief from cables that tend to get messy and gather dust.",
                 length: 180,
                 width: 42,
                 height: 39,
@@ -319,7 +319,7 @@ module.exports = {
                 color_id: 1,
                 price: 999000,
                 description:
-                    'The castors make it easy to move the table if needed. Separate shelf for magazines, etc. helps you keep your things organised and the table top clear. The table top has extra high edges, so that things don\'t slide off when you carry the side table. Stands steady also on uneven floors since it has adjustable feet.',
+                    "The castors make it easy to move the table if needed. Separate shelf for magazines, etc. helps you keep your things organised and the table top clear. The table top has extra high edges, so that things don't slide off when you carry the side table. Stands steady also on uneven floors since it has adjustable feet.",
                 length: 35,
                 width: 50,
                 height: 63,
@@ -617,7 +617,7 @@ module.exports = {
                 color_id: 2,
                 price: 159000,
                 description:
-                    'It fits in the smallest of bathrooms, but there\'s plenty of space on the shelves for all your toiletries from shampoo bottles to soap and small items.',
+                    "It fits in the smallest of bathrooms, but there's plenty of space on the shelves for all your toiletries from shampoo bottles to soap and small items.",
                 length: 37,
                 width: 23,
                 height: 101,
@@ -781,7 +781,7 @@ module.exports = {
                 color_id: 2,
                 price: 6890000,
                 description:
-                    'Just right if you want a medium-size kitchen with a portable hob and spacious storage. As fast and easy to buy as to start using, since we\'ve combined the modules into a ready-made solution.',
+                    "Just right if you want a medium-size kitchen with a portable hob and spacious storage. As fast and easy to buy as to start using, since we've combined the modules into a ready-made solution.",
                 length: 200,
                 width: 61,
                 height: 100,
@@ -871,7 +871,7 @@ module.exports = {
                 color_id: 1,
                 price: 11749000,
                 description:
-                    'Gather around the kitchen island! VADHOLMA is the home\'s given meeting point and perfect when you cook together. Plenty of island and rack storage and the butcher block gives you a robust workspace.',
+                    "Gather around the kitchen island! VADHOLMA is the home's given meeting point and perfect when you cook together. Plenty of island and rack storage and the butcher block gives you a robust workspace.",
                 length: 125,
                 width: 79,
                 height: 199,
@@ -901,7 +901,7 @@ module.exports = {
                 color_id: 5,
                 price: 3175000,
                 description:
-                    'Suitable for use both in the kitchen and in the laundry room. Sink in stainless steel, a hygienic, strong and durable material that\'s easy to keep clean. Worktop in stainless steel, a hygienic, strong and durable material that\'s easy to keep clean.',
+                    "Suitable for use both in the kitchen and in the laundry room. Sink in stainless steel, a hygienic, strong and durable material that's easy to keep clean. Worktop in stainless steel, a hygienic, strong and durable material that's easy to keep clean.",
                 length: 120,
                 width: 50,
                 height: 19,
@@ -946,7 +946,7 @@ module.exports = {
                 color_id: 4,
                 price: 2999000,
                 description:
-                    'A simple and sturdy set that\'s perfect for your breakfast nook or smaller dining area. The solid pine holds up well over time and will endure all the family meals and activities around the table.',
+                    "A simple and sturdy set that's perfect for your breakfast nook or smaller dining area. The solid pine holds up well over time and will endure all the family meals and activities around the table.",
                 length: 118,
                 width: 74,
                 height: 74,
@@ -961,7 +961,7 @@ module.exports = {
                 color_id: 3,
                 price: 4299000,
                 description:
-                    'A durable dining table that makes it easy to have big dinners. A single person can extend the table and there\'s plenty of room for chairs since the legs are always located at the corners of the table.',
+                    "A durable dining table that makes it easy to have big dinners. A single person can extend the table and there's plenty of room for chairs since the legs are always located at the corners of the table.",
                 length: 180,
                 width: 80,
                 height: 75,
@@ -991,7 +991,7 @@ module.exports = {
                 color_id: 3,
                 price: 1999000,
                 description:
-                    'A durable dining table that makes it easy to have big dinners. A single person can extend the table and there\'s plenty of room for chairs since the legs are always located at the corners of the table.',
+                    "A durable dining table that makes it easy to have big dinners. A single person can extend the table and there's plenty of room for chairs since the legs are always located at the corners of the table.",
                 length: 180,
                 width: 75,
                 height: 75,
@@ -1036,7 +1036,7 @@ module.exports = {
                 color_id: 2,
                 price: 1595000,
                 description:
-                    'A transparent chair that mirrors its surroundings. It picks up the colours of the room and appears to be floating. And because there\'s flexibility in the seat, you may feel like you are floating too.',
+                    "A transparent chair that mirrors its surroundings. It picks up the colours of the room and appears to be floating. And because there's flexibility in the seat, you may feel like you are floating too.",
                 length: 56,
                 width: 55,
                 height: 82,
@@ -1051,7 +1051,7 @@ module.exports = {
                 color_id: 1,
                 price: 1495000,
                 description:
-                    'The chair\'s moulded shell gives a comfy, flexy feel that\'s yours to enjoy after a simple 3-click assembly. For strength and beauty wood is mixed into the charcoal grey plastic, like decorative sprinkles.',
+                    "The chair's moulded shell gives a comfy, flexy feel that's yours to enjoy after a simple 3-click assembly. For strength and beauty wood is mixed into the charcoal grey plastic, like decorative sprinkles.",
                 length: 40,
                 width: 41,
                 height: 81,
@@ -1066,7 +1066,7 @@ module.exports = {
                 color_id: 1,
                 price: 300000,
                 description:
-                    'This stackable, 3-legged stool with bent legs and triangular-shaped seat is a great little accent that\'s comes in handy when you need extra seating for guests or a place to unload your cupper.',
+                    "This stackable, 3-legged stool with bent legs and triangular-shaped seat is a great little accent that's comes in handy when you need extra seating for guests or a place to unload your cupper.",
                 length: 48,
                 width: 42,
                 height: 45,
@@ -1171,7 +1171,7 @@ module.exports = {
                 color_id: 1,
                 price: 1699000,
                 description:
-                    'Where there\'s PC gaming, easily accessible storage is also needed. UPPSPEL drawer unit on castors is a perfect side-kick that takes care of your gear so you can focus on what\'s important winning games.',
+                    "Where there's PC gaming, easily accessible storage is also needed. UPPSPEL drawer unit on castors is a perfect side-kick that takes care of your gear so you can focus on what's important winning games.",
                 length: 40,
                 width: 50,
                 height: 58,
@@ -1291,7 +1291,7 @@ module.exports = {
                 color_id: 3,
                 price: 1799000,
                 description:
-                    'A neat drawer unit on castors that you can easily roll in under the desk or move where you need it. Built-in dampers close the drawers softly and quietly so you don\'t disturb your colleagues.',
+                    "A neat drawer unit on castors that you can easily roll in under the desk or move where you need it. Built-in dampers close the drawers softly and quietly so you don't disturb your colleagues.",
                 length: 42,
                 width: 47,
                 height: 61,
@@ -1321,7 +1321,7 @@ module.exports = {
                 color_id: 2,
                 price: 299000,
                 description:
-                    'Now it\'s really easy for anyone to use smart products. This outlet kit allows you to connect any lamp, coffee maker or other household appliance to the control outlet and control it with the on/off switch.',
+                    "Now it's really easy for anyone to use smart products. This outlet kit allows you to connect any lamp, coffee maker or other household appliance to the control outlet and control it with the on/off switch.",
                 length: 9,
                 width: 11,
                 height: 14,
@@ -1355,6 +1355,6 @@ module.exports = {
          * Example:
          * await queryInterface.bulkDelete('People', null, {});
          */
-        await queryInterface.bulkDelete('products', null, {})
+        await queryInterface.bulkDelete('products', null, {});
     },
 };
