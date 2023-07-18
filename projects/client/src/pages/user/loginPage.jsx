@@ -15,7 +15,7 @@ export default function LoginPage() {
         password: '',
     });
 
-    const userLogin = JSON.parse(localStorage.getItem('user'));
+    const userLogin = JSON.parse(localStorage.getItem("user"));
 
     //call redux
     const isLogin = useSelector((state) => state.auth.isLogin);
@@ -43,21 +43,21 @@ export default function LoginPage() {
     }, [isLogin]);
 
     if (userLogin) {
-        return <Navigate to="/" />;
-    }
+        return <Navigate to="/"/>
+      } 
 
     return (
         <>
             <Toaster />
             <div className="flex flex-col md:flex-row m-20">
-                <div className="flex-1 flex justify-center ">
+                <div className="flex-1 flex justify-center">
                     <div>
                         <div className="text-4xl font-bold mb-10 w-72">
                             Login personal account
                         </div>
                     </div>
                 </div>
-                <div className="flex-1 ">
+                <div className="flex-1">
                     <div className="border shadow-md p-2 mt-2 rounded w-[80%] flex flex-col ">
                         <form>
                             <label htmlFor="email" className="flex">

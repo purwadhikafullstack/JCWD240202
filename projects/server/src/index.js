@@ -19,6 +19,9 @@ app.use('/api/home', homepageRouter);
 const { authRouter } = require('../routers');
 app.use('/api/auth', authRouter);
 
+const { authRouter } = require('../routers');
+app.use('/api/auth', authRouter);
+
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);
 });
