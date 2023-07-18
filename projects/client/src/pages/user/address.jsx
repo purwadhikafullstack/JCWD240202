@@ -31,6 +31,8 @@ export default function Address() {
         }
     };
 
+    console.log(addresses);
+
     useEffect(() => {
         getAddress();
     }, [showAddModal, showEditModal]);

@@ -108,7 +108,16 @@ export default function EditModal({ showModal, selected }) {
                     },
                 );
                 if (editAddress.data.success) {
-                    toast.success('Create new address success!');
+                    toast.success('Create new address success!', {
+                        position: 'top-center',
+                        duration: 2000,
+                        style: {
+                            border: '2px solid #000',
+                            borderRadius: '10px',
+                            background: '#0051BA',
+                            color: 'white',
+                        },
+                    });
                     setTimeout(() => {
                         setCountEditFullAddress(0);
                         setInputEditReceiverName('');

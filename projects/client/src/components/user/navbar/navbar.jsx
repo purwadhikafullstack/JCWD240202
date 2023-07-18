@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     return (
-        <div className="flex justify-between items-center border-b py-6 px-12">
+        <div className="flex justify-between items-center border-b py-6 px-12 bg-white">
             {/* left side => logo */}
             <div className="w-24">
                 <img
@@ -19,7 +19,9 @@ export default function Navbar() {
                     <div>Home</div>
                 </Link>
                 <div>Offers</div>
-                <div>Products</div>
+                <Link to={'/products'}>
+                    <div>Products</div>
+                </Link>
                 <div>Categories</div>
                 <div>About</div>
             </div>

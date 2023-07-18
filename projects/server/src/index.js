@@ -8,8 +8,8 @@ const {
     addressRouter,
     authRouter,
     userRouter,
+    homepageRouter
 } = require('../routers');
-
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
@@ -21,10 +21,12 @@ app.use(express.static('public/images'));
 // #region API ROUTES
 // ===========================
 // NOTE : Add your routes here
-app.use('/api/addresses', addressRouter);
+
+app.use('/api/home', homepageRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/rajaongkir', rajaOngkirRouter);
+app.use('/api/addresses', addressRouter)
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);
