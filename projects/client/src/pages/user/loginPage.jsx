@@ -116,7 +116,9 @@ export default function LoginPage() {
                             forgot your password?
                         </div>
                         <button
-                            onClick={() => dispatch(login(input.email, input.password))}
+                            onClick={() =>
+                                dispatch(login(input.email, input.password))
+                            }
                             type="submit"
                             className="mt-4 bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3"
                         >
