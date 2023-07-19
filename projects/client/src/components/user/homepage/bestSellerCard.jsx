@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBestSellerAsync } from '../../redux/features/home/homepageSlice';
+import { getBestSellerAsync } from '../../../redux/features/homepageSlice';
 import { AiOutlineHeart } from 'react-icons/ai';
 
 export default function BestSellerCard() {

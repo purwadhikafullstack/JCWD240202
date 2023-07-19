@@ -2,7 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const { join } = require('path');
-const { homepageRouter } = require('../routers');
+const { homepageRouter, authRouter, productRouter } = require('../routers');
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -14,10 +14,10 @@ app.use(express.static('Public'));
 // #region API ROUTES
 // ===========================
 // NOTE : Add your routes here
-app.use('/api/home', homepageRouter);
 
-const { authRouter } = require('../routers');
+app.use('/api/home', homepageRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/products', productRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

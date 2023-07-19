@@ -6,6 +6,7 @@ import LoginPage from './pages/user/loginPage';
 // import VerificationPage from './pages/user/verificationPage';
 import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
+import ProductDetails from './pages/user/productDetails';
 
 function App() {
     return (
@@ -27,6 +28,15 @@ function App() {
                     element={
                         <>
                             <ProductsCatalog />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/products/:id"
+                    element={
+                        <>
+                            <ProductDetails />
                             <Footer />
                         </>
                     }
