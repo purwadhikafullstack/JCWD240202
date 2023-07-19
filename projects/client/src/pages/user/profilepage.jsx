@@ -32,7 +32,7 @@ export default function ProfilePage() {
             last_name: dataLogin?.last_name,
             email: dataLogin?.email,
             phone_number: dataLogin?.phone_number,
-            birth_date: dataLogin?.birth_date.split('T')[0],
+            birth_date: dataLogin?.birth_date?.split('T')[0],
         });
     }, [
         dataLogin?.first_name,
@@ -296,7 +296,7 @@ export default function ProfilePage() {
                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="first_name"
                                                     disabled={disabled}
-                                                    value={input.first_name}
+                                                    value={input?.first_name}
                                                     onChange={onChange}
                                                 />
                                             </label>
@@ -308,7 +308,7 @@ export default function ProfilePage() {
                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="last_name"
                                                     disabled={disabled}
-                                                    value={input.last_name}
+                                                    value={input?.last_name}
                                                     onChange={onChange}
                                                 />
                                             </label>
@@ -320,7 +320,7 @@ export default function ProfilePage() {
                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="email"
                                                     disabled="true"
-                                                    value={input.email}
+                                                    value={input?.email}
                                                     onChange={onChange}
                                                 />
                                             </label>
@@ -332,7 +332,7 @@ export default function ProfilePage() {
                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="phone_number"
                                                     disabled={disabled}
-                                                    value={input.phone_number}
+                                                    value={input?.phone_number}
                                                     onChange={onChange}
                                                     type="tel"
                                                     maxLength="12"
@@ -347,7 +347,7 @@ export default function ProfilePage() {
                                                     name="birth_date"
                                                     type="date"
                                                     disabled={disabled}
-                                                    value={input.birth_date}
+                                                    value={input?.birth_date}
                                                     onChange={onChange}
                                                 />
                                             </label>

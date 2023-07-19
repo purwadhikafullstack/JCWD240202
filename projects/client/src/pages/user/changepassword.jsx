@@ -6,7 +6,7 @@ import { AiOutlineEyeInvisible } from 'react-icons/ai';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
-export default function ResetPassword() {
+export default function ChangePasswordUser() {
     // Input
     const [prevPassword, setPrevPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
