@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
                   },
                 },
               },
+            birth_date: DataTypes.DATE,
             password: DataTypes.STRING,
             profile_picture: DataTypes.STRING,
             phone_number: DataTypes.STRING,
@@ -32,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
             role: DataTypes.STRING,
             token_verification: DataTypes.STRING,
             token_password: DataTypes.STRING,
+            token_edit_email: DataTypes.STRING,
         },
         {
             sequelize,

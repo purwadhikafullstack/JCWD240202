@@ -25,19 +25,19 @@ export default function Navbar() {
                     color: 'white',
                 },
             });
-            setOpenModal(false)
+            setOpenModal(false);
             setTimeout(() => {
                 navigate('/');
             }, 3000);
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error.message);
         }
     };
 
     return (
         <>
             <Toaster />
-            <div className="flex justify-between items-center border-b py-6 px-12">
+            <div className="flex justify-between items-center border-b py-6 px-12 bg-white">
                 {/* left side => logo */}
                 <div className="w-24">
                     <img
@@ -51,13 +51,15 @@ export default function Navbar() {
                         <div>Home</div>
                     </Link>
                     <div>Offers</div>
-                    <div>Products</div>
+                    <Link to={'/products'}>
+                        <div>Products</div>
+                    </Link>
                     <div>Categories</div>
                     <div>About</div>
                 </div>
                 {/* right sided => account, cart, wishlist */}
-                <div className="flex gap-9 items-center">
-                    <details className="dropdown">
+                <div className="flex gap-9 items-center z-10">
+                    <Link to={userLogin? null : '/login' } className="dropdown">
                         <summary className="btn bg-white border-none">
                             <MdOutlineAccountCircle size={25} />
                         </summary>
@@ -69,7 +71,7 @@ export default function Navbar() {
                             }
                         >
                             <li>
-                                <Link to='/users/profile'>Profile</Link>
+                                <Link to="/users/profile">Profile</Link>
                             </li>
                             <li>
                                 <button onClick={() => setOpenModal(true)}>
@@ -77,7 +79,7 @@ export default function Navbar() {
                                 </button>
                             </li>
                         </ul>
-                    </details>
+                    </Link>
                     <div>
                         <AiOutlineHeart size={25} />
                     </div>
@@ -85,31 +87,33 @@ export default function Navbar() {
                         <AiOutlineShoppingCart size={25} />
                     </div>
                 </div>
+                <Modal
+                    dismissible
+                    className=""
+                    show={openModal}
+                    onClose={() => setOpenModal(false)}
+                >
+                    <Modal.Body>
+                        <div className="text-xl">
+                            Are you sure want to log out?
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button
+                            className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
+                            onClick={logout}
+                        >
+                            Confirm
+                        </button>
+                        <button
+                            className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
+                            onClick={() => setOpenModal(false)}
+                        >
+                            Cancel
+                        </button>
+                    </Modal.Footer>
+                </Modal>
             </div>
-            <Modal
-                dismissible
-                className=""
-                show={openModal}
-                onClose={() => setOpenModal(false)}
-            >
-                <Modal.Body>
-                    <div className="text-xl">Are you sure want to log out?</div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button
-                        className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                        onClick={logout}
-                    >
-                        Confirm
-                    </button>
-                    <button
-                        className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                        onClick={() => setOpenModal(false)}
-                    >
-                        Cancel
-                    </button>
-                </Modal.Footer>
-            </Modal>
         </>
     );
 }

@@ -9,6 +9,9 @@
         "no-process-exit": "off",
         "object-shorthand": "off",
         "strict": "off",
-        "treatUndefinedAsUnspecified": true
+        "properties": "never",
+        "treatUndefinedAsUnspecified": true,
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "jsx-quotes": [2, "prefer-single"]
     }
 }

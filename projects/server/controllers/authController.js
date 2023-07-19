@@ -224,39 +224,39 @@ module.exports = {
                     data: null,
                 });
 
-            // const data = await fs.readFileSync(
-            //     './email_template/resetPassword.html',
-            //     'utf-8',
-            // );
+            const data = await fs.readFileSync(
+                './email_template/resetPassword.html',
+                'utf-8',
+            );
 
-            // let payload = {
-            //     id: result.id,
-            //     email: result.email,
-            //     is_verified: result.is_verified,
-            // };
-            // const token = jwt.sign(payload, 'coding-its-easy');
-            // await user.update(
-            //     {
-            //         token_password: token,
-            //     },
-            //     {
-            //         where: {
-            //             id: result.id,
-            //         },
-            //     },
-            // );
+            let payload = {
+                id: result.id,
+                email: result.email,
+                is_verified: result.is_verified,
+            };
+            const token = jwt.sign(payload, 'coding-its-easy');
+            await user.update(
+                {
+                    token_password: token,
+                },
+                {
+                    where: {
+                        id: result.id,
+                    },
+                },
+            );
 
-            // const tempCompile = await handlebars.compile(data);
-            // const tempResult = tempCompile({
-            //     email: email,
-            //     link: `http://localhost:3000/reset-password/${token}`,
-            // });
-            // await transporter.sendMail({
-            //     from: 'Admin',
-            //     to: 'jcwd2402@gmail.com',
-            //     subject: 'Verification Account',
-            //     html: tempResult,
-            // });
+            const tempCompile = await handlebars.compile(data);
+            const tempResult = tempCompile({
+                email: email,
+                link: `http://localhost:3000/reset-password/${token}`,
+            });
+            await transporter.sendMail({
+                from: 'Admin',
+                to: 'jcwd2402@gmail.com',
+                subject: 'Verification Account',
+                html: tempResult,
+            });
             return res.status(201).send({
                 success: true,
                 message: 'Check your email to reset your password!',
