@@ -6,7 +6,7 @@ import LoginPage from './pages/user/loginPage';
 // import RegisterPage from './pages/user/registerPage';
 import ProfilePage from './pages/user/profilepage';
 import Address from './pages/user/address';
-import ResetPassword from './pages/user/resetpassword';
+import ChangePasswordUser from './pages/user/changepassword';
 import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
 
@@ -16,7 +16,7 @@ function App() {
             <Navbar />
 
             <Routes>
-            <Route
+                <Route
                     path="/"
                     element={
                         <>
@@ -49,7 +49,7 @@ function App() {
                 <Route path="/users/address" element={<Address />} />
                 <Route
                     path="/users/change-password"
-                    element={<ResetPassword />}
+                    element={<ChangePasswordUser />}
                 />
             </Routes>
         </>
