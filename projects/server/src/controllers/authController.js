@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const handlebars = require('handlebars');
 const fs = require('fs');
 const transporter = require('../helper/nodemailer');
-const { hashPassword, hashCompare } = require('./../lib/hashBcrypt');
+const { hashPassword, hashCompare } = require('../lib/hashBcrypt');
 
 const db = require('../models');
 const user = db.users;
