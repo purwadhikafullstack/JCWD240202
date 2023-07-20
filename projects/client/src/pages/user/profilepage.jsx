@@ -2,7 +2,7 @@
 import { Modal } from 'flowbite-react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import ProfileTabs from '../../components/user/tabs';
+import ProfileTabs from '../../components/user/profile/tabs';
 import { getDataLogin } from '../../redux/features/userSlice';
 import { useDispatch } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';

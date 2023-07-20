@@ -60,16 +60,16 @@ export default function Navbar() {
                 {/* right sided => account, cart, wishlist */}
                 <div className="flex gap-9 items-center z-10">
                     {userLogin ? (
-                        <details className="dropdown">
-                            <summary className="btn bg-white border-none">
+                        <div className="dropdown">
+                            <label
+                                tabIndex={0}
+                                className="btn bg-white border-none"
+                            >
                                 <MdOutlineAccountCircle size={25} />
-                            </summary>
+                            </label>
                             <ul
-                                className={
-                                    userLogin
-                                        ? `p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52`
-                                        : `hidden`
-                                }
+                                tabIndex={0}
+                                className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
                             >
                                 <li>
                                     <Link to="/users/profile">Profile</Link>
@@ -80,7 +80,7 @@ export default function Navbar() {
                                     </button>
                                 </li>
                             </ul>
-                        </details>
+                        </div>
                     ) : (
                         <Link to={'/login'}>
                             <div className="btn bg-white border-none">
