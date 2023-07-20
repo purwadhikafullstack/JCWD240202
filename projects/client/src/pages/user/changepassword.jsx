@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 import { useState } from 'react';
-import ProfileTabs from '../../components/user/tabs';
+import ProfileTabs from '../../components/user/profile/tabs';
 import { AiOutlineEye } from 'react-icons/ai';
 import { AiOutlineEyeInvisible } from 'react-icons/ai';
 import toast, { Toaster } from 'react-hot-toast';

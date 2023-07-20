@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import ProfileTabs from '../../components/user/tabs';
+import ProfileTabs from '../../components/user/profile/tabs';
 import { Modal } from 'flowbite-react';
-import EditModal from '../../components/user/modaleditaddress';
-import NewAddress from '../../components/user/addnewaddress';
+import EditModal from '../../components/user/profile/modaleditaddress';
+import NewAddress from '../../components/user/profile/addnewaddress';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
