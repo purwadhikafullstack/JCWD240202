@@ -130,7 +130,7 @@ module.exports = {
                 { transaction: t },
             );
 
-            deleteSingleFile(`public/images/${result.profile_picture}`);
+            deleteSingleFile(`src/public/images/${result.profile_picture}`);
 
             await t.commit();
 
