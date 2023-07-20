@@ -5,9 +5,9 @@ import CategoryCard from '../../components/user/homepage/categoryCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import NewArrivalsCard from '../../components/user/homepage/newArrivalsCard';
-import { getAllCategoriesAsync } from '../../redux/features/home/homepageSlice';
+import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import ServicesBox from '../../components/user/homepage/services';
-import BestSellerCard from '../../components/user/bestSellerCard';
+import BestSellerCard from '../../components/user/homepage/bestSellerCard';
 
 export default function Homepage() {
     const dispatch = useDispatch();

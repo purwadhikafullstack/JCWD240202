@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getNewArrivalsAsync } from '../../../redux/features/home/homepageSlice';
+import { getNewArrivalsAsync } from '../../../redux/features/homepageSlice';
 
 export default function NewArrivalsCard() {
     const dispatch = useDispatch();

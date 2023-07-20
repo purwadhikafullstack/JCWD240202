@@ -11,6 +11,7 @@ import Address from './pages/user/address';
 import ChangePasswordUser from './pages/user/changepassword';
 import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
+import ProductDetails from './pages/user/productDetails';
 
 function App() {
     return (
@@ -36,6 +37,15 @@ function App() {
                         </>
                     }
                 />
+                <Route
+                    path="/products/:id"
+                    element={
+                        <>
+                            <ProductDetails />
+                            <Footer />
+                        </>
+                    }
+                />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route
                     path="/login"
@@ -46,11 +56,17 @@ function App() {
                         </>
                     }
                 />
-                <Route path="/verification/:token" element={<VerificationPage />} />
+                <Route
+                    path="/verification/:token"
+                    element={<VerificationPage />}
+                />
                 <Route path="/users/profile" element={<ProfilePage />} />
                 <Route path="/users/address" element={<Address />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password/:token" element={<ResetPassword />} />
+                <Route
+                    path="/reset-password/:token"
+                    element={<ResetPassword />}
+                />
                 <Route
                     path="/users/change-password"
                     element={<ChangePasswordUser />}

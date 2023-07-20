@@ -59,27 +59,36 @@ export default function Navbar() {
                 </div>
                 {/* right sided => account, cart, wishlist */}
                 <div className="flex gap-9 items-center z-10">
-                    <Link to={userLogin? null : '/login' } className="dropdown">
-                        <summary className="btn bg-white border-none">
-                            <MdOutlineAccountCircle size={25} />
-                        </summary>
-                        <ul
-                            className={
-                                userLogin
-                                    ? `p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52`
-                                    : `hidden`
-                            }
-                        >
-                            <li>
-                                <Link to="/users/profile">Profile</Link>
-                            </li>
-                            <li>
-                                <button onClick={() => setOpenModal(true)}>
-                                    Log Out
-                                </button>
-                            </li>
-                        </ul>
-                    </Link>
+                    {userLogin ? (
+                        <details className="dropdown">
+                            <summary className="btn bg-white border-none">
+                                <MdOutlineAccountCircle size={25} />
+                            </summary>
+                            <ul
+                                className={
+                                    userLogin
+                                        ? `p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52`
+                                        : `hidden`
+                                }
+                            >
+                                <li>
+                                    <Link to="/users/profile">Profile</Link>
+                                </li>
+                                <li>
+                                    <button onClick={() => setOpenModal(true)}>
+                                        Log Out
+                                    </button>
+                                </li>
+                            </ul>
+                        </details>
+                    ) : (
+                        <Link to={'/login'}>
+                            <div className="btn bg-white border-none">
+                                <MdOutlineAccountCircle size={25} />
+                            </div>
+                        </Link>
+                    )}
+
                     <div>
                         <AiOutlineHeart size={25} />
                     </div>

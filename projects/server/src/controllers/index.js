@@ -3,6 +3,7 @@ const addressController = require('./address');
 const authController = require('./authController');
 const userController = require('./userController');
 const homepageController = require('./homepageController');
+const productController = require('./productController');
 
 module.exports = {
     rajaOngkirController,
@@ -10,4 +11,5 @@ module.exports = {
     authController,
     userController,
     homepageController,
+    productController,
 };
