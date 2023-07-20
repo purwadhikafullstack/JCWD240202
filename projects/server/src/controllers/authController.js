@@ -3,6 +3,7 @@ const handlebars = require('handlebars');
 const fs = require('fs');
 const transporter = require('../helper/nodemailer');
 const { hashPassword, hashCompare } = require('../lib/hashBcrypt');
+const path = require('path');
 
 const db = require('../models');
 const user = db.users;
@@ -39,8 +40,11 @@ module.exports = {
                 });
 
                 const data = await fs.readFileSync(
-                    './email_template/activation.html',
-                    'utf-8',
+                    path.resolve(
+                        '../server/src/email_template',
+                        'activation.html',
+                    ),
+                    { encoding: 'utf-8' },
                 );
 
                 let payload = {

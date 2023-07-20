@@ -6,7 +6,6 @@ const path = require('path');
 const {
     rajaOngkirRouter,
     addressRouter,
-    authRouter,
     userRouter,
     homepageRouter,
     authRouter,
