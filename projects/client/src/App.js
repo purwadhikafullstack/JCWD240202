@@ -1,9 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './pages/user/homepage';
 import Navbar from './components/user/navbar/navbar';
-// import RegisterPage from './pages/user/registerPage';
 import LoginPage from './pages/user/loginPage';
-// import VerificationPage from './pages/user/verificationPage';
+import VerificationPage from './pages/user/verificationPage';
+import ForgotPassword from './pages/user/forgotPassword';
+import ResetPassword from './pages/user/resetPassword';
+import RegisterPage from './pages/user/registerPage';
+import ProfilePage from './pages/user/profilepage';
+import Address from './pages/user/address';
+import ChangePasswordUser from './pages/user/changepassword';
 import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
 import ProductDetails from './pages/user/productDetails';
@@ -41,7 +46,7 @@ function App() {
                         </>
                     }
                 />
-                {/* <Route path="/register" element={<RegisterPage />} /> */}
+                <Route path="/register" element={<RegisterPage />} />
                 <Route
                     path="/login"
                     element={
@@ -51,7 +56,21 @@ function App() {
                         </>
                     }
                 />
-                {/* <Route path="/verification" element={<VerificationPage />} /> */}
+                <Route
+                    path="/verification/:token"
+                    element={<VerificationPage />}
+                />
+                <Route path="/users/profile" element={<ProfilePage />} />
+                <Route path="/users/address" element={<Address />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route
+                    path="/reset-password/:token"
+                    element={<ResetPassword />}
+                />
+                <Route
+                    path="/users/change-password"
+                    element={<ChangePasswordUser />}
+                />
             </Routes>
         </>
     );

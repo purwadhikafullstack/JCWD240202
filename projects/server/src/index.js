@@ -2,14 +2,23 @@ require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const { join } = require('path');
-const { homepageRouter, authRouter, productRouter } = require('./routers');
-
+const path = require('path');
+const {
+    rajaOngkirRouter,
+    addressRouter,
+    authRouter,
+    userRouter,
+    homepageRouter,
+    authRouter,
+    productRouter,
+} = require('./routers');
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
 
 app.use(express.json());
-app.use(express.static('Public'));
+app.use(express.static('public/images'));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // #region API ROUTES
 // ===========================
@@ -18,6 +27,9 @@ app.use(express.static('Public'));
 app.use('/api/home', homepageRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
+app.use('/api/users', userRouter);
+app.use('/api/rajaongkir', rajaOngkirRouter);
+app.use('/api/addresses', addressRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);
