@@ -1,21 +1,57 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getAllCategoriesAsync } from '../../../redux/features/homepageSlice';
+import { Dropdown, Label, Radio } from 'flowbite-react';
 
-export default function FilterButton() {
+export default function FilterButton(props) {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.homepage.category);
+    const [name, setName] = useState('');
+
+    const handleCategory = (category) => {
+        props?.data?.categoryChange(category);
+        setName(category);
+    };
 
     useEffect(() => {
         dispatch(getAllCategoriesAsync());
     }, []);
     return (
-        <select className="select select-bordered w-full max-w-xs">
-            <option selected>Filter by Category</option>
-            {categories?.data?.map((value, index) => {
-                return <option>{value?.name}</option>;
-            })}
-        </select>
+        <Dropdown label="Filter by Categories" className="px-5" color="light">
+            <div className="flex flex-col gap-2 mt-2">
+                <div className="flex gap-3 items-center mb-4">
+                    <Radio
+                        id="all"
+                        name="category"
+                        onClick={() => handleCategory('')}
+                        value={''}
+                        checked={name === '' ? true : false}
+                    />
+                    <Label>ALL CATEGORIES</Label>
+                </div>
+                {categories
+                    ? categories?.data?.map((value, index) => {
+                          return (
+                              <div
+                                  key={index}
+                                  className="flex gap-3 items-center mb-4"
+                              >
+                                  <Radio
+                                      id={value.name}
+                                      name="category"
+                                      onClick={() => handleCategory(value.name)}
+                                      value={value.name}
+                                      checked={
+                                          value.name === name ? true : false
+                                      }
+                                  />
+                                  <Label>{value.name}</Label>
+                              </div>
+                          );
+                      })
+                    : ''}
+            </div>
+        </Dropdown>
     );
 }

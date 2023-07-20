@@ -21,16 +21,15 @@ export const productSlice = createSlice({
 
 export const getAllProductsAsync = (data) => async (dispatch) => {
     try {
-        // if (data.categories && data.sort) {
-        // } else if (data.categories) {
-        // } else if (data.sort) {
-        // } else {
-        // }
+        console.log(data);
         const allProducts = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/products`,
             {
                 params: {
-                    page: 1,
+                    page: data.page,
+                    category: data.category,
+                    sort: data.sort,
+                    search: data.search,
                 },
             },
         );
@@ -41,7 +40,7 @@ export const getAllProductsAsync = (data) => async (dispatch) => {
     }
 };
 
-export const productJelasAsync = (id) => async (dispatch) => {
+export const productDetailsAsync = (id) => async (dispatch) => {
     try {
         const getDetails = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/products/${id}`,

@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const db = require('../models');
 const categories = db.categories;
 const products = db.products;
@@ -5,7 +6,7 @@ const product_images = db.product_images;
 
 const getAllProducts = async (req, res) => {
     try {
-        const { page, category, sort } = req.query;
+        const { page, category, sort, search } = req.query;
 
         const paginationLimit = 12;
         const paginationOffset = (Number(page) - 1) * paginationLimit;
@@ -31,7 +32,10 @@ const getAllProducts = async (req, res) => {
 
             if (findCategory) {
                 const result = await products.findAndCountAll({
-                    where: { category_id: findCategory.id },
+                    where: {
+                        category_id: findCategory.id,
+                        name: { [Op.substring]: [search] },
+                    },
                     offset: paginationOffset,
                     limit: paginationLimit,
                     include: [
@@ -80,6 +84,7 @@ const getAllProducts = async (req, res) => {
                 const result = await products.findAndCountAll({
                     where: {
                         category_id: findCategory.id,
+                        name: { [Op.substring]: [search] },
                     },
                     offset: paginationOffset,
                     limit: paginationLimit,
@@ -123,6 +128,7 @@ const getAllProducts = async (req, res) => {
             }
 
             const result = await products.findAndCountAll({
+                where: { name: { [Op.substring]: [search] } },
                 offset: paginationOffset,
                 limit: paginationLimit,
                 include: [
@@ -150,6 +156,7 @@ const getAllProducts = async (req, res) => {
             }
         } else {
             const result = await products.findAndCountAll({
+                where: { name: { [Op.substring]: [search] } },
                 offset: paginationOffset,
                 limit: paginationLimit,
                 include: [
@@ -158,10 +165,24 @@ const getAllProducts = async (req, res) => {
                 ],
             });
 
-            const totalPage = Math.ceil(result.count / paginationLimit);
-            res.send({ data: result, totalPage });
+            if (result) {
+                const totalPage = Math.ceil(result.count / paginationLimit);
+                res.status(200).send({
+                    success: true,
+                    message: 'get data success',
+                    data: result,
+                    totalPage,
+                });
+            } else {
+                res.status(404).send({
+                    success: false,
+                    message: 'no data found',
+                    data: null,
+                });
+            }
         }
     } catch (error) {
+        console.log(error);
         res.status(500).send({
             success: false,
             message: error.message,

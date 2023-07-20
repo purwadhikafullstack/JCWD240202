@@ -1,17 +1,15 @@
-import { useState } from 'react';
-import { Pagination } from 'flowbite-react';
+import Pagination from '@mui/material/Pagination';
 
 export default function PaginationButton(props) {
-    const [currentPage, setCurrentPage] = useState(1);
-    // const onPageChange = (page) => setCurrentPage(page);
-
     return (
-        <Pagination
-            currentPage={currentPage}
-            onPageChange={(page) => {
-                setCurrentPage(page);
-            }}
-            totalPages={props.data}
-        />
+        <>
+            <Pagination
+                count={props?.data?.totalPage}
+                page={props?.data?.page}
+                variant="outlined"
+                shape="rounded"
+                onChange={props?.data?.pageChange}
+            />
+        </>
     );
 }

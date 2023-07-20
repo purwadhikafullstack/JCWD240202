@@ -2,10 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {
-    getProductDetailsAsync,
-    productJelasAsync,
-} from '../../redux/features/productSlice';
+import { productDetailsAsync } from '../../redux/features/productSlice';
 
 export default function ProductDetails() {
     const { id } = useParams();
@@ -13,7 +10,7 @@ export default function ProductDetails() {
     const proDetails = useSelector((state) => state.product.details);
 
     useEffect(() => {
-        dispatch(productJelasAsync(id));
+        dispatch(productDetailsAsync(id));
     }, []);
     return (
         <div className="flex px-[200px] justify-evenly gap-9">
