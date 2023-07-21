@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBestSellerAsync } from '../../../redux/features/homepageSlice';
-import { AiOutlineHeart } from 'react-icons/ai';
 
 export default function BestSellerCard() {
     const dispatch = useDispatch();
@@ -14,7 +13,10 @@ export default function BestSellerCard() {
         <>
             {bestSellerList?.data?.map((value, index) => {
                 return (
-                    <div className="w-[200px] h-[350px] flex flex-col">
+                    <div
+                        key={index}
+                        className="w-[200px] h-[350px] flex flex-col"
+                    >
                         <div className="flex-1 relative">
                             <img
                                 src={value.product_images[0]?.name}
