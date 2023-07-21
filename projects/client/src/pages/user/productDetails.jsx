@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { productDetailsAsync } from '../../redux/features/productSlice';
+import {
+    productDetailsAsync,
+    productRecommenadationAsync,
+} from '../../redux/features/productSlice';
 import { Button } from 'flowbite-react';
 import { SlArrowRight } from 'react-icons/sl';
 import CarouselDetails from '../../components/user/productDetails/carouselDetails';
@@ -12,10 +15,14 @@ export default function ProductDetails() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const proDetails = useSelector((state) => state.product.details);
+    const recommendation = useSelector(
+        (state) => state.product.recommendations,
+    );
     const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         dispatch(productDetailsAsync(id));
+        dispatch(productRecommenadationAsync(id));
     }, []);
     return (
         <div className="divide-y">
@@ -71,7 +78,7 @@ export default function ProductDetails() {
             <div className="px-[200px]">
                 <div className="pt-9 text-3xl font-bold">Related Products</div>
                 <div className="pt-9 flex gap-9">
-                    <RelatedProducts data={{ id: proDetails?.data?.id }} />
+                    <RelatedProducts data={{ recommendation }} />
                 </div>
             </div>
         </div>
