@@ -25,7 +25,7 @@ export default function NewArrivalsCard() {
         >
             {newArrivalsList?.data?.map((value, index) => {
                 return (
-                    <div className="mx-24">
+                    <div key={index} className="mx-24">
                         <SwiperSlide>
                             <div className="border rounded shadow-xl flex">
                                 <div className="w-full flex-1">
