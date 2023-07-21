@@ -10,7 +10,7 @@ export default function ProductDescription(props) {
                 {props?.data?.proDetails?.data?.height} cm
             </div>
             <div className="pt-4 font-bold text-lg">
-                Rp {(props?.data?.proDetails?.data?.price).toLocaleString('id')}
+                Rp {props?.data?.proDetails?.data?.price.toLocaleString('id')}
             </div>
             <div className="pt-4 text-md flex items-center gap-2">
                 <div className="h-9 w-9 border bg-black"></div>
