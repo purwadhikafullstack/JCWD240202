@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import FilterButton from '../../components/user/button/filterButton';
 import SortButton from '../../components/user/button/sortButton';
 import SearchBar from '../../components/user/searchInput/searchBar';
-import ProductsCard from '../../components/user/products/productsCard';
+import ProductsCard from '../../components/user/productCard/productsCard';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllProductsAsync } from '../../redux/features/productSlice';
