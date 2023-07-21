@@ -1,23 +1,9 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { productRecommenadationAsync } from '../../../redux/features/productSlice';
 import { Link } from 'react-router-dom';
 
 export default function RelatedProducts(props) {
-    const dispatch = useDispatch();
-    const recommendation = useSelector(
-        (state) => state.product.recommendations,
-    );
-
-    useEffect(() => {
-        dispatch(productRecommenadationAsync(props?.data?.id));
-        console.log('recommendation =>', recommendation);
-    }, []);
-
     return (
         <>
-            {recommendation?.data?.map((value, index) => {
+            {props?.data?.recommendation?.data?.map((value, index) => {
                 return (
                     <div className="w-[300px] h-[400px] flex flex-col rounded shadow-2xl">
                         <div className="flex-1 relative">
