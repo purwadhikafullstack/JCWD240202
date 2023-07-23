@@ -4,6 +4,7 @@ const authRouter = require('./authRouter');
 const userRouter = require('./userRouter');
 const homepageRouter = require('./homepageRouter');
 const productRouter = require('./productRouter');
+const categoryRouter = require('./categoryRouter')
 
 module.exports = {
     rajaOngkirRouter,
@@ -12,4 +13,5 @@ module.exports = {
     userRouter,
     homepageRouter,
     productRouter,
+    categoryRouter
 };

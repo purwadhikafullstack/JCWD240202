@@ -38,7 +38,7 @@ export const getNewArrivalsAsync = () => async (dispatch) => {
 export const getAllCategoriesAsync = () => async (dispatch) => {
     try {
         const getCategories = await axios.get(
-            process.env.REACT_APP_API_BASE_URL + `/home/categories`,
+            process.env.REACT_APP_API_BASE_URL + `/categories`,
         );
 
         dispatch(setCategory(getCategories.data));

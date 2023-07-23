@@ -22,4 +22,16 @@ const deleteSingleFile = (file) => {
     });
 };
 
-module.exports = { deleteFiles, deleteSingleFile };
+const deleteFilesPublic = (files) => {
+    files.forEach((value) => {
+        fs.unlink(`src/public/images/${value.dataValues?.name}`, function (err) {
+            try {
+                if (err) throw err;
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    });
+};
+
+module.exports = { deleteFiles, deleteSingleFile, deleteFilesPublic };

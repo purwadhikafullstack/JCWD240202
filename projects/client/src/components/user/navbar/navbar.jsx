@@ -4,7 +4,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 
 export default function Navbar() {
@@ -33,6 +33,10 @@ export default function Navbar() {
             toast.error(error.message);
         }
     };
+
+    useEffect(() => {
+
+    }, [userLogin]);
 
     return (
         <>
