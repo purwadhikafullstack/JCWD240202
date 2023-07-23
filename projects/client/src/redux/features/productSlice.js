@@ -3,7 +3,8 @@ import axios from 'axios';
 
 const initialState = {
     products: {},
-    details: null,
+    details: {},
+    recommendations: null,
 };
 
 export const productSlice = createSlice({
@@ -16,12 +17,14 @@ export const productSlice = createSlice({
         setDetails: (initialState, action) => {
             initialState.details = action.payload;
         },
+        setRecommendations: (initialState, action) => {
+            initialState.recommendations = action.payload;
+        },
     },
 });
 
 export const getAllProductsAsync = (data) => async (dispatch) => {
     try {
-        console.log(data);
         const allProducts = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/products`,
             {
@@ -52,5 +55,19 @@ export const productDetailsAsync = (id) => async (dispatch) => {
     }
 };
 
-export const { setProducts, setDetails } = productSlice.actions;
+export const productRecommenadationAsync = (id) => async (dispatch) => {
+    try {
+        const getRecommend = await axios.get(
+            process.env.REACT_APP_API_BASE_URL +
+                `/products/${id}/recommendations`,
+        );
+
+        dispatch(setRecommendations(getRecommend.data));
+    } catch (error) {
+        console.log('error');
+    }
+};
+
+export const { setProducts, setDetails, setRecommendations } =
+    productSlice.actions;
 export default productSlice.reducer;

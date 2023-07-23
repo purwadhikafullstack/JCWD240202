@@ -1,15 +1,17 @@
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 const db = require('../models');
 const categories = db.categories;
 const products = db.products;
 const product_images = db.product_images;
+const colors = db.colors;
 
 const getAllProducts = async (req, res) => {
     try {
         const { page, category, sort, search } = req.query;
 
         const paginationLimit = 12;
-        const paginationOffset = (Number(page) - 1) * paginationLimit;
+        const paginationOffset =
+            (Number(page ? page : 1) - 1) * paginationLimit;
 
         if (category && sort) {
             const catQuery = category.replaceAll('%', ' ');
@@ -197,7 +199,11 @@ const getProductDetails = async (req, res) => {
 
         const findProduct = await products.findOne({
             where: { id: id },
-            include: [{ model: product_images }, { model: categories }],
+            include: [
+                { model: product_images },
+                { model: categories },
+                { model: colors },
+            ],
         });
 
         if (findProduct) {
@@ -222,7 +228,50 @@ const getProductDetails = async (req, res) => {
     }
 };
 
+const getRelatedProducts = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const findProduct = await products.findOne({
+            where: { id: id },
+        });
+
+        if (findProduct) {
+            const findRecommendation = await products.findAll({
+                where: {
+                    [Op.not]: [{ id: findProduct.id }],
+                    category_id: findProduct.category_id,
+                },
+                include: [
+                    { model: product_images, where: { is_thumbnail: true } },
+                ],
+                order: Sequelize.literal('rand()'),
+                limit: 5,
+            });
+
+            res.status(200).send({
+                success: true,
+                message: 'get recommendation success',
+                data: findRecommendation,
+            });
+        } else {
+            res.status(404).send({
+                success: false,
+                message: 'product not found',
+                data: null,
+            });
+        }
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message,
+            data: null,
+        });
+    }
+};
+
 module.exports = {
     getAllProducts,
     getProductDetails,
+    getRelatedProducts,
 };

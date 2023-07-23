@@ -57,7 +57,7 @@ export default function Navbar() {
                     <div>Categories</div>
                     <div>About</div>
                 </div>
-                {/* right sided => account, cart, wishlist */}
+                {/* right side => account, cart, wishlist */}
                 <div className="flex gap-9 items-center z-10">
                     {userLogin ? (
                         <div className="dropdown">
@@ -92,9 +92,11 @@ export default function Navbar() {
                     <div>
                         <AiOutlineHeart size={25} />
                     </div>
-                    <div>
-                        <AiOutlineShoppingCart size={25} />
-                    </div>
+                    <Link to={'/cart'}>
+                        <div>
+                            <AiOutlineShoppingCart size={25} />
+                        </div>
+                    </Link>
                 </div>
                 <Modal
                     dismissible

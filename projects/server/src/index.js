@@ -10,6 +10,7 @@ const {
     homepageRouter,
     authRouter,
     productRouter,
+    cartRouter,
     adminAuthRouter,
     adminRouter,
     warehouseRouter,
@@ -33,6 +34,7 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/rajaongkir', rajaOngkirRouter);
 app.use('/api/addresses', addressRouter);
+app.use('/api/carts', cartRouter);
 app.use('/api/auth/admins', adminAuthRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/warehouses', warehouseRouter);
