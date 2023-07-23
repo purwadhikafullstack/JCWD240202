@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
             products.belongsTo(models.colors, {
                 foreignKey: 'color_id',
             });
+            products.hasMany(models.cart_products, {
+                foreignKey: 'product_id',
+            });
         }
     }
     products.init(

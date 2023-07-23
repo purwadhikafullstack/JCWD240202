@@ -10,6 +10,7 @@ const {
     homepageRouter,
     authRouter,
     productRouter,
+    cartRouter,
 } = require('./routers');
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/rajaongkir', rajaOngkirRouter);
 app.use('/api/addresses', addressRouter);
+app.use('/api/carts', cartRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

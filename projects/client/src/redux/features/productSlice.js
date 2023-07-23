@@ -25,7 +25,6 @@ export const productSlice = createSlice({
 
 export const getAllProductsAsync = (data) => async (dispatch) => {
     try {
-        console.log(data);
         const allProducts = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/products`,
             {

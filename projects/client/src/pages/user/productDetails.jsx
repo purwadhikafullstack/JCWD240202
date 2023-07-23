@@ -10,6 +10,8 @@ import { SlArrowRight } from 'react-icons/sl';
 import CarouselDetails from '../../components/user/productDetails/carouselDetails';
 import ProductDescription from '../../components/user/productDetails/productDescription';
 import RelatedProducts from '../../components/user/productCard/recommendationCard';
+import { userAddToCartAsync } from '../../redux/features/cartSlice';
+import { Toaster } from 'react-hot-toast';
 
 export default function ProductDetails() {
     const { id } = useParams();
@@ -26,6 +28,7 @@ export default function ProductDetails() {
     }, []);
     return (
         <div className="divide-y">
+            <Toaster />
             <div className="flex px-[200px] justify-evenly gap-14 pt-9">
                 <div className="flex-1">
                     <div className="h-[700px]">
@@ -69,6 +72,14 @@ export default function ProductDetails() {
                             gradientDuoTone="purpleToBlue"
                             pill
                             className="w-full p-4"
+                            onClick={() =>
+                                dispatch(
+                                    userAddToCartAsync({
+                                        product_id: Number(id),
+                                        quantity: quantity,
+                                    }),
+                                )
+                            }
                         >
                             <div className="text-xl">Add to Cart</div>
                         </Button>

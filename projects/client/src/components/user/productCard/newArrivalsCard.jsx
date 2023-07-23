@@ -8,6 +8,7 @@ import 'swiper/css/scrollbar';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getNewArrivalsAsync } from '../../../redux/features/homepageSlice';
+import { userAddToCartAsync } from '../../../redux/features/cartSlice';
 
 export default function NewArrivalsCard() {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function NewArrivalsCard() {
                 return (
                     <div key={index} className="mx-24">
                         <SwiperSlide>
-                            <div className="border rounded shadow-xl flex">
+                            <div className="rounded shadow-xl flex">
                                 <div className="w-full flex-1">
                                     <img
                                         src={value?.product_images[0]?.name}
@@ -44,7 +45,17 @@ export default function NewArrivalsCard() {
                                     </div>
                                     <div>{value?.description}</div>
                                     <div className="absolute right-5 bottom-5 flex gap-4">
-                                        <div>
+                                        <div
+                                            className="hover:cursor-pointer hover:border hover:rounded-full hover:p-4 hover:bg-yellow-200 hover:text-sky-700"
+                                            onClick={() =>
+                                                dispatch(
+                                                    userAddToCartAsync({
+                                                        product_id: value.id,
+                                                        quantity: 1,
+                                                    }),
+                                                )
+                                            }
+                                        >
                                             <AiOutlineShoppingCart size={25} />
                                         </div>
                                     </div>
