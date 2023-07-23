@@ -13,6 +13,8 @@ import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
 import ProductDetails from './pages/user/productDetails';
 import UserCart from './pages/user/userCart';
+import AdminLoginPage from './pages/admin/loginAdmin';
+import DashboardAdmin from './pages/admin/dashboardAdmin';
 
 function App() {
     return (
@@ -81,6 +83,10 @@ function App() {
                         </>
                     }
                 />
+
+                {/* Admin */}
+                <Route path="/admins/login" element={<AdminLoginPage />} />
+                <Route path="/admins/dashboard" element={<DashboardAdmin />} />
             </Routes>
         </>
     );

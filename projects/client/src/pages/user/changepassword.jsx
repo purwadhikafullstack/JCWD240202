@@ -1,8 +1,7 @@
 /* eslint-disable no-throw-literal */
 import { useState } from 'react';
 import ProfileTabs from '../../components/user/profile/tabs';
-import { AiOutlineEye } from 'react-icons/ai';
-import { AiOutlineEyeInvisible } from 'react-icons/ai';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
@@ -11,37 +10,11 @@ export default function ChangePasswordUser() {
     const [prevPassword, setPrevPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    console.log(newPassword);
-    console.log(confirmPassword);
 
     // Show hide password
-    const [showPassword, setShowPassword] = useState('password');
-    const [showNewPassword, setShowNewPassword] = useState('password');
-    const [showConfirmPassword, setShowConfirmPassword] = useState('password');
-
-    const showPass = () => {
-        if (showPassword === 'password') {
-            setShowPassword('text');
-        } else if (showPassword === 'text') {
-            setShowPassword('password');
-        }
-    };
-
-    const showNewPass = () => {
-        if (showNewPassword === 'password') {
-            setShowNewPassword('text');
-        } else if (showNewPassword === 'text') {
-            setShowNewPassword('password');
-        }
-    };
-
-    const showConfirmPass = () => {
-        if (showConfirmPassword === 'password') {
-            setShowConfirmPassword('text');
-        } else if (showConfirmPassword === 'text') {
-            setShowConfirmPassword('password');
-        }
-    };
+    const [showPassword, setShowPassword] = useState(true);
+    const [showNewPassword, setShowNewPassword] = useState(true);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
     const token = JSON.parse(localStorage?.getItem('user'));
     const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
@@ -94,9 +67,9 @@ export default function ChangePasswordUser() {
                     setPrevPassword('');
                     setNewPassword('');
                     setConfirmPassword('');
-                    showPass();
-                    showNewPass();
-                    showConfirmPass();
+                    setShowPassword(true);
+                    setShowNewPassword(true);
+                    setShowConfirmPassword(true);
                 }
             }
         } catch (error) {
@@ -145,7 +118,11 @@ export default function ChangePasswordUser() {
                                                 <input
                                                     className="border border-gray-400 w-full md:w-[500px] rounded-md px-2 h-8 disabled:text-gray-600 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="password"
-                                                    type={showPassword}
+                                                    type={
+                                                        showPassword
+                                                            ? 'password'
+                                                            : 'text'
+                                                    }
                                                     onChange={(e) =>
                                                         setPrevPassword(
                                                             e.target.value,
@@ -153,15 +130,23 @@ export default function ChangePasswordUser() {
                                                     }
                                                     value={prevPassword}
                                                 />
-                                                {showPassword === 'password' ? (
-                                                    <AiOutlineEye
-                                                        onClick={showPass}
-                                                        className="text-2xl absolute right-2 cursor-pointer"
+                                                {showPassword ? (
+                                                    <AiFillEye
+                                                        onClick={() =>
+                                                            setShowPassword(
+                                                                !showPassword,
+                                                            )
+                                                        }
+                                                        className="text-2xl absolute right-2 cursor-pointer bg-white pl-2"
                                                     />
                                                 ) : (
-                                                    <AiOutlineEyeInvisible
-                                                        onClick={showPass}
-                                                        className="text-2xl absolute right-2 cursor-pointer"
+                                                    <AiFillEyeInvisible
+                                                        onClick={() =>
+                                                            setShowPassword(
+                                                                !showPassword,
+                                                            )
+                                                        }
+                                                        className="text-2xl absolute right-2 cursor-pointer bg-white pl-2"
                                                     />
                                                 )}
                                             </div>
@@ -174,7 +159,11 @@ export default function ChangePasswordUser() {
                                                 <input
                                                     className="border border-gray-400 w-full md:w-[500px] rounded-md px-2 h-8 disabled:text-gray-600 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="new_password"
-                                                    type={showNewPassword}
+                                                    type={
+                                                        showNewPassword
+                                                            ? 'password'
+                                                            : 'text'
+                                                    }
                                                     onChange={(e) =>
                                                         setNewPassword(
                                                             e.target.value,
@@ -182,16 +171,23 @@ export default function ChangePasswordUser() {
                                                     }
                                                     value={newPassword}
                                                 />
-                                                {showNewPassword ===
-                                                'password' ? (
-                                                    <AiOutlineEye
-                                                        onClick={showNewPass}
-                                                        className="text-2xl absolute right-2 cursor-pointer"
+                                                {showNewPassword ? (
+                                                    <AiFillEye
+                                                        onClick={() =>
+                                                            setShowNewPassword(
+                                                                !showNewPassword,
+                                                            )
+                                                        }
+                                                        className="text-2xl absolute right-2 cursor-pointer bg-white pl-2"
                                                     />
                                                 ) : (
-                                                    <AiOutlineEyeInvisible
-                                                        onClick={showNewPass}
-                                                        className="text-2xl absolute right-2 cursor-pointer"
+                                                    <AiFillEyeInvisible
+                                                        onClick={() =>
+                                                            setShowNewPassword(
+                                                                !showNewPassword,
+                                                            )
+                                                        }
+                                                        className="text-2xl absolute right-2 cursor-pointer bg-white pl-2"
                                                     />
                                                 )}
                                             </div>
@@ -204,7 +200,11 @@ export default function ChangePasswordUser() {
                                                 <input
                                                     className="border border-gray-400 w-full md:w-[500px] rounded-md px-2 h-8 disabled:text-gray-600 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="confirm Password"
-                                                    type={showConfirmPassword}
+                                                    type={
+                                                        showConfirmPassword
+                                                            ? 'password'
+                                                            : 'text'
+                                                    }
                                                     onChange={(e) =>
                                                         setConfirmPassword(
                                                             e.target.value,
@@ -212,20 +212,23 @@ export default function ChangePasswordUser() {
                                                     }
                                                     value={confirmPassword}
                                                 />
-                                                {showConfirmPassword ===
-                                                'password' ? (
-                                                    <AiOutlineEye
-                                                        onClick={
-                                                            showConfirmPass
+                                                {showConfirmPassword ? (
+                                                    <AiFillEye
+                                                        onClick={() =>
+                                                            setShowConfirmPassword(
+                                                                !showConfirmPassword,
+                                                            )
                                                         }
-                                                        className="text-2xl absolute right-2 cursor-pointer"
+                                                        className="text-2xl absolute right-2 cursor-pointer bg-white pl-2"
                                                     />
                                                 ) : (
-                                                    <AiOutlineEyeInvisible
-                                                        onClick={
-                                                            showConfirmPass
+                                                    <AiFillEyeInvisible
+                                                        onClick={() =>
+                                                            setShowConfirmPassword(
+                                                                !showConfirmPassword,
+                                                            )
                                                         }
-                                                        className="text-2xl absolute right-2 cursor-pointer"
+                                                        className="text-2xl absolute right-2 cursor-pointer bg-white pl-2"
                                                     />
                                                 )}
                                             </div>
