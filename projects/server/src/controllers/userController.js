@@ -1,12 +1,7 @@
 const { sequelize } = require('../models');
 
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const handlebars = require('handlebars');
-const fs = require('fs');
-const transporter = require('../helper/nodemailer');
 const db = require('../models');
-const deleteFiles = require('./../helper/deleteFiles');
 const { deleteSingleFile } = require('./../helper/deleteFiles');
 
 const user = db.users;
@@ -17,7 +12,6 @@ module.exports = {
     keepLogin: async (req, res) => {
         try {
             const { id } = req.User;
-            console.log(id);
 
             const result = await user.findOne({
                 attributes: {
@@ -33,6 +27,7 @@ module.exports = {
                 where: {
                     id,
                 },
+                include: { all: true },
             });
 
             if (result) {
@@ -69,6 +64,14 @@ module.exports = {
                 return res.status(400).send({
                     success: false,
                     message: "Field can't be Empty",
+                    data: null,
+                });
+            }
+
+            if (phone_number.match(/[a-zA-Z]/) || phone_number.length < 12) {
+                return res.status(406).send({
+                    success: false,
+                    message: 'Invalid phone number!',
                     data: null,
                 });
             }

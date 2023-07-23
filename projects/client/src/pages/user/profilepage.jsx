@@ -10,7 +10,7 @@ import axios from 'axios';
 
 export default function ProfilePage() {
     const [openModal, setOpenModal] = useState(false);
-    const [disabled, setDisabled] = useState('show');
+    const [disabled, setDisabled] = useState(true);
     const [input, setInput] = useState({
         first_name: '',
         last_name: '',
@@ -18,8 +18,8 @@ export default function ProfilePage() {
         phone_number: '',
         birth_date: '',
     });
-    const [updateProfilePic, setUpdateProfilePic] = useState(null);
-    const [imagePreview, setImagePreview] = useState(null);
+    const [updateProfilePic, setUpdateProfilePic] = useState('');
+    const [imagePreview, setImagePreview] = useState('');
 
     const dispatch = useDispatch();
     const dataLogin = useSelector((state) => state.user.dataLogin);
@@ -133,7 +133,7 @@ export default function ProfilePage() {
                 if (editProfile.data.success) {
                     dispatch(getDataLogin());
                     setOpenModal(false);
-                    setDisabled('show');
+                    setDisabled(true);
                     toast.success('Edit profile success!', {
                         position: 'top-center',
                         duration: 2000,
@@ -178,7 +178,7 @@ export default function ProfilePage() {
 
             if (updateProfilePicture.data.success) {
                 dispatch(getDataLogin());
-                setImagePreview(null);
+                setImagePreview('');
                 toast.success('Profile picture updated!', {
                     position: 'top-center',
                     duration: 2000,
@@ -263,7 +263,7 @@ export default function ProfilePage() {
                                                         <button
                                                             onClick={() =>
                                                                 setImagePreview(
-                                                                    null,
+                                                                    '',
                                                                 )
                                                             }
                                                             className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm w-full"
@@ -355,7 +355,9 @@ export default function ProfilePage() {
                                         {disabled ? (
                                             <button
                                                 className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm"
-                                                onClick={() => setDisabled('')}
+                                                onClick={() =>
+                                                    setDisabled(false)
+                                                }
                                             >
                                                 Edit
                                             </button>
@@ -372,7 +374,7 @@ export default function ProfilePage() {
                                                 <button
                                                     className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm"
                                                     onClick={() => {
-                                                        setDisabled('show');
+                                                        setDisabled(true);
                                                         setInput({
                                                             first_name:
                                                                 dataLogin?.first_name,

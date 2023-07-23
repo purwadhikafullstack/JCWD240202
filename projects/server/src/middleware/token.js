@@ -33,4 +33,15 @@ module.exports = {
             });
         }
     },
+    checkAdminRole: async (req, res, next) => {
+        if (req.User.role_id === 3) {
+            return next();
+        }
+
+        return res.status(401).send({
+            success: false,
+            message: 'Unauthorized!',
+            data: null,
+        });
+    },
 };

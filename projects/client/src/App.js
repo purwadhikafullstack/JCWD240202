@@ -12,6 +12,8 @@ import ChangePasswordUser from './pages/user/changepassword';
 import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
 import ProductDetails from './pages/user/productDetails';
+import AdminLoginPage from './pages/admin/loginAdmin';
+import DashboardAdmin from './pages/admin/dashboardAdmin';
 
 function App() {
     return (
@@ -71,6 +73,10 @@ function App() {
                     path="/users/change-password"
                     element={<ChangePasswordUser />}
                 />
+
+                {/* Admin */}
+                <Route path="/admins/login" element={<AdminLoginPage />} />
+                <Route path="/admins/dashboard" element={<DashboardAdmin />} />
             </Routes>
         </>
     );
