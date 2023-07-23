@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 const db = require('../models');
 const categories = db.categories;
 const products = db.products;
@@ -10,7 +10,8 @@ const getAllProducts = async (req, res) => {
         const { page, category, sort, search } = req.query;
 
         const paginationLimit = 12;
-        const paginationOffset = (Number(page) - 1) * paginationLimit;
+        const paginationOffset =
+            (Number(page ? page : 1) - 1) * paginationLimit;
 
         if (category && sort) {
             const catQuery = category.replaceAll('%', ' ');
@@ -244,6 +245,7 @@ const getRelatedProducts = async (req, res) => {
                 include: [
                     { model: product_images, where: { is_thumbnail: true } },
                 ],
+                order: Sequelize.literal('rand()'),
                 limit: 5,
             });
 

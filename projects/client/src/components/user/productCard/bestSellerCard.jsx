@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBestSellerAsync } from '../../../redux/features/homepageSlice';
+import { Link } from 'react-router-dom';
 
 export default function BestSellerCard() {
     const dispatch = useDispatch();
@@ -30,9 +31,11 @@ export default function BestSellerCard() {
                             <div className="flex-1 px-2">
                                 Rp {value.price.toLocaleString('id')}
                             </div>
-                            <div className="border-t flex justify-center py-2 bg-yellow-300 text-sky-700 hover:cursor-pointer hover:bg-yellow-400">
-                                Add to Cart
-                            </div>
+                            <Link to={`/products/${value.id}`}>
+                                <div className="border-t flex justify-center py-2 bg-yellow-300 text-sky-700 hover:cursor-pointer hover:bg-yellow-400">
+                                    Details
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 );
