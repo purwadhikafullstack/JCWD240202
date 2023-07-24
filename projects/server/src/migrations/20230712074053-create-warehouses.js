@@ -9,10 +9,6 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            category_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-            },
             user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,

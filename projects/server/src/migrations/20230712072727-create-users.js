@@ -33,8 +33,8 @@ module.exports = {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false,
             },
-            role: {
-                type: Sequelize.STRING,
+            role_id: {
+                type: Sequelize.INTEGER,
             },
             token_verification: {
                 type: Sequelize.STRING,

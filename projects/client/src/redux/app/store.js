@@ -4,6 +4,7 @@ import userReducer from './../features/userSlice';
 import homepageReducer from '../features/homepageSlice';
 import productReducer from '../features/productSlice';
 import cartReducer from '../features/cartSlice';
+import adminAuthReducer from '../features/adminAuthSlice';
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
         homepage: homepageReducer,
         product: productReducer,
         cart: cartReducer,
+        adminAuth: adminAuthReducer,
     },
 });

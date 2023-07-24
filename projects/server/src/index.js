@@ -2,7 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const { join } = require('path');
-const path = require('path');
+// const path = require('path');
 const {
     rajaOngkirRouter,
     addressRouter,
@@ -11,7 +11,11 @@ const {
     authRouter,
     productRouter,
     cartRouter,
+    adminAuthRouter,
+    adminRouter,
+    warehouseRouter,
 } = require('./routers');
+
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(cors());
@@ -31,6 +35,9 @@ app.use('/api/users', userRouter);
 app.use('/api/rajaongkir', rajaOngkirRouter);
 app.use('/api/addresses', addressRouter);
 app.use('/api/carts', cartRouter);
+app.use('/api/auth/admins', adminAuthRouter);
+app.use('/api/admins', adminRouter);
+app.use('/api/warehouses', warehouseRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);
