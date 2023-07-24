@@ -11,7 +11,7 @@ export default function UserCart() {
 
     useEffect(() => {
         dispatch(getUserCartAsync());
-        console.log(userCart);
+        console.log('userCart', userCart);
     }, []);
     return (
         <div className="px-[200px]">
@@ -25,7 +25,6 @@ export default function UserCart() {
             </div>
             <div className="flex justify-end pt-9">
                 <div className="border w-fit px-16 py-4 rounded-full text-lg bg-sky-700 text-yellow-300 font-bold hover:bg-sky-900 hover:cursor-pointer flex flex-col justify-center items-center">
-                    <div>Rp xxx xxx xxx</div>
                     <div>Checkout</div>
                 </div>
             </div>

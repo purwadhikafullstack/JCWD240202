@@ -60,7 +60,7 @@ const userAddToCart = async (req, res) => {
             if (createCart) {
                 const createCartProduct = await cart_products.create({
                     product_id: product_id,
-                    cart_id: findCart.id,
+                    cart_id: createCart.id,
                     quantity: quantity,
                     price: findProduct.price,
                     product_name: findProduct.name,
@@ -97,16 +97,21 @@ const getUserCart = async (req, res) => {
                     { model: products, include: [{ model: categories }] },
                 ],
             });
-
-            res.status(200).send({
-                success: true,
-                message: 'get user cart success',
-                data: findCartProducts,
-            });
+            if (findCartProducts) {
+                res.status(200).send({
+                    success: true,
+                    message: 'get user cart success',
+                    data: findCartProducts,
+                });
+            } else {
+                const removeCart = await carts.destroy({
+                    where: { id: findCart.id },
+                });
+                res.send({ message: 'cart removed' });
+            }
         } else {
-            res.status(404).send({
-                success: false,
-                message: 'user cart not found',
+            res.send({
+                message: 'user cart empty',
                 data: null,
             });
         }
@@ -119,4 +124,120 @@ const getUserCart = async (req, res) => {
     }
 };
 
-module.exports = { userAddToCart, getUserCart };
+const deleteProductCart = async (req, res) => {
+    try {
+        const user_id = req.User.id;
+        const { id } = req.params;
+
+        const findCart = await carts.findOne({
+            where: { user_id: user_id, is_checkout: false },
+        });
+
+        if (findCart) {
+            const removeProduct = await cart_products.destroy({
+                where: { product_id: id, cart_id: findCart.id },
+            });
+            if (removeProduct) {
+                const checkProductCart = await cart_products.findAndCountAll({
+                    where: { cart_id: findCart.id },
+                });
+                if (checkProductCart.count === 0) {
+                    const removeCart = await carts.destroy({
+                        where: { id: findCart.id },
+                    });
+                    res.status(200).send({
+                        success: true,
+                        message: 'cart deleted',
+                        data: null,
+                    });
+                } else {
+                    res.status(200).send({
+                        success: true,
+                        message: 'product deleted from cart success',
+                        data: null,
+                    });
+                }
+            } else {
+                res.status(400).send({
+                    success: false,
+                    message: 'failed to remove product from cart',
+                    data: null,
+                });
+            }
+        } else {
+            res.status(404).send({
+                success: true,
+                message: 'cart not found',
+                data: null,
+            });
+        }
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message,
+            data: null,
+        });
+    }
+};
+
+const modifyQuantity = async (req, res) => {
+    try {
+        const user_id = req.User.id;
+        const { quantity } = req.body;
+        const { id } = req.params;
+        const findCart = await carts.findOne({
+            where: { user_id: user_id, is_checkout: false },
+        });
+        if (findCart) {
+            const findCartProduct = await cart_products.findOne({
+                where: { cart_id: findCart.id, product_id: id },
+            });
+            if (findCartProduct) {
+                const editQuantity = await cart_products.update(
+                    {
+                        quantity: findCartProduct.quantity + quantity,
+                    },
+                    { where: { id: findCartProduct.id } },
+                );
+                const checkQuantity = await cart_products.findOne({
+                    where: { cart_id: findCart.id, product_id: id },
+                });
+                if (checkQuantity.quantity <= 0) {
+                    const removeProduct = await cart_products.destroy({
+                        where: { cart_id: findCart.id, product_id: id },
+                    });
+                    res.status(200).send({
+                        success: true,
+                        message: 'product removed',
+                        data: {},
+                    });
+                } else {
+                    res.status(200).send({
+                        success: true,
+                        message: 'quantity updated',
+                        data: {},
+                    });
+                }
+            } else {
+                res.status(404).send({
+                    success: false,
+                    message: 'product not found',
+                    data: {},
+                });
+            }
+        }
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message,
+            data: {},
+        });
+    }
+};
+
+module.exports = {
+    userAddToCart,
+    getUserCart,
+    deleteProductCart,
+    modifyQuantity,
+};
