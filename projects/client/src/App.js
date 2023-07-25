@@ -15,6 +15,7 @@ import ProductDetails from './pages/user/productDetails';
 import UserCart from './pages/user/userCart';
 import AdminLoginPage from './pages/admin/loginAdmin';
 import DashboardAdmin from './pages/admin/dashboardAdmin';
+import UserAdmin from './pages/admin/userAdmin';
 
 function App() {
     return (
@@ -87,6 +88,7 @@ function App() {
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
                 <Route path="/admins/dashboard" element={<DashboardAdmin />} />
+                <Route path="/admins/setting" element={<UserAdmin />} />
             </Routes>
         </>
     );

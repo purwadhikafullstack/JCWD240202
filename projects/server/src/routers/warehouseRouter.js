@@ -39,5 +39,11 @@ router.get(
     checkAdminRole,
     warehouseController.getAvailableWarehouse,
 );
+router.patch(
+    '/unassign-admin/:user_id',
+    verifyToken,
+    checkAdminRole,
+    warehouseController.unassignAdminWarehouse,
+);
 
 module.exports = router;

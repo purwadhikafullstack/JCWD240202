@@ -11,7 +11,7 @@ import {
     FcUndo,
     FcExternal,
 } from 'react-icons/fc';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { getDataLogin } from '../../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLoginAdmin } from '../../redux/features/adminAuthSlice';
@@ -22,7 +22,6 @@ export default function SideBarAdmin() {
     const { pathname } = window.location;
     const [disabled, setDisabled] = useState(false);
     const dispatch = useDispatch();
-    const userLogin = JSON.parse(localStorage.getItem('user'));
     const dataLogin = useSelector((state) => state.user.dataLogin);
 
     const onLogout = () => {
@@ -38,11 +37,9 @@ export default function SideBarAdmin() {
                     color: 'white',
                 },
             });
-            // setDisabled(false);
-            // navigate('/admins/login');
             setTimeout(() => {
                 setDisabled(false);
-                dispatch(setIsLoginAdmin(false))
+                dispatch(setIsLoginAdmin(false));
                 navigate('/admins/login');
             }, 500);
         } catch (error) {
@@ -73,7 +70,9 @@ export default function SideBarAdmin() {
                 >
                     <IoIosArrowBack
                         size={30}
-                        className={`absolute right-6 rounded-full cursor-pointer top-12 border-2 duration-300 bg-white ${
+                        className={`absolute right-6 ${
+                            open ? 'right-[-15px]' : ''
+                        } rounded-full cursor-pointer top-12 border-2 duration-300 bg-white ${
                             !open && 'rotate-180'
                         } ring-2 ring-[#0051BA]`}
                         onClick={() => setOpen(!open)}
@@ -140,7 +139,7 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className={`${
-                                pathname === '/admins/dashboard'
+                                pathname === '/admins/setting'
                                     ? 'underline'
                                     : 'no-underline'
                             } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
@@ -148,7 +147,7 @@ export default function SideBarAdmin() {
                                     ? 'hidden'
                                     : ''
                             }`}
-                            onClick={() => navigate('/admins/dashboard')}
+                            onClick={() => navigate('/admins/setting')}
                         >
                             <FcAssistant
                                 size={30}
@@ -290,7 +289,7 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={() => navigate('/admins/dashboard')}
+                            onClick={() => navigate('/admins/setting')}
                         >
                             <FcAssistant size={30} />
                         </li>
