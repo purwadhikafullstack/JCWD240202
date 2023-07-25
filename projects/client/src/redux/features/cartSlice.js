@@ -63,5 +63,51 @@ export const userAddToCartAsync = (data) => async (dispatch) => {
     }
 };
 
+export const userDeleteProductCartAsync = (data) => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const removeProduct = await axios.delete(
+            process.env.REACT_APP_API_BASE_URL + `/carts/product/${data.id}`,
+            {
+                headers: {
+                    Authorization: `bearer ${getUser}`,
+                },
+            },
+        );
+
+        if (removeProduct.data.success) {
+            toast.success('Product remove from cart');
+        }
+        dispatch(getUserCartAsync());
+    } catch (error) {
+        toast.error('failed to remove product');
+    }
+};
+
+export const modifyQuantityAsync = (data) => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const editQty = await axios.patch(
+            process.env.REACT_APP_API_BASE_URL + `/carts/product/${data.id}`,
+            {
+                quantity: data.quantity,
+            },
+            {
+                headers: {
+                    Authorization: `bearer ${getUser}`,
+                },
+            },
+        );
+        if (editQty.data.message === 'product removed') {
+            toast.success(editQty.data.message);
+        }
+        dispatch(getUserCartAsync());
+    } catch (error) {}
+};
+
 export const { setCart } = cartSlice.actions;
 export default cartSlice.reducer;
