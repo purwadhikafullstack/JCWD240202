@@ -234,7 +234,7 @@ export default function NewAddress({ showModal }) {
                                             .replace(/,/g, ''),
                                     );
                                 }}
-                                className='className="border border-gray-400 w-[300px] rounded-md px-2 h-11 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"'
+                                className="border border-gray-400 w-[300px] rounded-md px-2 h-11 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="province"
                             >
                                 <option
