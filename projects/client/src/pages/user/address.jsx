@@ -12,6 +12,7 @@ export default function Address() {
     const [showEditModal, setShowEditModal] = useState('');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedEdit, setSelectedEdit] = useState({});
+    const [disabled, setDisabled] = useState(false);
 
     const token = JSON.parse(localStorage?.getItem('user'));
 
@@ -30,8 +31,6 @@ export default function Address() {
             console.log(error);
         }
     };
-
-    console.log(addresses);
 
     useEffect(() => {
         getAddress();
@@ -108,6 +107,7 @@ export default function Address() {
                                                 onClick={() =>
                                                     onDeleteAddress(value.id)
                                                 }
+                                                disabled={disabled}
                                             >
                                                 Delete Address
                                             </button>
@@ -175,9 +175,11 @@ export default function Address() {
 
     const onDeleteAddress = async (address_id) => {
         try {
-            const deleteAddress = await axios.delete(
+            setDisabled(true);
+            const deleteAddress = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL +
                     `/addresses/delete/${address_id}`,
+                {},
                 {
                     headers: {
                         authorization: `Bearer ${token}`,
@@ -186,6 +188,7 @@ export default function Address() {
             );
 
             if (deleteAddress.data.success) {
+                setDisabled(false);
                 setShowDeleteModal(false);
                 toast.success('Address removed!', {
                     position: 'top-center',
@@ -200,6 +203,7 @@ export default function Address() {
                 getAddress();
             }
         } catch (error) {
+            setDisabled(false);
             console.log(error);
         }
     };

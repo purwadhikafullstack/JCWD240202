@@ -11,26 +11,19 @@ const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 module.exports = {
     getDataAdmin: async (req, res) => {
         try {
+            const { page, sort, search, warehouse } = req.query;
+
             let order = [['createdAt', 'DESC']];
             let where = { role_id: 2 };
-            const { page, sort, search, warehouse } = req.query;
 
             const paginationLimit = 5;
             const paginationOffset =
                 (Number(page ? page : 1) - 1) * paginationLimit;
 
-            if (sort) {
-                if (sort === 'name-asc') {
-                    order = [['first_name', 'ASC']];
-                } else if (sort === 'name-desc') {
-                    order = [['first_name', 'DESC']];
-                }
-            }
-
             if (search) {
                 where = {
+                    first_name: { [Op.substring]: [search] },
                     role_id: 2,
-                    first_name: { [Op.like]: `%${search}%` },
                 };
             }
 
@@ -40,7 +33,23 @@ module.exports = {
                         city: warehouse,
                     },
                 });
-                where['id'] = warehouseId.user_id;
+                if (search) {
+                    where['id'] = warehouseId.user_id;
+                } else {
+                    where = {
+                        role_id: 2,
+                        first_name: { [Op.substring]: [search] },
+                        id: warehouseId.user_id,
+                    };
+                }
+            }
+
+            if (sort) {
+                if (sort === 'name-asc') {
+                    order = [['first_name', 'ASC']];
+                } else if (sort === 'name-desc') {
+                    order = [['first_name', 'DESC']];
+                }
             }
 
             const result = await user.findAndCountAll({

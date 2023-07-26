@@ -217,7 +217,7 @@ export default function RegisterAdmin({ showModal }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-gray-400"
+                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
                                     disabled={
                                         !inputFirstName ||
                                         !inputLastName ||
@@ -240,8 +240,10 @@ export default function RegisterAdmin({ showModal }) {
                                                     inputConfirmPassword,
                                                 ),
                                             );
-                                            setDisabled(false);
-                                        }, 800);
+                                            setTimeout(() => {
+                                                setDisabled(false);
+                                            }, 1000);
+                                        }, 500);
                                     }}
                                 >
                                     Confirm

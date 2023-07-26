@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRef } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function EditModal({ showModal, selected }) {
     // Handle bug Modal Flowbite
@@ -25,6 +27,8 @@ export default function EditModal({ showModal, selected }) {
     const [dataCities, setDataCities] = useState([]);
     const [filterCities, setFilterCities] = useState([]);
 
+    const [disabled, setDisabled] = useState(false);
+    const [open, setOpen] = useState(false);
     const token = JSON.parse(localStorage?.getItem('user'));
 
     console.log(selected);
@@ -72,17 +76,9 @@ export default function EditModal({ showModal, selected }) {
 
     const editAddress = async () => {
         try {
-            if (
-                inputEditReceiverName === '' ||
-                inputEditReceiverNumber === '' ||
-                inputEditFullAddress === '' ||
-                inputEditProvince === '' ||
-                inputEditCity === '' ||
-                inputEditSubdistrict === '' ||
-                inputEditPostalCode === ''
-            ) {
-                throw { message: "Field can't be empty" };
-            } else if (inputEditReceiverNumber.match(/[a-zA-Z]/)) {
+            setDisabled(true);
+            setOpen(true);
+            if (inputEditReceiverNumber.match(/[a-zA-Z]/)) {
                 throw { message: 'Invalid phone number!' };
             } else if (inputEditPostalCode.match(/[a-zA-Z]/)) {
                 throw { message: 'Invalid postal code!' };
@@ -130,11 +126,13 @@ export default function EditModal({ showModal, selected }) {
                         setInputEditFullAddress('');
                         setInputEditPostalCode('');
                         showModal('');
+                        setOpen(false);
                     }, 1000);
                 }
             }
         } catch (error) {
-            console.log(error);
+            setDisabled(false);
+            setOpen(false);
             toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
@@ -163,6 +161,7 @@ export default function EditModal({ showModal, selected }) {
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1 ">
                                 Receiver Name
+                                <span className="text-red-600">*</span>
                             </span>
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
@@ -178,6 +177,7 @@ export default function EditModal({ showModal, selected }) {
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1 ">
                                 Receiver Number
+                                <span className="text-red-600">*</span>
                             </span>
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
@@ -194,6 +194,7 @@ export default function EditModal({ showModal, selected }) {
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1 ">
                                 Full Address
+                                <span className="text-red-600">*</span>
                             </span>
                             <textarea
                                 maxLength={200}
@@ -216,6 +217,7 @@ export default function EditModal({ showModal, selected }) {
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1">
                                 Province
+                                <span className="text-red-600">*</span>
                             </span>
                             <select
                                 type="text"
@@ -259,6 +261,7 @@ export default function EditModal({ showModal, selected }) {
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1">
                                 City
+                                <span className="text-red-600">*</span>
                             </span>
                             <select
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-11 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
@@ -294,6 +297,7 @@ export default function EditModal({ showModal, selected }) {
                         <div className="block mb-3">
                             <span className="block text-sm font-medium text-slate-700 mb-1">
                                 Subdistrict
+                                <span className="text-red-600">*</span>
                             </span>
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
@@ -308,6 +312,7 @@ export default function EditModal({ showModal, selected }) {
                         <div className="block">
                             <span className="block text-sm font-medium text-slate-700 mb-1">
                                 Postal Code
+                                <span className="text-red-600">*</span>
                             </span>
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
@@ -324,8 +329,18 @@ export default function EditModal({ showModal, selected }) {
                 </Modal.Body>
                 <div className="flex justify-start gap-3 mb-5 ml-6">
                     <button
-                        className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
+                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
                         onClick={() => editAddress()}
+                        disabled={
+                            inputEditReceiverName === '' ||
+                            inputEditReceiverNumber === '' ||
+                            inputEditFullAddress === '' ||
+                            inputEditProvince === '' ||
+                            inputEditCity === '' ||
+                            inputEditSubdistrict === '' ||
+                            inputEditPostalCode === '' ||
+                            disabled
+                        }
                     >
                         Edit My Address
                     </button>
@@ -347,6 +362,15 @@ export default function EditModal({ showModal, selected }) {
                     >
                         Cancel
                     </button>
+                    <Backdrop
+                        sx={{
+                            color: '#fff',
+                            zIndex: (theme) => theme.zIndex.drawer + 1,
+                        }}
+                        open={open}
+                    >
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
                 </div>
             </Modal>
         </>

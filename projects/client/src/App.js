@@ -16,6 +16,7 @@ import UserCart from './pages/user/userCart';
 import AdminLoginPage from './pages/admin/loginAdmin';
 import DashboardAdmin from './pages/admin/dashboardAdmin';
 import UserAdmin from './pages/admin/userAdmin';
+import WarehousePageAdmin from './pages/admin/warehousePageAdmin';
 
 function App() {
     return (
@@ -89,6 +90,10 @@ function App() {
                 <Route path="/admins/login" element={<AdminLoginPage />} />
                 <Route path="/admins/dashboard" element={<DashboardAdmin />} />
                 <Route path="/admins/setting" element={<UserAdmin />} />
+                <Route
+                    path="/admins/warehouse/setting"
+                    element={<WarehousePageAdmin />}
+                />
             </Routes>
         </>
     );

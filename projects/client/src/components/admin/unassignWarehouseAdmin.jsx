@@ -41,7 +41,7 @@ export default function UnassignedWhAdmin({ showModal, selected }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-gray-400"
+                                    className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
                                     disabled={disabled}
                                     onClick={() => {
                                         setDisabled(true);
@@ -52,8 +52,10 @@ export default function UnassignedWhAdmin({ showModal, selected }) {
                                                     selected?.id,
                                                 ),
                                             );
-                                            setDisabled(false);
-                                        }, 200);
+                                            setTimeout(() => {
+                                                setDisabled(false);
+                                            }, 500);
+                                        }, 500);
                                     }}
                                 >
                                     Confirm

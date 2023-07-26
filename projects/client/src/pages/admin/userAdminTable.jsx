@@ -12,9 +12,7 @@ import DeleteAdmin from '../../components/admin/deleteAdminModal';
 import AssignWarehouseAdmin from '../../components/admin/assignWarehouseAdminModal';
 import UnassignedWhAdmin from '../../components/admin/unassignWarehouseAdmin';
 
-export default function UserAdminTable() {
-    const dispatch = useDispatch();
-    const admins = useSelector((state) => state.admin.dataAdmin);
+export default function UserAdminTable({ data }) {
     const [showEditAdminModal, setShowEditAdminModal] = useState(false);
     const [showChangePassAdminModal, setShowChangePassAdminModal] =
         useState(false);
@@ -23,13 +21,9 @@ export default function UserAdminTable() {
     const [showUnassignAdminModal, setShowUnassignAdminModal] = useState(false);
     const [selectedEdit, setSelectedEdit] = useState({});
 
-    useEffect(() => {
-        dispatch(getDataAdminUser());
-    }, []);
-
     return (
         <>
-            {admins?.data?.rows.map((value, index) => {
+            {data?.map((value, index) => {
                 return (
                     <tr
                         key={index}

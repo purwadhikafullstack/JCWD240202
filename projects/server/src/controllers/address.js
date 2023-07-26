@@ -11,6 +11,7 @@ module.exports = {
             const result = await address.findAll({
                 where: {
                     user_id: id,
+                    is_deleted: false,
                 },
             });
             return res.status(200).send({
@@ -239,7 +240,8 @@ module.exports = {
                 });
             }
 
-            const deleteAddress = await address.destroy(
+            const deleteAddress = await address.update(
+                { is_deleted: true },
                 {
                     where: {
                         id: address_id,
