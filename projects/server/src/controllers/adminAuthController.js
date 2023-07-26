@@ -73,7 +73,6 @@ module.exports = {
                 last_name,
                 email,
                 phone_number,
-                birth_date,
                 password,
                 confirm_password,
             } = req.body;
@@ -83,7 +82,6 @@ module.exports = {
                 !last_name ||
                 !email ||
                 !phone_number ||
-                !birth_date ||
                 !password ||
                 !confirm_password
             ) {
@@ -94,7 +92,7 @@ module.exports = {
                 });
             }
 
-            if (pattern.test(password) == false) {
+            if (pattern.test(password) === false) {
                 return res.status(406).send({
                     success: false,
                     message:
@@ -140,7 +138,6 @@ module.exports = {
                         last_name,
                         email,
                         phone_number,
-                        birth_date,
                         password: createPassword,
                         role_id: 2,
                     },

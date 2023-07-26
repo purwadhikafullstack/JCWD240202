@@ -30,5 +30,8 @@
   },
   "workspaces": [
     "projects/*"
-  ]
+  ],
+  "dependencies": {
+    "date-fns": "^2.30.0"
+  }
 }

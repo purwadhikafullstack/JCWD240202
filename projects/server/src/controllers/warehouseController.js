@@ -211,7 +211,7 @@ module.exports = {
 
             return res.status(200).send({
                 success: true,
-                message: 'Warehouse Deleted!',
+                message: 'Fetch Success!',
                 data: availableWarehouse,
             });
         } catch (error) {
@@ -233,6 +233,20 @@ module.exports = {
                     id: warehouse_id,
                 },
             });
+
+            const checkUser = await user.findOne({
+                where: {
+                    id: user_id,
+                },
+            });
+
+            if (checkUser === null) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'User Not Found!',
+                    data: null,
+                });
+            }
 
             if (checkWarehouse === null) {
                 return res.status(404).send({
@@ -267,6 +281,79 @@ module.exports = {
                     success: true,
                     message: 'Assign Warehouse Admin Success!',
                     data: assignAdmin,
+                });
+            }
+        } catch (error) {
+            await t.rollback();
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    unassignAdminWarehouse: async (req, res) => {
+        const t = await sequelize.transaction();
+        try {
+            const { user_id } = req.params;
+            const { warehouse_id } = req.body;
+            console.log(user_id);
+            console.log(warehouse_id);
+
+            const checkWarehouse = await warehouse.findOne({
+                where: {
+                    id: warehouse_id,
+                },
+            });
+
+            const checkUser = await user.findOne({
+                where: {
+                    id: user_id,
+                },
+            });
+
+            if (checkUser === null) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'User Not Found!',
+                    data: null,
+                });
+            }
+
+            if (checkWarehouse === null) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Warehouse Not Found!',
+                    data: null,
+                });
+            }
+
+            if (checkWarehouse.user_id !== checkUser.id) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Unassigned Failed!',
+                    data: null,
+                });
+            } else {
+                const unassignAdmin = await warehouse.update(
+                    {
+                        user_id: null,
+                    },
+                    {
+                        where: {
+                            id: warehouse_id,
+                            user_id,
+                        },
+                    },
+                    { transaction: t },
+                );
+
+                await t.commit();
+
+                return res.status(200).send({
+                    success: true,
+                    message: 'Assign Warehouse Admin Success!',
+                    data: unassignAdmin,
                 });
             }
         } catch (error) {

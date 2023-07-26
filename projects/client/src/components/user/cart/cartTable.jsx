@@ -1,6 +1,16 @@
+import { BsTrash } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import {
+    modifyQuantityAsync,
+    userDeleteProductCartAsync,
+} from '../../../redux/features/cartSlice';
+import { Toaster } from 'react-hot-toast';
 export default function CartTable(props) {
+    const dispatch = useDispatch();
+
     return (
-        <div className="h-[205px] mt-4 pb-4 flex border-b">
+        <div className="h-[205px] mt-4 pb-4 flex border-b relative">
+            <Toaster />
             <div className="flex-2">
                 <img
                     src={props.data.value.image}
@@ -22,17 +32,43 @@ export default function CartTable(props) {
                     </div>
                     <div className="text-sm">
                         Total Weight:{' '}
-                        {(props.data.value.product.weight / 1000) *
-                            props.data.value.quantity}{' '}
+                        {(
+                            (props.data.value.product.weight / 1000) *
+                            props.data.value.quantity
+                        ).toFixed(2)}{' '}
                         kg
                     </div>
                 </div>
             </div>
             <div className="flex-1 flex items-center justify-center">
                 <div className="flex border gap-9 p-4 rounded-full items-center">
-                    <div className="text-xl hover:cursor-pointer">-</div>
+                    <div
+                        onClick={() =>
+                            dispatch(
+                                modifyQuantityAsync({
+                                    id: props.data.value.product.id,
+                                    quantity: -1,
+                                }),
+                            )
+                        }
+                        className="text-xl hover:cursor-pointer"
+                    >
+                        -
+                    </div>
                     <div>{props.data.value.quantity}</div>
-                    <div className="text-xl hover:cursor-pointer">+</div>
+                    <div
+                        onClick={() =>
+                            dispatch(
+                                modifyQuantityAsync({
+                                    id: props.data.value.product.id,
+                                    quantity: +1,
+                                }),
+                            )
+                        }
+                        className="text-xl hover:cursor-pointer"
+                    >
+                        +
+                    </div>
                 </div>
             </div>
             <div className="flex-2 w-[200px] flex items-center justify-center text-xl font-bold">
@@ -40,6 +76,18 @@ export default function CartTable(props) {
                 {(
                     props.data.value.price * props.data.value.quantity
                 ).toLocaleString('ID-id')}
+            </div>
+            <div
+                onClick={() =>
+                    dispatch(
+                        userDeleteProductCartAsync({
+                            id: props.data.value.product.id,
+                        }),
+                    )
+                }
+                className="absolute bottom-2 right-0 hover:border hover:p-2 hover:rounded-full hover:bg-sky-700 hover:text-yellow-200 hover:cursor-pointer"
+            >
+                <BsTrash size={20} />
             </div>
         </div>
     );

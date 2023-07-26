@@ -17,7 +17,6 @@ export default function AdminLoginPage() {
     const navigate = useNavigate();
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const loginAdmin = useSelector((state) => state.adminAuth.isLoginAdmin);
-    console.log('loginadmin', loginAdmin);
 
     const onChange = (event) => {
         const { value, name } = event.target;
