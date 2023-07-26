@@ -1,7 +1,23 @@
-import SideBarAdmin from "../../components/admin/adminPageSideBar";
-import ProductTabs from "../../components/admin/product/productTabs";
+import { useEffect, useState } from 'react';
+import SideBarAdmin from '../../components/admin/adminPageSideBar';
+import ComListCategory from '../../components/admin/product/comListCategory';
+import ProductTabs from '../../components/admin/product/productTabs';
+import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
+import { useDispatch } from 'react-redux';
+import ModalAddCategory from '../../components/admin/product/modalAddCategory';
+import ModalEditCategory from '../../components/admin/product/modalEditCategory';
+import ModalDeleteCategory from '../../components/admin/product/modalDeleteCategory';
 
 export default function CategoryProductAdmin() {
+    const dispatch = useDispatch();
+    const [openModalAdd, setOpenModalAdd] = useState(false);
+    const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalDelete, setOpenModalDelete] = useState(false);
+    const [dataDetail, setDataDetail] = useState();
+
+    useEffect(() => {
+        dispatch(getAllCategoriesAsync());
+    }, []);
     return (
         <>
             <div>
@@ -19,10 +35,10 @@ export default function CategoryProductAdmin() {
                                     <SortButton data={{ sortChange }} /> */}
                                 </div>
                                 <button
-                                    // onClick={() => setOpenModal(true)}
+                                    onClick={() => setOpenModalAdd(true)}
                                     className="text-white text-[10px] border p-2 rounded-lg bg-[#0051BA] hover:bg-gray-400 font-bold focus:ring-2 focus:ring-main-500 w-22 md:mt-0"
                                 >
-                                    + ADD NEW PRODUCT
+                                    + ADD NEW CATEGORY
                                 </button>
                                 {/* <SearchBar data={{ searchChange }} /> */}
                             </div>
@@ -42,9 +58,18 @@ export default function CategoryProductAdmin() {
                                             >
                                                 name
                                             </th>
+                                            <th
+                                                scope="col"
+                                                className="px- py-3 text-center"
+                                            ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <ComListCategory
+                                            funcShow={setOpenModalEdit}
+                                            funcData={setDataDetail}
+                                            modalDelete={setOpenModalDelete}
+                                        />
                                     </tbody>
                                 </table>
                                 <div className="pt-9 flex justify-center">
@@ -59,8 +84,22 @@ export default function CategoryProductAdmin() {
                             </div>
                         </div>
                     </div>
+                    <ModalAddCategory
+                        show={openModalAdd}
+                        funcShow={setOpenModalAdd}
+                    />
+                    <ModalEditCategory
+                        show={openModalEdit}
+                        funcShow={setOpenModalEdit}
+                        data={dataDetail}
+                    />
+                    <ModalDeleteCategory
+                        show={openModalDelete}
+                        funcShow={setOpenModalDelete}
+                        data={dataDetail}
+                    />
                 </div>
             </div>
         </>
-    )
+    );
 }

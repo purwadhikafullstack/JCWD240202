@@ -159,7 +159,6 @@ export default function ProductAdmin() {
                                     </thead>
                                     <tbody>
                                         <ComListProduct
-                                            show={openModalEdit}
                                             funcShow={setOpenModalEdit}
                                             funcData={setDataDetail}
                                             modalDelete={setOpenModalDelete}
