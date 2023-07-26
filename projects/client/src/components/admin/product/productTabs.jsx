@@ -39,7 +39,7 @@ export default function ProductTabs() {
                         </div>
                         <div
                             className={`flex justify-center items-center w-24 h-14 pt-3 ml-2 pr-2 cursor-pointer ${
-                                pathname === '/admins/products/category' &&
+                                pathname === '/admins/products/categories' &&
                                 'border-2 border-t-0 border-l-0 border-r-0 border-[#0051BA]'
                             }`}
                             onClick={() =>
