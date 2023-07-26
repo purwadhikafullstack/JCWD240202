@@ -4,9 +4,8 @@ import toast from 'react-hot-toast';
 
 const initialState = {
     dataAdmin: null,
-    isEdited: false,
-    isChanged: false,
-    isDeleted: false,
+    disabledButton: false,
+    modal: false,
 };
 
 export const adminSlice = createSlice({
@@ -16,14 +15,11 @@ export const adminSlice = createSlice({
         setDataAdmin: (initialState, action) => {
             initialState.dataAdmin = action.payload;
         },
-        setIsEdit: (initialState, action) => {
-            initialState.isEdited = action.payload;
+        setDisabledButton: (initialState, action) => {
+            initialState.disabledButton = action.payload;
         },
-        setIsChanged: (initialState, action) => {
-            initialState.isChanged = action.payload;
-        },
-        setIsDeleted: (initialState, action) => {
-            initialState.isDeleted = action.payload;
+        setModal: (initialState, action) => {
+            initialState.modal = action.payload;
         },
     },
 });
@@ -57,6 +53,7 @@ export const getDataAdminUser =
 export const editDataWarehouseAdmin =
     (first_name, last_name, phone_number, id) => async (dispatch) => {
         try {
+            dispatch(setDisabledButton(true));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
             if (phone_number.match(/[a-zA-Z]/) || phone_number.length < 12) {
@@ -78,22 +75,24 @@ export const editDataWarehouseAdmin =
                 },
             );
 
-            toast.success(result.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
+            if (result) {
+                dispatch(setModal(true));
+                toast.success(result.data.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+            }
 
-            dispatch(setIsEdit(true));
             dispatch(getDataAdminUser());
-            dispatch(setIsEdit(false));
         } catch (error) {
-            dispatch(setIsEdit(false));
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
             if (error.response) {
                 toast.error(error.response.data.message, {
                     position: 'top-center',
@@ -117,12 +116,16 @@ export const editDataWarehouseAdmin =
                     },
                 });
             }
+        } finally {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
         }
     };
 
 export const changePasswordWarehouseAdmin =
     (new_password, confirm_password, id) => async (dispatch) => {
         try {
+            dispatch(setDisabledButton(true));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
             const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -153,22 +156,24 @@ export const changePasswordWarehouseAdmin =
                 },
             );
 
-            toast.success(result.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
+            if (result) {
+                dispatch(setModal(true));
+                toast.success(result.data.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+            }
 
-            dispatch(setIsChanged(true));
             dispatch(getDataAdminUser());
-            dispatch(setIsChanged(false));
         } catch (error) {
-            dispatch(setIsChanged(false));
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
             if (error.response) {
                 toast.error(error.response.data.message, {
                     position: 'top-center',
@@ -192,11 +197,15 @@ export const changePasswordWarehouseAdmin =
                     },
                 });
             }
+        } finally {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
         }
     };
 
 export const deleteWarehouseAdmin = (id) => async (dispatch) => {
     try {
+        dispatch(setDisabledButton(true));
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
         const result = await axios.delete(
@@ -208,21 +217,24 @@ export const deleteWarehouseAdmin = (id) => async (dispatch) => {
             },
         );
 
-        toast.success(result.data.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#0051BA',
-                color: 'white',
-            },
-        });
+        if (result) {
+            dispatch(setModal(true));
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
 
-        dispatch(setIsDeleted(true));
         dispatch(getDataAdminUser());
-        dispatch(setIsDeleted(false));
     } catch (error) {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
         if (error.response) {
             toast.error(error.response.data.message, {
                 position: 'top-center',
@@ -246,9 +258,15 @@ export const deleteWarehouseAdmin = (id) => async (dispatch) => {
                 },
             });
         }
+    } finally {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
     }
 };
 
-export const { setDataAdmin, setIsEdit, setIsChanged, setIsDeleted } =
-    adminSlice.actions;
+export const {
+    setDataAdmin,
+    setDisabledButton,
+    setModal,
+} = adminSlice.actions;
 export default adminSlice.reducer;

@@ -79,7 +79,7 @@ export default function WarehousePageAdmin() {
                                 </div>
                                 <button
                                     onClick={() => setShowAddWhModal(true)}
-                                    className="text-white text-[10px] font-bold border p-2 rounded-lg bg-[#0051BA] hover:bg-gray-400 focus:ring-2 focus:ring-main-500 w-22 mt-5 md:mt-0"
+                                    className="text-white text-[10px] font-bold border p-1 rounded-lg bg-[#0051BA] hover:bg-gray-400 focus:ring-2 focus:ring-main-500 w-28 p-2 mt-5 md:mt-0"
                                 >
                                     + Add Warehouse
                                 </button>

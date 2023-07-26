@@ -15,7 +15,6 @@ import {
 import toast from 'react-hot-toast';
 import { getDataLogin } from '../../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsLoginAdmin } from '../../redux/features/adminAuthSlice';
 
 export default function SideBarAdmin() {
     const navigate = useNavigate();
@@ -27,6 +26,7 @@ export default function SideBarAdmin() {
 
     const onLogout = () => {
         try {
+            setDisabled(true);
             localStorage.removeItem('user');
             toast.success('Logout success!', {
                 position: 'top-center',
@@ -40,9 +40,8 @@ export default function SideBarAdmin() {
             });
             setTimeout(() => {
                 setDisabled(false);
-                dispatch(setIsLoginAdmin(false));
                 navigate('/admins/login');
-            }, 500);
+            }, 200);
         } catch (error) {
             toast.error(error.message, {
                 position: 'top-center',
@@ -271,10 +270,7 @@ export default function SideBarAdmin() {
                                         : ''
                                 }`}
                                 disabled={disabled}
-                                onClick={() => {
-                                    onLogout();
-                                    setDisabled(true);
-                                }}
+                                onClick={onLogout}
                             >
                                 <FcUndo
                                     size={30}

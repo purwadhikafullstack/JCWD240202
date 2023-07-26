@@ -5,11 +5,13 @@ import { adminRegister } from '../../redux/features/adminAuthSlice';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function RegisterAdmin({ showModal }) {
+    const setDisabledButton = useSelector(
+        (state) => state.adminAuth.disabledButton,
+    );
+    const setModal = useSelector((state) => state.adminAuth.modal);
     const [showPassword, setShowPassword] = useState(true);
     const [showConfirmPassword, setShowConfirmPassword] = useState(true);
-    const [disabled, setDisabled] = useState(false);
     const dispatch = useDispatch();
-    const status = useSelector((state) => state.adminAuth.isRegister);
 
     // input
     const [inputFirstName, setInputFirstName] = useState('');
@@ -20,12 +22,12 @@ export default function RegisterAdmin({ showModal }) {
     const [inputConfirmPassword, setInputConfirmPassword] = useState('');
 
     useEffect(() => {
-        if (status === true) {
+        if (setModal === true) {
             setShowPassword(true);
             setShowConfirmPassword(true);
             showModal(false);
         }
-    }, [status]);
+    }, [setModal]);
 
     return (
         <>
@@ -217,7 +219,7 @@ export default function RegisterAdmin({ showModal }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
+                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                     disabled={
                                         !inputFirstName ||
                                         !inputLastName ||
@@ -225,25 +227,19 @@ export default function RegisterAdmin({ showModal }) {
                                         !inputPhoneNumber ||
                                         !inputPassword ||
                                         !inputConfirmPassword ||
-                                        disabled
+                                        setDisabledButton
                                     }
                                     onClick={() => {
-                                        setDisabled(true);
-                                        setTimeout(() => {
-                                            dispatch(
-                                                adminRegister(
-                                                    inputFirstName,
-                                                    inputLastName,
-                                                    inputEmail,
-                                                    inputPhoneNumber,
-                                                    inputPassword,
-                                                    inputConfirmPassword,
-                                                ),
-                                            );
-                                            setTimeout(() => {
-                                                setDisabled(false);
-                                            }, 1000);
-                                        }, 500);
+                                        dispatch(
+                                            adminRegister(
+                                                inputFirstName,
+                                                inputLastName,
+                                                inputEmail,
+                                                inputPhoneNumber,
+                                                inputPassword,
+                                                inputConfirmPassword,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Confirm

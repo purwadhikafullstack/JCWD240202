@@ -2,22 +2,21 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import {
-    editWarehouse,
-    getDataProvincesRo,
-} from '../../redux/features/warehouseSlice';
-import { getDataCitiesRo } from '../../redux/features/warehouseSlice';
+import { editWarehouse } from '../../redux/features/warehouseSlice';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-export default function EditWareHouseModal({ showModal, selected }) {
+export default function EditWareHouseModal({
+    showModal,
+    selected,
+    dataProvince,
+    dataCity,
+}) {
     const dispatch = useDispatch();
-    const dataProvinces = useSelector(
-        (state) => state.warehouse.dataProvincesRo,
+    const setDisabledButton = useSelector(
+        (state) => state.warehouse.disabledButton,
     );
-    const dataCities = useSelector((state) => state.warehouse.dataCitiesRo);
-    const status = useSelector((state) => state.warehouse.status);
-    const [disabled, setDisabled] = useState(false);
+    const setModal = useSelector((state) => state.warehouse.modal);
 
     // input
     const [countFullAddress, setCountFullAddress] = useState(0);
@@ -29,12 +28,11 @@ export default function EditWareHouseModal({ showModal, selected }) {
     const [inputSubdistrict, setInputSubDistrict] = useState('');
     const [inputPostalCode, setInputPostalCode] = useState('');
     const [filterCities, setFilterCities] = useState([]);
-    const [open, setOpen] = useState(false);
 
     // find city in provinces
     const filterCity = (id) => {
         let temp = [];
-        dataCities.forEach((value) => {
+        dataCity.forEach((value) => {
             if (value.province_id === id) {
                 temp.push(value);
             }
@@ -44,21 +42,16 @@ export default function EditWareHouseModal({ showModal, selected }) {
     };
 
     useEffect(() => {
-        dispatch(getDataProvincesRo());
-        dispatch(getDataCitiesRo());
         setInputFullAddress(selected?.street);
         setInputProvince(selected?.province);
         setInputCity(selected?.city);
         setInputSubDistrict(selected?.subdistrict);
         setInputPostalCode(selected?.postcode.toString());
-        if (status) {
+        if (setModal) {
             showModal(false);
-            setOpen(false);
-        } else {
-            setOpen(false);
         }
     }, [
-        status,
+        setModal,
         selected?.street,
         selected?.province,
         selected?.city,
@@ -153,7 +146,7 @@ export default function EditWareHouseModal({ showModal, selected }) {
                                             >
                                                 Select Province
                                             </option>
-                                            {dataProvinces.map(
+                                            {dataProvince.map(
                                                 (value, index) => {
                                                     return (
                                                         <option
@@ -260,35 +253,28 @@ export default function EditWareHouseModal({ showModal, selected }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
+                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                     disabled={
                                         !inputFullAddress ||
                                         !inputProvince ||
                                         !inputCity ||
                                         !inputSubdistrict ||
                                         !inputPostalCode ||
-                                        disabled
+                                        setDisabledButton
                                     }
                                     onClick={() => {
-                                        setDisabled(true);
-                                        setOpen(true);
-                                        setTimeout(() => {
-                                            dispatch(
-                                                editWarehouse(
-                                                    inputFullAddress,
-                                                    inputProvince,
-                                                    inputProvinceId,
-                                                    inputCity,
-                                                    inputCityId,
-                                                    inputSubdistrict,
-                                                    inputPostalCode,
-                                                    selected?.id,
-                                                ),
-                                            );
-                                            setTimeout(() => {
-                                                setDisabled(false);
-                                            }, 200);
-                                        }, 500);
+                                        dispatch(
+                                            editWarehouse(
+                                                inputFullAddress,
+                                                inputProvince,
+                                                inputProvinceId,
+                                                inputCity,
+                                                inputCityId,
+                                                inputSubdistrict,
+                                                inputPostalCode,
+                                                selected?.id,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Confirm
@@ -307,7 +293,7 @@ export default function EditWareHouseModal({ showModal, selected }) {
                                         zIndex: (theme) =>
                                             theme.zIndex.drawer + 1,
                                     }}
-                                    open={open}
+                                    open={setDisabledButton}
                                 >
                                     <CircularProgress color="inherit" />
                                 </Backdrop>

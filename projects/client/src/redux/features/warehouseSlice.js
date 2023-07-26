@@ -5,12 +5,12 @@ import { getDataAdminUser } from './adminSlice';
 
 const initialState = {
     availableWh: null,
-    isAssigned: false,
-    isUnassigned: false,
     dataWh: null,
     dataProvincesRo: [],
     dataCitiesRo: [],
     status: false,
+    disabledButton: false,
+    modal: false,
 };
 
 export const warehouseSlice = createSlice({
@@ -19,12 +19,6 @@ export const warehouseSlice = createSlice({
     reducers: {
         setAvailableWh: (initialState, action) => {
             initialState.availableWh = action.payload;
-        },
-        setIsAssigned: (initialState, action) => {
-            initialState.isAssigned = action.payload;
-        },
-        setIsUnassigned: (initialState, action) => {
-            initialState.isUnassigned = action.payload;
         },
         setDataWh: (initialState, action) => {
             initialState.dataWh = action.payload;
@@ -37,6 +31,12 @@ export const warehouseSlice = createSlice({
         },
         setStatus: (initialState, action) => {
             initialState.status = action.payload;
+        },
+        setDisabledButton: (initialState, action) => {
+            initialState.disabledButton = action.payload;
+        },
+        setModal: (initialState, action) => {
+            initialState.modal = action.payload;
         },
     },
 });
@@ -62,6 +62,7 @@ export const getAvailableWh = () => async (dispatch) => {
 
 export const setWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
     try {
+        dispatch(setDisabledButton(true));
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
         if (!warehouse_id) {
@@ -81,22 +82,24 @@ export const setWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
             },
         );
 
-        toast.success(result.data.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#0051BA',
-                color: 'white',
-            },
-        });
+        if (result) {
+            dispatch(setModal(true));
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
 
-        dispatch(setIsAssigned(true));
         dispatch(getDataAdminUser());
-        dispatch(setIsAssigned(false));
     } catch (error) {
-        dispatch(setIsAssigned(false));
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
         toast.error(error.message, {
             position: 'top-center',
             duration: 2000,
@@ -107,11 +110,15 @@ export const setWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
                 color: 'white',
             },
         });
+    } finally {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
     }
 };
 
 export const unassignWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
     try {
+        dispatch(setDisabledButton(true));
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
         const result = await axios.patch(
@@ -127,22 +134,24 @@ export const unassignWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
             },
         );
 
-        toast.success(result.data.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#0051BA',
-                color: 'white',
-            },
-        });
+        if (result) {
+            dispatch(setModal(true));
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
 
-        dispatch(setIsUnassigned(true));
         dispatch(getDataAdminUser());
-        dispatch(setIsUnassigned(false));
     } catch (error) {
-        dispatch(setIsUnassigned(false));
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
         toast.error(error.message, {
             position: 'top-center',
             duration: 2000,
@@ -153,6 +162,9 @@ export const unassignWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
                 color: 'white',
             },
         });
+    } finally {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
     }
 };
 
@@ -210,10 +222,10 @@ export const addWarehouse =
     (street, province, province_id, city, city_id, subdistrict, postcode) =>
     async (dispatch) => {
         try {
+            dispatch(setDisabledButton(true));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
             if (postcode.match(/[a-zA-Z]/) || postcode.length < 5) {
-                dispatch(setStatus(null));
                 throw new Error('Invalid Postal Code!');
             }
 
@@ -235,22 +247,24 @@ export const addWarehouse =
                 },
             );
 
-            toast.success(addNewWarehouse.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
-            
-            dispatch(setStatus(true));
+            if (addNewWarehouse) {
+                dispatch(setModal(true));
+                toast.success(addNewWarehouse.data.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+            }
+
             dispatch(getAllDataWh());
-            dispatch(setStatus(null));
         } catch (error) {
-            dispatch(setStatus(false));
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
             if (error.response) {
                 toast.error(error.response.data.message, {
                     position: 'top-center',
@@ -274,6 +288,9 @@ export const addWarehouse =
                     },
                 });
             }
+        } finally {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
         }
     };
 
@@ -290,6 +307,7 @@ export const editWarehouse =
     ) =>
     async (dispatch) => {
         try {
+            dispatch(setDisabledButton(true));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
             if (!province || !province_id || !city || !city_id) {
@@ -321,22 +339,24 @@ export const editWarehouse =
                 },
             );
 
-            toast.success(editWarehouseData.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
+            if (editWarehouseData) {
+                dispatch(setModal(true));
+                toast.success(editWarehouseData.data.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+            }
 
-            dispatch(setStatus(true));
             dispatch(getAllDataWh());
-            dispatch(setStatus(null));
         } catch (error) {
-            dispatch(setStatus(false));
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
             if (error.response) {
                 toast.error(error.response.data.message, {
                     position: 'top-center',
@@ -360,11 +380,15 @@ export const editWarehouse =
                     },
                 });
             }
+        } finally {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
         }
     };
 
 export const deleteWarehouse = (warehouse_id) => async (dispatch) => {
     try {
+        dispatch(setDisabledButton(true));
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
         const deleteWh = await axios.patch(
@@ -378,22 +402,24 @@ export const deleteWarehouse = (warehouse_id) => async (dispatch) => {
             },
         );
 
-        dispatch(setStatus(true));
-        toast.success(deleteWh.data.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#0051BA',
-                color: 'white',
-            },
-        });
+        if (deleteWh) {
+            dispatch(setModal(true));
+            toast.success(deleteWh.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
 
         dispatch(getAllDataWh());
-        dispatch(setStatus(false));
     } catch (error) {
-        dispatch(setStatus(false));
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
         if (error.response) {
             toast.error('Delete Failed!', {
                 position: 'top-center',
@@ -417,16 +443,19 @@ export const deleteWarehouse = (warehouse_id) => async (dispatch) => {
                 },
             });
         }
+    } finally {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
     }
 };
 
 export const {
     setAvailableWh,
-    setIsAssigned,
-    setIsUnassigned,
     setDataWh,
     setDataProvincesRo,
     setDataCitiesRo,
     setStatus,
+    setDisabledButton,
+    setModal,
 } = warehouseSlice.actions;
 export default warehouseSlice.reducer;

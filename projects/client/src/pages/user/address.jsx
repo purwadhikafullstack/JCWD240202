@@ -103,7 +103,7 @@ export default function Address() {
                                         </Modal.Body>
                                         <div className="flex justify-start gap-3 m-5">
                                             <button
-                                                className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3"
+                                                className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed"
                                                 onClick={() =>
                                                     onDeleteAddress(value.id)
                                                 }

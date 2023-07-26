@@ -5,15 +5,17 @@ import { deleteWarehouseAdmin } from '../../redux/features/adminSlice';
 import { deleteWarehouse } from '../../redux/features/warehouseSlice';
 
 export default function DeleteWarehouseModal({ showModal, selected }) {
-    const status = useSelector((state) => state.warehouse.status);
-    const [disabled, setDisabled] = useState();
     const dispatch = useDispatch();
+    const setDisabledButton = useSelector(
+        (state) => state.warehouse.disabledButton,
+    );
+    const setModal = useSelector((state) => state.warehouse.modal);
 
     useEffect(() => {
-        if (status === true) {
+        if (setModal === true) {
             showModal(false);
         }
-    }, [status]);
+    }, [setModal]);
 
     return (
         <>
@@ -42,24 +44,16 @@ export default function DeleteWarehouseModal({ showModal, selected }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-gray-400"
-                                    disabled={disabled}
+                                    className="bg-red-600 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
+                                    disabled={setDisabledButton}
                                     onClick={() => {
-                                        setDisabled(true);
-                                        setTimeout(() => {
-                                            dispatch(
-                                                deleteWarehouse(selected?.id),
-                                            );
-                                            setTimeout(() => {
-                                                setDisabled(false);
-                                            }, 500);
-                                        }, 500);
+                                        dispatch(deleteWarehouse(selected?.id));
                                     }}
                                 >
                                     Confirm
                                 </button>
                                 <button
-                                    className="bg-red-600 enabled:hover:bg-gray-400 rounded-lg text-white text-sm text-white py-2 text-sm p-3"
+                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white text-sm text-white py-2 text-sm p-3"
                                     onClick={() => showModal(false)}
                                 >
                                     Cancel

@@ -14,9 +14,10 @@ export default function AddWareHouseModal({ showModal }) {
         (state) => state.warehouse.dataProvincesRo,
     );
     const dataCities = useSelector((state) => state.warehouse.dataCitiesRo);
-    const status = useSelector((state) => state.warehouse.status);
-    const [disabled, setDisabled] = useState(false);
-    const [open, setOpen] = useState(false);
+    const setDisabledButton = useSelector(
+        (state) => state.warehouse.disabledButton,
+    );
+    const setModal = useSelector((state) => state.warehouse.modal);
 
     // input
     const [countFullAddress, setCountFullAddress] = useState(0);
@@ -44,13 +45,10 @@ export default function AddWareHouseModal({ showModal }) {
     useEffect(() => {
         dispatch(getDataProvincesRo());
         dispatch(getDataCitiesRo());
-        if (status) {
+        if (setModal) {
             showModal(false);
-            setOpen(false);
-        } else {
-            setOpen(false);
         }
-    }, [status]);
+    }, [setModal]);
 
     return (
         <>
@@ -240,34 +238,27 @@ export default function AddWareHouseModal({ showModal }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
+                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                     disabled={
                                         !inputFullAddress ||
                                         !inputProvince ||
                                         !inputCity ||
                                         !inputSubdistrict ||
                                         !inputPostalCode ||
-                                        disabled
+                                        setDisabledButton
                                     }
                                     onClick={() => {
-                                        setDisabled(true);
-                                        setOpen(true);
-                                        setTimeout(() => {
-                                            dispatch(
-                                                addWarehouse(
-                                                    inputFullAddress,
-                                                    inputProvince,
-                                                    inputProvinceId,
-                                                    inputCity,
-                                                    inputCityId,
-                                                    inputSubdistrict,
-                                                    inputPostalCode,
-                                                ),
-                                            );
-                                            setTimeout(() => {
-                                                setDisabled(false);
-                                            }, 200);
-                                        }, 500);
+                                        dispatch(
+                                            addWarehouse(
+                                                inputFullAddress,
+                                                inputProvince,
+                                                inputProvinceId,
+                                                inputCity,
+                                                inputCityId,
+                                                inputSubdistrict,
+                                                inputPostalCode,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Confirm
@@ -286,7 +277,7 @@ export default function AddWareHouseModal({ showModal }) {
                                         zIndex: (theme) =>
                                             theme.zIndex.drawer + 1,
                                     }}
-                                    open={open}
+                                    open={setDisabledButton}
                                 >
                                     <CircularProgress color="inherit" />
                                 </Backdrop>

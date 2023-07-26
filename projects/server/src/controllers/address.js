@@ -269,7 +269,7 @@ module.exports = {
     setPrimaryAddress: async (req, res) => {
         const t = await sequelize.transaction();
         try {
-            const { is_verified } = req.User;
+            const { id, is_verified } = req.User;
             const { address_id } = req.params;
 
             if (is_verified === false) {
@@ -287,6 +287,7 @@ module.exports = {
                 {
                     where: {
                         is_primary: true,
+                        user_id: id,
                     },
                 },
                 { transaction: t },

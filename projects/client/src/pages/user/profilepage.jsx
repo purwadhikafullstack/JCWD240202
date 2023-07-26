@@ -66,7 +66,7 @@ export default function ProfilePage() {
 
             const reader = new FileReader();
             const selectedFile = e.target.files[0];
-            console.log(e.target.files[0])
+            console.log(e.target.files[0]);
 
             if (selectedFile) {
                 reader.readAsDataURL(selectedFile);
@@ -264,7 +264,9 @@ export default function ProfilePage() {
                                                             onClick={
                                                                 onEditProfilePicture
                                                             }
-                                                            disabled={disabledPhoto}
+                                                            disabled={
+                                                                disabledPhoto
+                                                            }
                                                         >
                                                             Save
                                                         </button>
@@ -372,7 +374,7 @@ export default function ProfilePage() {
                                         ) : (
                                             <>
                                                 <button
-                                                    className="bg-[#0051BA] mr-2 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
+                                                    className="bg-[#0051BA] mr-2 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                                     onClick={() =>
                                                         setOpenModal(true)
                                                     }

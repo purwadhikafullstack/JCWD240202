@@ -233,7 +233,7 @@ export default function ChangePasswordUser() {
                                         </label>
                                     </form>
                                     <button
-                                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm disabled:cursor-not-allowed disabled:bg-black"
+                                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm disabled:cursor-not-allowed"
                                         onClick={changePassword}
                                         disabled={
                                             !prevPassword ||

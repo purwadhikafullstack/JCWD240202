@@ -329,7 +329,7 @@ export default function EditModal({ showModal, selected }) {
                 </Modal.Body>
                 <div className="flex justify-start gap-3 mb-5 ml-6">
                     <button
-                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
+                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                         onClick={() => editAddress()}
                         disabled={
                             inputEditReceiverName === '' ||

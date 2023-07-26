@@ -2,15 +2,26 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AiFillEdit } from 'react-icons/ai';
 import { AiFillDelete } from 'react-icons/ai';
-import { getAllDataWh } from '../../redux/features/warehouseSlice';
 import EditWareHouseModal from './editWarehouseModal';
 import DeleteWarehouseModal from './deleteWarehouseModal';
+import { getDataProvincesRo } from '../../redux/features/warehouseSlice';
+import { getDataCitiesRo } from '../../redux/features/warehouseSlice';
 
 export default function WarehouseTableSetting({ data }) {
     const [showEditWhModal, setShowEditWhModal] = useState(false);
     const [showDeleteWhModal, setShowDeleteWhModal] = useState(false);
-
     const [selectedEdit, setSelectedEdit] = useState({});
+
+    const dispatch = useDispatch();
+    const dataProvinces = useSelector(
+        (state) => state.warehouse.dataProvincesRo,
+    );
+    const dataCities = useSelector((state) => state.warehouse.dataCitiesRo);
+
+    useEffect(() => {
+        dispatch(getDataProvincesRo());
+        dispatch(getDataCitiesRo());
+    }, []);
 
     return (
         <>
@@ -81,6 +92,8 @@ export default function WarehouseTableSetting({ data }) {
                         <EditWareHouseModal
                             showModal={setShowEditWhModal}
                             selected={selectedEdit}
+                            dataProvince={dataProvinces}
+                            dataCity={dataCities}
                         />
                     ) : (
                         <></>
