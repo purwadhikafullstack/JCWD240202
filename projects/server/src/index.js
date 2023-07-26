@@ -10,10 +10,12 @@ const {
     homepageRouter,
     authRouter,
     productRouter,
+    categoryRouter,
     cartRouter,
     adminAuthRouter,
     adminRouter,
     warehouseRouter,
+    colorRouter
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -34,10 +36,12 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/rajaongkir', rajaOngkirRouter);
 app.use('/api/addresses', addressRouter);
+app.use('/api/categories', categoryRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/auth/admins', adminAuthRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/warehouses', warehouseRouter);
+app.use('/api/color', colorRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

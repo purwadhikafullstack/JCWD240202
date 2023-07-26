@@ -15,7 +15,7 @@ export default function LoginPage() {
         password: '',
     });
 
-    const userLogin = JSON.parse(localStorage.getItem("user"));
+    const userLogin = JSON.parse(localStorage.getItem('user'));
 
     //call redux
     const isLogin = useSelector((state) => state.auth.isLogin);
@@ -36,14 +36,14 @@ export default function LoginPage() {
             }, 3000);
         }
     };
-    
+
     useEffect(() => {
         defaultValue();
     }, [isLogin]);
 
     if (userLogin) {
-        return <Navigate to="/"/>
-      } 
+        return <Navigate to="/" />;
+    }
 
     return (
         <>
@@ -111,7 +111,10 @@ export default function LoginPage() {
                                 )}
                             </div>
                         </form>
-                        <Link to='/forgot-password' className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1">
+                        <Link
+                            to="/forgot-password"
+                            className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1"
+                        >
                             forgot your password?
                         </Link>
                         <button
@@ -120,7 +123,12 @@ export default function LoginPage() {
                             }
                             type="submit"
                             className="mt-4 bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
-                            disabled = {!input.email || !input.password || !input.email.includes('@') || !input.email.includes('.co')}
+                            disabled={
+                                !input.email ||
+                                !input.password ||
+                                !input.email.includes('@') ||
+                                !input.email.includes('.co')
+                            }
                         >
                             Login
                         </button>

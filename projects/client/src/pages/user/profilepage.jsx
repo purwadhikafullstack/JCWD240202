@@ -65,6 +65,7 @@ export default function ProfilePage() {
 
             const reader = new FileReader();
             const selectedFile = e.target.files[0];
+            console.log(e.target.files[0])
 
             if (selectedFile) {
                 reader.readAsDataURL(selectedFile);
