@@ -4,15 +4,14 @@ const deleteFiles = require('./../helper/deleteFiles');
 
 const upload = (req, res, next) => {
     const multerResult = multerUpload.fields([{ name: 'images', maxCount: 5 }]);
-    console.log(multerResult)
     multerResult(req, res, function (err) {
         try {
             if (!req.files.images)
-            return res.status(404).send({
-                success: false,
-                message: 'images is required!',
-                data: null,
-            });
+                return res.status(404).send({
+                    success: false,
+                    message: 'images is required!',
+                    data: null,
+                });
 
             if (err) throw err;
 
@@ -23,7 +22,6 @@ const upload = (req, res, next) => {
                         fileToDelete: req.files.images,
                     };
             });
-            console.log('masukk siniii middleware upload')
             next();
         } catch (error) {
             if (error.fileToDelete) {

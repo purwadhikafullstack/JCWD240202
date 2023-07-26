@@ -12,6 +12,11 @@ import ChangePasswordUser from './pages/user/changepassword';
 import Footer from './components/user/footer/footer';
 import ProductsCatalog from './pages/user/productsCatalog';
 import ProductDetails from './pages/user/productDetails';
+import UserCart from './pages/user/userCart';
+import AdminLoginPage from './pages/admin/loginAdmin';
+import DashboardAdmin from './pages/admin/dashboardAdmin';
+import ProductAdmin from './pages/admin/productAdmin';
+import CategoryProductAdmin from './pages/admin/categoryProductAdmin';
 
 function App() {
     return (
@@ -71,6 +76,21 @@ function App() {
                     path="/users/change-password"
                     element={<ChangePasswordUser />}
                 />
+                <Route
+                    path="/cart"
+                    element={
+                        <>
+                            <UserCart />
+                            <Footer />
+                        </>
+                    }
+                />
+
+                {/* Admin */}
+                <Route path="/admins/login" element={<AdminLoginPage />} />
+                <Route path="/admins/dashboard" element={<DashboardAdmin />} />
+                <Route path="/admins/products" element={<ProductAdmin />} />
+                <Route path="/admins/products/categories" element={<CategoryProductAdmin />} />
             </Routes>
         </>
     );

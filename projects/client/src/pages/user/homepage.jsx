@@ -4,10 +4,11 @@ import CategoryCard from '../../components/user/homepage/categoryCard';
 //redux
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import NewArrivalsCard from '../../components/user/homepage/newArrivalsCard';
+import NewArrivalsCard from '../../components/user/productCard/newArrivalsCard';
 import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import ServicesBox from '../../components/user/homepage/services';
-import BestSellerCard from '../../components/user/homepage/bestSellerCard';
+import BestSellerCard from '../../components/user/productCard/bestSellerCard';
+import { Toaster } from 'react-hot-toast';
 
 export default function Homepage() {
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function Homepage() {
 
     return (
         <div>
+            <Toaster />
             <div>
                 <CarouselHome />
             </div>
@@ -36,7 +38,7 @@ export default function Homepage() {
                 <div className="flex justify-center my-9 text-3xl font-bold">
                     New Arrivals
                 </div>
-                <div className="flex justify-center gap-14">
+                <div className="flex justify-center gap-14 px-9">
                     <NewArrivalsCard />
                 </div>
             </div>

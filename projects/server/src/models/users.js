@@ -11,6 +11,17 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            users.hasMany(models.user_addresses, {
+                foreignKey: 'user_id',
+            });
+
+            users.belongsTo(models.roles, {
+                foreignKey: 'role_id',
+            });
+
+            users.hasOne(models.warehouses, {
+                foreignKey: 'user_id',
+            });
         }
     }
     users.init(
@@ -20,17 +31,17 @@ module.exports = (sequelize, DataTypes) => {
             email: {
                 type: DataTypes.STRING,
                 validate: {
-                  isEmail: {
-                    msg: "Email must be valid!",
-                  },
+                    isEmail: {
+                        msg: 'Email must be valid!',
+                    },
                 },
-              },
+            },
             birth_date: DataTypes.DATE,
             password: DataTypes.STRING,
             profile_picture: DataTypes.STRING,
             phone_number: DataTypes.STRING,
             is_verified: DataTypes.BOOLEAN,
-            role: DataTypes.STRING,
+            role_id: DataTypes.INTEGER,
             token_verification: DataTypes.STRING,
             token_password: DataTypes.STRING,
             token_edit_email: DataTypes.STRING,

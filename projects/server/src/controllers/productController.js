@@ -1,10 +1,11 @@
 const { sequelize } = require('../models');
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 const db = require('../models');
 const { deleteFiles, deleteFilesPublic } = require('../helper/deleteFiles');
 const categories = db.categories;
 const products = db.products;
 const product_images = db.product_images;
+const colors = db.colors;
 
 const getAllProducts = async (req, res) => {
     try {
@@ -43,6 +44,7 @@ const getAllProducts = async (req, res) => {
                     limit: paginationLimit,
                     include: [
                         { model: categories },
+                        { model: colors },
                         {
                             model: product_images,
                             where: { is_thumbnail: true },
@@ -93,6 +95,7 @@ const getAllProducts = async (req, res) => {
                     limit: paginationLimit,
                     include: [
                         { model: categories },
+                        { model: colors },
                         {
                             model: product_images,
                             where: { is_thumbnail: true },
@@ -136,6 +139,7 @@ const getAllProducts = async (req, res) => {
                 limit: paginationLimit,
                 include: [
                     { model: categories },
+                    { model: colors },
                     { model: product_images, where: { is_thumbnail: true } },
                 ],
                 order: order,
@@ -164,6 +168,7 @@ const getAllProducts = async (req, res) => {
                 limit: paginationLimit,
                 include: [
                     { model: categories },
+                    { model: colors },
                     { model: product_images, where: { is_thumbnail: true } },
                 ],
             });
@@ -200,7 +205,11 @@ const getProductDetails = async (req, res) => {
 
         const findProduct = await products.findOne({
             where: { id: id },
-            include: [{ model: product_images }, { model: categories }],
+            include: [
+                { model: product_images },
+                { model: categories },
+                { model: colors },
+            ],
         });
 
         if (findProduct) {
@@ -228,28 +237,18 @@ const getProductDetails = async (req, res) => {
 const addNewProduct = async (req, res) => {
     const t = await sequelize.transaction();
     try {
-        const {
-            name,
-            category_id,
-            color_id,
-            price,
-            description,
-            length,
-            width,
-            height,
-            weight,
-        } = req.body;
+        const data = JSON.parse(req.body.data);
 
         if (
-            !name ||
-            !category_id ||
-            !color_id ||
-            !price ||
-            !description ||
-            !length ||
-            !width ||
-            !height ||
-            !weight
+            !data.name ||
+            !data.category_id ||
+            !data.color_id ||
+            !data.price ||
+            !data.description ||
+            !data.length ||
+            !data.width ||
+            !data.height ||
+            !data.weight
         )
             return res.status(406).send({
                 success: false,
@@ -259,7 +258,7 @@ const addNewProduct = async (req, res) => {
 
         const checkName = await products.findOne({
             where: {
-                name,
+                name: data.name,
             },
         });
 
@@ -271,17 +270,7 @@ const addNewProduct = async (req, res) => {
             });
 
         const postProduct = await products.create(
-            {
-                name,
-                category_id,
-                color_id,
-                price,
-                description,
-                length,
-                width,
-                height,
-                weight,
-            },
+            { ...data },
             { transaction: t },
         );
 
@@ -296,22 +285,6 @@ const addNewProduct = async (req, res) => {
             transaction: t,
         });
 
-        // console.log(postProductImages[0].dataValues.id, 'masuk masukkkkkkk');
-
-        // if (postProductImages) {
-
-        //     await product_images.update(
-        //         {
-        //             is_thumbnail: 1,
-        //         },
-        //         {
-        //             where: {
-        //                 id: postProductImages[0].dataValues.id,
-        //                 product_id: postProduct.dataValues.id,
-        //             }
-        //         },
-        //     );
-        // }
         await t.commit();
 
         await product_images.update(
@@ -346,10 +319,29 @@ const editProduct = async (req, res) => {
     const t = await sequelize.transaction();
     try {
         const { id } = req.params;
-        const data = JSON.parse(req.body.data);
-        console.log(data, id, req.files.images);
+        const {
+            name,
+            category_id,
+            color_id,
+            price,
+            description,
+            length,
+            width,
+            height,
+            weight,
+        } = req.body;
 
-        if (!data)
+        if (
+            !name ||
+            !category_id ||
+            !color_id ||
+            !price ||
+            !description ||
+            !length ||
+            !width ||
+            !height ||
+            !weight
+        )
             return res.status(406).send({
                 success: false,
                 message: 'All data required!',
@@ -363,7 +355,6 @@ const editProduct = async (req, res) => {
         });
 
         if (!checkProduct) {
-            deleteFiles(req.files?.images);
             return res.status(406).send({
                 success: false,
                 message: 'Data not found!',
@@ -373,12 +364,12 @@ const editProduct = async (req, res) => {
 
         const checkName = await products.findOne({
             where: {
-                name: data.name,
+                [Op.not]: [{id: id}],
+                name: name,
             },
         });
 
         if (checkName) {
-            deleteFiles(req.files?.images);
             return res.status(406).send({
                 success: false,
                 message: 'Products name already used!',
@@ -387,11 +378,43 @@ const editProduct = async (req, res) => {
         }
 
         const updateProduct = await products.update(
-            { ...data },
+            {
+                name,
+                category_id,
+                color_id,
+                price,
+                description,
+                length,
+                width,
+                height,
+                weight,
+            },
             { where: { id: id } },
             { transaction: t },
         );
 
+        await t.commit();
+
+        return res.status(200).send({
+            success: true,
+            message: 'Edit data product success!',
+            data: { updateProduct },
+        });
+    } catch (error) {
+        await t.rollback();
+        return res.status(500).send({
+            success: false,
+            message: error.message,
+            data: null,
+        });
+    }
+};
+
+const editProductImages = async (req, res) => {
+    const t = await sequelize.transaction();
+    try {
+        console.log(req.files.images)
+        const { id } = req.params;
         const recentImage = await product_images.findAll({
             where: {
                 product_id: id,
@@ -425,10 +448,23 @@ const editProduct = async (req, res) => {
 
         await t.commit();
 
+        await product_images.update(
+            {
+                is_thumbnail: true,
+            },
+            {
+                where: {
+                    id: updateProductImages[0].dataValues.id,
+                    product_id: id,
+                },
+            },
+            { transaction: t },
+        );
+
         return res.status(200).send({
             success: true,
-            message: 'Edit product success!',
-            data: { updateProduct, updateProductImages, deleteRecent },
+            message: 'Update image product success!',
+            data: updateProductImages,
         });
     } catch (error) {
         await t.rollback();
@@ -546,6 +582,47 @@ const changeThumbnail = async (req, res) => {
         });
     }
 };
+const getRelatedProducts = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const findProduct = await products.findOne({
+            where: { id: id },
+        });
+
+        if (findProduct) {
+            const findRecommendation = await products.findAll({
+                where: {
+                    [Op.not]: [{ id: findProduct.id }],
+                    category_id: findProduct.category_id,
+                },
+                include: [
+                    { model: product_images, where: { is_thumbnail: true } },
+                ],
+                order: Sequelize.literal('rand()'),
+                limit: 5,
+            });
+
+            res.status(200).send({
+                success: true,
+                message: 'get recommendation success',
+                data: findRecommendation,
+            });
+        } else {
+            res.status(404).send({
+                success: false,
+                message: 'product not found',
+                data: null,
+            });
+        }
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message,
+            data: null,
+        });
+    }
+};
 
 module.exports = {
     getAllProducts,
@@ -554,4 +631,6 @@ module.exports = {
     editProduct,
     deleteProduct,
     changeThumbnail,
+    getRelatedProducts,
+    editProductImages,
 };

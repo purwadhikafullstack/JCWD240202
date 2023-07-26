@@ -7,7 +7,7 @@ module.exports = {
     getAllCategories: async (req, res) => {
         try {
             const findCategories = await categories.findAll({
-                attributes: ['name', 'image'],
+                attributes: ['id', 'name', 'image'],
             });
 
             if (findCategories) {

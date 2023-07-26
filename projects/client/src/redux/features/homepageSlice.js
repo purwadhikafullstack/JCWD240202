@@ -5,6 +5,7 @@ const initialState = {
     newArrivals: {},
     categories: {},
     bestSeller: {},
+    color: {},
 };
 
 export const homepageSlice = createSlice({
@@ -19,6 +20,9 @@ export const homepageSlice = createSlice({
         },
         setBestSeller: (initialState, action) => {
             initialState.bestSeller = action.payload;
+        },
+        setColor: (initialState, action) => {
+            initialState.color = action.payload;
         },
     },
 });
@@ -59,6 +63,17 @@ export const getBestSellerAsync = () => async (dispatch) => {
     }
 };
 
-export const { setNewArrivals, setCategory, setBestSeller } =
+export const getAllColorAsync = () => async (dispatch) => {
+    try {
+        const result = await axios.get(
+            process.env.REACT_APP_API_BASE_URL + '/color',
+        );
+        dispatch(setColor(result.data))
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const { setNewArrivals, setCategory, setBestSeller, setColor } =
     homepageSlice.actions;
 export default homepageSlice.reducer;

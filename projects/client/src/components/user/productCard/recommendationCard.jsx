@@ -1,20 +1,11 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getBestSellerAsync } from '../../../redux/features/homepageSlice';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
-export default function BestSellerCard() {
-    const dispatch = useDispatch();
-    const bestSellerList = useSelector((state) => state.homepage.bestSeller);
-
-    useEffect(() => {
-        dispatch(getBestSellerAsync());
-    }, []);
+export default function RelatedProducts(props) {
     return (
         <>
-            {bestSellerList?.data?.map((value, index) => {
+            {props?.data?.recommendation?.data?.map((value, index) => {
                 return (
-                    <div className="w-[200px] h-[350px] flex flex-col">
+                    <div className="w-[300px] h-[400px] flex flex-col rounded shadow-2xl">
                         <div className="flex-1 relative">
                             <img
                                 src={value.product_images[0]?.name}
@@ -28,9 +19,11 @@ export default function BestSellerCard() {
                             <div className="flex-1 px-2">
                                 Rp {value.price.toLocaleString('id')}
                             </div>
-                            <div className="border-t flex justify-center py-2 bg-yellow-300 text-sky-700 hover:cursor-pointer hover:bg-yellow-400">
-                                Add to Cart
-                            </div>
+                            <Link to={`/products/${value.id}`}>
+                                <div className="border-t flex justify-center py-2 bg-yellow-300 text-sky-700 hover:cursor-pointer hover:bg-yellow-400">
+                                    Details
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 );
