@@ -4,7 +4,6 @@ import { FaRegEdit } from 'react-icons/fa';
 
 export default function ComListCategory(props) {
     const categories = useSelector((state) => state.homepage.category);
-    console.log(categories);
 
     return (
         <>

@@ -28,6 +28,8 @@ export const productSlice = createSlice({
     },
 });
 
+const dataLogin = JSON.parse(localStorage?.getItem('user'));
+
 export const getAllProductsAsync = (data) => async (dispatch) => {
     try {
         const allProducts = await axios.get(
@@ -112,6 +114,11 @@ export const addProductAsync = (data, imageProduct) => async (dispatch) => {
         const result = await axios.post(
             process.env.REACT_APP_API_BASE_URL + '/products',
             fd,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
         );
 
         dispatch(getAllProductsAsync());
@@ -125,6 +132,7 @@ export const addProductAsync = (data, imageProduct) => async (dispatch) => {
                 color: 'white',
             },
         });
+        dispatch(setSuccess(true));
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
@@ -149,6 +157,8 @@ export const addProductAsync = (data, imageProduct) => async (dispatch) => {
                 },
             });
         }
+    } finally {
+        dispatch(setSuccess(false));
     }
 };
 
@@ -193,6 +203,11 @@ export const editProductAsync =
                     height,
                     weight,
                 },
+                {
+                    headers: {
+                        authorization: `Bearer ${dataLogin}`,
+                    },
+                },
             );
 
             dispatch(getAllProductsAsync());
@@ -208,6 +223,7 @@ export const editProductAsync =
                     color: 'white',
                 },
             });
+            dispatch(setSuccess(true));
         } catch (error) {
             if (error.response) {
                 toast.error(error.response?.data?.message, {
@@ -232,6 +248,8 @@ export const editProductAsync =
                     },
                 });
             }
+        } finally {
+            dispatch(setSuccess(false));
         }
     };
 
@@ -245,6 +263,11 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
         const result = await axios.patch(
             process.env.REACT_APP_API_BASE_URL + `/products/images/${id}`,
             fd,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
         );
 
         if (result) {
@@ -291,6 +314,11 @@ export const deleteProductAsync = (id) => async (dispatch) => {
     try {
         const result = await axios.delete(
             process.env.REACT_APP_API_BASE_URL + `/products/${id}`,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
         );
 
         if (result) {

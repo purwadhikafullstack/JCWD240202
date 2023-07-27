@@ -21,6 +21,8 @@ export const categorySlice = createSlice({
     },
 });
 
+const dataLogin = JSON.parse(localStorage?.getItem('user'));
+
 export const addCategoryAsync = (name, imageCategory) => async (dispatch) => {
     try {
         if (!name) throw new Error('Name required!');
@@ -34,6 +36,11 @@ export const addCategoryAsync = (name, imageCategory) => async (dispatch) => {
         const result = await axios.post(
             process.env.REACT_APP_API_BASE_URL + '/categories',
             fd,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
         );
 
         dispatch(getAllCategoriesAsync());
@@ -47,6 +54,7 @@ export const addCategoryAsync = (name, imageCategory) => async (dispatch) => {
                 color: 'white',
             },
         });
+        dispatch(setSuccess(true));
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
@@ -71,6 +79,8 @@ export const addCategoryAsync = (name, imageCategory) => async (dispatch) => {
                 },
             });
         }
+    } finally {
+        dispatch(setSuccess(false));
     }
 };
 
@@ -83,6 +93,11 @@ export const editCategoryAsync = (name, id) => async (dispatch) => {
             {
                 name,
             },
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
         );
 
         dispatch(getAllCategoriesAsync());
@@ -96,6 +111,7 @@ export const editCategoryAsync = (name, id) => async (dispatch) => {
                 color: 'white',
             },
         });
+        dispatch(setSuccess(true));
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
@@ -120,6 +136,8 @@ export const editCategoryAsync = (name, id) => async (dispatch) => {
                 },
             });
         }
+    } finally {
+        dispatch(setSuccess(false));
     }
 };
 
@@ -136,6 +154,7 @@ export const editImageCategoryAsync =
                 { images: imageCategory },
                 {
                     headers: {
+                        authorization: `Bearer ${dataLogin}`,
                         'content-type': 'multipart/form-data',
                     },
                 },
@@ -153,6 +172,7 @@ export const editImageCategoryAsync =
                         color: 'white',
                     },
                 });
+                dispatch(setSuccess(true));
             }
         } catch (error) {
             if (error.response) {
@@ -178,6 +198,8 @@ export const editImageCategoryAsync =
                     },
                 });
             }
+        } finally {
+            dispatch(setSuccess(false));
         }
     };
 
@@ -185,6 +207,11 @@ export const deleteCategoryAsync = (id) => async (dispatch) => {
     try {
         const result = await axios.delete(
             process.env.REACT_APP_API_BASE_URL + `/categories/${id}`,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
         );
 
         if (result) {
@@ -225,7 +252,7 @@ export const deleteCategoryAsync = (id) => async (dispatch) => {
             });
         }
     }
-}
+};
 
 export const { setCategory, setSuccess } = categorySlice.actions;
 export default categorySlice.reducer;

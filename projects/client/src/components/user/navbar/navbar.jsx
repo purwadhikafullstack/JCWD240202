@@ -34,9 +34,7 @@ export default function Navbar() {
         }
     };
 
-    useEffect(() => {
-
-    }, [userLogin]);
+    useEffect(() => {}, [userLogin]);
 
     return (
         <>
@@ -96,11 +94,17 @@ export default function Navbar() {
                     <div>
                         <AiOutlineHeart size={25} />
                     </div>
-                    <Link to={'/cart'}>
+                    {userLogin ? (
+                        <Link to="/cart">
+                            <div>
+                                <AiOutlineShoppingCart size={25} />
+                            </div>
+                        </Link>
+                    ) : (
                         <div>
                             <AiOutlineShoppingCart size={25} />
                         </div>
-                    </Link>
+                    )}
                 </div>
                 <Modal
                     dismissible

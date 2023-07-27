@@ -4,12 +4,10 @@ import { FaRegEdit } from 'react-icons/fa';
 import {  productDetailsAsync } from "../../../redux/features/productSlice";
 
 export default function ComListProduct(props) {
-    const products = useSelector((state) => state.product.products);
     const dispatch = useDispatch()
-
     return (
         <>
-            {products?.data?.rows?.map((value, index) => {
+            {props.product?.data?.rows?.map((value, index) => {
                 return (
                     <tr
                         key={index}
@@ -32,14 +30,6 @@ export default function ComListProduct(props) {
                         <td className="px-3 border-r w-[150px] text-center">
                             {value.category.name}
                         </td>
-                        {/* <td className="px-3 border-r text-center">
-                                                        <div className="flex ">
-                                                            <div
-                                                                className={`w-[20px] bg-[${value.color.color_code}] mr-1 border`}
-                                                            ></div>
-                                                            {value.color.name}
-                                                        </div>
-                                                    </td> */}
                         <td className="px-3 border-r w-[150px] text-center">
                             Rp. {value.price.toLocaleString('id')} ,-
                         </td>

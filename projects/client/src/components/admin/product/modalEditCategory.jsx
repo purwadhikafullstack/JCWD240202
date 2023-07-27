@@ -4,20 +4,17 @@
 import { Modal } from 'flowbite-react';
 import { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editCategoryAsync, editImageCategoryAsync } from '../../../redux/features/categorySlice';
 
 export default function ModalEditCategory(props) {
-    console.log(props.data)
+    const isSuccess = useSelector((state) => state.category.success);
     const dispatch = useDispatch()
     // const documentBodyRef = useRef(null);
     const [showEditImg, setShowEditImg] = useState(true);
     const [imageCategory, setImageCategory] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
-    // const [name, setName] = useState('')
     const name = useRef()
-
-    console.log(imageCategory)
 
     const onChangeProductImg = (e) => {
         try {
@@ -37,7 +34,6 @@ export default function ModalEditCategory(props) {
             if (e.target.files[0]?.size >= 1000000) {
                 throw { message: 'File size max 1 Mb!' };
             }
-
 
             selectedFIles.push(URL.createObjectURL(targetFiles));
 
@@ -70,9 +66,14 @@ export default function ModalEditCategory(props) {
         }
     };
 
+    const defaultValue = () => {
+        props.funcShow(false);
+};
+
     useEffect(() => {
-        // name.current.value = props.data?.name
-    }, []);
+        defaultValue()
+    },[isSuccess])
+
     return (
         <>
             <Modal
@@ -158,10 +159,6 @@ export default function ModalEditCategory(props) {
                         <input
                             className="border border-gray-400 w-[300px] rounded-md px-2 h-10 w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                             placeholder="Name"
-                            // onChange={(e) => {
-                            //     setName(e.target.value);
-                            // }}
-                            // value={name}
                             type="text"
                             ref={name}
                             defaultValue={props.data?.name}
@@ -172,7 +169,6 @@ export default function ModalEditCategory(props) {
                     <button
                         className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
                         onClick={() => dispatch(editCategoryAsync(name.current.value, props.data?.id))}
-                        // disabled={!name.current.value}
                     >
                         Confirm
                     </button>

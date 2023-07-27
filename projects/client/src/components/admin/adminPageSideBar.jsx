@@ -121,11 +121,11 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className={`${
-                                pathname === '/admins/dashboard'
+                                pathname === '/admins/products'
                                     ? 'underline'
                                     : 'no-underline'
                             } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
-                            onClick={() => navigate('/admins/dashboard')}
+                            onClick={() => navigate('/admins/products')}
                         >
                             <FcBriefcase
                                 size={30}

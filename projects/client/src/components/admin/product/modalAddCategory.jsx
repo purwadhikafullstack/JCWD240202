@@ -4,16 +4,17 @@
 import { Modal } from 'flowbite-react';
 import { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCategoryAsync } from '../../../redux/features/categorySlice';
 
 export default function ModalAddCategory(props) {
-    const dispatch = useDispatch()
+    const isSuccess = useSelector((state) => state.category.success);
+    console.log(isSuccess);
+    const dispatch = useDispatch();
     // const documentBodyRef = useRef(null);
     const [imageCategory, setImageCategory] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
-    const name = useRef()
-    console.log(imageCategory)
+    const name = useRef();
 
     const onChangeProductImg = (e) => {
         try {
@@ -70,9 +71,19 @@ export default function ModalAddCategory(props) {
         }
     };
 
+    const close = () => {
+        setImagePreview(null)
+        name.current.value = '';
+    }
+
     useEffect(() => {
         // documentBodyRef.current = document.body;
-    }, []);
+        if (isSuccess) {
+            name.current.value = '';
+            setImagePreview(null)
+            props.funcShow(false);
+        }
+    }, [isSuccess]);
     return (
         <>
             <Modal
@@ -80,20 +91,23 @@ export default function ModalAddCategory(props) {
                 dismissible
                 className=""
                 show={props.show}
-                onClose={() => props.funcShow(false)}
+                onClose={() => {
+                    props.funcShow(false);
+                    close();
+                }}
             >
                 <Modal.Header>
-                    <div className="text-xl">Add New Product</div>
+                    <div className="text-xl">Add New Category</div>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="grid grid-cols-1 shadow-md mb-2 w-[170px] rounded-md border p-2">
+                    <div className="grid grid-cols-1 shadow-md mb-2 w-[150px] rounded-md border p-2">
                         {imagePreview?.length >= 1 ? (
                             imagePreview.map((value, index) => {
                                 return (
                                     <img
                                         key={index}
                                         src={value}
-                                        className="border object-contain border-slate-400 h-[100px] rounded-md"
+                                        className="border object-contain border-slate-400 rounded-md"
                                     />
                                 );
                             })
@@ -109,11 +123,15 @@ export default function ModalAddCategory(props) {
                         * Maximum size per file 1000 Kilobytes (1 Megabytes).
                         Allowed file extensions: .JPG .JPEG .PNG
                     </div>
-                    <input
-                        onChange={onChangeProductImg}
-                        type="file"
-                        className="my-1 rounded-md"
-                    ></input>
+                    <label className="bg-gray-500 hover:bg-gray-400 rounded-lg text-white py-2 mt-1 text-sm flex justify-center w-[182px] mb-1 cursor-pointer">
+                        <input
+                            onChange={onChangeProductImg}
+                            type="file"
+                            multiple="multiple"
+                            className="my-1 rounded-md hidden"
+                        ></input>
+                        <p>Upload Images</p>
+                    </label>
                     <div className="block mb-3">
                         <span className="block text-sm font-medium text-slate-700 my-1">
                             Name :
@@ -121,10 +139,6 @@ export default function ModalAddCategory(props) {
                         <input
                             className="border border-gray-400 w-[300px] rounded-md px-2 h-10 w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                             placeholder="Name"
-                            // onChange={(e) => {
-                            //     setName(e.target.value);
-                            // }}
-                            // value={name}
                             type="text"
                             ref={name}
                         />
@@ -133,14 +147,21 @@ export default function ModalAddCategory(props) {
                 <Modal.Footer>
                     <button
                         className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
-                        onClick={() => dispatch(addCategoryAsync(name.current.value, imageCategory))}
-                        disabled={imagePreview.length === 0 }
+                        onClick={() =>
+                            dispatch(
+                                addCategoryAsync(
+                                    name.current.value,
+                                    imageCategory,
+                                ),
+                            )
+                        }
+                        disabled={imagePreview?.length === 0}
                     >
                         Confirm
                     </button>
                     <button
                         className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                        onClick={() => props.funcShow(false)}
+                        onClick={() => { props.funcShow(false); close()}}
                     >
                         Cancel
                     </button>

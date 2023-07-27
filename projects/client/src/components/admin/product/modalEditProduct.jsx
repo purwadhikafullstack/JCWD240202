@@ -8,11 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editProductAsync, editProductImageAsync } from '../../../redux/features/productSlice';
 
 export default function ModalEditProduct(props) {
-    const categories = useSelector((state) => state.homepage.category);
-    const colorData = useSelector((state) => state.homepage.color);
-    const proDetails = useSelector((state) => state.product.details);
     const documentBodyRef = useRef(null);
     const dispatch = useDispatch();
+    const isSuccess = useSelector((state) => state.product.success);
+    const proDetails = useSelector((state) => state.product.details);
     const [showEditImg, setShowEditImg] = useState(true);
     const [imageProduct, setImageProduct] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
@@ -85,9 +84,14 @@ export default function ModalEditProduct(props) {
         }
     };
 
+    const defaultValue = () => {
+        if (isSuccess) {
+            props.funcShow(false);
+        }
+    };
+
     useEffect(() => {
         documentBodyRef.current = document.body;
-        // dispatch(productDetailsAsync(props.data?.id))
         setName(props.data?.name);
         setCategory(props.data?.category_id);
         setColor(props.data?.color_id);
@@ -97,7 +101,8 @@ export default function ModalEditProduct(props) {
         setWidth(props.data?.width);
         setHeight(props.data?.height);
         setWeight(props.data?.weight);
-    }, [proDetails]);
+        defaultValue()
+    }, [proDetails, isSuccess]);
 
     return (
         <>
@@ -221,10 +226,9 @@ export default function ModalEditProduct(props) {
                             setCategory(e.target.value);
                         }}
                         className="border border-gray-400 rounded-md mb-1"
-                        defaultValue={props.data?.category?.id}
                     >
                         <option>Category</option>
-                        {categories?.data?.map((value, index) => {
+                        {props?.category?.data?.map((value, index) => {
                             return (
                                 <option value={value.id} key={index}>
                                     {value.name}
@@ -239,7 +243,7 @@ export default function ModalEditProduct(props) {
                         className="border border-gray-400 rounded-md ml-3"
                     >
                         <option>Base Color</option>
-                        {colorData.data?.map((value, index) => {
+                        {props?.color?.data?.map((value, index) => {
                             return (
                                 <option value={value.id} key={index}>
                                     {value.name}
