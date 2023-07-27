@@ -14,15 +14,18 @@ export default function ChangePasswordAdmin({ showModal, selected }) {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
     const dispatch = useDispatch();
-    const status = useSelector((state) => state.admin.isChanged);
+    const setDisabledButton = useSelector(
+        (state) => state.admin.disabledButton,
+    );
+    const setModal = useSelector((state) => state.admin.modal);
 
     useEffect(() => {
-        if (status === true) {
+        if (setModal === true) {
             setShowNewPassword(true);
             setShowConfirmPassword(true);
             showModal(false);
         }
-    }, [status]);
+    }, [setModal]);
 
     return (
         <>
@@ -140,24 +143,20 @@ export default function ChangePasswordAdmin({ showModal, selected }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-gray-400"
+                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-black"
                                     disabled={
                                         !newPassword ||
                                         !confirmNewPassword ||
-                                        disabled
+                                        setDisabledButton
                                     }
                                     onClick={() => {
-                                        setDisabled(true);
-                                        setTimeout(() => {
-                                            dispatch(
-                                                changePasswordWarehouseAdmin(
-                                                    newPassword,
-                                                    confirmNewPassword,
-                                                    selected?.id,
-                                                ),
-                                            );
-                                            setDisabled(false);
-                                        }, 200);
+                                        dispatch(
+                                            changePasswordWarehouseAdmin(
+                                                newPassword,
+                                                confirmNewPassword,
+                                                selected?.id,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Confirm

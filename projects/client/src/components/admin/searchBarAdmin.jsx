@@ -1,24 +1,22 @@
 // import { useRef } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export default function SearchBarAdmin(props) {
-    const [search, setSearch] = useState('');
+    const _search = useRef();
 
     const handleSearch = () => {
-        props?.data?.searchChange(search);
-        setSearch('');
+        props?.data?.searchChange(_search.current.value);
     };
 
     return (
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-1 items-center sm:mb-0 mb-2">
             <div>
                 <input
                     type="text"
                     placeholder="Search"
                     className="input input-bordered w-full max-w-[150px] h-9"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    ref={_search}
                 />
             </div>
             <div

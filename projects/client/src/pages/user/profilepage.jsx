@@ -20,6 +20,7 @@ export default function ProfilePage() {
     });
     const [updateProfilePic, setUpdateProfilePic] = useState('');
     const [imagePreview, setImagePreview] = useState('');
+    const [disabledPhoto, setDisabledPhoto] = useState(false);
 
     const dispatch = useDispatch();
     const dataLogin = useSelector((state) => state.user.dataLogin);
@@ -65,7 +66,7 @@ export default function ProfilePage() {
 
             const reader = new FileReader();
             const selectedFile = e.target.files[0];
-            console.log(e.target.files[0])
+            console.log(e.target.files[0]);
 
             if (selectedFile) {
                 reader.readAsDataURL(selectedFile);
@@ -105,6 +106,7 @@ export default function ProfilePage() {
 
     const onEditProfile = async (req, res) => {
         try {
+            setDisabledPhoto(true);
             if (
                 input.first_name === '' ||
                 input.last_name === '' ||
@@ -132,6 +134,7 @@ export default function ProfilePage() {
                     },
                 );
                 if (editProfile.data.success) {
+                    setDisabledPhoto(false);
                     dispatch(getDataLogin());
                     setOpenModal(false);
                     setDisabled(true);
@@ -148,6 +151,7 @@ export default function ProfilePage() {
                 }
             }
         } catch (error) {
+            setDisabledPhoto(false);
             toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
@@ -163,6 +167,7 @@ export default function ProfilePage() {
 
     const onEditProfilePicture = async (req, res) => {
         try {
+            setDisabled(true);
             const updateProfilePicture = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL +
                     '/users/edit-profile-picture',
@@ -178,6 +183,7 @@ export default function ProfilePage() {
             );
 
             if (updateProfilePicture.data.success) {
+                setDisabled(false);
                 dispatch(getDataLogin());
                 setImagePreview('');
                 toast.success('Profile picture updated!', {
@@ -254,9 +260,12 @@ export default function ProfilePage() {
                                                 {imagePreview ? (
                                                     <div className="flex justify-center w-full gap-2">
                                                         <button
-                                                            className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm w-full"
+                                                            className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm w-full disabled:cursor-not-allowed disabled:bg-black"
                                                             onClick={
                                                                 onEditProfilePicture
+                                                            }
+                                                            disabled={
+                                                                disabledPhoto
                                                             }
                                                         >
                                                             Save
@@ -365,9 +374,15 @@ export default function ProfilePage() {
                                         ) : (
                                             <>
                                                 <button
-                                                    className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm mr-2"
+                                                    className="bg-[#0051BA] mr-2 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                                     onClick={() =>
                                                         setOpenModal(true)
+                                                    }
+                                                    disabled={
+                                                        !input.first_name ||
+                                                        !input.last_name ||
+                                                        !input.phone_number ||
+                                                        !input.birth_date
                                                     }
                                                 >
                                                     Save
@@ -409,8 +424,15 @@ export default function ProfilePage() {
                                             </Modal.Body>
                                             <div className="flex gap-2 ml-5 mb-6">
                                                 <button
-                                                    className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white px-3 py-2 mt-2 text-sm w-[60px]"
+                                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white text-sm disabled:cursor-not-allowed disabled:bg-black rounded-lg py-2 mt-2 p-3"
                                                     onClick={onEditProfile}
+                                                    disabled={
+                                                        !input.first_name ||
+                                                        !input.last_name ||
+                                                        !input.phone_number ||
+                                                        !input.birth_date ||
+                                                        disabled
+                                                    }
                                                 >
                                                     Save
                                                 </button>

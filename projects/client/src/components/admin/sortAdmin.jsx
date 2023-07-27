@@ -6,7 +6,7 @@ export default function SortAdmin(props) {
         props?.data?.sortChange(sort);
     };
     return (
-        <>
+        <div className='sm:mb-0 mb-2'>
             <Dropdown
                 label={
                     props?.data?.sort === 'name-asc'
@@ -46,6 +46,6 @@ export default function SortAdmin(props) {
                     </div>
                 </div>
             </Dropdown>
-        </>
+        </div>
     );
 }
