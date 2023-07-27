@@ -5,6 +5,7 @@ import {
     userDeleteProductCartAsync,
 } from '../../../redux/features/cartSlice';
 import { Toaster } from 'react-hot-toast';
+
 export default function CartTable(props) {
     const dispatch = useDispatch();
 

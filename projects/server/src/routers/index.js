@@ -8,6 +8,7 @@ const cartRouter = require('./cartRouter');
 const adminAuthRouter = require('./adminAuthRouter');
 const adminRouter = require('./adminRouter');
 const warehouseRouter = require('./warehouseRouter');
+const orderRouter = require('./orderRouter');
 
 module.exports = {
     rajaOngkirRouter,
@@ -20,4 +21,5 @@ module.exports = {
     adminAuthRouter,
     adminRouter,
     warehouseRouter,
+    orderRouter,
 };

@@ -3,7 +3,6 @@ import CartTable from '../../components/user/cart/cartTable';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUserCartAsync } from '../../redux/features/cartSlice';
-import { Toaster } from 'react-hot-toast';
 
 export default function UserCart() {
     const dispatch = useDispatch();
@@ -11,7 +10,6 @@ export default function UserCart() {
 
     useEffect(() => {
         dispatch(getUserCartAsync());
-        console.log('userCart', userCart);
     }, []);
     return (
         <div className="px-[200px]">

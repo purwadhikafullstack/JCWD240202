@@ -15,17 +15,17 @@ import ProductDetails from './pages/user/productDetails';
 import UserCart from './pages/user/userCart';
 import AdminLoginPage from './pages/admin/loginAdmin';
 import DashboardAdmin from './pages/admin/dashboardAdmin';
+import CheckoutCart from './pages/user/checkoutCart';
 
 function App() {
     return (
         <>
-            <Navbar />
-
             <Routes>
                 <Route
                     path="/"
                     element={
                         <>
+                            <Navbar />
                             <Homepage />
                             <Footer />
                         </>
@@ -35,6 +35,7 @@ function App() {
                     path="/products"
                     element={
                         <>
+                            <Navbar />
                             <ProductsCatalog />
                             <Footer />
                         </>
@@ -44,6 +45,7 @@ function App() {
                     path="/products/:id"
                     element={
                         <>
+                            <Navbar />
                             <ProductDetails />
                             <Footer />
                         </>
@@ -54,6 +56,7 @@ function App() {
                     path="/login"
                     element={
                         <>
+                            <Navbar />
                             <LoginPage />
                             <Footer />
                         </>
@@ -63,8 +66,26 @@ function App() {
                     path="/verification/:token"
                     element={<VerificationPage />}
                 />
-                <Route path="/users/profile" element={<ProfilePage />} />
-                <Route path="/users/address" element={<Address />} />
+                <Route
+                    path="/users/profile"
+                    element={
+                        <>
+                            <Navbar />
+                            <ProfilePage />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/users/address"
+                    element={
+                        <>
+                            <Navbar />
+                            <Address />
+                            <Footer />
+                        </>
+                    }
+                />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route
                     path="/reset-password/:token"
@@ -72,13 +93,30 @@ function App() {
                 />
                 <Route
                     path="/users/change-password"
-                    element={<ChangePasswordUser />}
+                    element={
+                        <>
+                            <Navbar />
+                            <ChangePasswordUser />
+                            <Footer />
+                        </>
+                    }
                 />
                 <Route
                     path="/cart"
                     element={
                         <>
+                            <Navbar />
                             <UserCart />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/cart/checkout"
+                    element={
+                        <>
+                            <Navbar />
+                            <CheckoutCart />
                             <Footer />
                         </>
                     }

@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             longitude: DataTypes.STRING,
             latitude: DataTypes.STRING,
             is_primary: { type: DataTypes.BOOLEAN, defaultValue: true },
+            is_deleted: { type: DataTypes.BOOLEAN, defaultValue: false },
         },
         {
             sequelize,
