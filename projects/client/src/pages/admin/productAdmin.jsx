@@ -3,7 +3,7 @@ import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import ProductTabs from '../../components/admin/product/productTabs';
 import { getAllProductsAsync } from '../../redux/features/productSlice';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import FilterButton from '../../components/user/button/filterButton';
 import SortButton from '../../components/user/button/sortButton';
 import SearchBar from '../../components/user/searchInput/searchBar';
@@ -17,9 +17,11 @@ import ModalDeleteProduct from '../../components/admin/product/modalDeleteProduc
 
 export default function ProductAdmin() {
     const dispatch = useDispatch();
+    const dataLogin = JSON.parse(localStorage?.getItem('user'));
     const products = useSelector((state) => state.product.products);
     const categories = useSelector((state) => state.homepage.category);
     const color = useSelector((state) => state.homepage.color);
+    const isSuccess = useSelector((state) => state.product.success);
     const [page, setPage] = useState(1);
     const [category, setCategory] = useState('');
     const [sort, setSort] = useState('');
@@ -29,6 +31,12 @@ export default function ProductAdmin() {
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [dataDetail, setDataDetail] = useState();
+
+    const defaultValue = () => {
+        if (isSuccess) {
+            setOpenModal(false);
+        }
+    };
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -79,7 +87,12 @@ export default function ProductAdmin() {
         showProducts(page, category, sort, search);
         dispatch(getAllCategoriesAsync());
         dispatch(getAllColorAsync());
-    }, [page, category, sort, search]);
+        defaultValue();
+    }, [page, category, sort, search, isSuccess]);
+
+    if (!dataLogin) {
+        return <Navigate to="/admins/login" />;
+    }
 
     return (
         <>
@@ -162,6 +175,7 @@ export default function ProductAdmin() {
                                             funcShow={setOpenModalEdit}
                                             funcData={setDataDetail}
                                             modalDelete={setOpenModalDelete}
+                                            product={products}
                                         />
                                     </tbody>
                                 </table>
@@ -187,6 +201,8 @@ export default function ProductAdmin() {
                         show={openModalEdit}
                         funcShow={setOpenModalEdit}
                         data={dataDetail}
+                        category={categories}
+                        color={color}
                     />
                     <ModalDeleteProduct
                         show={openModalDelete}

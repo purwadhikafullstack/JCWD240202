@@ -5,9 +5,10 @@ import { Modal } from 'flowbite-react';
 import { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { addProductAsync } from '../../../redux/features/productSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function ModalAddProduct(props) {
+    const isSuccess = useSelector((state) => state.product.success);
     const documentBodyRef = useRef(null);
     const dispatch = useDispatch();
     const [imageProduct, setImageProduct] = useState([]);
@@ -22,12 +23,14 @@ export default function ModalAddProduct(props) {
     const [height, setHeight] = useState(null);
     const [weight, setWeight] = useState(null);
 
-    
-
     const onChangeProductImg = (e) => {
         try {
             const selectedFIles = [];
             const targetFiles = [...e.target.files];
+
+            if (targetFiles.length > 5) {
+                throw { message: `Maximal 5 images!` };
+            }
 
             targetFiles.map((value) => {
                 if (
@@ -38,14 +41,14 @@ export default function ModalAddProduct(props) {
                     throw { message: 'Format file must jpg, jpeg, or png' };
                 }
             });
-            
+
             targetFiles.map((value) => {
                 if (value.size > 100000000)
-                throw {
-                    message: `${value.originalname} is Too Large`,
-                };
+                    throw {
+                        message: `${value.originalname} is Too Large`,
+                    };
             });
-            
+
             targetFiles.map((file) => {
                 return selectedFIles.push(URL.createObjectURL(file));
             });
@@ -79,6 +82,20 @@ export default function ModalAddProduct(props) {
         }
     };
 
+    const defaultValue = () => {
+        props.funcShow(false);
+        setName('');
+        setCategory('');
+        setColor('');
+        setDescription('');
+        setPrice('');
+        setLength('');
+        setWidth('');
+        setHeight('');
+        setWeight('');
+        setImagePreview(null);
+    };
+
     const data = {
         name,
         category_id: category,
@@ -93,7 +110,8 @@ export default function ModalAddProduct(props) {
 
     useEffect(() => {
         documentBodyRef.current = document.body;
-    }, []);
+        defaultValue();
+    }, [isSuccess]);
 
     return (
         <>
@@ -102,7 +120,10 @@ export default function ModalAddProduct(props) {
                 dismissible
                 className=""
                 show={props.show}
-                onClose={() => props.funcShow(false)}
+                onClose={() => {
+                    props.funcShow(false);
+                    defaultValue();
+                }}
             >
                 <Modal.Header>
                     <div className="text-xl">Add New Product</div>
@@ -132,12 +153,15 @@ export default function ModalAddProduct(props) {
                         Allowed file extensions: .JPG .JPEG .PNG
                     </div>
                     <div className="text-xs">* Maximum 5 files</div>
-                    <input
-                        onChange={onChangeProductImg}
-                        type="file"
-                        multiple="multiple"
-                        className="my-1 rounded-md"
-                    ></input>
+                    <label className="bg-gray-500 hover:bg-gray-400 rounded-lg text-white py-2 mt-1 text-sm flex justify-center w-[182px] mb-1 cursor-pointer">
+                        <input
+                            onChange={onChangeProductImg}
+                            type="file"
+                            multiple="multiple"
+                            className="my-1 rounded-md hidden"
+                        ></input>
+                        <p>Upload Images</p>
+                    </label>
                     <div className="block mb-3">
                         <span className="block text-sm font-medium text-slate-700 my-1">
                             Name :
@@ -177,7 +201,9 @@ export default function ModalAddProduct(props) {
                         }}
                         className="border border-gray-400 rounded-md mb-1"
                     >
-                        <option>Category</option>
+                        <option value="none" selected disabled hidden>
+                            Category
+                        </option>
                         {props.category?.data?.map((value, index) => {
                             return (
                                 <option value={value.id} key={index}>
@@ -192,7 +218,9 @@ export default function ModalAddProduct(props) {
                         }}
                         className="border border-gray-400 rounded-md ml-3"
                     >
-                        <option>Base Color</option>
+                        <option value="none" selected disabled hidden>
+                            Base Color
+                        </option>
                         {props.color?.data?.map((value, index) => {
                             return (
                                 <option value={value.id} key={index}>
@@ -278,14 +306,19 @@ export default function ModalAddProduct(props) {
                 <Modal.Footer>
                     <button
                         className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
-                        onClick={() => dispatch(addProductAsync(data, imageProduct))}
-                        disabled={imagePreview.length === 0}
+                        onClick={() =>
+                            dispatch(addProductAsync(data, imageProduct))
+                        }
+                        disabled={imagePreview?.length === 0}
                     >
                         Confirm
                     </button>
                     <button
                         className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                        onClick={() => props.funcShow(false)}
+                        onClick={() => {
+                            props.funcShow(false);
+                            defaultValue();
+                        }}
                     >
                         Cancel
                     </button>
