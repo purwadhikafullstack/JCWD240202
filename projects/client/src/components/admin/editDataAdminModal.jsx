@@ -10,20 +10,21 @@ export default function EditDataAdmin({ showModal, selected }) {
     const [inputLastName, setInputLastName] = useState('');
     const [inputPhoneNumber, setInputPhoneNumber] = useState('');
 
-    const [disabled, setDisabled] = useState(false);
-
     const dispatch = useDispatch();
-    const status = useSelector((state) => state.admin.isEdited);
+    const setDisabledButton = useSelector(
+        (state) => state.admin.disabledButton,
+    );
+    const setModal = useSelector((state) => state.admin.modal);
 
     useEffect(() => {
         setInputFirstName(selected?.first_name);
         setInputLastName(selected?.last_name);
         setInputPhoneNumber(selected?.phone_number);
-        if (status === true) {
+        if (setModal === true) {
             showModal(false);
         }
     }, [
-        status,
+        setModal,
         selected?.first_name,
         selected?.last_name,
         selected?.phone_number,
@@ -97,7 +98,6 @@ export default function EditDataAdmin({ showModal, selected }) {
                                             className="border border-gray-400 w-[300px] rounded-md px-2 h-10 w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1 disabled:text-gray-600 disabled:bg-gray-200 text-black"
                                             placeholder={selected?.email}
                                             disabled={true}
-                                            // value={inputEmail}
                                         />
                                     </div>
                                     <div className="block mb-2">
@@ -125,26 +125,22 @@ export default function EditDataAdmin({ showModal, selected }) {
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
-                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-gray-400"
+                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                     disabled={
                                         !inputFirstName ||
                                         !inputLastName ||
                                         !inputPhoneNumber ||
-                                        disabled
+                                        setDisabledButton
                                     }
                                     onClick={() => {
-                                        setDisabled(true);
-                                        setTimeout(() => {
-                                            dispatch(
-                                                editDataWarehouseAdmin(
-                                                    inputFirstName,
-                                                    inputLastName,
-                                                    inputPhoneNumber,
-                                                    selected?.id,
-                                                ),
-                                            );
-                                            setDisabled(false);
-                                        }, 200);
+                                        dispatch(
+                                            editDataWarehouseAdmin(
+                                                inputFirstName,
+                                                inputLastName,
+                                                inputPhoneNumber,
+                                                selected?.id,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Confirm

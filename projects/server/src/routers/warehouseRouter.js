@@ -34,6 +34,12 @@ router.get(
     warehouseController.getAllDataWarehouse,
 );
 router.get(
+    '/list',
+    verifyToken,
+    checkAdminRole,
+    warehouseController.getListWarehouse,
+);
+router.get(
     '/available',
     verifyToken,
     checkAdminRole,

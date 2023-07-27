@@ -16,18 +16,14 @@ export default function ChangePasswordUser() {
     const [showNewPassword, setShowNewPassword] = useState(true);
     const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
+    const [disabled, setDisabled] = useState(false);
     const token = JSON.parse(localStorage?.getItem('user'));
     const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
     const changePassword = async () => {
         try {
+            setDisabled(true);
             if (
-                prevPassword === '' ||
-                newPassword === '' ||
-                confirmPassword === ''
-            ) {
-                throw { message: "Field can't be empty" };
-            } else if (
                 pattern.test(newPassword) === false ||
                 pattern.test(confirmPassword) === false
             ) {
@@ -54,6 +50,7 @@ export default function ChangePasswordUser() {
                 );
 
                 if (updatePassword.data.success) {
+                    setDisabled(false);
                     toast.success('Password updated!', {
                         position: 'top-center',
                         duration: 2000,
@@ -73,6 +70,7 @@ export default function ChangePasswordUser() {
                 }
             }
         } catch (error) {
+            setDisabled(false);
             if (error.response) {
                 toast.error(error.response.data.message, {
                     position: 'top-center',
@@ -235,8 +233,14 @@ export default function ChangePasswordUser() {
                                         </label>
                                     </form>
                                     <button
-                                        className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm"
+                                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm disabled:cursor-not-allowed"
                                         onClick={changePassword}
+                                        disabled={
+                                            !prevPassword ||
+                                            !newPassword ||
+                                            !confirmPassword ||
+                                            disabled
+                                        }
                                     >
                                         Save
                                     </button>

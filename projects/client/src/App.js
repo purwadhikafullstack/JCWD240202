@@ -18,6 +18,7 @@ import DashboardAdmin from './pages/admin/dashboardAdmin';
 import ProductAdmin from './pages/admin/productAdmin';
 import CategoryProductAdmin from './pages/admin/categoryProductAdmin';
 import UserAdmin from './pages/admin/userAdmin';
+import WarehousePageAdmin from './pages/admin/warehousePageAdmin';
 
 function App() {
     return (
@@ -93,6 +94,10 @@ function App() {
                 <Route path="/admins/products" element={<ProductAdmin />} />
                 <Route path="/admins/products/categories" element={<CategoryProductAdmin />} />
                 <Route path="/admins/setting" element={<UserAdmin />} />
+                <Route
+                    path="/admins/warehouse/setting"
+                    element={<WarehousePageAdmin />}
+                />
             </Routes>
         </>
     );

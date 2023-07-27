@@ -3,24 +3,47 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getAllDataWh } from '../../redux/features/warehouseSlice';
 import { Dropdown, Label, Radio } from 'flowbite-react';
+import axios from 'axios';
 
 export default function FilterAdmin(props) {
     const dispatch = useDispatch();
     const warehouse = useSelector((state) => state.warehouse.dataWh);
+    const dataLogin = JSON.parse(localStorage?.getItem('user'));
+    const [result, setResult] = useState([]);
+
+
+    const setWh = async () => {
+        try {
+            const getWh = await axios.get(
+                process.env.REACT_APP_API_BASE_URL + '/warehouses/list',
+                {
+                    headers: {
+                        authorization: `Bearer ${dataLogin}`,
+                    },
+                },
+            );
+
+            setResult(getWh?.data);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 
     const handleWarehouses = (warehouses) => {
         props?.data?.warehouseChange(warehouses);
     };
 
     useEffect(() => {
-        dispatch(getAllDataWh());
-    }, []);
+        setWh();
+    }, [warehouse]);
     return (
-        <>
+        <div>
             <Dropdown
                 label={
                     props?.data?.warehouse
                         ? props?.data?.warehouse
+                        : props?.data?.wh
+                        ? props?.data?.wh
                         : 'Warehouses'
                 }
                 className="px-5 text-center"
@@ -28,8 +51,8 @@ export default function FilterAdmin(props) {
                 size="sm"
             >
                 <div className="flex flex-col gap-2 mt-2">
-                    {warehouse
-                        ? warehouse?.map((value, index) => {
+                    {result
+                        ? result?.data?.map((value, index) => {
                               return (
                                   <div
                                       key={index}
@@ -46,6 +69,9 @@ export default function FilterAdmin(props) {
                                               value.city ===
                                               props?.data?.warehouse
                                                   ? true
+                                                  : value.city ===
+                                                    props?.data?.wh
+                                                  ? true
                                                   : false
                                           }
                                       />
@@ -56,6 +82,6 @@ export default function FilterAdmin(props) {
                         : ''}
                 </div>
             </Dropdown>
-        </>
+        </div>
     );
 }

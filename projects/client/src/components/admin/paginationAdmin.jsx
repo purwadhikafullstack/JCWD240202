@@ -5,7 +5,7 @@ export default function PaginationAdmin(props) {
         <>
             <Pagination
                 count={props?.data?.totalPage}
-                page={props?.data?.page}
+                page={props?.data?.page ? props?.data?.page : 1}
                 variant="outlined"
                 shape="rounded"
                 onChange={props?.data?.pageChange}
