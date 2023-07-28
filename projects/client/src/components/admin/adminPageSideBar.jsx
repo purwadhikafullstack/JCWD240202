@@ -62,7 +62,7 @@ export default function SideBarAdmin() {
 
     return (
         <>
-            <div className="hidden sm:block">
+            <div className="hidden sm:block h-screen sticky top-0">
                 <div
                     className={`${
                         open ? 'w-60' : 'w-20'

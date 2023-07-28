@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { getDataAdminUser } from './adminSlice';
+import { getDataLogin } from './userSlice';
 
 const initialState = {
     disabledButton: false,
@@ -47,6 +48,7 @@ export const adminLogin = (email, password) => async (dispatch) => {
                     color: 'white',
                 },
             });
+            dispatch(getDataLogin());
         }
     } catch (error) {
         dispatch(setDisabledButton(false));
