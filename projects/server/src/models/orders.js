@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     orders.init(
         {
             cart_id: DataTypes.INTEGER,
-            shipping_order: DataTypes.STRING,
+            shipping_address: DataTypes.STRING,
             payment_proof: DataTypes.STRING,
             is_payment_success: {
                 type: DataTypes.BOOLEAN,
@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
             shipping_fee: DataTypes.INTEGER,
             total_weight: DataTypes.INTEGER,
             total_cart_price: DataTypes.INTEGER,
+            invoice_number: DataTypes.INTEGER,
+            warehouse_id: DataTypes.INTEGER,
+            total: DataTypes.INTEGER,
         },
         {
             sequelize,

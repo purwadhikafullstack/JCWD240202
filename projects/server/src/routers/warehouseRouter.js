@@ -34,10 +34,22 @@ router.get(
     warehouseController.getAllDataWarehouse,
 );
 router.get(
+    '/list',
+    verifyToken,
+    checkAdminRole,
+    warehouseController.getListWarehouse,
+);
+router.get(
     '/available',
     verifyToken,
     checkAdminRole,
     warehouseController.getAvailableWarehouse,
+);
+router.patch(
+    '/unassign-admin/:user_id',
+    verifyToken,
+    checkAdminRole,
+    warehouseController.unassignAdminWarehouse,
 );
 
 module.exports = router;

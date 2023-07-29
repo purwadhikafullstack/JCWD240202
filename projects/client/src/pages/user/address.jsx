@@ -12,6 +12,7 @@ export default function Address() {
     const [showEditModal, setShowEditModal] = useState('');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedEdit, setSelectedEdit] = useState({});
+    const [disabled, setDisabled] = useState(false);
 
     const token = JSON.parse(localStorage?.getItem('user'));
 
@@ -102,10 +103,11 @@ export default function Address() {
                                         </Modal.Body>
                                         <div className="flex justify-start gap-3 m-5">
                                             <button
-                                                className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3"
+                                                className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed"
                                                 onClick={() =>
                                                     onDeleteAddress(value.id)
                                                 }
+                                                disabled={disabled}
                                             >
                                                 Delete Address
                                             </button>
@@ -173,9 +175,11 @@ export default function Address() {
 
     const onDeleteAddress = async (address_id) => {
         try {
-            const deleteAddress = await axios.delete(
+            setDisabled(true);
+            const deleteAddress = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL +
                     `/addresses/delete/${address_id}`,
+                {},
                 {
                     headers: {
                         authorization: `Bearer ${token}`,
@@ -184,6 +188,7 @@ export default function Address() {
             );
 
             if (deleteAddress.data.success) {
+                setDisabled(false);
                 setShowDeleteModal(false);
                 toast.success('Address removed!', {
                     position: 'top-center',
@@ -198,6 +203,7 @@ export default function Address() {
                 getAddress();
             }
         } catch (error) {
+            setDisabled(false);
             console.log(error);
         }
     };

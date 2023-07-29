@@ -1,44 +1,31 @@
-import { useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
+import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from '../../redux/features/adminAuthSlice';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 export default function AdminLoginPage() {
     const [showPassword, setShowPassword] = useState(true);
-    const [disabled, setDisabled] = useState(false);
     const [input, setInput] = useState({
         email: '',
         password: '',
     });
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const userLogin = JSON.parse(localStorage.getItem('user'));
-    const loginAdmin = useSelector((state) => state.adminAuth.isLoginAdmin);
-    console.log('loginadmin', loginAdmin);
+    const setDisabledButton = useSelector(
+        (state) => state.adminAuth.disabledButton,
+    );
 
     const onChange = (event) => {
         const { value, name } = event.target;
         setInput({ ...input, [name]: value });
     };
 
-    useEffect(() => {
-        if (loginAdmin === true) {
-            setInput({
-                email: '',
-                password: '',
-            });
-            setDisabled(false);
-            setShowPassword(true);
-            navigate('/admins/dashboard');
-        }
-    }, [loginAdmin]);
-
-    if (userLogin) {
+    if (setDisabledButton === true || userLogin) {
         return <Navigate to="/admins/dashboard" />;
     }
+
     return (
         <>
             <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
@@ -107,25 +94,18 @@ export default function AdminLoginPage() {
                             </div>
                             <button
                                 type="submit"
-                                className="mt-4 bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA] w-full"
+                                className="mt-4 bg-[#0051BA] enabled:hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed w-full"
                                 disabled={
                                     !input.email ||
                                     !input.password ||
                                     !input.email.includes('@') ||
                                     !input.email.includes('.co') ||
-                                    disabled
+                                    setDisabledButton
                                 }
                                 onClick={() => {
-                                    setDisabled(true);
-                                    setTimeout(() => {
-                                        dispatch(
-                                            adminLogin(
-                                                input.email,
-                                                input.password,
-                                            ),
-                                        );
-                                        setDisabled(false);
-                                    }, 800);
+                                    dispatch(
+                                        adminLogin(input.email, input.password),
+                                    );
                                 }}
                             >
                                 Login

@@ -1,32 +1,81 @@
 const { hashPassword } = require('../lib/hashBcrypt');
 const db = require('../models');
 const user = db.users;
-const warehouse = db.warehouses;
+const warehouses = db.warehouses;
 const role = db.roles;
 const { sequelize } = require('./../models');
+const { Op } = require('sequelize');
 
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
 module.exports = {
     getDataAdmin: async (req, res) => {
         try {
-            const result = await user.findAll({
+            const { page, sort, search, warehouse } = req.query;
+
+            let order = [['createdAt', 'DESC']];
+            let where = { role_id: 2 };
+
+            const paginationLimit = 5;
+            const paginationOffset =
+                (Number(page ? page : 1) - 1) * paginationLimit;
+
+            if (search) {
+                where = {
+                    first_name: { [Op.substring]: [search] },
+                    role_id: 2,
+                };
+            }
+
+            if (warehouse) {
+                const warehouseId = await warehouses.findOne({
+                    where: {
+                        city: warehouse,
+                    },
+                });
+                if (search) {
+                    where['id'] = warehouseId.user_id;
+                } else {
+                    where = {
+                        role_id: 2,
+                        first_name: { [Op.substring]: [search] },
+                        id: warehouseId.user_id,
+                    };
+                }
+            }
+
+            if (sort) {
+                if (sort === 'name-asc') {
+                    order = [['first_name', 'ASC']];
+                } else if (sort === 'name-desc') {
+                    order = [['first_name', 'DESC']];
+                }
+            }
+
+            const result = await user.findAndCountAll({
                 attributes: [
                     'id',
                     'first_name',
                     'last_name',
                     'email',
-                    'birth_date',
+                    'phone_number',
                     'role_id',
+                    'createdAt',
                 ],
-                where: { role_id: 2 },
+                where,
+                offset: paginationOffset,
+                limit: paginationLimit,
                 include: { all: true },
+                order,
             });
+
+            const totalPage = Math.ceil(result.count / paginationLimit);
 
             return res.status(200).send({
                 success: true,
                 message: 'Fetch Success!',
                 data: result,
+                totalPage: totalPage,
             });
         } catch (error) {
             return res.status(500).send({
@@ -40,10 +89,9 @@ module.exports = {
         const t = await sequelize.transaction();
         try {
             const { id } = req.params;
-            const { first_name, last_name, phone_number, birth_date } =
-                req.body;
+            const { first_name, last_name, phone_number } = req.body;
 
-            if (!first_name || !last_name || !phone_number || !birth_date) {
+            if (!first_name || !last_name || !phone_number) {
                 return res.status(400).send({
                     success: false,
                     message: "Field can't be Empty",
@@ -64,7 +112,6 @@ module.exports = {
                     first_name,
                     last_name,
                     phone_number,
-                    birth_date,
                 },
                 {
                     where: {
@@ -157,7 +204,7 @@ module.exports = {
         const t = await sequelize.transaction();
         try {
             const { id } = req.params;
-            const checkWarehouseAdmin = await warehouse.findOne({
+            const checkWarehouseAdmin = await warehouses.findOne({
                 where: {
                     user_id: id,
                 },
@@ -173,7 +220,7 @@ module.exports = {
                     { transaction: t },
                 );
 
-                const updateWarehouseStatus = await warehouse.update(
+                const updateWarehouseStatus = await warehouses.update(
                     {
                         user_id: null,
                     },

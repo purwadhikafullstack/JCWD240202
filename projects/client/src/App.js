@@ -15,19 +15,25 @@ import ProductDetails from './pages/user/productDetails';
 import UserCart from './pages/user/userCart';
 import AdminLoginPage from './pages/admin/loginAdmin';
 import DashboardAdmin from './pages/admin/dashboardAdmin';
+import ProductAdmin from './pages/admin/productAdmin';
+import CategoryProductAdmin from './pages/admin/categoryProductAdmin';
+import UserAdmin from './pages/admin/userAdmin';
+import WarehousePageAdmin from './pages/admin/warehousePageAdmin';
 import CheckoutCart from './pages/user/checkoutCart';
+import './App.css';
+import { useLocation } from 'react-router-dom';
 
 function App() {
+    const { pathname } = useLocation();
     return (
         <>
+            <Navbar />
             <Routes>
                 <Route
                     path="/"
                     element={
                         <>
-                            <Navbar />
                             <Homepage />
-                            <Footer />
                         </>
                     }
                 />
@@ -35,9 +41,7 @@ function App() {
                     path="/products"
                     element={
                         <>
-                            <Navbar />
                             <ProductsCatalog />
-                            <Footer />
                         </>
                     }
                 />
@@ -45,9 +49,7 @@ function App() {
                     path="/products/:id"
                     element={
                         <>
-                            <Navbar />
                             <ProductDetails />
-                            <Footer />
                         </>
                     }
                 />
@@ -56,9 +58,7 @@ function App() {
                     path="/login"
                     element={
                         <>
-                            <Navbar />
                             <LoginPage />
-                            <Footer />
                         </>
                     }
                 />
@@ -70,9 +70,7 @@ function App() {
                     path="/users/profile"
                     element={
                         <>
-                            <Navbar />
                             <ProfilePage />
-                            <Footer />
                         </>
                     }
                 />
@@ -80,9 +78,7 @@ function App() {
                     path="/users/address"
                     element={
                         <>
-                            <Navbar />
                             <Address />
-                            <Footer />
                         </>
                     }
                 />
@@ -95,9 +91,7 @@ function App() {
                     path="/users/change-password"
                     element={
                         <>
-                            <Navbar />
                             <ChangePasswordUser />
-                            <Footer />
                         </>
                     }
                 />
@@ -105,9 +99,7 @@ function App() {
                     path="/cart"
                     element={
                         <>
-                            <Navbar />
                             <UserCart />
-                            <Footer />
                         </>
                     }
                 />
@@ -115,9 +107,7 @@ function App() {
                     path="/cart/checkout"
                     element={
                         <>
-                            <Navbar />
                             <CheckoutCart />
-                            <Footer />
                         </>
                     }
                 />
@@ -125,7 +115,19 @@ function App() {
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
                 <Route path="/admins/dashboard" element={<DashboardAdmin />} />
+                <Route path="/admins/products" element={<ProductAdmin />} />
+                <Route
+                    path="/admins/products/categories"
+                    element={<CategoryProductAdmin />}
+                />
+                <Route path="/admins/setting" element={<UserAdmin />} />
+                <Route
+                    path="/admins/warehouse/setting"
+                    element={<WarehousePageAdmin />}
+                />
             </Routes>
+
+            <Footer />
         </>
     );
 }

@@ -25,7 +25,8 @@ export default function ModalAddAddress(props) {
     const cityLists = useSelector((state) => state.address.city);
     const [filterCity, setFilterCity] = useState();
     const [countChar, setCountChar] = useState(0);
-    const [fullAddress, setFullAddress] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [postCode, setPostCode] = useState('');
     const [provinceName, setProvinceName] = useState('');
     const [provinceId, setProvinceId] = useState(0);
     const [cityName, setCityName] = useState('');
@@ -44,6 +45,18 @@ export default function ModalAddAddress(props) {
             }
         });
         setFilterCity(cities);
+    };
+
+    const handlePhoneNumber = (e) => {
+        const inputValue = e.target.value;
+        const checkInput = inputValue.replace(/[^0-9]/g, '');
+        setPhoneNumber(checkInput);
+    };
+
+    const handlePostCode = (e) => {
+        const inputValue = e.target.value;
+        const checkInput = inputValue.replace(/[^0-9]/g, '');
+        setPostCode(checkInput);
     };
 
     const userAddNewAddress = () => {
@@ -89,6 +102,8 @@ export default function ModalAddAddress(props) {
             _fullAddress.current.value = '';
             _subdistrict.current.value = '';
             _postcode.current.value = '';
+            setPostCode('');
+            setPhoneNumber('');
             setProvinceName('');
             setCityName('');
 
@@ -118,12 +133,12 @@ export default function ModalAddAddress(props) {
     return (
         <Modal
             show={props?.data?.showAddAddress}
-            onClose={() => props?.data?.setShowAddAddress(false)}
+            onClose={() => cancelButton()}
             root={documentBodyRef.current}
         >
             <Modal.Header>
                 <div className="flex gap-9 items-center justify-start">
-                    <div>
+                    <div onClick={() => props?.data?.closeAddAddress()}>
                         <IoIosArrowBack />
                     </div>
                     <div>Add New Address</div>
@@ -143,6 +158,9 @@ export default function ModalAddAddress(props) {
                         <TextInput
                             ref={_receiverNumber}
                             placeholder="Receiver Number"
+                            maxLength={12}
+                            onChange={handlePhoneNumber}
+                            value={phoneNumber}
                         ></TextInput>
                     </div>
                     <div>
@@ -236,6 +254,8 @@ export default function ModalAddAddress(props) {
                             maxLength={5}
                             ref={_postcode}
                             placeholder="Postal Code"
+                            value={postCode}
+                            onChange={handlePostCode}
                         ></TextInput>
                     </div>
                 </div>

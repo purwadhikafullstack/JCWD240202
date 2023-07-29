@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const initialState = {
     products: {},
     details: {},
     recommendations: null,
+    success: false,
 };
 
 export const productSlice = createSlice({
@@ -20,8 +22,13 @@ export const productSlice = createSlice({
         setRecommendations: (initialState, action) => {
             initialState.recommendations = action.payload;
         },
+        setSuccess: (initialState, action) => {
+            initialState.success = action.payload;
+        },
     },
 });
+
+const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
 export const getAllProductsAsync = (data) => async (dispatch) => {
     try {
@@ -29,10 +36,10 @@ export const getAllProductsAsync = (data) => async (dispatch) => {
             process.env.REACT_APP_API_BASE_URL + `/products`,
             {
                 params: {
-                    page: data.page,
-                    category: data.category,
-                    sort: data.sort,
-                    search: data.search,
+                    page: data?.page,
+                    category: data?.category,
+                    sort: data?.sort,
+                    search: data?.search,
                 },
             },
         );
@@ -68,6 +75,292 @@ export const productRecommenadationAsync = (id) => async (dispatch) => {
     }
 };
 
-export const { setProducts, setDetails, setRecommendations } =
+export const addProductAsync = (data, imageProduct) => async (dispatch) => {
+    try {
+        console.log(imageProduct);
+        if (
+            !data.name ||
+            !data.category_id ||
+            !data.color_id ||
+            !data.price ||
+            !data.description ||
+            !data.length ||
+            !data.width ||
+            !data.height ||
+            !data.weight
+        )
+            throw new Error('All data required!');
+
+        let fd = new FormData();
+        fd.append(
+            'data',
+            JSON.stringify({
+                name: data.name,
+                category_id: data.category_id,
+                color_id: data.color_id,
+                price: data.price,
+                description: data.description,
+                length: data.length,
+                width: data.width,
+                height: data.height,
+                weight: data.weight,
+            }),
+        );
+        imageProduct.forEach((value) => {
+            fd.append('images', value);
+        });
+        console.log(fd);
+
+        const result = await axios.post(
+            process.env.REACT_APP_API_BASE_URL + '/products',
+            fd,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        );
+
+        dispatch(getAllProductsAsync());
+        toast.success(result.data.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#0051BA',
+                color: 'white',
+            },
+        });
+        dispatch(setSuccess(true));
+    } catch (error) {
+        if (error.response) {
+            toast.error(error.response?.data?.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
+        } else {
+            toast.error(error.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
+        }
+    } finally {
+        dispatch(setSuccess(false));
+    }
+};
+
+export const editProductAsync =
+    (
+        name,
+        category_id,
+        color_id,
+        price,
+        description,
+        length,
+        width,
+        height,
+        weight,
+        id,
+    ) =>
+    async (dispatch) => {
+        try {
+            if (
+                !name ||
+                !category_id ||
+                !color_id ||
+                !price ||
+                !description ||
+                !length ||
+                !width ||
+                !height ||
+                !weight
+            )
+                throw new Error('All data required!');
+
+            const result = await axios.patch(
+                process.env.REACT_APP_API_BASE_URL + `/products/${id}`,
+                {
+                    name,
+                    category_id,
+                    color_id,
+                    price,
+                    description,
+                    length,
+                    width,
+                    height,
+                    weight,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${dataLogin}`,
+                    },
+                },
+            );
+
+            dispatch(getAllProductsAsync());
+            dispatch(productDetailsAsync(id));
+
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+            dispatch(setSuccess(true));
+        } catch (error) {
+            if (error.response) {
+                toast.error(error.response?.data?.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#DC2626',
+                        color: 'white',
+                    },
+                });
+            } else {
+                toast.error(error.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#DC2626',
+                        color: 'white',
+                    },
+                });
+            }
+        } finally {
+            dispatch(setSuccess(false));
+        }
+    };
+
+export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
+    try {
+        let fd = new FormData();
+        imageProduct.forEach((value) => {
+            fd.append('images', value);
+        });
+
+        const result = await axios.patch(
+            process.env.REACT_APP_API_BASE_URL + `/products/images/${id}`,
+            fd,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        );
+
+        if (result) {
+            dispatch(productDetailsAsync(id));
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
+    } catch (error) {
+        if (error.response) {
+            toast.error(error.response?.data?.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
+        } else {
+            toast.error(error.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
+        }
+    }
+};
+
+export const deleteProductAsync = (id) => async (dispatch) => {
+    try {
+        const result = await axios.delete(
+            process.env.REACT_APP_API_BASE_URL + `/products/${id}`,
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        );
+
+        if (result) {
+            dispatch(getAllProductsAsync());
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
+    } catch (error) {
+        if (error.response) {
+            toast.error(error.response?.data?.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
+        } else {
+            toast.error(error.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
+        }
+    }
+};
+
+export const { setProducts, setDetails, setRecommendations, setSuccess } =
     productSlice.actions;
 export default productSlice.reducer;

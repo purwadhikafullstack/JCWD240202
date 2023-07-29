@@ -3,6 +3,7 @@ import CartTable from '../../components/user/cart/cartTable';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getUserCartAsync } from '../../redux/features/cartSlice';
+import { Link } from 'react-router-dom';
 
 export default function UserCart() {
     const dispatch = useDispatch();
@@ -21,11 +22,13 @@ export default function UserCart() {
                     return <CartTable key={index} data={{ value }} />;
                 })}
             </div>
-            <div className="flex justify-end pt-9">
-                <div className="border w-fit px-16 py-4 rounded-full text-lg bg-sky-700 text-yellow-300 font-bold hover:bg-sky-900 hover:cursor-pointer flex flex-col justify-center items-center">
-                    <div>Checkout</div>
+            <Link to={'/cart/checkout'}>
+                <div className="flex justify-end pt-9">
+                    <div className="border w-fit px-16 py-4 rounded-full text-lg bg-sky-700 text-yellow-300 font-bold hover:bg-sky-900 hover:cursor-pointer flex flex-col justify-center items-center">
+                        <div>Checkout</div>
+                    </div>
                 </div>
-            </div>
+            </Link>
         </div>
     );
 }

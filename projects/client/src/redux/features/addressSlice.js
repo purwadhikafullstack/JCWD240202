@@ -6,6 +6,7 @@ const initialState = {
     address: null,
     province: [],
     city: [],
+    chosenAddress: null,
 };
 
 export const addressSlice = createSlice({
@@ -20,6 +21,9 @@ export const addressSlice = createSlice({
         },
         setCity: (initialState, action) => {
             initialState.city = action.payload;
+        },
+        setChosenAddress: (initialState, action) => {
+            initialState.chosenAddress = action.payload;
         },
     },
 });
@@ -97,5 +101,52 @@ export const addNewAddressAsync = (data) => async (dispatch) => {
     }
 };
 
-export const { setAddress, setProvince, setCity } = addressSlice.actions;
+export const getChosenAddressAsync = () => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const getChosen = await axios.get(
+            process.env.REACT_APP_API_BASE_URL + `/addresses/choose`,
+            {
+                headers: {
+                    Authorization: `bearer ${getUser}`,
+                },
+            },
+        );
+
+        dispatch(setChosenAddress(getChosen.data));
+    } catch (error) {
+        // toast.error(error.message);
+    }
+};
+
+export const changeChosenAddressAsync = (data) => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const updateChosen = await axios.patch(
+            process.env.REACT_APP_API_BASE_URL + `/addresses/choose`,
+            {
+                address_id: data.address_id,
+            },
+            {
+                headers: {
+                    Authorization: `bearer ${getUser}`,
+                },
+            },
+        );
+
+        if (updateChosen.data.success) {
+            toast.success('Change Chosen address');
+            dispatch(getChosenAddressAsync());
+        }
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+
+export const { setAddress, setProvince, setCity, setChosenAddress } =
+    addressSlice.actions;
 export default addressSlice.reducer;
