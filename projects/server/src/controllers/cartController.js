@@ -206,11 +206,27 @@ const modifyQuantity = async (req, res) => {
                     const removeProduct = await cart_products.destroy({
                         where: { cart_id: findCart.id, product_id: id },
                     });
-                    res.status(200).send({
-                        success: true,
-                        message: 'product removed',
-                        data: {},
-                    });
+                    const checkCartProducts =
+                        await cart_products.findAndCountAll({
+                            where: { cart_id: findCart.id },
+                        });
+
+                    if (checkCartProducts.count === 0) {
+                        const removeCart = await carts.destroy({
+                            where: { id: findCart.id },
+                        });
+                        res.status(200).send({
+                            success: true,
+                            message: 'cart removed',
+                            data: {},
+                        });
+                    } else {
+                        res.status(200).send({
+                            success: true,
+                            message: 'product removed',
+                            data: {},
+                        });
+                    }
                 } else {
                     res.status(200).send({
                         success: true,

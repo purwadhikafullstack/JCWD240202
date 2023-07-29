@@ -19,19 +19,21 @@ import ProductAdmin from './pages/admin/productAdmin';
 import CategoryProductAdmin from './pages/admin/categoryProductAdmin';
 import UserAdmin from './pages/admin/userAdmin';
 import WarehousePageAdmin from './pages/admin/warehousePageAdmin';
+import CheckoutCart from './pages/user/checkoutCart';
+import './App.css';
+import { useLocation } from 'react-router-dom';
 
 function App() {
+    const { pathname } = useLocation();
     return (
         <>
             <Navbar />
-
             <Routes>
                 <Route
                     path="/"
                     element={
                         <>
                             <Homepage />
-                            <Footer />
                         </>
                     }
                 />
@@ -40,7 +42,6 @@ function App() {
                     element={
                         <>
                             <ProductsCatalog />
-                            <Footer />
                         </>
                     }
                 />
@@ -49,7 +50,6 @@ function App() {
                     element={
                         <>
                             <ProductDetails />
-                            <Footer />
                         </>
                     }
                 />
@@ -59,7 +59,6 @@ function App() {
                     element={
                         <>
                             <LoginPage />
-                            <Footer />
                         </>
                     }
                 />
@@ -67,8 +66,22 @@ function App() {
                     path="/verification/:token"
                     element={<VerificationPage />}
                 />
-                <Route path="/users/profile" element={<ProfilePage />} />
-                <Route path="/users/address" element={<Address />} />
+                <Route
+                    path="/users/profile"
+                    element={
+                        <>
+                            <ProfilePage />
+                        </>
+                    }
+                />
+                <Route
+                    path="/users/address"
+                    element={
+                        <>
+                            <Address />
+                        </>
+                    }
+                />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route
                     path="/reset-password/:token"
@@ -76,14 +89,25 @@ function App() {
                 />
                 <Route
                     path="/users/change-password"
-                    element={<ChangePasswordUser />}
+                    element={
+                        <>
+                            <ChangePasswordUser />
+                        </>
+                    }
                 />
                 <Route
                     path="/cart"
                     element={
                         <>
                             <UserCart />
-                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/cart/checkout"
+                    element={
+                        <>
+                            <CheckoutCart />
                         </>
                     }
                 />
@@ -92,13 +116,18 @@ function App() {
                 <Route path="/admins/login" element={<AdminLoginPage />} />
                 <Route path="/admins/dashboard" element={<DashboardAdmin />} />
                 <Route path="/admins/products" element={<ProductAdmin />} />
-                <Route path="/admins/products/categories" element={<CategoryProductAdmin />} />
+                <Route
+                    path="/admins/products/categories"
+                    element={<CategoryProductAdmin />}
+                />
                 <Route path="/admins/setting" element={<UserAdmin />} />
                 <Route
                     path="/admins/warehouse/setting"
                     element={<WarehousePageAdmin />}
                 />
             </Routes>
+
+            <Footer />
         </>
     );
 }
