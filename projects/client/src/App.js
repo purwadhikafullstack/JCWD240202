@@ -19,6 +19,7 @@ import ProductAdmin from './pages/admin/productAdmin';
 import CategoryProductAdmin from './pages/admin/categoryProductAdmin';
 import UserAdmin from './pages/admin/userAdmin';
 import WarehousePageAdmin from './pages/admin/warehousePageAdmin';
+import TransactionAdmin from './pages/admin/transactionAdmin';
 
 function App() {
     return (
@@ -98,6 +99,7 @@ function App() {
                     path="/admins/warehouse/setting"
                     element={<WarehousePageAdmin />}
                 />
+                <Route path="/admins/transactions" element={<TransactionAdmin />} />
             </Routes>
         </>
     );

@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
             warehouses.belongsTo(models.users, {
                 foreignKey: 'user_id',
             });
+            warehouses.hasMany(models.orders, {
+                foreignKey: 'warehouse_id'
+            })
         }
     }
     warehouses.init(

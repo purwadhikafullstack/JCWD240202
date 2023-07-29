@@ -15,6 +15,7 @@ export default function ModalAddProduct(props) {
     const [imagePreview, setImagePreview] = useState([]);
     const [name, setName] = useState('');
     const [category, setCategory] = useState(null);
+    console.log(category)
     const [color, setColor] = useState(null);
     const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');
@@ -85,7 +86,7 @@ export default function ModalAddProduct(props) {
     const defaultValue = () => {
         props.funcShow(false);
         setName('');
-        setCategory('');
+        setCategory('none');
         setColor('');
         setDescription('');
         setPrice('');
@@ -200,8 +201,9 @@ export default function ModalAddProduct(props) {
                             setCategory(e.target.value);
                         }}
                         className="border border-gray-400 rounded-md mb-1"
+                        value={category}
                     >
-                        <option value="none" selected disabled hidden>
+                        <option value="none" hidden >
                             Category
                         </option>
                         {props.category?.data?.map((value, index) => {

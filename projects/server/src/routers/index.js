@@ -10,6 +10,7 @@ const adminAuthRouter = require('./adminAuthRouter');
 const adminRouter = require('./adminRouter');
 const warehouseRouter = require('./warehouseRouter');
 const colorRouter = require('./colorRouter')
+const transactionRouter = require('./transactionRouter')
 
 module.exports = {
     rajaOngkirRouter,
@@ -23,5 +24,6 @@ module.exports = {
     adminAuthRouter,
     adminRouter,
     warehouseRouter,
-    colorRouter
+    colorRouter,
+    transactionRouter
 };
