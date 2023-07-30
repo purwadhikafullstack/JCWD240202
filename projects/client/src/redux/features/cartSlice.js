@@ -102,7 +102,10 @@ export const modifyQuantityAsync = (data) => async (dispatch) => {
                 },
             },
         );
-        if (editQty.data.message === 'product removed') {
+        if (
+            editQty.data.message === 'product removed' ||
+            editQty.data.message === 'cart removed'
+        ) {
             toast.success(editQty.data.message);
         }
         dispatch(getUserCartAsync());

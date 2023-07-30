@@ -14,7 +14,7 @@ export default function SearchBar(props) {
                 <input
                     type="text"
                     placeholder="Search"
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-bordered w-full max-w-xs h-[45px]"
                     ref={_search}
                 />
             </div>

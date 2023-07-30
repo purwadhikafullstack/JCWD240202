@@ -10,6 +10,7 @@ const adminAuthController = require('./adminAuthController.js');
 const adminController = require('./adminController');
 const warehouseController = require('./warehouseController');
 const colorController = require('./colorController');
+const orderController = require('./orderController');
 const stockController = require('./stockController');
 
 module.exports = {
@@ -24,6 +25,7 @@ module.exports = {
     adminAuthController,
     adminController,
     warehouseController,
-    colorController,
+    colorController
+    orderController,
     stockController,
 };

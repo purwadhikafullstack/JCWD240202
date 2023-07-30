@@ -5,9 +5,10 @@ import homepageReducer from '../features/homepageSlice';
 import productReducer from '../features/productSlice';
 import cartReducer from '../features/cartSlice';
 import adminAuthReducer from '../features/adminAuthSlice';
+import addressReducer from '../features/addressSlice';
 import adminReducer from '../features/adminSlice';
 import warehouseReducer from '../features/warehouseSlice';
-import categoryReducer from '../features/categorySlice';
+import categoryReducer from '../features/categorySlice'
 import stockReducer from '../features/stockSlice';
 
 export const store = configureStore({
@@ -18,6 +19,7 @@ export const store = configureStore({
         product: productReducer,
         cart: cartReducer,
         adminAuth: adminAuthReducer,
+        address: addressReducer,
         admin: adminReducer,
         warehouse: warehouseReducer,
         category: categoryReducer,

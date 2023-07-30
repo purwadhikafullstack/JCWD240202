@@ -21,22 +21,18 @@ export default function ProductsCatalog() {
 
     const pageChange = (event, value) => {
         setPage(value);
-        showProducts();
     };
 
     const categoryChange = (category) => {
         setCategory(category);
-        showProducts();
     };
 
     const sortChange = (sortCat) => {
         setSort(sortCat);
-        showProducts();
     };
 
     const searchChange = (search) => {
         setSearch(search);
-        showProducts();
     };
 
     const showProducts = (page, category, sort, search) => {
