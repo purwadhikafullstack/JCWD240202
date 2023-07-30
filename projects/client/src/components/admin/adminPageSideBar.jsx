@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowDown } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import {
     FcSalesPerformance,
@@ -11,6 +11,8 @@ import {
     FcUndo,
     FcExternal,
     FcShop,
+    FcAddDatabase,
+    FcFilingCabinet,
 } from 'react-icons/fc';
 import toast from 'react-hot-toast';
 import { getDataLogin } from '../../redux/features/userSlice';
@@ -19,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function SideBarAdmin() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(true);
+    const [openProduct, setOpenProduct] = useState(false);
     const { pathname } = window.location;
     const [disabled, setDisabled] = useState(false);
     const dispatch = useDispatch();
@@ -118,12 +121,8 @@ export default function SideBarAdmin() {
                             </span>
                         </li>
                         <li
-                            className={`${
-                                pathname === '/admins/products'
-                                    ? 'underline'
-                                    : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
-                            onClick={() => navigate('/admins/products')}
+                            className="font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10"
+                            onClick={() => setOpenProduct(!openProduct)}
                         >
                             <FcBriefcase
                                 size={30}
@@ -134,10 +133,65 @@ export default function SideBarAdmin() {
                             <span className={`${!open && 'hidden'}`}>
                                 Product
                             </span>
+                            <IoIosArrowDown
+                                className={`${
+                                    open ? 'block ml-8 duration-200' : 'hidden'
+                                } ${
+                                    openProduct
+                                        ? 'rotate-[180deg] duration-200'
+                                        : ''
+                                }`}
+                            />
+                        </li>
+                        {/* List */}
+                        <li
+                            className={`${
+                                pathname === '/admins/products'
+                                    ? 'underline'
+                                    : 'no-underline'
+                            } ${
+                                openProduct ? 'block' : 'hidden'
+                            } font-semibold text-sm flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
+                                open ? 'ml-8' : ''
+                            }`}
+                            onClick={() => navigate('/admins/products')}
+                        >
+                            <FcAddDatabase
+                                size={`${open ? 23 : 30}`}
+                                className={`duration-500 ${
+                                    open && 'rotate-[360deg]'
+                                }`}
+                            />
+                            <span className={`${!open && 'hidden'}`}>
+                                Product List
+                            </span>
+                        </li>
+                        {/* Stock */}
+                        <li
+                            className={`${
+                                pathname === '/admins/stock-management'
+                                    ? 'underline'
+                                    : 'no-underline'
+                            } ${
+                                openProduct ? 'block' : 'hidden'
+                            } font-semibold text-sm flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
+                                open ? 'ml-8' : ''
+                            }`}
+                            onClick={() => navigate('/admins/stock-management')}
+                        >
+                            <FcFilingCabinet
+                                size={`${open ? 23 : 30}`}
+                                className={`duration-500 ${
+                                    open && 'rotate-[360deg]'
+                                }`}
+                            />
+                            <span className={`${!open && 'hidden'}`}>
+                                Product Stock
+                            </span>
                         </li>
                         <li
                             className={`${
-                                pathname === '/admins/setting'
+                                pathname === '/admins/user-management'
                                     ? 'underline'
                                     : 'no-underline'
                             } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
@@ -145,7 +199,7 @@ export default function SideBarAdmin() {
                                     ? 'hidden'
                                     : ''
                             }`}
-                            onClick={() => navigate('/admins/setting')}
+                            onClick={() => navigate('/admins/user-management')}
                         >
                             <FcAssistant
                                 size={30}
@@ -159,7 +213,7 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className={`${
-                                pathname === '/admins/warehouse/setting'
+                                pathname === '/admins/warehouse-management'
                                     ? 'underline'
                                     : 'no-underline'
                             } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
@@ -168,7 +222,7 @@ export default function SideBarAdmin() {
                                     : ''
                             }`}
                             onClick={() =>
-                                navigate('/admins/warehouse/setting')
+                                navigate('/admins/warehouse-management')
                             }
                         >
                             <FcShop
@@ -287,7 +341,7 @@ export default function SideBarAdmin() {
                 </div>
             </div>
             <div className="w-10 sm:hidden w-full flex items-center justify-center pb-6">
-                <div className="flex justify-center items-center">
+                <div className="flex flex-col justify-center items-center">
                     {/* <img
                         src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
                         className="h-10 cursor-pointer"
@@ -302,20 +356,20 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={() => navigate('/admins/dashboard')}
+                            onClick={() => setOpenProduct(!openProduct)}
                         >
                             <FcBriefcase size={25} />
                         </li>
                         <li
                             className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={() => navigate('/admins/setting')}
+                            onClick={() => navigate('/admins/user-management')}
                         >
                             <FcAssistant size={25} />
                         </li>
                         <li
                             className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() =>
-                                navigate('/admins/warehouse/setting')
+                                navigate('/admins/warehouse-management')
                             }
                         >
                             <FcShop size={25} />
@@ -349,6 +403,33 @@ export default function SideBarAdmin() {
                             onClick={onLogout}
                         >
                             <FcUndo size={25} />
+                        </li>
+                    </ul>
+                    <div className="w-full flex justify-start">
+                        <IoIosArrowDown
+                            className={`${
+                                openProduct
+                                    ? 'rotate-[180deg] duration-200'
+                                    : 'duration-200'
+                            } ml-[46px]`}
+                        />
+                    </div>
+                    <ul className="flex justify-start gap-2 w-full">
+                        <li
+                            className={`${
+                                openProduct ? 'block' : 'hidden'
+                            } font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md ml-[26px]`}
+                            onClick={() => navigate('/admins/products')}
+                        >
+                            <FcAddDatabase size={25} />
+                        </li>
+                        <li
+                            className={`${
+                                openProduct ? 'block' : 'hidden'
+                            } font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md`}
+                            onClick={() => navigate('/admins/dashboard')}
+                        >
+                            <FcFilingCabinet size={25} />
                         </li>
                     </ul>
                 </div>

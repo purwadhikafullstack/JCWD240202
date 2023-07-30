@@ -19,6 +19,7 @@ import ProductAdmin from './pages/admin/productAdmin';
 import CategoryProductAdmin from './pages/admin/categoryProductAdmin';
 import UserAdmin from './pages/admin/userAdmin';
 import WarehousePageAdmin from './pages/admin/warehousePageAdmin';
+import ProductStockPage from './pages/admin/productStockPage';
 
 function App() {
     return (
@@ -92,11 +93,18 @@ function App() {
                 <Route path="/admins/login" element={<AdminLoginPage />} />
                 <Route path="/admins/dashboard" element={<DashboardAdmin />} />
                 <Route path="/admins/products" element={<ProductAdmin />} />
-                <Route path="/admins/products/categories" element={<CategoryProductAdmin />} />
-                <Route path="/admins/setting" element={<UserAdmin />} />
                 <Route
-                    path="/admins/warehouse/setting"
+                    path="/admins/products/categories"
+                    element={<CategoryProductAdmin />}
+                />
+                <Route path="/admins/user-management" element={<UserAdmin />} />
+                <Route
+                    path="/admins/warehouse-management"
                     element={<WarehousePageAdmin />}
+                />
+                <Route
+                    path="/admins/stock-management"
+                    element={<ProductStockPage />}
                 />
             </Routes>
         </>

@@ -48,7 +48,6 @@ export const adminLogin = (email, password) => async (dispatch) => {
                     color: 'white',
                 },
             });
-            dispatch(getDataLogin());
         }
     } catch (error) {
         dispatch(setDisabledButton(false));

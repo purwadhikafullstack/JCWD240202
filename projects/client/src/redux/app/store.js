@@ -7,7 +7,8 @@ import cartReducer from '../features/cartSlice';
 import adminAuthReducer from '../features/adminAuthSlice';
 import adminReducer from '../features/adminSlice';
 import warehouseReducer from '../features/warehouseSlice';
-import categoryReducer from '../features/categorySlice'
+import categoryReducer from '../features/categorySlice';
+import stockReducer from '../features/stockSlice';
 
 export const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
         adminAuth: adminAuthReducer,
         admin: adminReducer,
         warehouse: warehouseReducer,
-        category: categoryReducer
+        category: categoryReducer,
+        stock: stockReducer,
     },
 });

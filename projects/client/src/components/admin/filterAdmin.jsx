@@ -44,7 +44,7 @@ export default function FilterAdmin(props) {
                         ? props?.data?.warehouse
                         : props?.data?.wh
                         ? props?.data?.wh
-                        : 'Warehouses'
+                        : 'Warehouse'
                 }
                 className="px-5 text-center"
                 color="light"
