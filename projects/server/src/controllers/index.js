@@ -25,7 +25,7 @@ module.exports = {
     adminAuthController,
     adminController,
     warehouseController,
-    colorController
+    colorController,
     orderController,
     stockController,
 };
