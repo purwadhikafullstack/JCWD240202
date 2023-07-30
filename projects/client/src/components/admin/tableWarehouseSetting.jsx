@@ -11,6 +11,7 @@ export default function WarehouseTableSetting({ data }) {
     const [showEditWhModal, setShowEditWhModal] = useState(false);
     const [showDeleteWhModal, setShowDeleteWhModal] = useState(false);
     const [selectedEdit, setSelectedEdit] = useState({});
+    console.log(data)
 
     const dispatch = useDispatch();
     const dataProvinces = useSelector(
