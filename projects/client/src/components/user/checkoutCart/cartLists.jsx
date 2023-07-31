@@ -16,7 +16,9 @@ export default function CartLists(props) {
                 <div>{props?.data?.value?.quantity} Items</div>
                 <div className="text-lg font-bold">
                     Rp{' '}
-                    {props?.data?.value?.price * props?.data?.value?.quantity}
+                    {(
+                        props?.data?.value?.price * props?.data?.value?.quantity
+                    ).toLocaleString('ID-id')}
                 </div>
                 <div className="absolute bottom-0">
                     {(

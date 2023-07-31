@@ -9,6 +9,7 @@ import addressReducer from '../features/addressSlice';
 import adminReducer from '../features/adminSlice';
 import warehouseReducer from '../features/warehouseSlice';
 import categoryReducer from '../features/categorySlice';
+import shippingReducer from '../features/shippingSlice';
 
 export const store = configureStore({
     reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
         admin: adminReducer,
         warehouse: warehouseReducer,
         category: categoryReducer,
+        shipping: shippingReducer,
     },
 });

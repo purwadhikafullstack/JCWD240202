@@ -1,4 +1,4 @@
-import { Button } from 'flowbite-react';
+import { Button, Select } from 'flowbite-react';
 import ModalChangeAddress from '../../components/user/checkoutCart/modalChangeAddress';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -23,7 +23,6 @@ export default function CheckoutCart() {
     }, []);
     return (
         <>
-            {console.log('user cart => ', userCart)}
             <Toaster />
             <div className="flex justify-center gap-2">
                 <div className="w-[1000px] px-9">
@@ -52,8 +51,16 @@ export default function CheckoutCart() {
                         </div>
                     </div>
                     {/* kurir */}
-                    <div className="py-9 font-bold text-lg">
-                        Delivery Method
+                    <div className="py-9">
+                        <div className="pb-2 font-bold text-lg">
+                            Delivery Method
+                        </div>
+                        <Select>
+                            <option>Choose Courier</option>
+                            <option value={'jne'}>JNE</option>
+                            <option value={'pos'}>Pos Indonesia</option>
+                            <option value={'tiki'}>TIKI</option>
+                        </Select>
                     </div>
                     {/* cart items */}
                     <div>
@@ -70,7 +77,7 @@ export default function CheckoutCart() {
                     </div>
                 </div>
                 {/* right total box */}
-                <div className="border h-[100px] w-[300px] mt-9">
+                <div className="border h-[500px] w-[300px] mt-9 rounded-2xl shadow-xl p-2">
                     Total Shopping Cart
                 </div>
             </div>

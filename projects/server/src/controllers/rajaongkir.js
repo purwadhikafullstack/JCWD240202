@@ -45,4 +45,33 @@ module.exports = {
             });
         }
     },
+    getCosts: async (req, res) => {
+        try {
+            const { origin, destination, weight, courier } = req.body;
+
+            const getCosts = await axios.post(
+                'https://api.rajaongkir.com/starter/cost',
+                {
+                    origin,
+                    destination,
+                    weight: Number(weight),
+                    courier,
+                },
+                {
+                    headers: {
+                        key: process.env.RO_API_KEY,
+                    },
+                },
+            );
+
+            const data = getCosts.data;
+            res.status(200).send(data);
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
 };
