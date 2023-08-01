@@ -17,18 +17,29 @@ export default function UserCart() {
             <div className=" py-[50px] font-bold text-3xl border-b">
                 Your Shopping Cart
             </div>
-            <div>
-                {userCart?.data?.rows?.map((value, index) => {
-                    return <CartTable key={index} data={{ value }} />;
-                })}
-            </div>
-            <Link to={'/cart/checkout'}>
-                <div className="flex justify-end pt-9">
-                    <div className="border w-fit px-16 py-4 rounded-full text-lg bg-sky-700 text-yellow-300 font-bold hover:bg-sky-900 hover:cursor-pointer flex flex-col justify-center items-center">
-                        <div>Checkout</div>
-                    </div>
+            {userCart?.data === null ? (
+                <div className="pt-9 flex justify-center font-bold">
+                    Cart is Empty
                 </div>
-            </Link>
+            ) : (
+                <div>
+                    {userCart?.data?.rows?.map((value, index) => {
+                        return <CartTable key={index} data={{ value }} />;
+                    })}
+                </div>
+            )}
+
+            {userCart?.data === null ? (
+                ''
+            ) : (
+                <Link to={'/cart/checkout'}>
+                    <div className="flex justify-end pt-9">
+                        <div className="border w-fit px-16 py-4 rounded-full text-lg bg-sky-700 text-yellow-300 font-bold hover:bg-sky-900 hover:cursor-pointer flex flex-col justify-center items-center">
+                            <div>Checkout</div>
+                        </div>
+                    </div>
+                </Link>
+            )}
         </div>
     );
 }

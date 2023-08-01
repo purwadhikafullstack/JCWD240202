@@ -78,6 +78,7 @@ export default function ModalChangeAddress(props) {
                                                     }),
                                                 )
                                             }
+                                            className="bg-sky-700 text-yellow-200"
                                         >
                                             Choose
                                         </Button>

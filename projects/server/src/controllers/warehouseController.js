@@ -75,6 +75,7 @@ module.exports = {
             });
         } catch (error) {
             await t.rollback();
+            console.log(error);
             res.status(500).send({
                 success: false,
                 message: error.message,

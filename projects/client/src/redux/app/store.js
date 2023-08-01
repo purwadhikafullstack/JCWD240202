@@ -8,8 +8,9 @@ import adminAuthReducer from '../features/adminAuthSlice';
 import addressReducer from '../features/addressSlice';
 import adminReducer from '../features/adminSlice';
 import warehouseReducer from '../features/warehouseSlice';
-import categoryReducer from '../features/categorySlice'
+import categoryReducer from '../features/categorySlice';
 import stockReducer from '../features/stockSlice';
+import shippingReducer from '../features/shippingSlice';
 
 export const store = configureStore({
     reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
         warehouse: warehouseReducer,
         category: categoryReducer,
         stock: stockReducer,
+        shipping: shippingReducer,
     },
 });
