@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { getDataAdminUser } from './adminSlice';
+import { getDataLogin } from './userSlice';
 
 const initialState = {
     disabledButton: false,

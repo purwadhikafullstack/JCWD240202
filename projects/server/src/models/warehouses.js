@@ -15,11 +15,18 @@ module.exports = (sequelize, DataTypes) => {
             warehouses.hasMany(models.orders, {
                 foreignKey: 'warehouse_id'
             })
+            warehouses.hasMany(models.product_stocks, {
+                foreignKey: 'warehouse_id',
+            });
         }
     }
     warehouses.init(
         {
-            user_id: DataTypes.INTEGER,
+            user_id: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+                defaultValue: null,
+            },
             province: DataTypes.STRING,
             province_id: DataTypes.INTEGER,
             city: DataTypes.STRING,

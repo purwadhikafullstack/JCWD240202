@@ -13,6 +13,8 @@ const colorController = require('./colorController');
 const transactionController = require('./transactionController');
 const orderController = require('./orderController');
 const statusController = require('./statusController');
+const stockController = require('./stockController');
+const checkoutCartController = require('./checkoutCartController');
 
 module.exports = {
     rajaOngkirController,
@@ -30,4 +32,6 @@ module.exports = {
     transactionController,
     orderController,
     statusController,
+    stockController,
+    checkoutCartController,
 };

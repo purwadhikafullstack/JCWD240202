@@ -2,6 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const { join } = require('path');
+const bodyParser = require('body-parser');
 // const path = require('path');
 const {
     rajaOngkirRouter,
@@ -18,7 +19,9 @@ const {
     colorRouter,
     transactionRouter,
     orderRouter,
-    statusRouter
+    statusRouter,
+    stockRouter,
+    checkoutCartRouter,
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -26,6 +29,7 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('src/public/images'));
 // app.use(express.static(path.join(__dirname, 'public')));
 
@@ -49,6 +53,8 @@ app.use('/api/transactions', transactionRouter)
 app.use('/api/order', orderRouter);
 app.use('/api/status', statusRouter);
 
+app.use('/api/stocks', stockRouter);
+app.use('/api/checkout', checkoutCartRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

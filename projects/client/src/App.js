@@ -23,6 +23,7 @@ import TransactionAdmin from './pages/admin/transactionAdmin';
 import CheckoutCart from './pages/user/checkoutCart';
 import './App.css';
 import { useLocation } from 'react-router-dom';
+import ProductStockPage from './pages/admin/productStockPage';
 
 function App() {
     const { pathname } = useLocation();
@@ -121,12 +122,16 @@ function App() {
                     path="/admins/products/categories"
                     element={<CategoryProductAdmin />}
                 />
-                <Route path="/admins/setting" element={<UserAdmin />} />
+                <Route path="/admins/user-management" element={<UserAdmin />} />
                 <Route
-                    path="/admins/warehouse/setting"
+                    path="/admins/warehouse-management"
                     element={<WarehousePageAdmin />}
                 />
                 <Route path="/admins/transactions" element={<TransactionAdmin />} />
+                <Route
+                    path="/admins/stock-management"
+                    element={<ProductStockPage />}
+                />
             </Routes>
 
             <Footer />
