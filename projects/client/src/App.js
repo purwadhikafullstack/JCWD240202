@@ -19,6 +19,7 @@ import ProductAdmin from './pages/admin/productAdmin';
 import CategoryProductAdmin from './pages/admin/categoryProductAdmin';
 import UserAdmin from './pages/admin/userAdmin';
 import WarehousePageAdmin from './pages/admin/warehousePageAdmin';
+import TransactionAdmin from './pages/admin/transactionAdmin';
 import CheckoutCart from './pages/user/checkoutCart';
 import './App.css';
 import { useLocation } from 'react-router-dom';
@@ -126,6 +127,7 @@ function App() {
                     path="/admins/warehouse-management"
                     element={<WarehousePageAdmin />}
                 />
+                <Route path="/admins/transactions" element={<TransactionAdmin />} />
                 <Route
                     path="/admins/stock-management"
                     element={<ProductStockPage />}

@@ -100,10 +100,10 @@ export default function ProductAdmin() {
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="p-8 w-full">
-                        <ProductTabs />
                         <div className="font-bold text-2xl mt-2">
                             <h1>PRODUCTS</h1>
                         </div>
+                        <ProductTabs />
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex justify-between items-center w-full mb-4">
                                 <div className="flex">

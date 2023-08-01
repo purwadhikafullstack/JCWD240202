@@ -226,8 +226,9 @@ export default function ModalEditProduct(props) {
                             setCategory(e.target.value);
                         }}
                         className="border border-gray-400 rounded-md mb-1"
+                        value={category}
                     >
-                        <option>Category</option>
+                        <option value='none'>Category</option>
                         {props?.category?.data?.map((value, index) => {
                             return (
                                 <option value={value.id} key={index}>
@@ -241,6 +242,7 @@ export default function ModalEditProduct(props) {
                             setColor(e.target.value);
                         }}
                         className="border border-gray-400 rounded-md ml-3"
+                        value={color}
                     >
                         <option>Base Color</option>
                         {props?.color?.data?.map((value, index) => {
