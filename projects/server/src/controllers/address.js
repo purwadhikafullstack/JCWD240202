@@ -1,5 +1,6 @@
 const db = require('./../models');
 const address = db.user_addresses;
+const users = db.users;
 const { sequelize } = require('./../models');
 const axios = require('axios');
 const { Op } = require('sequelize');
@@ -99,6 +100,7 @@ module.exports = {
                         postcode,
                         longitude: latLong.data?.results[0].geometry.lng,
                         latitude: latLong.data?.results[0].geometry.lat,
+                        is_chosen: true,
                     },
                     { transaction: t },
                 );
@@ -314,6 +316,112 @@ module.exports = {
             });
         } catch (error) {
             await t.rollback();
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    setAddressChosen: async (req, res) => {
+        const t = await sequelize.transaction();
+        try {
+            const user_id = req.User.id;
+            const { address_id } = req.body;
+
+            const findAddressId = await address.findOne({
+                where: { id: address_id },
+            });
+
+            if (findAddressId) {
+                findCurrentChosenAddress = await address.findOne({
+                    where: { user_id: user_id, is_chosen: true },
+                });
+
+                if (findCurrentChosenAddress) {
+                    removeChosen = await address.update(
+                        { is_chosen: false },
+                        { where: { user_id: user_id, is_chosen: true } },
+                        { transaction: t },
+                    );
+
+                    if (removeChosen) {
+                        updateChosen = await address.update(
+                            { is_chosen: true },
+                            { where: { user_id: user_id, id: address_id } },
+                            { transaction: t },
+                        );
+
+                        t.commit();
+                        res.status(200).send({
+                            success: true,
+                            message: 'choose address success',
+                            data: {},
+                        });
+                    } else {
+                        res.status(400).send({
+                            success: false,
+                            message: 'failed to choose address',
+                            data: {},
+                        });
+                    }
+                } else {
+                    updateChosen = await address.update(
+                        { is_chosen: true },
+                        { where: { user_id: user_id } },
+                        { transaction: t },
+                    );
+
+                    t.commit();
+                    res.status(200).send({
+                        success: true,
+                        message: 'choose address success',
+                        data: {},
+                    });
+                }
+            } else {
+                res.status(400).send({
+                    success: false,
+                    message: 'address id invalid',
+                    data: null,
+                });
+            }
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    getChosenAddress: async (req, res) => {
+        try {
+            const user_id = req.User.id;
+
+            const getAddress = await address.findOne({
+                where: { user_id: user_id, is_chosen: true },
+                include: [
+                    {
+                        model: users,
+                        attributes: ['id', 'first_name', 'last_name', 'email'],
+                    },
+                ],
+            });
+
+            if (getAddress) {
+                res.status(200).send({
+                    success: true,
+                    message: 'get user chosen address success',
+                    data: getAddress,
+                });
+            } else {
+                res.status(404).send({
+                    success: false,
+                    message: 'no chosen address found',
+                    data: null,
+                });
+            }
+        } catch (error) {
             res.status(500).send({
                 success: false,
                 message: error.message,

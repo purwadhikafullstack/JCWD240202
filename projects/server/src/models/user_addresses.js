@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             latitude: DataTypes.STRING,
             is_primary: { type: DataTypes.BOOLEAN, defaultValue: true },
             is_deleted: { type: DataTypes.BOOLEAN, defaultValue: false },
+            is_chosen: { type: DataTypes.BOOLEAN, defaultValue: false },
         },
         {
             sequelize,

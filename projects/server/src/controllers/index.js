@@ -4,13 +4,15 @@ const authController = require('./authController');
 const userController = require('./userController');
 const homepageController = require('./homepageController');
 const productController = require('./productController');
-const categoryController = require('./categoryController')
+const categoryController = require('./categoryController');
 const cartController = require('./cartController');
 const adminAuthController = require('./adminAuthController.js');
 const adminController = require('./adminController');
 const warehouseController = require('./warehouseController');
 const colorController = require('./colorController');
-const transactionController = require('./transactionController')
+const transactionController = require('./transactionController');
+const orderController = require('./orderController');
+const statusController = require('./statusController');
 
 module.exports = {
     rajaOngkirController,
@@ -25,5 +27,7 @@ module.exports = {
     adminController,
     warehouseController,
     colorController,
-    transactionController
+    transactionController,
+    orderController,
+    statusController,
 };

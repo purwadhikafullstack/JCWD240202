@@ -3,6 +3,6 @@ const router = express.Router();
 const { verifyToken } = require('../middleware/token');
 const { transactionController } = require('../controllers');
 
-router.get('/', transactionController.getAllTransaction);
+router.get('/', verifyToken, transactionController.getAllTransaction);
 
 module.exports = router;

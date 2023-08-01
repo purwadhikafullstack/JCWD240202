@@ -4,23 +4,25 @@ const db = require('../models');
 const cart = db.carts;
 const cartProduct = db.cart_products;
 const orders = db.orders;
-const warehouse = db.warehouses;
+const warehouses = db.warehouses;
 
 module.exports = {
     getAllTransaction: async (req, res) => {
         try {
+            const uId = req.User.id
             const {
-                warehouse_id,
+                warehouse,
                 search,
                 page,
                 sort,
                 startDate,
                 endDate,
-                status,
+                statusId,
             } = req.query;
+            console.log(startDate, endDate)
             const limit = 5;
             const offset = (Number(page ? page : 1) - 1) * limit;
-            let order = [['updatedAt', 'DESC']];
+            let order = [['createdAt', 'DESC']];
             let where = undefined;
             let whereStatus = undefined;
             if (startDate && endDate) {
@@ -28,16 +30,16 @@ module.exports = {
                     new Date(endDate).getDate() + 1,
                 );
             }
-            if (sort == 'oldest') {
+            if (sort == 'Oldest') {
                 order = [['createdAt', 'ASC']];
-            }
+            } else if (sort == 'Newest')
             {
                 order = [['createdAt', 'DESC']];
             }
-            const admin = await db.users.findByPk(13);
+            const admin = await db.users.findByPk(uId);
             if (admin.dataValues.role_id == 2) {
-                const userWhId = await warehouse.findOne({
-                    where: { user_id: 13 },
+                const userWhId = await s.findOne({
+                    where: { user_id: uId },
                 });
                 if (startDate && endDate) {
                     where = {
@@ -57,16 +59,19 @@ module.exports = {
                     };
                 }
             } else {
-                console.log('masuk 1');
-                if (warehouse_id) {
-                    const wh = await warehouse.findByPk(warehouse_id);
-                    if (!wh)
+                if (warehouse) {
+                    const whId = await warehouses.findOne({
+                        where: {
+                            city: warehouse,
+                        },
+                    });
+                    if (!whId)
                         return res
                             .status(404)
                             .send({ message: 'Data not found!' });
                     if (startDate && endDate) {
                         where = {
-                            warehouse_id,
+                            warehouse_id: whId.dataValues.id,
                             invoice_number: { [Op.substring]: [search] },
                             createdAt: {
                                 [Op.between]: [
@@ -77,11 +82,11 @@ module.exports = {
                         };
                     } else {
                         where = {
-                            warehouse_id,
+                            warehouse_id: whId.dataValues.id,
                             invoice_number: { [Op.substring]: [search] },
                         };
                     }
-                } else if (!warehouse_id) {
+                } else if (!warehouse) {
                     if (startDate && endDate) {
                         where = {
                             invoice_number: { [Op.substring]: [search] },
@@ -99,14 +104,13 @@ module.exports = {
                     }
                 }
             }
-            if (status) {
-                whereStatus = { status_id: status };
-                console.log(whereStatus)
+            if (statusId) {
+                whereStatus = { status_id: statusId };
             }
             const result = await orders.findAndCountAll({
                 where: where,
                 include: [
-                    { model: warehouse },
+                    { model: warehouses },
                     { model: cart, include: [{ model: cartProduct }] },
                     {
                         model: db.order_statuses,
@@ -119,7 +123,6 @@ module.exports = {
                 order,
             });
             const totalPage = Math.ceil(result.count / limit);
-            console.log(result.count);
             return res.status(200).send({
                 success: true,
                 message: 'fetch success!',

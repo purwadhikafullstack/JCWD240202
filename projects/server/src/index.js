@@ -16,7 +16,9 @@ const {
     adminRouter,
     warehouseRouter,
     colorRouter,
-    transactionRouter
+    transactionRouter,
+    orderRouter,
+    statusRouter
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -43,7 +45,10 @@ app.use('/api/auth/admins', adminAuthRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/warehouses', warehouseRouter);
 app.use('/api/color', colorRouter);
-app.use('/api/transaction', transactionRouter)
+app.use('/api/transactions', transactionRouter)
+app.use('/api/order', orderRouter);
+app.use('/api/status', statusRouter);
+
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

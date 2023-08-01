@@ -6,8 +6,13 @@ import {
     AiOutlineYoutube,
     AiOutlineSearch,
 } from 'react-icons/ai';
+import { useLocation } from 'react-router-dom';
 
 export default function Footer() {
+    const { pathname } = useLocation();
+    if (pathname === '/login') {
+        return null;
+    }
     return (
         <div className="h-[300px] border-t mt-[50px] bg-black px-[100px] py-[50px] text-white ">
             <div className="flex justify-between items-center">
