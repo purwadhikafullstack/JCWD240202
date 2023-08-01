@@ -69,9 +69,8 @@ export default function ProductDetails() {
                     </div>
                     <div className="mt-9">
                         <Button
-                            gradientDuoTone="purpleToBlue"
                             pill
-                            className="w-full p-4"
+                            className="w-full p-4 bg-sky-700 text-yellow-200"
                             onClick={() =>
                                 dispatch(
                                     userAddToCartAsync({

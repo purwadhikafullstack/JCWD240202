@@ -1,26 +1,30 @@
-/* eslint-disable jsx-a11y/scope */
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
-import { useEffect } from 'react';
-import adminSlice, { getDataAdminUser } from '../../redux/features/adminSlice';
+import { getAllDataWh } from '../../redux/features/warehouseSlice';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import RegisterAdmin from '../../components/admin/registerAdminModal';
-import UserAdminTable from './userAdminTable';
-import SearchBarAdmin from '../../components/admin/searchBarAdmin';
-import FilterAdmin from '../../components/admin/filterAdmin';
-import SortAdmin from '../../components/admin/sortAdmin';
-import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { useSearchParams } from 'react-router-dom';
+import PaginationAdmin from '../../components/admin/paginationAdmin';
+import SearchBarAdmin from '../../components/admin/searchBarAdmin';
+import SortAdmin from '../../components/admin/sortAdmin';
+import FilterAdmin from '../../components/admin/filterAdmin';
+import FilterCategoryAdmin from '../../components/admin/filterCategoryProductAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
+import { getDataStock } from '../../redux/features/stockSlice';
+import { getDataLogin } from '../../redux/features/userSlice';
+import TableStockManagement from '../../components/admin/tableStockManagement';
 
-export default function UserAdmin() {
-    const [showRegisModal, setShowRegisModal] = useState(false);
+export default function ProductStockPage() {
     const dispatch = useDispatch();
-    const admins = useSelector((state) => state.admin.dataAdmin);
+    const dataStocks = useSelector((state) => state.stock.stocks);
+    const dataLogin = useSelector((state) => state.user.dataLogin);
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
-    const [sort, setSort] = useState(searchParams.get('sort') || '');
     const [search, setSearch] = useState(searchParams.get('search') || '');
+    const [sort, setSort] = useState(searchParams.get('sort') || '');
+    const [category, setCategory] = useState(
+        searchParams.get('category') || '',
+    );
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
@@ -29,12 +33,16 @@ export default function UserAdmin() {
         setPage(value);
     };
 
+    const searchChange = (search) => {
+        setSearch(search);
+    };
+
     const sortChange = (sort) => {
         setSort(sort);
     };
 
-    const searchChange = (search) => {
-        setSearch(search);
+    const categoryChange = (category) => {
+        setCategory(category);
     };
 
     const warehouseChange = (warehouse) => {
@@ -52,13 +60,16 @@ export default function UserAdmin() {
         if (sort) {
             queryParams['sort'] = sort;
         }
+        if (category) {
+            queryParams['category'] = category;
+        }
         if (warehouse) {
             queryParams['warehouse'] = warehouse;
         }
         setSearchParams(queryParams);
-        dispatch(getDataAdminUser(page, sort, search, warehouse));
-    }, [page, sort, search, warehouse]);
-
+        dispatch(getDataLogin());
+        dispatch(getDataStock(page, search, sort, category, warehouse));
+    }, [page, search, sort, category, warehouse]);
     return (
         <>
             <div>
@@ -66,7 +77,19 @@ export default function UserAdmin() {
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
-                            <h1>ADMIN</h1>
+                            {dataLogin?.warehouse?.city ? (
+                                <>
+                                    <h1>
+                                        Welcome, {dataLogin?.first_name}{' '}
+                                        {dataLogin?.last_name}!
+                                    </h1>
+                                    <h1 className="mt-3">
+                                        {dataLogin?.warehouse?.city} Warehouse
+                                    </h1>
+                                </>
+                            ) : (
+                                <h1>Welcome, Admin!</h1>
+                            )}
                         </div>
                         <div className="mt-5 p-3 bg-white shadow-md rounded-lg">
                             <div className="sm:flex sm:justify-between w-full mb-2">
@@ -75,20 +98,23 @@ export default function UserAdmin() {
                                         data={{ searchChange, search }}
                                     />
                                     <SortAdmin data={{ sortChange, sort }} />
-                                    <FilterAdmin
-                                        data={{ warehouseChange, warehouse }}
+
+                                    <FilterCategoryAdmin
+                                        data={{ categoryChange, category }}
                                     />
-                                </div>
-                                <div>
-                                    <button
-                                        onClick={() => setShowRegisModal(true)}
-                                        className="text-white text-[10px] font-bold border p-1 rounded-lg bg-[#0051BA] hover:bg-gray-400 focus:ring-2 focus:ring-main-500 w-28 p-3 mt-5 md:mt-0"
-                                    >
-                                        + Register Admin
-                                    </button>
+                                    {dataLogin?.role_id === 3 ? (
+                                        <FilterAdmin
+                                            data={{
+                                                warehouseChange,
+                                                warehouse,
+                                            }}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
                                 </div>
                             </div>
-                            <div className="w-full sm:flex sm:justify-start mb-3">
+                            <div className="w-full flex justify-start mb-3">
                                 {search ? (
                                     <button
                                         onClick={() => {
@@ -123,6 +149,22 @@ export default function UserAdmin() {
                                 ) : (
                                     <></>
                                 )}
+                                {category ? (
+                                    <button
+                                        onClick={() => {
+                                            setCategory('');
+                                        }}
+                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
+                                    >
+                                        <IoCloseCircleSharp />
+
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
+                                            {category}
+                                        </div>
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}
                                 {warehouse ? (
                                     <button
                                         onClick={() => {
@@ -148,25 +190,31 @@ export default function UserAdmin() {
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
-                                                Admin Name
+                                                Image
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
-                                                Email
+                                                Product Name
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
-                                                Phone Number
+                                                Category
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
                                                 Warehouse
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3 border-r border-gray-300 text-center"
+                                            >
+                                                Stock
                                             </th>
                                             <th
                                                 scope="col"
@@ -177,9 +225,17 @@ export default function UserAdmin() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {admins?.data?.rows?.length !== 0 ? (
-                                            <UserAdminTable
-                                                data={admins?.data?.rows}
+                                        {dataStocks?.data?.rows?.length !==
+                                        0 ? (
+                                            <TableStockManagement
+                                                data={dataStocks?.data?.rows}
+                                                params={{
+                                                    page,
+                                                    search,
+                                                    sort,
+                                                    category,
+                                                    warehouse,
+                                                }}
                                             />
                                         ) : (
                                             <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center text-2xl">
@@ -198,7 +254,7 @@ export default function UserAdmin() {
                             <div className="w-full flex justify-center mt-3">
                                 <PaginationAdmin
                                     data={{
-                                        totalPage: admins?.totalPage,
+                                        totalPage: dataStocks?.totalPage,
                                         page,
                                         pageChange,
                                     }}
@@ -207,14 +263,6 @@ export default function UserAdmin() {
                         </div>
                     </div>
                 </div>
-                <>
-                    {/* Register Admin */}
-                    {showRegisModal === true ? (
-                        <RegisterAdmin showModal={setShowRegisModal} />
-                    ) : (
-                        <></>
-                    )}
-                </>
             </div>
         </>
     );

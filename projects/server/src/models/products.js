@@ -23,12 +23,15 @@ module.exports = (sequelize, DataTypes) => {
             products.hasMany(models.cart_products, {
                 foreignKey: 'product_id',
             });
+            products.hasMany(models.product_stocks, {
+                foreignKey: 'product_id',
+            });
         }
     }
     products.init(
         {
             name: DataTypes.STRING,
-            category_id: DataTypes.INTEGER,
+            category_id: { type: DataTypes.INTEGER, allowNull: true },
             color_id: DataTypes.INTEGER,
             price: DataTypes.INTEGER,
             description: DataTypes.STRING,

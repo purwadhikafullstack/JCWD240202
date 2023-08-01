@@ -75,6 +75,7 @@ module.exports = {
             });
         } catch (error) {
             await t.rollback();
+            console.log(error);
             res.status(500).send({
                 success: false,
                 message: error.message,
@@ -167,6 +168,7 @@ module.exports = {
 
             const deleteWarehouse = await warehouse.update(
                 {
+                    user_id: null,
                     is_deleted: true,
                 },
                 {
@@ -264,7 +266,24 @@ module.exports = {
                 where,
                 offset: paginationOffset,
                 limit: paginationLimit,
-                include: { all: true },
+                include: [
+                    {
+                        model: db.users,
+                        attributes: [
+                            'first_name',
+                            'last_name',
+                            'email',
+                            'phone_number',
+                            'role_id',
+                        ],
+                        include: [
+                            {
+                                model: db.roles,
+                                attributes: ['name'],
+                            },
+                        ],
+                    },
+                ],
                 order,
             });
 

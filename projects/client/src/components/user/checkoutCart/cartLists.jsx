@@ -1,7 +1,6 @@
 export default function CartLists(props) {
     return (
         <div className="flex py-4 gap-9">
-            {console.log('props => ', props)}
             <div className="w-[200px] h-[150px]">
                 <img
                     src={props?.data?.value?.image}

@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
         setInput({ ...input, [name]: value });
     };
 
-    if (setDisabledButton === true || userLogin) {
+    if (userLogin) {
         return <Navigate to="/admins/dashboard" />;
     }
 

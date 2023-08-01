@@ -13,15 +13,14 @@ import { IoCloseCircleSharp } from 'react-icons/io5';
 
 export default function WarehousePageAdmin() {
     const [showAddWhModal, setShowAddWhModal] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useDispatch();
     const warehouse = useSelector((state) => state.warehouse.dataWh);
-    const [page, setPage] = useState(1);
-    const [search, setSearch] = useState('');
-    const [sort, setSort] = useState('');
-    const [wh, setWh] = useState('');
-
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
+    const [search, setSearch] = useState(searchParams.get('search') || '');
+    const [sort, setSort] = useState(searchParams.get('sort') || '');
+    const [wh, setWh] = useState(searchParams.get('warehouses') || '');
 
     const pageChange = (event, value) => {
         setPage(value);

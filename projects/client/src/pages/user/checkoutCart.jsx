@@ -8,6 +8,11 @@ import { getChosenAddressAsync } from '../../redux/features/addressSlice';
 import ChosenAddress from '../../components/user/checkoutCart/chosenAddress';
 import { getUserCartAsync } from '../../redux/features/cartSlice';
 import CartLists from '../../components/user/checkoutCart/cartLists';
+import OrderSummary from '../../components/user/checkoutCart/orderSummary';
+import {
+    getShippingListAsync,
+    setShipping,
+} from '../../redux/features/shippingSlice';
 
 export default function CheckoutCart() {
     const dispatch = useDispatch();
@@ -16,11 +21,40 @@ export default function CheckoutCart() {
         (state) => state.address.chosenAddress,
     );
     const userCart = useSelector((state) => state.cart.cart);
+    const closestWH = useSelector((state) => state.shipping.closestWarehouse);
+    const shippingCourier = useSelector((state) => state.shipping.shipping);
+    const [courier, setCourier] = useState('');
+    const [shippingFee, setShippingFee] = useState(0);
+
+    const handleIkewaCourier = (e) => {
+        if (e.target.value === '') {
+            setCourier('');
+            setShippingFee(0);
+        } else {
+            setCourier('ikewa');
+            const fee = closestWH.data.distanceInKm * 6800;
+            setShippingFee(fee);
+        }
+    };
 
     useEffect(() => {
         dispatch(getChosenAddressAsync());
         dispatch(getUserCartAsync());
-    }, []);
+        if (courier === 'jne' || courier === 'tiki' || courier === 'pos') {
+            const getShippingPrice = dispatch(
+                getShippingListAsync({
+                    origin_id: closestWH.data.warehouseData.city_id,
+                    destination_id: userChosenAddress.data.city_id,
+                    weight: userCart.totalWeight,
+                    courier: courier,
+                }),
+            );
+        }
+        if (courier === '') {
+            dispatch(setShipping(null));
+            setShippingFee(0);
+        }
+    }, [courier]);
     return (
         <>
             <Toaster />
@@ -55,12 +89,67 @@ export default function CheckoutCart() {
                         <div className="pb-2 font-bold text-lg">
                             Delivery Method
                         </div>
-                        <Select>
-                            <option>Choose Courier</option>
-                            <option value={'jne'}>JNE</option>
-                            <option value={'pos'}>Pos Indonesia</option>
-                            <option value={'tiki'}>TIKI</option>
-                        </Select>
+                        {userCart.totalWeight <= 30 ? (
+                            <Select
+                                onChange={(e) => setCourier(e.target.value)}
+                            >
+                                <option value={''}>Choose Courier</option>
+                                <option value={'jne'}>JNE</option>
+                                <option value={'pos'}>Pos Indonesia</option>
+                                <option value={'tiki'}>TIKI</option>
+                            </Select>
+                        ) : (
+                            <Select
+                                onChange={(e) => {
+                                    handleIkewaCourier(e);
+                                }}
+                            >
+                                <option value={''}>Choose Courier</option>
+                                <option value={'ikewa'}>
+                                    Ikewa Courier Service
+                                </option>
+                            </Select>
+                        )}
+                    </div>
+                    <div>
+                        {shippingCourier ? (
+                            <Select
+                                onChange={(e) => {
+                                    e.target.value === ''
+                                        ? setShippingFee(0)
+                                        : setShippingFee(
+                                              e.target.value.split(',')[1],
+                                          );
+                                }}
+                            >
+                                <option value={''}>
+                                    Choose Delivery Method
+                                </option>
+                                {shippingCourier?.data?.rajaongkir?.results[0]?.costs.map(
+                                    (value, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={`${value.service},${value.cost[0].value}`}
+                                            >
+                                                {value.service} - Rp{' '}
+                                                {value.cost[0].value.toLocaleString(
+                                                    'ID-id',
+                                                )}{' '}
+                                                (
+                                                {value.cost[0].etd.replace(
+                                                    'HARI',
+                                                    '',
+                                                )}{' '}
+                                                Days)
+                                            </option>
+                                        );
+                                    },
+                                )}
+                            </Select>
+                        ) : (
+                            ''
+                        )}
                     </div>
                     {/* cart items */}
                     <div>
@@ -77,9 +166,14 @@ export default function CheckoutCart() {
                     </div>
                 </div>
                 {/* right total box */}
-                <div className="border h-[500px] w-[300px] mt-9 rounded-2xl shadow-xl p-2">
-                    Total Shopping Cart
-                </div>
+                <OrderSummary
+                    data={{
+                        closestWH,
+                        weight: userCart.totalWeight,
+                        price: userCart.totalPrice,
+                        shippingFee: shippingFee,
+                    }}
+                />
             </div>
             <ModalChangeAddress
                 data={{
