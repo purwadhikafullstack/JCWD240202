@@ -5,6 +5,8 @@ const user_addresses = db.user_addresses;
 const cart_products = db.cart_products;
 const products = db.products;
 const carts = db.carts;
+const product_stocks = db.product_stocks;
+const orders = db.orders;
 const sequelize = require('sequelize');
 
 const getClosestWarehouse = async (req, res) => {
@@ -83,4 +85,94 @@ const getClosestWarehouse = async (req, res) => {
     }
 };
 
-module.exports = { getClosestWarehouse };
+const createUserOrder = async (req, res) => {
+    try {
+        const user_id = req.User.id;
+        const {
+            cart_id,
+            shipping_address,
+            courier,
+            shipping_method,
+            shipping_fee,
+            total_weight,
+            total_cart_price,
+            total,
+            warehouse_id,
+            receiver_name,
+            receiver_number,
+        } = req.body;
+
+        const findCart = await carts.findOne({
+            where: { id: cart_id, user_id: user_id, is_checkout: false },
+        });
+
+        if (findCart) {
+            const timestamp = new Date().getTime();
+            const invoiceNumber = `inv/${timestamp}`;
+
+            const createOrder = await orders.create({
+                cart_id: findCart.id,
+                shipping_address,
+                courier,
+                shipping_method,
+                shipping_fee,
+                total_weight,
+                total_cart_price,
+                total,
+                warehouse_id,
+                invoice_number: invoiceNumber,
+                receiver_name: receiver_name,
+                receiver_number: receiver_number,
+            });
+
+            if (createOrder) {
+                const updateCart = await carts.update(
+                    { is_checkout: true },
+                    { where: { id: findCart.id } },
+                );
+                const getCartProducts = await cart_products.findAll({
+                    where: { cart_id: findCart.id },
+                });
+
+                const getProductIds = getCartProducts.map(async (value) => {
+                    const findProduct = await products.findOne({
+                        where: { id: value.product_id },
+                    });
+
+                    await products.update(
+                        {
+                            total_stock:
+                                findProduct.total_stock - value.quantity,
+                        },
+                        { where: { id: value.product_id } },
+                    );
+                });
+
+                res.status(200).send({
+                    success: true,
+                    message: 'create new order success',
+                    data: {},
+                });
+            } else {
+                res.status(400).send({
+                    success: false,
+                    message: 'failed to create order',
+                    data: null,
+                });
+            }
+        } else {
+            res.status(400).send({
+                success: false,
+                message: 'invalid cart id',
+                data: null,
+            });
+        }
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message,
+            data: null,
+        });
+    }
+};
+module.exports = { getClosestWarehouse, createUserOrder };

@@ -9,10 +9,8 @@ export default function ServicesBox() {
                     <div className="flex justify-center">
                         <BsTruck size={25} />
                     </div>
-                    <div className="text-xl font-bold">Pengantaran</div>
-                    <div>
-                        Kami bantu antar belanjaan Anda ke rumah atau kantor.
-                    </div>
+                    <div className="text-xl font-bold">Delivery</div>
+                    <div>We delivered directly to your home or office.</div>
                 </div>
             </div>
             {/* perakitan */}
@@ -21,10 +19,9 @@ export default function ServicesBox() {
                     <div className="flex justify-center">
                         <BsTools size={25} />
                     </div>
-                    <div className="text-xl font-bold">Perakitan</div>
+                    <div className="text-xl font-bold">Assembly</div>
                     <div>
-                        Kami dapat merakit satu perabot hingga sistem lemari
-                        pakaian PAX.
+                        We can help you assemble your new items on location.
                     </div>
                 </div>
             </div>
@@ -34,10 +31,8 @@ export default function ServicesBox() {
                     <div className="flex justify-center">
                         <BsFillSendFill size={25} />
                     </div>
-                    <div className="text-xl font-bold">Lacak Pesanan</div>
-                    <div>
-                        Periksa tanggal dan rincian pengantaran Anda di sini
-                    </div>
+                    <div className="text-xl font-bold">Order Tracking</div>
+                    <div>You can check your order progress directly.</div>
                 </div>
             </div>
         </div>

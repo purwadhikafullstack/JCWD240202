@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'warehouse_id',
             });
             orders.hasMany(models.order_statuses, {
-                foreignKey: "order_id"
-            })
+                foreignKey: 'order_id',
+            });
         }
     }
     orders.init(
@@ -35,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
             total_weight: DataTypes.INTEGER,
             total_cart_price: DataTypes.INTEGER,
             warehouse_id: DataTypes.INTEGER,
-            invoice_number: DataTypes.STRING,
+            invoice_number: { type: DataTypes.STRING, unique: true },
             total: DataTypes.INTEGER,
-            receiver_number: DataTypes.STRING,
             receiver_name: DataTypes.STRING,
+            receiver_number: DataTypes.STRING,
         },
         {
             sequelize,

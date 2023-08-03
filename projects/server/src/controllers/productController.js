@@ -6,6 +6,7 @@ const categories = db.categories;
 const products = db.products;
 const product_images = db.product_images;
 const colors = db.colors;
+const product_stocks = db.product_stocks;
 
 const getAllProducts = async (req, res) => {
     try {
@@ -26,6 +27,10 @@ const getAllProducts = async (req, res) => {
                 order = [['price', 'ASC']];
             } else if (sort === 'price-desc') {
                 order = [['price', 'DESC']];
+            } else if (sort === 'newest') {
+                order = [['id', 'DESC']];
+            } else if (sort === 'oldest') {
+                order = [['id', 'ASC']];
             }
 
             const findCategory = await categories.findOne({
@@ -63,14 +68,14 @@ const getAllProducts = async (req, res) => {
                         totalPage: totalPage,
                     });
                 } else {
-                    res.status(404).send({
+                    res.status(400).send({
                         success: false,
                         message: 'get data failed',
                         data: {},
                     });
                 }
             } else {
-                res.status(404).send({
+                res.status(400).send({
                     success: false,
                     message: 'get data failed',
                     data: {},
@@ -130,6 +135,10 @@ const getAllProducts = async (req, res) => {
                     order = [['price', 'ASC']];
                 } else if (sort === 'price-desc') {
                     order = [['price', 'DESC']];
+                } else if (sort === 'newest') {
+                    order = [['id', 'DESC']];
+                } else if (sort === 'oldest') {
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -155,7 +164,7 @@ const getAllProducts = async (req, res) => {
                     totalPage: totalPage,
                 });
             } else {
-                res.status(200).send({
+                res.status(400).send({
                     success: false,
                     message: 'get all data failed',
                     data: {},
@@ -171,6 +180,7 @@ const getAllProducts = async (req, res) => {
                     { model: colors },
                     { model: product_images, where: { is_thumbnail: true } },
                 ],
+                order: [['id', 'ASC']],
             });
 
             if (result) {
@@ -216,7 +226,7 @@ const getProductDetails = async (req, res) => {
             res.status(200).send({
                 success: true,
                 message: `get product id ${id} success`,
-                data: findProduct,
+                data: { findProduct },
             });
         } else {
             res.status(404).send({
@@ -364,7 +374,7 @@ const editProduct = async (req, res) => {
 
         const checkName = await products.findOne({
             where: {
-                [Op.not]: [{id: id}],
+                [Op.not]: [{ id: id }],
                 name: name,
             },
         });
@@ -413,7 +423,7 @@ const editProduct = async (req, res) => {
 const editProductImages = async (req, res) => {
     const t = await sequelize.transaction();
     try {
-        console.log(req.files.images)
+        console.log(req.files.images);
         const { id } = req.params;
         const recentImage = await product_images.findAll({
             where: {
@@ -582,6 +592,7 @@ const changeThumbnail = async (req, res) => {
         });
     }
 };
+
 const getRelatedProducts = async (req, res) => {
     try {
         const { id } = req.params;

@@ -11,7 +11,6 @@ const adminRouter = require('./adminRouter');
 const warehouseRouter = require('./warehouseRouter');
 const colorRouter = require('./colorRouter');
 const transactionRouter = require('./transactionRouter');
-const orderRouter = require('./orderRouter');
 const statusRouter = require('./statusRouter');
 const stockRouter = require('./stockRouter');
 const checkoutCartRouter = require('./checkoutCartRouter');
@@ -30,7 +29,6 @@ module.exports = {
     warehouseRouter,
     colorRouter,
     transactionRouter,
-    orderRouter,
     statusRouter,
     stockRouter,
     checkoutCartRouter,

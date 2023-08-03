@@ -13,6 +13,7 @@ import statusReducer from '../features/statusSlice';
 import transactionReducer from '../features/transactionSlice';
 import stockReducer from '../features/stockSlice';
 import shippingReducer from '../features/shippingSlice';
+import checkoutReducer from '../features/checkoutSlice';
 
 export const store = configureStore({
     reducer: {
@@ -30,5 +31,6 @@ export const store = configureStore({
         transaction: transactionReducer,
         stock: stockReducer,
         shipping: shippingReducer,
+        checkout: checkoutReducer,
     },
 });
