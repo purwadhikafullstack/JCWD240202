@@ -11,6 +11,7 @@ import warehouseReducer from '../features/warehouseSlice';
 import categoryReducer from '../features/categorySlice';
 import stockReducer from '../features/stockSlice';
 import shippingReducer from '../features/shippingSlice';
+import checkoutReducer from '../features/checkoutSlice';
 
 export const store = configureStore({
     reducer: {
@@ -26,5 +27,6 @@ export const store = configureStore({
         category: categoryReducer,
         stock: stockReducer,
         shipping: shippingReducer,
+        checkout: checkoutReducer,
     },
 });

@@ -62,6 +62,26 @@ export default function SortButton(props) {
                     />
                     <Label>Z-A</Label>
                 </div>
+                <div className="flex gap-3 items-center mb-2">
+                    <Radio
+                        id="name"
+                        name="sort"
+                        value={'newest'}
+                        onClick={() => handleSort('newest')}
+                        checked={name === 'newest' ? true : false}
+                    />
+                    <Label>Newest</Label>
+                </div>
+                <div className="flex gap-3 items-center mb-2">
+                    <Radio
+                        id="name"
+                        name="sort"
+                        value={'oldest'}
+                        onClick={() => handleSort('oldest')}
+                        checked={name === 'oldest' ? true : false}
+                    />
+                    <Label>Oldest</Label>
+                </div>
             </div>
         </Dropdown>
     );

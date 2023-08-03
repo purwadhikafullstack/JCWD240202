@@ -9,5 +9,6 @@ router.get(
     verifyToken,
     checkoutCartController.getClosestWarehouse,
 );
+router.post('/', verifyToken, checkoutCartController.createUserOrder);
 
 module.exports = router;

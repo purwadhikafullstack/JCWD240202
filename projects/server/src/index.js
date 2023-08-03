@@ -17,7 +17,6 @@ const {
     adminRouter,
     warehouseRouter,
     colorRouter,
-    orderRouter,
     stockRouter,
     checkoutCartRouter,
 } = require('./routers');
@@ -47,7 +46,6 @@ app.use('/api/auth/admins', adminAuthRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/warehouses', warehouseRouter);
 app.use('/api/color', colorRouter);
-app.use('/api/order', orderRouter);
 app.use('/api/stocks', stockRouter);
 app.use('/api/checkout', checkoutCartRouter);
 

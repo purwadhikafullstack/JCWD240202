@@ -3,7 +3,7 @@ import { Carousel } from 'flowbite-react';
 export default function CarouselDetails(props) {
     return (
         <Carousel>
-            {props?.data?.proDetails?.data?.product_images?.map(
+            {props?.data?.proDetails?.findProduct?.product_images?.map(
                 (value, index) => {
                     return (
                         <img

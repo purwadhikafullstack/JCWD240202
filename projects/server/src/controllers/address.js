@@ -28,6 +28,7 @@ module.exports = {
             });
         }
     },
+
     addNewAddress: async (req, res) => {
         const t = await sequelize.transaction();
         try {
@@ -141,6 +142,7 @@ module.exports = {
             });
         }
     },
+
     editAddress: async (req, res) => {
         const t = await sequelize.transaction();
         try {
@@ -228,6 +230,7 @@ module.exports = {
             });
         }
     },
+
     deleteAddress: async (req, res) => {
         const t = await sequelize.transaction();
         try {
@@ -268,6 +271,7 @@ module.exports = {
             });
         }
     },
+
     setPrimaryAddress: async (req, res) => {
         const t = await sequelize.transaction();
         try {
@@ -323,6 +327,7 @@ module.exports = {
             });
         }
     },
+
     setAddressChosen: async (req, res) => {
         const t = await sequelize.transaction();
         try {
@@ -394,6 +399,7 @@ module.exports = {
             });
         }
     },
+
     getChosenAddress: async (req, res) => {
         try {
             const user_id = req.User.id;
@@ -415,9 +421,9 @@ module.exports = {
                     data: getAddress,
                 });
             } else {
-                res.status(404).send({
+                res.send({
                     success: false,
-                    message: 'no chosen address found',
+                    message: 'please choose or add new address',
                     data: null,
                 });
             }

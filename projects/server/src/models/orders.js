@@ -28,9 +28,11 @@ module.exports = (sequelize, DataTypes) => {
             shipping_fee: DataTypes.INTEGER,
             total_weight: DataTypes.INTEGER,
             total_cart_price: DataTypes.INTEGER,
-            invoice_number: DataTypes.STRING,
+            invoice_number: { type: DataTypes.STRING, unique: true },
             warehouse_id: DataTypes.INTEGER,
             total: DataTypes.INTEGER,
+            receiver_name: DataTypes.STRING,
+            receiver_number: DataTypes.STRING,
         },
         {
             sequelize,
