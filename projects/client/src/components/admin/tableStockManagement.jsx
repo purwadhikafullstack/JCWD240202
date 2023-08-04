@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FcPlus, FcMinus } from 'react-icons/fc';
 import AddQuantityModal from './addQtyModal';
 import ReduceQuantityModal from './reduceQtyModal';
+import { getDataLogin } from '../../redux/features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function TableStockManagement({ data, params }) {
     const [showAddQtyModal, setShowAddQtyModal] = useState(false);
     const [showReduceQtyModal, setShowReduceQtyModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState({});
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getDataLogin());
+    }, []);
 
     return (
         <>
@@ -17,13 +24,13 @@ export default function TableStockManagement({ data, params }) {
                         scope="row"
                         className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
                     >
-                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-r flex justify-center">
+                        {/* <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-r flex justify-center">
                             <img
                                 className="min-w-[40px] max-w-[80px]"
                                 src={value.product.product_images[0].name}
                                 alt="product_image"
                             />
-                        </td>
+                        </td> */}
                         <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-r">
                             {' '}
                             {value.product.name}

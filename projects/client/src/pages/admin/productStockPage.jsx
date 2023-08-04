@@ -67,7 +67,6 @@ export default function ProductStockPage() {
             queryParams['warehouse'] = warehouse;
         }
         setSearchParams(queryParams);
-        dispatch(getDataLogin());
         dispatch(getDataStock(page, search, sort, category, warehouse));
     }, [page, search, sort, category, warehouse]);
     return (
@@ -186,12 +185,12 @@ export default function ProductStockPage() {
                                 <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                                     <thead className="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th
+                                            {/* <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
                                                 Image
-                                            </th>
+                                            </th> */}
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"

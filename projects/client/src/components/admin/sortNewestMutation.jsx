@@ -1,6 +1,6 @@
 import { Dropdown, Label, Radio } from 'flowbite-react';
 
-export default function SortAdmin(props) {
+export default function SortNewestMutation(props) {
     const handleSort = (sort) => {
         props?.data?.sortChange(sort);
     };
@@ -8,10 +8,10 @@ export default function SortAdmin(props) {
         <div className="sm:mb-0 mb-2">
             <Dropdown
                 label={
-                    props?.data?.sort === 'name-asc'
-                        ? 'A-Z'
-                        : props?.data?.sort === 'name-desc'
-                        ? 'Z-A'
+                    props?.data?.sort === 'newest'
+                        ? 'Newest'
+                        : props?.data?.sort === 'oldest'
+                        ? 'Oldest'
                         : 'Sort'
                 }
                 className="px-5 text-center"
@@ -23,25 +23,25 @@ export default function SortAdmin(props) {
                         <Radio
                             id="name"
                             name="sort"
-                            value={'name-asc'}
-                            onChange={() => handleSort('name-asc')}
+                            value={'newest'}
+                            onChange={() => handleSort('newest')}
                             checked={
-                                props?.data?.sort === 'name-asc' ? true : false
+                                props?.data?.sort === 'newest' ? true : false
                             }
                         />
-                        <Label>A-Z</Label>
+                        <Label>Newest</Label>
                     </div>
                     <div className="flex gap-3 items-center mb-2">
                         <Radio
                             id="name"
                             name="sort"
-                            value={'name-desc'}
-                            onChange={() => handleSort('name-desc')}
+                            value={'oldest'}
+                            onChange={() => handleSort('oldest')}
                             checked={
-                                props?.data?.sort === 'name-desc' ? true : false
+                                props?.data?.sort === 'oldest' ? true : false
                             }
                         />
-                        <Label>Z-A</Label>
+                        <Label>Oldest</Label>
                     </div>
                 </div>
             </Dropdown>

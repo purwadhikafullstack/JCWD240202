@@ -23,6 +23,7 @@ import CheckoutCart from './pages/user/checkoutCart';
 import './App.css';
 import { useLocation } from 'react-router-dom';
 import ProductStockPage from './pages/admin/productStockPage';
+import MutationPage from './pages/admin/mutationPage';
 
 function App() {
     const { pathname } = useLocation();
@@ -129,6 +130,10 @@ function App() {
                 <Route
                     path="/admins/stock-management"
                     element={<ProductStockPage />}
+                />
+                <Route
+                    path="/admins/mutation-management"
+                    element={<MutationPage />}
                 />
             </Routes>
 

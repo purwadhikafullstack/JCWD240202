@@ -12,6 +12,7 @@ const warehouseController = require('./warehouseController');
 const colorController = require('./colorController');
 const orderController = require('./orderController');
 const stockController = require('./stockController');
+const mutationController = require('./mutationController');
 
 module.exports = {
     rajaOngkirController,
@@ -28,4 +29,5 @@ module.exports = {
     colorController,
     orderController,
     stockController,
+    mutationController,
 };

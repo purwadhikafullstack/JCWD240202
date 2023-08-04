@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
             warehouses.hasMany(models.product_stocks, {
                 foreignKey: 'warehouse_id',
             });
+            warehouses.hasMany(models.mutations, {
+                as: 'origin',
+                foreignKey: 'warehouse_origin_id',
+            });
+            warehouses.hasMany(models.mutation_details, {
+                as: 'destination',
+                foreignKey: 'warehouse_destination_id',
+            });
         }
     }
     warehouses.init(

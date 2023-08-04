@@ -10,6 +10,7 @@ module.exports = {
             let cat = undefined;
             let order = undefined;
             const { id, role_id } = req.User;
+            console.log(id);
             const { page, warehouse, search, sort, category } = req.query;
 
             const paginationLimit = 15;
@@ -102,12 +103,10 @@ module.exports = {
             }
 
             if (sort) {
-                if (sort) {
-                    if (sort === 'name-asc') {
-                        order = [[db.products, 'name', 'ASC']];
-                    } else if (sort === 'name-desc') {
-                        order = [[db.products, 'name', 'DESC']];
-                    }
+                if (sort === 'name-asc') {
+                    order = [[db.products, 'name', 'ASC']];
+                } else if (sort === 'name-desc') {
+                    order = [[db.products, 'name', 'DESC']];
                 }
             }
 
@@ -118,6 +117,7 @@ module.exports = {
                 where: where,
                 offset: paginationOffset,
                 limit: paginationLimit,
+                order,
                 include: [
                     {
                         model: db.products,
@@ -130,18 +130,15 @@ module.exports = {
                         ],
                         where: cat,
                         include: [
+                            // {
+                            //     model: db.product_images,
+                            //     // attributes: ['name'],
+                            //     where: { is_thumbnail: 1 },
+                            //     required: false,
+                            // },
                             {
                                 model: db.categories,
                                 attributes: ['name'],
-                            },
-                            {
-                                model: db.colors,
-                                attributes: ['name'],
-                            },
-                            {
-                                model: db.product_images,
-                                attributes: ['name'],
-                                where: { is_thumbnail: 1 },
                             },
                         ],
                     },
@@ -152,7 +149,6 @@ module.exports = {
                         },
                     },
                 ],
-                order,
             });
 
             const totalPage = Math.ceil(dataStock.count / paginationLimit);
@@ -190,9 +186,6 @@ module.exports = {
                 },
             });
 
-            console.log(checkProduct.stock);
-            console.log(Number(quantity));
-
             if (!checkProduct) {
                 return res.status(404).send({
                     success: false,
@@ -219,10 +212,12 @@ module.exports = {
 
                 await db.stock_histories.create(
                     {
-                        product_stock_id: checkProduct.id,
+                        product_id: checkProduct.product_id,
                         quantity,
                         type_id: 1,
                         information_id: 1,
+                        user_id: id,
+                        warehouse_id: checkWarehouse.id,
                     },
                     { transaction: t },
                 );
@@ -236,6 +231,7 @@ module.exports = {
                 });
             }
         } catch (error) {
+            await t.rollback();
             res.status(500).send({
                 success: false,
                 message: error.message,
@@ -288,10 +284,12 @@ module.exports = {
 
                 await db.stock_histories.create(
                     {
-                        product_stock_id: checkProduct.id,
+                        product_id: checkProduct.product_id,
                         quantity,
                         type_id: 1,
                         information_id: 2,
+                        user_id: id,
+                        warehouse_id: checkWarehouse.id,
                     },
                     { transaction: t },
                 );
@@ -305,6 +303,7 @@ module.exports = {
                 });
             }
         } catch (error) {
+            await t.rollback();
             res.status(500).send({
                 success: false,
                 message: error.message,

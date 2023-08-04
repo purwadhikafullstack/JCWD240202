@@ -17,13 +17,13 @@ export default function UserAdmin() {
     const [showRegisModal, setShowRegisModal] = useState(false);
     const dispatch = useDispatch();
     const admins = useSelector((state) => state.admin.dataAdmin);
+    const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [sort, setSort] = useState(searchParams.get('sort') || '');
     const [search, setSearch] = useState(searchParams.get('search') || '');
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
-    const [searchParams, setSearchParams] = useSearchParams();
 
     const pageChange = (event, value) => {
         setPage(value);
