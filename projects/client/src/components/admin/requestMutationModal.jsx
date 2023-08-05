@@ -18,7 +18,7 @@ export default function RequestMutation({ showModal, dataLogin, params }) {
     const setModal = useSelector((state) => state.mutation.modal);
 
     const [whDestinationId, setWhDestinationId] = useState('');
-    const [productStockId, setProductStockId] = useState('');
+    const [productId, setProductId] = useState('');
     const [stock, setStock] = useState('');
     const [reqMutationQty, setReqMutationQty] = useState('');
     const [search, setSearch] = useState('');
@@ -213,7 +213,9 @@ export default function RequestMutation({ showModal, dataLogin, params }) {
                                                 name="destination_quantity"
                                                 onClick={() => {
                                                     setStock(0);
-                                                    setProductStockId(value.id);
+                                                    setProductId(
+                                                        value.product_id,
+                                                    );
                                                     setStock(value.stock);
                                                 }}
                                             >
@@ -268,7 +270,7 @@ export default function RequestMutation({ showModal, dataLogin, params }) {
                                     className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                     disabled={
                                         !whDestinationId ||
-                                        !productStockId ||
+                                        !productId ||
                                         !products ||
                                         !stock ||
                                         !reqMutationQty ||
@@ -277,7 +279,7 @@ export default function RequestMutation({ showModal, dataLogin, params }) {
                                     onClick={() => {
                                         dispatch(
                                             requestMutation(
-                                                productStockId,
+                                                productId,
                                                 dataLogin?.warehouse?.id,
                                                 Number(whDestinationId),
                                                 stock,

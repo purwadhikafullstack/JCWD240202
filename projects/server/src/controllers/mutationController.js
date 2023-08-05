@@ -91,6 +91,20 @@ module.exports = {
                 },
             });
 
+            const checkAdminWh = await db.warehouses.findOne({
+                where: {
+                    user_id: id,
+                },
+            });
+
+            if (checkAdminWh.id != warehouse_origin_id) {
+                return res.status(401).send({
+                    success: true,
+                    message: 'Unauthorized!',
+                    data: null,
+                });
+            }
+
             if (checkWh.length < 2) {
                 return res.status(400).send({
                     success: true,
@@ -405,11 +419,12 @@ module.exports = {
                 sort,
                 startDate,
                 endDate,
+                warehouse,
             } = req.query;
             const { id, role_id } = req.User;
             let order = [['createdAt', 'DESC']];
             let where = undefined;
-            let whAdmin = undefined;
+            let wh = undefined;
             const paginationLimit = 5;
             let paginationOffset =
                 ((page ? Number(page) : 1) - 1) * paginationLimit;
@@ -420,31 +435,51 @@ module.exports = {
                 },
             });
 
-            if (startDate && endDate) {
-                var dateEnd = new Date(endDate).setDate(
-                    new Date(endDate).getDate() + 1,
-                );
-
-                where = {
-                    createdAt: {
-                        [Op.between]: [new Date(startDate), new Date(dateEnd)],
+            if (role_id === 3 && warehouse) {
+                const findWh = await db.warehouses.findOne({
+                    where: {
+                        city: warehouse,
                     },
-                };
+                });
+
+                if (findWh) {
+                    wh = {
+                        [Op.or]: [
+                            {
+                                '$mutations.warehouse_origin_id$': findWh.id,
+                            },
+                            {
+                                warehouse_destination_id: findWh.id,
+                            },
+                        ],
+                    };
+                } else {
+                    return res.status(404).send({
+                        success: false,
+                        message: 'Warehouse Not Found!',
+                        data: null,
+                    });
+                }
             }
 
             if (role_id === 2) {
-                where = {
+                wh = {
                     [Op.or]: [
-                        { warehouse_origin_id: checkWhAdmin.id },
                         {
-                            '$mutation_details.warehouse_destination_id$':
-                                checkWhAdmin.id,
+                            '$mutations.warehouse_origin_id$': checkWhAdmin.id,
+                        },
+                        {
+                            warehouse_destination_id: checkWhAdmin.id,
                         },
                     ],
                 };
             }
 
             if (startDate && endDate) {
+                var dateEnd = new Date(endDate).setDate(
+                    new Date(endDate).getDate() + 1,
+                );
+
                 where = {
                     ...where,
                     createdAt: {
@@ -454,40 +489,15 @@ module.exports = {
             }
 
             if (response) {
-                where = {
-                    '$mutation_details.warehouse_destination_id$':
-                        checkWhAdmin.id,
+                wh = {
+                    warehouse_destination_id: checkWhAdmin.id,
                 };
-
-                if (startDate && endDate) {
-                    where = {
-                        ...where,
-                        createdAt: {
-                            [Op.between]: [
-                                new Date(startDate),
-                                new Date(dateEnd),
-                            ],
-                        },
-                    };
-                }
             }
 
             if (request) {
-                where = {
-                    warehouse_origin_id: checkWhAdmin.id,
+                wh = {
+                    '$mutations.warehouse_origin_id$': checkWhAdmin.id,
                 };
-
-                if (startDate && endDate) {
-                    where = {
-                        ...where,
-                        createdAt: {
-                            [Op.between]: [
-                                new Date(startDate),
-                                new Date(dateEnd),
-                            ],
-                        },
-                    };
-                }
             }
 
             if (status) {
@@ -502,67 +512,14 @@ module.exports = {
 
                     if (role_id === 2) {
                         if (response) {
-                            where = {
-                                ...where,
-                                '$mutation_details.warehouse_destination_id$':
+                            wh = {
+                                warehouse_destination_id: checkWhAdmin.id,
+                            };
+                        } else if (request) {
+                            wh = {
+                                '$mutations.warehouse_origin_id$':
                                     checkWhAdmin.id,
                             };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
-                        } else if (request) {
-                            where = {
-                                ...where,
-                                warehouse_origin_id: checkWhAdmin.id,
-                            };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
-                        } else {
-                            where = {
-                                ...where,
-                                [Op.or]: [
-                                    { warehouse_origin_id: checkWhAdmin.id },
-                                    {
-                                        '$mutation_details.warehouse_destination_id$':
-                                            checkWhAdmin.id,
-                                    },
-                                ],
-                                // [Op.and]: [
-                                //     { is_approved: false },
-                                //     { is_rejected: false },
-                                // ],
-                            };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
                         }
                     }
                 } else if (status === 'confirmed') {
@@ -576,67 +533,14 @@ module.exports = {
 
                     if (role_id === 2) {
                         if (response) {
-                            where = {
-                                ...where,
-                                '$mutation_details.warehouse_destination_id$':
+                            wh = {
+                                warehouse_destination_id: checkWhAdmin.id,
+                            };
+                        } else if (request) {
+                            wh = {
+                                '$mutations.warehouse_origin_id$':
                                     checkWhAdmin.id,
                             };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
-                        } else if (request) {
-                            where = {
-                                ...where,
-                                warehouse_origin_id: checkWhAdmin.id,
-                            };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
-                        } else {
-                            where = {
-                                ...where,
-                                [Op.or]: [
-                                    { warehouse_origin_id: checkWhAdmin.id },
-                                    {
-                                        '$mutation_details.warehouse_destination_id$':
-                                            checkWhAdmin.id,
-                                    },
-                                ],
-                                // [Op.and]: [
-                                //     { is_approved: true },
-                                //     { is_rejected: false },
-                                // ],
-                            };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
                         }
                     }
                 } else if (status === 'rejected') {
@@ -650,67 +554,14 @@ module.exports = {
 
                     if (role_id === 2) {
                         if (response) {
-                            where = {
-                                ...where,
-                                '$mutation_details.warehouse_destination_id$':
+                            wh = {
+                                warehouse_destination_id: checkWhAdmin.id,
+                            };
+                        } else if (request) {
+                            wh = {
+                                '$mutations.warehouse_origin_id$':
                                     checkWhAdmin.id,
                             };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
-                        } else if (request) {
-                            where = {
-                                ...where,
-                                warehouse_origin_id: checkWhAdmin.id,
-                            };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
-                        } else {
-                            where = {
-                                ...where,
-                                [Op.or]: [
-                                    { warehouse_origin_id: checkWhAdmin.id },
-                                    {
-                                        '$mutation_details.warehouse_destination_id$':
-                                            checkWhAdmin.id,
-                                    },
-                                ],
-                                // [Op.and]: [
-                                //     { is_approved: false },
-                                //     { is_rejected: true },
-                                // ],
-                            };
-
-                            if (startDate && endDate) {
-                                where = {
-                                    ...where,
-                                    createdAt: {
-                                        [Op.between]: [
-                                            new Date(startDate),
-                                            new Date(dateEnd),
-                                        ],
-                                    },
-                                };
-                            }
                         }
                     }
                 }
@@ -726,11 +577,21 @@ module.exports = {
 
             const dataMutation = await mutation.findAndCountAll({
                 where,
-                // offset: paginationOffset,
-                // limit: paginationLimit,
                 include: [
                     {
+                        model: db.warehouses,
+                        as: 'origin',
+                        attributes: [
+                            'id',
+                            'user_id',
+                            'city',
+                            'city_id',
+                            'is_deleted',
+                        ],
+                    },
+                    {
                         model: db.mutation_details,
+                        where: wh,
                         attributes: {
                             exclude: ['createdAt', 'updatedAt'],
                         },
@@ -738,31 +599,20 @@ module.exports = {
                             {
                                 model: db.warehouses,
                                 as: 'destination',
-                                attributes: {
-                                    exclude: ['createdAt', 'updatedAt'],
-                                },
+                                attributes: [
+                                    'id',
+                                    'user_id',
+                                    'city',
+                                    'city_id',
+                                    'is_deleted',
+                                ],
                             },
                         ],
                     },
                     {
-                        model: db.warehouses,
-                        as: 'origin',
-                        attributes: {
-                            exclude: ['createdAt', 'updatedAt'],
-                        },
-                    },
-                    {
                         model: db.products,
                         attributes: ['id', 'name', 'category_id', 'is_deleted'],
-                        where: { is_deleted: false },
                         include: [
-                            {
-                                model: db.product_stocks,
-                                where: {},
-                                attributes: {
-                                    exclude: ['createdAt', 'updatedAt'],
-                                },
-                            },
                             {
                                 model: db.product_images,
                                 attributes: [
@@ -780,6 +630,8 @@ module.exports = {
                         ],
                     },
                 ],
+                offset: paginationOffset,
+                limit: paginationLimit,
                 order,
             });
 

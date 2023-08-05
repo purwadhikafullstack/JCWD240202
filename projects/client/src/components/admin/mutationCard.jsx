@@ -1,6 +1,13 @@
+import { useState } from 'react';
 import { FcCalendar, FcAdvance } from 'react-icons/fc';
+import ConfirmMutation from './confirmMutationModal';
+import RejectMutation from './rejectMutationModal';
 
-export default function MutationCard({ data, dataLogin }) {
+export default function MutationCard({ data, dataLogin, params }) {
+    const [selected, setSelected] = useState({});
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [showRejectModal, setShowRejectModal] = useState(false);
+
     return (
         <>
             {data?.data?.rows.length > 0 ? (
@@ -59,8 +66,7 @@ export default function MutationCard({ data, dataLogin }) {
                                                 <div className="image max-w-[130px] border border-gray-300 p-2 rounded-lg">
                                                     <img
                                                         src={
-                                                            value?.product_stock
-                                                                ?.product
+                                                            value?.product
                                                                 ?.product_images[0]
                                                                 ?.name
                                                         }
@@ -69,16 +75,12 @@ export default function MutationCard({ data, dataLogin }) {
                                                 </div>
                                                 <div className="product-detail">
                                                     <div className="product-name text-sm font-bold mb-2">
-                                                        {
-                                                            value?.product_stock
-                                                                ?.product?.name
-                                                        }
+                                                        {value?.product?.name}
                                                     </div>
                                                     <div className="category text-xs">
                                                         Category:{' '}
                                                         {
-                                                            value?.product_stock
-                                                                ?.product
+                                                            value?.product
                                                                 ?.category?.name
                                                         }
                                                     </div>
@@ -89,7 +91,8 @@ export default function MutationCard({ data, dataLogin }) {
                                     <div className="right-container w-[300px] md:border-l-2 border-gray-300 sm:pl-8 mt-4 sm:mt-0">
                                         <div className="mt-2">
                                             {dataLogin?.warehouse?.id ===
-                                            value?.destination?.id ? (
+                                            value?.mutation_details[0]
+                                                ?.warehouse_destination_id ? (
                                                 <div className="request-from text-sm sm:text-md mb-10">
                                                     Request from : <br></br>
                                                     <span className="font-bold">
@@ -102,7 +105,9 @@ export default function MutationCard({ data, dataLogin }) {
                                                     Request to : <br></br>
                                                     <span className="font-bold">
                                                         {
-                                                            value?.destination
+                                                            value
+                                                                ?.mutation_details[0]
+                                                                ?.destination
                                                                 ?.city
                                                         }
                                                     </span>
@@ -124,6 +129,7 @@ export default function MutationCard({ data, dataLogin }) {
                                                         <span className="font-bold">
                                                             {
                                                                 value
+                                                                    ?.mutation_details[0]
                                                                     ?.destination
                                                                     ?.city
                                                             }
@@ -137,7 +143,12 @@ export default function MutationCard({ data, dataLogin }) {
                                             <div className="total-quantity-request flex flex-col text-sm sm:text-md items-start gap-3 mb-10">
                                                 <div>Total Quantity:</div>
                                                 <div className="font-bold">
-                                                    {value?.quantity} Pcs
+                                                    {
+                                                        value
+                                                            ?.mutation_details[0]
+                                                            ?.quantity
+                                                    }{' '}
+                                                    Pcs
                                                 </div>
                                             </div>
                                         </div>
@@ -151,10 +162,26 @@ export default function MutationCard({ data, dataLogin }) {
                                             <></>
                                         ) : (
                                             <div className="flex justify-start sm:justify-center gap-3 mb-2">
-                                                <button className="confirm w-20 bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed">
+                                                <button
+                                                    className="confirm w-20 bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
+                                                    onClick={() => {
+                                                        setShowConfirmModal(
+                                                            true,
+                                                        );
+                                                        setSelected(value);
+                                                    }}
+                                                >
                                                     Confirm
                                                 </button>
-                                                <button className="reject w-20 bg-red-600 hover:bg-gray-400 rounded-lg text-white text-sm text-white py-2 text-sm p-3">
+                                                <button
+                                                    onClick={() => {
+                                                        setShowRejectModal(
+                                                            true,
+                                                        );
+                                                        setSelected(value);
+                                                    }}
+                                                    className="reject w-20 bg-red-600 hover:bg-gray-400 rounded-lg text-white text-sm text-white py-2 text-sm p-3"
+                                                >
                                                     Reject
                                                 </button>
                                             </div>
@@ -167,8 +194,36 @@ export default function MutationCard({ data, dataLogin }) {
                 </>
             ) : (
                 <>
-                    <div>NOT FOUND!</div>
+                    <div className="w-full flex justify-center items-center">
+                        <img
+                            src="/images/not-found-pic.png"
+                            alt="not-found"
+                            className="min-w-[200px]"
+                        ></img>
+                    </div>
                 </>
+            )}
+
+            {/* Confirm Modal */}
+            {showConfirmModal === true ? (
+                <ConfirmMutation
+                    showModal={setShowConfirmModal}
+                    selected={selected}
+                    params={params}
+                />
+            ) : (
+                <></>
+            )}
+
+            {/* Reject Modal */}
+            {showRejectModal === true ? (
+                <RejectMutation
+                    showModal={setShowRejectModal}
+                    selected={selected}
+                    params={params}
+                />
+            ) : (
+                <></>
             )}
         </>
     );

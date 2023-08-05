@@ -132,7 +132,7 @@ module.exports = {
                         include: [
                             // {
                             //     model: db.product_images,
-                            //     // attributes: ['name'],
+                            //     attributes: ['name'],
                             //     where: { is_thumbnail: 1 },
                             //     required: false,
                             // },

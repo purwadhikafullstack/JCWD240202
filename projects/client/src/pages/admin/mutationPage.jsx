@@ -11,12 +11,13 @@ import SortNewestMutation from '../../components/admin/sortNewestMutation';
 import FilterDate from '../../components/admin/filterDateRange';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { AiOutlineCalendar } from 'react-icons/ai';
+import FilterAdmin from '../../components/admin/filterAdmin';
+import { Toaster } from 'react-hot-toast';
 
 export default function MutationPage() {
     const dispatch = useDispatch();
     const dataMutation = useSelector((state) => state.mutation.allMutation);
     const dataLogin = useSelector((state) => state.user.dataLogin);
-    console.log(dataMutation);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -29,11 +30,14 @@ export default function MutationPage() {
     const [request, setRequest] = useState(searchParams.get('request') || '');
     const [status, setStatus] = useState(searchParams.get('status') || '');
     const [sort, setSort] = useState(searchParams.get('status') || '');
-    const [startDate, setStartDate] = useState(
-        searchParams.get('startDate') || '',
+    const [warehouse, setWarehouse] = useState(
+        searchParams.get('warehouse') || '',
     );
     const [date1, setDate1] = useState('');
     const [date2, setDate2] = useState('');
+    const [startDate, setStartDate] = useState(
+        searchParams.get('startDate') || '',
+    );
     const [endDate, setEndDate] = useState(searchParams.get('endDate') || '');
 
     const pageChange = (event, value) => {
@@ -42,10 +46,12 @@ export default function MutationPage() {
 
     const statusChange = (status) => {
         setStatus(status);
+        setPage(1);
     };
 
     const sortChange = (sort) => {
         setSort(sort);
+        setPage(1);
     };
 
     const filterDate = (startDate, endDate) => {
@@ -53,6 +59,12 @@ export default function MutationPage() {
         setEndDate(endDate);
         setDate1(startDate);
         setDate2(endDate);
+        setPage(1);
+    };
+
+    const warehouseChange = (warehouse) => {
+        setWarehouse(warehouse);
+        setPage(1);
     };
 
     useEffect(() => {
@@ -71,6 +83,10 @@ export default function MutationPage() {
 
         if (status) {
             queryParams['status'] = status;
+        }
+
+        if (warehouse) {
+            queryParams['warehouse'] = warehouse;
         }
 
         if (sort) {
@@ -93,15 +109,17 @@ export default function MutationPage() {
                 response,
                 request,
                 status,
+                warehouse,
                 sort,
                 startDate,
                 endDate,
             ),
         );
-    }, [page, response, request, status, sort, startDate, endDate]);
+    }, [page, response, request, status, warehouse, sort, startDate, endDate]);
 
     return (
         <>
+            <Toaster />
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
@@ -134,46 +152,71 @@ export default function MutationPage() {
                                     <SortNewestMutation
                                         data={{ sortChange, sort }}
                                     />
-                                    <div className="w-full flex justify-start ml-2">
-                                        {status ? (
-                                            <button
-                                                onClick={() => {
-                                                    setStatus('');
-                                                }}
-                                                className="flex items-center gap-1 mr-2"
-                                            >
-                                                <IoCloseCircleSharp size={12} />
+                                    {dataLogin?.role_id === 3 ? (
+                                        <FilterAdmin
+                                            data={{
+                                                warehouseChange,
+                                                warehouse,
+                                            }}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
 
-                                                <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-[10px] flex items-center">
-                                                    {status === 'waiting'
-                                                        ? 'Waiting'
-                                                        : status === 'confirmed'
-                                                        ? 'Confirmed'
-                                                        : 'Rejected'}
-                                                </div>
-                                            </button>
-                                        ) : (
-                                            <></>
-                                        )}
-                                        {sort ? (
-                                            <button
-                                                onClick={() => {
-                                                    setSort('');
-                                                }}
-                                                className="flex items-center gap-1 mr-2"
-                                            >
-                                                <IoCloseCircleSharp size={12} />
+                                    {status ? (
+                                        <button
+                                            onClick={() => {
+                                                setStatus('');
+                                            }}
+                                            className="flex items-center gap-1 mr-2"
+                                        >
+                                            <IoCloseCircleSharp size={12} />
 
-                                                <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-[10px] flex items-center">
-                                                    {sort === 'newest'
-                                                        ? 'Newest'
-                                                        : 'Oldest'}
-                                                </div>
-                                            </button>
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </div>
+                                            <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-[10px] flex items-center">
+                                                {status === 'waiting'
+                                                    ? 'Waiting'
+                                                    : status === 'confirmed'
+                                                    ? 'Confirmed'
+                                                    : 'Rejected'}
+                                            </div>
+                                        </button>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {sort ? (
+                                        <button
+                                            onClick={() => {
+                                                setSort('');
+                                            }}
+                                            className="flex items-center gap-1 mr-2"
+                                        >
+                                            <IoCloseCircleSharp size={12} />
+
+                                            <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-[10px] flex items-center">
+                                                {sort === 'newest'
+                                                    ? 'Newest'
+                                                    : 'Oldest'}
+                                            </div>
+                                        </button>
+                                    ) : (
+                                        <></>
+                                    )}
+                                    {warehouse ? (
+                                        <button
+                                            onClick={() => {
+                                                setWarehouse('');
+                                            }}
+                                            className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
+                                        >
+                                            <IoCloseCircleSharp />
+
+                                            <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
+                                                {warehouse}
+                                            </div>
+                                        </button>
+                                    ) : (
+                                        <></>
+                                    )}
                                 </div>
                                 {dataLogin?.role_id === 3 ? (
                                     <></>
@@ -194,7 +237,11 @@ export default function MutationPage() {
                             </div>
                             <div className="flex flex-col md:flex-row gap-3 mb-4">
                                 <button
-                                    disabled={tabs ? true : false}
+                                    disabled={
+                                        tabs || dataLogin?.role_id === 3
+                                            ? true
+                                            : false
+                                    }
                                     className={`border rounded-lg w-auto whitespace-nowrap rounded-full px-3 cursor-pointer ${
                                         response || request
                                             ? 'border rounded-lg w-auto whitespace-nowrap rounded-full px-3 cursor-pointer'
@@ -204,6 +251,7 @@ export default function MutationPage() {
                                         setTabs('all');
                                         setResponse('');
                                         setRequest('');
+                                        setPage(1);
                                     }}
                                 >
                                     All Mutations
@@ -226,6 +274,7 @@ export default function MutationPage() {
                                             setTabs('');
                                             setRequest('');
                                             setResponse('response-list');
+                                            setPage(1);
                                         }}
                                     >
                                         Response Mutations
@@ -249,6 +298,7 @@ export default function MutationPage() {
                                             setTabs('');
                                             setResponse('');
                                             setRequest('request-list');
+                                            setPage(1);
                                         }}
                                     >
                                         Request Mutations
@@ -282,6 +332,15 @@ export default function MutationPage() {
                                 <MutationCard
                                     data={dataMutation}
                                     dataLogin={dataLogin}
+                                    params={{
+                                        page,
+                                        response,
+                                        request,
+                                        status,
+                                        sort,
+                                        startDate,
+                                        endDate,
+                                    }}
                                 />
                             </div>
                             <div className="w-full flex justify-center">
@@ -290,6 +349,7 @@ export default function MutationPage() {
                                         totalPage: dataMutation?.totalPage,
                                         page,
                                         pageChange,
+                                        // setPage,
                                     }}
                                 />
                             </div>

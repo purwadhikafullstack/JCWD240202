@@ -3,7 +3,7 @@ import { FcPlus, FcMinus } from 'react-icons/fc';
 import AddQuantityModal from './addQtyModal';
 import ReduceQuantityModal from './reduceQtyModal';
 import { getDataLogin } from '../../redux/features/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function TableStockManagement({ data, params }) {
     const [showAddQtyModal, setShowAddQtyModal] = useState(false);

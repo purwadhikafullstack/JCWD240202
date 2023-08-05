@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { getDataLogin } from './userSlice';
 
 const initialState = {
     listWhMutation: null,
@@ -49,7 +48,7 @@ export const getListWhMutation = () => async (dispatch) => {
 
 export const requestMutation =
     (
-        product_stock_id,
+        product_id,
         warehouse_origin_id,
         warehouse_destination_id,
         stock,
@@ -68,7 +67,7 @@ export const requestMutation =
             const reqMutation = await axios.post(
                 process.env.REACT_APP_API_BASE_URL + '/mutations/request',
                 {
-                    product_stock_id,
+                    product_id,
                     warehouse_origin_id,
                     warehouse_destination_id,
                     stock,
@@ -125,7 +124,7 @@ export const requestMutation =
     };
 
 export const getAllMutation =
-    (page, response, request, status, sort, startDate, endDate) =>
+    (page, response, request, status, warehouse, sort, startDate, endDate) =>
     async (dispatch) => {
         try {
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
@@ -137,6 +136,7 @@ export const getAllMutation =
                         response,
                         request,
                         status,
+                        warehouse,
                         sort,
                         startDate,
                         endDate,
@@ -152,6 +152,124 @@ export const getAllMutation =
             console.log(error);
         }
     };
+
+export const confirmMutation = (mutation_id, params) => async (dispatch) => {
+    try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        dispatch(setDisabledButton(true));
+
+        const confirm = await axios.patch(
+            process.env.REACT_APP_API_BASE_URL +
+                `/mutations/confirm/${mutation_id}`,
+            {},
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        );
+
+        if (confirm) {
+            dispatch(setModal(true));
+            toast.success('Mutation Confirmed!', {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
+        dispatch(
+            getAllMutation(
+                params.page,
+                params.response,
+                params.request,
+                params.status,
+                params.sort,
+                params.startDate,
+                params.endDate,
+            ),
+        );
+    } catch (error) {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
+        toast.error(error.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#DC2626',
+                color: 'white',
+            },
+        });
+    } finally {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
+    }
+};
+
+export const rejectMutation = (mutation_id, params) => async (dispatch) => {
+    try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        dispatch(setDisabledButton(true));
+
+        const confirm = await axios.patch(
+            process.env.REACT_APP_API_BASE_URL +
+                `/mutations/reject/${mutation_id}`,
+            {},
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        );
+
+        if (confirm) {
+            dispatch(setModal(true));
+            toast.success('Mutation Rejected!', {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#0051BA',
+                    color: 'white',
+                },
+            });
+        }
+        dispatch(
+            getAllMutation(
+                params.page,
+                params.response,
+                params.request,
+                params.status,
+                params.sort,
+                params.startDate,
+                params.endDate,
+            ),
+        );
+    } catch (error) {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
+        toast.error(error.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#DC2626',
+                color: 'white',
+            },
+        });
+    } finally {
+        dispatch(setDisabledButton(false));
+        dispatch(setModal(false));
+    }
+};
 
 export const {
     setListWhMutation,

@@ -1,5 +1,4 @@
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
-import { getAllDataWh } from '../../redux/features/warehouseSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -10,7 +9,6 @@ import FilterAdmin from '../../components/admin/filterAdmin';
 import FilterCategoryAdmin from '../../components/admin/filterCategoryProductAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import { getDataStock } from '../../redux/features/stockSlice';
-import { getDataLogin } from '../../redux/features/userSlice';
 import TableStockManagement from '../../components/admin/tableStockManagement';
 
 export default function ProductStockPage() {
@@ -35,18 +33,22 @@ export default function ProductStockPage() {
 
     const searchChange = (search) => {
         setSearch(search);
+        setPage(1);
     };
 
     const sortChange = (sort) => {
         setSort(sort);
+        setPage(1);
     };
 
     const categoryChange = (category) => {
         setCategory(category);
+        setPage(1);
     };
 
     const warehouseChange = (warehouse) => {
         setWarehouse(warehouse);
+        setPage(1);
     };
 
     useEffect(() => {
@@ -237,18 +239,21 @@ export default function ProductStockPage() {
                                                 }}
                                             />
                                         ) : (
-                                            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center text-2xl">
-                                                <td></td>
-                                                <td></td>
-                                                <td className="p-12">
-                                                    Not Found
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            <></>
                                         )}
                                     </tbody>
                                 </table>
+                                {dataStocks?.data?.rows?.length == 0 ? (
+                                    <div className="w-full flex justify-center items-center">
+                                        <img
+                                            src="/images/not-found-pic.png"
+                                            alt="not-found"
+                                            className="min-w-[200px]"
+                                        ></img>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                             <div className="w-full flex justify-center mt-3">
                                 <PaginationAdmin

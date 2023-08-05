@@ -10,7 +10,20 @@ import { useLocation } from 'react-router-dom';
 
 export default function Footer() {
     const { pathname } = useLocation();
-    if (pathname === '/login') {
+
+    const path = [
+        '/login',
+        '/admins/login',
+        '/admins/dashboard',
+        '/admins/products',
+        '/admins/products/categories',
+        '/admins/user-management',
+        '/admins/warehouse-management',
+        '/admins/stock-management',
+        '/admins/mutation-management',
+    ];
+
+    if (path.includes(pathname)) {
         return null;
     }
     return (
