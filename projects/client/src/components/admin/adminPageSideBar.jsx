@@ -255,11 +255,13 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className={`${
-                                pathname === '/admins/dashboard'
+                                pathname === '/admins/mutation-management'
                                     ? 'underline'
                                     : 'no-underline'
                             } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
-                            onClick={() => navigate('/admins/dashboard')}
+                            onClick={() =>
+                                navigate('/admins/mutation-management')
+                            }
                         >
                             <FcExternal
                                 size={30}
@@ -382,7 +384,9 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={() => navigate('/admins/dashboard')}
+                            onClick={() =>
+                                navigate('/admins/mutation-management')
+                            }
                         >
                             <FcExternal size={25} />
                         </li>

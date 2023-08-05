@@ -305,10 +305,57 @@ module.exports = {
     },
     getListWarehouse: async (req, res) => {
         try {
+            let where = { is_deleted: false };
+            const { id, role_id } = req.User;
+
+            if (role_id === 2) {
+                const checkAdminWh = await warehouse.findOne({
+                    where: {
+                        user_id: id,
+                    },
+                });
+
+                if (checkAdminWh) {
+                    where = {
+                        user_id: { [Op.ne]: id },
+                        is_deleted: false,
+                    };
+                } else {
+                    return res.status(404).send({
+                        success: false,
+                        message: 'Not Found!',
+                    });
+                }
+            }
+
             const listWarehouse = await warehouse.findAll({
-                where: {
-                    is_deleted: false,
-                },
+                where,
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                include: [
+                    {
+                        model: db.product_stocks,
+                        attributes: { exclude: ['createdAt', 'updatedAt'] },
+                        include: [
+                            {
+                                model: db.products,
+                                attributes: ['id', 'name', 'category_id'],
+                                where: { is_deleted: false },
+                                include: [
+                                    {
+                                        model: db.categories,
+                                        attributes: {
+                                            exclude: [
+                                                'image',
+                                                'createdAt',
+                                                'updatedAt',
+                                            ],
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
             });
 
             return res.status(200).send({

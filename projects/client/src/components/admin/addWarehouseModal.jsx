@@ -1,7 +1,6 @@
 import { AiOutlineClose } from 'react-icons/ai';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { getDataProvincesRo } from '../../redux/features/warehouseSlice';
 import { getDataCitiesRo } from '../../redux/features/warehouseSlice';
 import { addWarehouse } from '../../redux/features/warehouseSlice';
