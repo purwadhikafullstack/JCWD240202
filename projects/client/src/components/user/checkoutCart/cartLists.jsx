@@ -1,7 +1,6 @@
 export default function CartLists(props) {
     return (
         <div className="flex py-4 gap-9">
-            {console.log('props => ', props)}
             <div className="w-[200px] h-[150px]">
                 <img
                     src={props?.data?.value?.image}
@@ -16,7 +15,9 @@ export default function CartLists(props) {
                 <div>{props?.data?.value?.quantity} Items</div>
                 <div className="text-lg font-bold">
                     Rp{' '}
-                    {props?.data?.value?.price * props?.data?.value?.quantity}
+                    {(
+                        props?.data?.value?.price * props?.data?.value?.quantity
+                    ).toLocaleString('ID-id')}
                 </div>
                 <div className="absolute bottom-0">
                     {(

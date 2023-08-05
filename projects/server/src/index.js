@@ -2,6 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const { join } = require('path');
+const bodyParser = require('body-parser');
 // const path = require('path');
 const {
     rajaOngkirRouter,
@@ -16,8 +17,10 @@ const {
     adminRouter,
     warehouseRouter,
     colorRouter,
-    orderRouter,
+    transactionRouter,
+    statusRouter,
     stockRouter,
+    checkoutCartRouter,
     mutationRouter,
 } = require('./routers');
 
@@ -26,6 +29,7 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('src/public/images'));
 app.use(express.static('public'))
 // app.use(express.static(path.join(__dirname, 'public')));
@@ -46,8 +50,11 @@ app.use('/api/auth/admins', adminAuthRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/warehouses', warehouseRouter);
 app.use('/api/color', colorRouter);
-app.use('/api/order', orderRouter);
+app.use('/api/transactions', transactionRouter);
+app.use('/api/status', statusRouter);
+
 app.use('/api/stocks', stockRouter);
+app.use('/api/checkout', checkoutCartRouter);
 app.use('/api/mutations', mutationRouter);
 
 app.get('/api', (req, res) => {

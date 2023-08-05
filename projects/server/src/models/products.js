@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     products.init(
         {
             name: DataTypes.STRING,
-            category_id: DataTypes.INTEGER,
+            category_id: { type: DataTypes.INTEGER, allowNull: true },
             color_id: DataTypes.INTEGER,
             price: DataTypes.INTEGER,
             description: DataTypes.STRING,
@@ -46,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
             height: DataTypes.INTEGER,
             weight: DataTypes.INTEGER,
             is_deleted: DataTypes.BOOLEAN,
+            total_stock: { type: DataTypes.INTEGER, defaultValue: 0 },
         },
         {
             sequelize,

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { getClosestWarehouseAsync } from './shippingSlice';
 
 const initialState = {
     address: null,
@@ -95,6 +96,7 @@ export const addNewAddressAsync = (data) => async (dispatch) => {
 
         if (addAddress.data.success) {
             toast.success('Create New Address Success');
+            dispatch(getUserAddressAsync());
         }
     } catch (error) {
         toast.error(error.message);
@@ -116,9 +118,12 @@ export const getChosenAddressAsync = () => async (dispatch) => {
         );
 
         dispatch(setChosenAddress(getChosen.data));
-    } catch (error) {
-        // toast.error(error.message);
-    }
+        dispatch(
+            getClosestWarehouseAsync({
+                address_id: getChosen.data.data.id,
+            }),
+        );
+    } catch (error) {}
 };
 
 export const changeChosenAddressAsync = (data) => async (dispatch) => {

@@ -6,11 +6,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getUserCartAsync } from '../../../redux/features/cartSlice';
 
 export default function Navbar() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
     const userLogin = JSON.parse(localStorage.getItem('user'));
+    const userCartCount = useSelector((state) => state.cart.cart);
 
     const logout = () => {
         try {
@@ -34,7 +39,9 @@ export default function Navbar() {
         }
     };
 
-    useEffect(() => {}, [userLogin]);
+    useEffect(() => {
+        dispatch(getUserCartAsync());
+    }, [userLogin]);
 
     return (
         <>
@@ -42,10 +49,12 @@ export default function Navbar() {
             <div className="flex justify-between items-center border-b py-6 px-12 bg-white">
                 {/* left side => logo */}
                 <div className="w-24">
-                    <img
-                        src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
-                        alt="company_logo"
-                    />
+                    <Link to={'/'}>
+                        <img
+                            src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
+                            alt="company_logo"
+                        />
+                    </Link>
                 </div>
                 {/* middle => pages */}
                 <div className="hidden md:block md:flex gap-9 items-center text-xl">
@@ -77,6 +86,9 @@ export default function Navbar() {
                                     <Link to="/users/profile">Profile</Link>
                                 </li>
                                 <li>
+                                    <Link to="/transactions">Transactions</Link>
+                                </li>
+                                <li className="border-t">
                                     <button onClick={() => setOpenModal(true)}>
                                         Log Out
                                     </button>
@@ -96,8 +108,15 @@ export default function Navbar() {
                     </div>
                     {userLogin ? (
                         <Link to="/cart">
-                            <div>
+                            <div className="flex items-center">
                                 <AiOutlineShoppingCart size={25} />
+                                {userCartCount?.data?.count > 0 ? (
+                                    <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                        {userCartCount?.data?.count}
+                                    </div>
+                                ) : (
+                                    ''
+                                )}
                             </div>
                         </Link>
                     ) : (
@@ -113,23 +132,25 @@ export default function Navbar() {
                     onClose={() => setOpenModal(false)}
                 >
                     <Modal.Body>
-                        <div className="text-xl">
+                        <div className="text-xl flex justify-center items-center">
                             Are you sure want to log out?
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button
-                            className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                            onClick={logout}
-                        >
-                            Confirm
-                        </button>
-                        <button
-                            className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                            onClick={() => setOpenModal(false)}
-                        >
-                            Cancel
-                        </button>
+                        <div className="flex justify-center gap-9 w-full">
+                            <button
+                                className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
+                                onClick={logout}
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
+                                onClick={() => setOpenModal(false)}
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </Modal.Footer>
                 </Modal>
             </div>

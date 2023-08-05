@@ -5,6 +5,7 @@ const users = db.users;
 const carts = db.carts;
 const cart_products = db.cart_products;
 const categories = db.categories;
+const sequelize = require('sequelize');
 
 const userAddToCart = async (req, res) => {
     try {
@@ -97,17 +98,39 @@ const getUserCart = async (req, res) => {
                     { model: products, include: [{ model: categories }] },
                 ],
             });
+            const totalWeight = await cart_products.findAll({
+                where: { cart_id: findCart.id },
+                attributes: [
+                    [
+                        sequelize.literal('SUM(quantity*product.weight)'),
+                        'total_weight',
+                    ],
+                ],
+                include: [{ model: products, attributes: [] }],
+                group: ['cart_id'],
+            });
+
+            const totalCartPrice = await cart_products.findAll({
+                where: { cart_id: findCart.id },
+                attributes: [
+                    [sequelize.literal('SUM(price*quantity)'), 'total_price'],
+                ],
+                group: ['cart_id'],
+            });
+
             if (findCartProducts) {
                 res.status(200).send({
                     success: true,
                     message: 'get user cart success',
                     data: findCartProducts,
+                    totalWeight: totalWeight[0].dataValues.total_weight,
+                    totalPrice: totalCartPrice[0].dataValues.total_price,
                 });
             } else {
                 const removeCart = await carts.destroy({
                     where: { id: findCart.id },
                 });
-                res.send({ message: 'cart removed' });
+                res.status(200).send({ message: 'cart removed' });
             }
         } else {
             res.send({

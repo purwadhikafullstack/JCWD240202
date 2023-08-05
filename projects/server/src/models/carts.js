@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
             carts.hasMany(models.cart_products, {
                 foreignKey: 'cart_id',
             });
-            carts.hasMany(models.orders, {
-                foreignKey: 'cart_id',
-            });
+            carts.hasOne(models.orders, {
+                foreignKey: 'cart_id'
+            })
         }
     }
     carts.init(
         {
             user_id: DataTypes.INTEGER,
-            is_checkout: DataTypes.BOOLEAN,
+            is_checkout: { type: DataTypes.BOOLEAN, defaultValue: false },
         },
         {
             sequelize,

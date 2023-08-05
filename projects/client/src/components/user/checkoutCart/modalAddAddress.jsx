@@ -261,7 +261,12 @@ export default function ModalAddAddress(props) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={userAddNewAddress}>Add New Address</Button>
+                <Button
+                    onClick={userAddNewAddress}
+                    className="bg-sky-700 text-yellow-200"
+                >
+                    Add New Address
+                </Button>
                 <Button onClick={cancelButton} color={'failure'}>
                     Cancel
                 </Button>

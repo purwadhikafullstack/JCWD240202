@@ -9,9 +9,11 @@ const cartRouter = require('./cartRouter');
 const adminAuthRouter = require('./adminAuthRouter');
 const adminRouter = require('./adminRouter');
 const warehouseRouter = require('./warehouseRouter');
-const colorRouter = require('./colorRouter');
-const orderRouter = require('./orderRouter');
+const colorRouter = require('./colorRouter')
+const transactionRouter = require('./transactionRouter');
+const statusRouter = require('./statusRouter');
 const stockRouter = require('./stockRouter');
+const checkoutCartRouter = require('./checkoutCartRouter');
 const mutationRouter = require('./mutationRouter');
 
 module.exports = {
@@ -27,7 +29,9 @@ module.exports = {
     adminRouter,
     warehouseRouter,
     colorRouter,
-    orderRouter,
+    transactionRouter,
+    statusRouter,
     stockRouter,
+    checkoutCartRouter,
     mutationRouter,
 };

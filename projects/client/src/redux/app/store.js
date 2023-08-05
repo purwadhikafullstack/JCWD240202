@@ -8,8 +8,12 @@ import adminAuthReducer from '../features/adminAuthSlice';
 import addressReducer from '../features/addressSlice';
 import adminReducer from '../features/adminSlice';
 import warehouseReducer from '../features/warehouseSlice';
-import categoryReducer from '../features/categorySlice';
+import categoryReducer from '../features/categorySlice'
+import statusReducer from '../features/statusSlice';
+import transactionReducer from '../features/transactionSlice';
 import stockReducer from '../features/stockSlice';
+import shippingReducer from '../features/shippingSlice';
+import checkoutReducer from '../features/checkoutSlice';
 import mutationReducer from '../features/mutationSlice';
 
 export const store = configureStore({
@@ -24,7 +28,11 @@ export const store = configureStore({
         admin: adminReducer,
         warehouse: warehouseReducer,
         category: categoryReducer,
+        status: statusReducer,
+        transaction: transactionReducer,
         stock: stockReducer,
+        shipping: shippingReducer,
+        checkout: checkoutReducer,
         mutation: mutationReducer,
     },
 });

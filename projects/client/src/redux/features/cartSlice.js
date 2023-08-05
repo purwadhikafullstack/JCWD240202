@@ -81,9 +81,7 @@ export const userDeleteProductCartAsync = (data) => async (dispatch) => {
             toast.success('Product remove from cart');
         }
         dispatch(getUserCartAsync());
-    } catch (error) {
-        toast.error('failed to remove product');
-    }
+    } catch (error) {}
 };
 
 export const modifyQuantityAsync = (data) => async (dispatch) => {

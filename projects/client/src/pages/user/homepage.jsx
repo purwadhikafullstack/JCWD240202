@@ -52,7 +52,7 @@ export default function Homepage() {
             </div>
             <div className="pt-9">
                 <div className="flex justify-center my-9 text-3xl font-bold">
-                    Layanan Untuk Kenyamanan Anda
+                    Services For Your Convenience
                 </div>
                 <div>
                     <ServicesBox />

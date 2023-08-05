@@ -27,7 +27,7 @@ export default function Footer() {
         return null;
     }
     return (
-        <div className="h-[300px] border-t mt-[50px] bg-black px-[100px] py-[50px] text-white">
+        <div className="h-[300px] border-t mt-[50px] bg-black px-[100px] py-[50px] text-white ">
             <div className="flex justify-between items-center">
                 <div className="w-24 ">
                     <img
