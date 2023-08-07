@@ -32,23 +32,19 @@ export const adminLogin = (email, password) => async (dispatch) => {
                 password,
             },
         );
+        console.log(result);
 
-        if (result) {
-            localStorage.setItem(
-                'user',
-                JSON.stringify(result.data.data.token),
-            );
-            toast.success(result.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
-        }
+        localStorage?.setItem('user', JSON.stringify(result.data.data.token));
+        toast.success(result.data.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#0051BA',
+                color: 'white',
+            },
+        });
     } catch (error) {
         dispatch(setDisabledButton(false));
         if (error.response) {

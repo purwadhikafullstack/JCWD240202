@@ -1,12 +1,11 @@
 import { Dropdown, Label, Radio } from 'flowbite-react';
-import { useState } from 'react';
 
 export default function SortAdmin(props) {
     const handleSort = (sort) => {
         props?.data?.sortChange(sort);
     };
     return (
-        <div className='sm:mb-0 mb-2'>
+        <div className="sm:mb-0 mb-2">
             <Dropdown
                 label={
                     props?.data?.sort === 'name-asc'

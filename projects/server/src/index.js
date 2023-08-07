@@ -21,6 +21,7 @@ const {
     statusRouter,
     stockRouter,
     checkoutCartRouter,
+    mutationRouter,
     orderRouter,
 } = require('./routers');
 
@@ -31,6 +32,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('src/public/images'));
+app.use(express.static('public'));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // #region API ROUTES
@@ -55,6 +57,7 @@ app.use('/api/orders', orderRouter);
 
 app.use('/api/stocks', stockRouter);
 app.use('/api/checkout', checkoutCartRouter);
+app.use('/api/mutations', mutationRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

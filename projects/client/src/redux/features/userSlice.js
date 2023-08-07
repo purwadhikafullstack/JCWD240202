@@ -17,19 +17,19 @@ export const userSlice = createSlice({
 
 export const getDataLogin = () => async (dispatch) => {
     try {
-        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        const token = JSON.parse(localStorage?.getItem('user'));
         const dataUser = await axios.get(
             process.env.REACT_APP_API_BASE_URL + '/users',
             {
                 headers: {
-                    authorization: `Bearer ${dataLogin}`,
+                    authorization: `Bearer ${token}`,
                 },
             },
         );
 
         dispatch(setDataLogin(dataUser?.data?.data));
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
 };
 

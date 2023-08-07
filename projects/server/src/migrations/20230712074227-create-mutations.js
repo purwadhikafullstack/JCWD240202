@@ -17,19 +17,14 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
-            warehouse_destination_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-            },
-            quantity: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-            },
             user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
             is_approved: {
+                type: Sequelize.BOOLEAN,
+            },
+            is_rejected: {
                 type: Sequelize.BOOLEAN,
             },
             createdAt: {

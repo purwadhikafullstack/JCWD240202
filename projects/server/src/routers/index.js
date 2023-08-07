@@ -14,6 +14,7 @@ const transactionRouter = require('./transactionRouter');
 const statusRouter = require('./statusRouter');
 const stockRouter = require('./stockRouter');
 const checkoutCartRouter = require('./checkoutCartRouter');
+const mutationRouter = require('./mutationRouter');
 const orderRouter = require('./orderRouter');
 
 module.exports = {
@@ -33,5 +34,6 @@ module.exports = {
     statusRouter,
     stockRouter,
     checkoutCartRouter,
+    mutationRouter,
     orderRouter,
 };

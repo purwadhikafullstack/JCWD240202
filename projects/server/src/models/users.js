@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
             users.hasMany(models.user_addresses, {
                 foreignKey: 'user_id',
             });
-
+            users.hasMany(models.carts, {
+                foreignKey: 'user_id',
+            });
             users.belongsTo(models.roles, {
                 foreignKey: 'role_id',
             });
@@ -22,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
             users.hasOne(models.warehouses, {
                 foreignKey: 'user_id',
             });
+            users.hasMany(models.stock_histories, {
+                foreignKey: 'user_id'
+            })
         }
     }
     users.init(

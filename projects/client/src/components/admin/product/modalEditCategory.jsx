@@ -84,7 +84,7 @@ export default function ModalEditCategory(props) {
                 onClose={() => props.funcShow(false)}
             >
                 <Modal.Header>
-                    <div className="text-xl">Add New Product</div>
+                    <div className="text-xl">Edit Category</div>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="grid grid-cols-1 shadow-md mb-2 w-[170px] rounded-md border p-2">

@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { warehouseController } = require('./../controllers');
-const { verifyToken, checkAdminRole } = require('./../middleware/token');
+const {
+    verifyToken,
+    checkAdminRole,
+    checkUserRole,
+} = require('./../middleware/token');
 
 router.post(
     '/add',
@@ -36,7 +40,7 @@ router.get(
 router.get(
     '/list',
     verifyToken,
-    checkAdminRole,
+    checkUserRole,
     warehouseController.getListWarehouse,
 );
 router.get(
