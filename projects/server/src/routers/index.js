@@ -14,6 +14,7 @@ const transactionRouter = require('./transactionRouter');
 const statusRouter = require('./statusRouter');
 const stockRouter = require('./stockRouter');
 const checkoutCartRouter = require('./checkoutCartRouter');
+const orderRouter = require('./orderRouter');
 
 module.exports = {
     rajaOngkirRouter,
@@ -32,4 +33,5 @@ module.exports = {
     statusRouter,
     stockRouter,
     checkoutCartRouter,
+    orderRouter,
 };

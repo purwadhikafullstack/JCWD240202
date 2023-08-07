@@ -6,7 +6,7 @@ export default function ModalUnavailableItems(props) {
     return (
         <Modal show={props?.data?.modalUnavailable}>
             <Modal.Body>
-                <div className="text-xl font-bold flex justify-center items-center">
+                <div className="text-xl font-bold flex flex-col justify-center items-center">
                     <div>Unavailable items will be removed from cart.</div>
                     <div>Continue?</div>
                 </div>

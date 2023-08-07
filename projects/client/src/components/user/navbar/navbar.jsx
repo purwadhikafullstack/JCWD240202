@@ -2,7 +2,7 @@
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
@@ -86,7 +86,9 @@ export default function Navbar() {
                                     <Link to="/users/profile">Profile</Link>
                                 </li>
                                 <li>
-                                    <Link to="/transactions">Transactions</Link>
+                                    <Link to="/users/transactions">
+                                        Transactions
+                                    </Link>
                                 </li>
                                 <li className="border-t">
                                     <button onClick={() => setOpenModal(true)}>
