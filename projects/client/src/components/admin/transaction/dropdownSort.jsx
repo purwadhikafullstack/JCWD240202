@@ -6,19 +6,19 @@ export default function DropdownSort(props) {
             <div>
                 <Dropdown
                     label={ props?.data?.sort ? props?.data?.sort : 'Sort' }
-                    className="px-5 text-center"
+                    className="text-center"
                     color="light"
                     size="sm"
                 >
-                    <div className="flex flex-col gap-2 mt-2">
+                    <div className="flex flex-col">
                         <div
-                            className="flex w-full gap-3 items-center mb-4 cursor-pointer"
+                            className="flex w-full justify-center items-center cursor-pointer hover:bg-gray-200 py-1"
                             onClick={()=> props?.data?.handleSort('Newest')}
                         >
                             Newest
                         </div>
                         <div
-                            className="flex w-full gap-3 items-center mb-4 cursor-pointer"
+                            className="flex w-full justify-center items-center cursor-pointer hover:bg-gray-200 py-1"
                             onClick={()=> props?.data?.handleSort('Oldest')}
                         >
                             Oldest

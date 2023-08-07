@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {
     FcCalendar,
     FcFinePrint,
+    FcHighPriority,
     FcViewDetails,
     FcVoicePresentation,
 } from 'react-icons/fc';
@@ -13,7 +14,10 @@ export default function TransactionCard(props) {
             {props?.transaction?.data?.rows?.length !== 0 ? (
                 props?.transaction?.data?.rows?.map((value, index) => {
                     return (
-                        <div key={index} className="border p-2 rounded-lg shadow-lg mt-3">
+                        <div
+                            key={index}
+                            className="border p-2 rounded-lg shadow-lg mt-3"
+                        >
                             {/* {()=>setStatus(value?.order_statuses[0]?.status_id)} */}
                             <div className="flex justify- border-b py-2">
                                 <div className="w-72">
@@ -62,9 +66,7 @@ export default function TransactionCard(props) {
                                 </div>
                                 <div className="flex-1 flex justify-center items-center">
                                     <FcViewDetails className="text-[22px]" />
-                                    <div
-                                        className="w-auto px-1 text-[#34498d]"
-                                    >
+                                    <div className="w-auto px-1 text-[#34498d]">
                                         {value?.invoice_number}
                                     </div>
                                 </div>
@@ -85,7 +87,6 @@ export default function TransactionCard(props) {
                                 <div className="flex-auto w-64 flex">
                                     <div className="bg-red-200 w-[120px] h-[120px]">
                                         <img
-                                            
                                             src={
                                                 value?.cart?.cart_products[0]
                                                     ?.image
@@ -93,16 +94,13 @@ export default function TransactionCard(props) {
                                         />
                                     </div>
                                     <div className="m-3">
-                                        <div
-                                            
-                                            className="font-bold text-lg"
-                                        >
+                                        <div className="font-bold text-lg">
                                             {
                                                 value?.cart?.cart_products[0]
                                                     ?.product_name
                                             }
                                         </div>
-                                        <div  className="text-sm my-1 text-slate-500">
+                                        <div className="text-sm my-1 text-slate-500">
                                             {
                                                 value?.cart?.cart_products[0]
                                                     ?.quantity
@@ -112,17 +110,22 @@ export default function TransactionCard(props) {
                                                 'id',
                                             )}
                                         </div>
-                                        {value?.cart?.cart_products.length > 1 ? <div className='text-sm text-slate-600'>+{value?.cart?.cart_products.length -1} other products</div> : null}
+                                        {value?.cart?.cart_products.length >
+                                        1 ? (
+                                            <div className="text-sm text-slate-600">
+                                                +
+                                                {value?.cart?.cart_products
+                                                    .length - 1}{' '}
+                                                other products
+                                            </div>
+                                        ) : null}
                                     </div>
                                 </div>
                                 <div className="flex-auto w-10 mx-5 pl-3">
                                     <div>
                                         <div className="italic">
                                             Deliver from :
-                                            <span
-                                                
-                                                className="text-lg font-semibold"
-                                            >
+                                            <span className="text-lg font-semibold">
                                                 {' '}
                                                 WH - {value?.warehouse?.city}
                                             </span>
@@ -131,10 +134,7 @@ export default function TransactionCard(props) {
                                             <div className="text-center">
                                                 Total Price :
                                             </div>
-                                            <div
-                                                
-                                                className="text-center font-semibold text-lg"
-                                            >
+                                            <div className="text-center font-semibold text-lg">
                                                 Rp.{' '}
                                                 {value?.total.toLocaleString(
                                                     'id',
@@ -144,19 +144,47 @@ export default function TransactionCard(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex mt-3 gap-5">
-                                <div className="flex items-center cursor-pointer">
-                                    <FcVoicePresentation className="text-[22px]" />
-                                    <div className="text-[#2296f3]">
-                                        Chat With Buyer{' '}
+                            <div className="flex mt-3">
+                                <div className="flex-1 flex gap-5">
+                                    <div className="flex items-center cursor-pointer">
+                                        <FcVoicePresentation className="text-[22px]" />
+                                        <div className="text-[#2296f3]">
+                                            Chat With Buyer{' '}
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center cursor-pointer">
+                                        <FcFinePrint className="text-[22px]" />
+                                        <div
+                                            onClick={() => {
+                                                props?.detail?.setDetailId(
+                                                    value?.cart_id,
+                                                );
+                                                props?.detail?.setOpenDetail(
+                                                    true,
+                                                );
+                                            }}
+                                            className="text-[#2296f3]"
+                                        >
+                                            Transaction Detail
+                                        </div>
+                                        {value?.order_statuses[0]?.status_id ===
+                                        2 ? (
+                                            <FcHighPriority className="ml-1 text-[22px]" />
+                                        ) : null}
                                     </div>
                                 </div>
-                                <div className="flex items-center cursor-pointer">
-                                    <FcFinePrint className="text-[22px]" />
-                                    <div onClick={() => { props?.detail?.setDetailId(value?.cart_id);  props?.detail?.setOpenDetail(true)}} className="text-[#2296f3]">
-                                        Transaction Detail
+                                {value?.order_statuses[0]?.status_id === 3 ? (
+                                    <div className="flex-1 flex justify-end gap-5 mr-5">
+                                        <button
+                                            className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36`}
+                                        >
+                                            Ready To Ship
+                                        </button>
+                                        <button className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
+                                            Cancel
+                                        </button>
                                     </div>
-                                </div>
+                                ) : null}
                             </div>
                         </div>
                     );

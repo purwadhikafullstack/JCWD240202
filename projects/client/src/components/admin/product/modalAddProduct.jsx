@@ -15,7 +15,6 @@ export default function ModalAddProduct(props) {
     const [imagePreview, setImagePreview] = useState([]);
     const [name, setName] = useState('');
     const [category, setCategory] = useState(null);
-    console.log(category)
     const [color, setColor] = useState(null);
     const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');

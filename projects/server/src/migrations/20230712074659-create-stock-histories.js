@@ -9,7 +9,7 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            product_stock_id: {
+            product_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
@@ -19,8 +19,21 @@ module.exports = {
             order_id: {
                 type: Sequelize.INTEGER,
             },
-            type: {
-                type: Sequelize.STRING,
+            user_id: {
+                type: Sequelize.INTEGER,
+            },
+            warehouse_id: {
+                type: Sequelize.INTEGER,
+            },
+            quantity: {
+                type: Sequelize.INTEGER,
+            },
+            type_id: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+            },
+            information_id: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             createdAt: {

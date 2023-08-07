@@ -10,17 +10,26 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             stock_histories.belongsTo(models.products, {
-                foreignKey: 'product_id',
-            });
+                foreignKey: 'product_id'
+            })
             stock_histories.belongsTo(models.mutations, {
-                foreignKey: 'mutation_id',
-            });
+                foreignKey: 'mutation_id'
+            })
             stock_histories.belongsTo(models.types, {
-                foreignKey: 'type_id',
-            });
+                foreignKey: 'type_id'
+            })
             stock_histories.belongsTo(models.informations, {
-                foreignKey: 'information_id',
-            });
+                foreignKey: 'information_id'
+            })
+            stock_histories.belongsTo(models.warehouses, {
+                foreignKey: 'warehouse_id'
+            })
+            stock_histories.belongsTo(models.orders, {
+                foreignKey: 'order_id'
+            })
+            stock_histories.belongsTo(models.users, {
+                foreignKey: 'user_id'
+            })
         }
     }
     stock_histories.init(
