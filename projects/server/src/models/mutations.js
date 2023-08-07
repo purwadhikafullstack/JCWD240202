@@ -11,15 +11,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      mutations.hasMany(models.stock_histories, {
+        foreignKey: 'mutation_id'
+      })
+      mutations.belongsTo(models.warehouses, {
+        foreignKey: 'warehouse_origin_id'
+      })
+      mutations.belongsTo(models.products, {
+        foreignKey: 'product_id'
+      })
+      mutations.hasMany(models.mutation_details, {
+        foreignKey: 'mutation_id'
+      })
+      mutations.belongsTo(models.users, {
+        foreignKey: 'user_id'
+      })
     }
   }
   mutations.init({
     product_id: DataTypes.INTEGER,
     warehouse_origin_id: DataTypes.INTEGER,
-    warehouse_destination_id: DataTypes.INTEGER,
-    quantity: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
-    is_approved: DataTypes.BOOLEAN
+    is_approved: {type: DataTypes.BOOLEAN, defaultValue: false},
+    is_rejected: {type: DataTypes.BOOLEAN, defaultValue: false}
   }, {
     sequelize,
     modelName: 'mutations',

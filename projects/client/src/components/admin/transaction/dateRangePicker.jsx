@@ -3,7 +3,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const DateRangePicker = (props) => {
-    console.log(props)
     // const a = props?.data?.startDate
     // const b = props?.data?.endDate
     // if (a && b) {

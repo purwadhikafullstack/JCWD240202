@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
             orders.hasMany(models.order_statuses, {
                 foreignKey: "order_id"
             })
+            orders.hasOne(models.stock_histories, {
+                foreignKey: 'order_id'
+            })
         }
     }
     orders.init(

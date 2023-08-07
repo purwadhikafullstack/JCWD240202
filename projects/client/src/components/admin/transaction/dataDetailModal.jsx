@@ -1,13 +1,19 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import CardDetail from "./cardTransactionDetail";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { cancelConfirmPaymentAsync, confirmPaymentAsync } from "../../../redux/features/transactionSlice";
 
 export default function DataDetail(props) {
+    const dispatch = useDispatch()
     const [openMore, setOpenMore] = useState(false)
+    const [isZoomed, setIsZoomed] = useState(false);
+    const [idZoom, setIdZoom] = useState('')
     return (
         <>
             {props?.data?.data?.rows?.map((value, index) => {
                 if (value?.cart_id === props?.detailId) {
+                    console.log(value)
                     return (
                         <div key={index} className="flex-auto w-full">
                             <div className="flex justify-center mb-3">
@@ -66,7 +72,38 @@ export default function DataDetail(props) {
                                                     'GMT+0700 (Western Indonesia Time)',
                                                 ),
                                         ]}</div>
+                            </div>
+                            {/* confirm payment */}
+                            {value?.order_statuses[0]?.status_id === 2 && value?.order_statuses[0]?.status_id !== 1 && value?.order_statuses[0]?.status_id !== 6 ?
+                                <div className="border-b mt-3 pb-3">
+                                <div className="text-lg font-semibold">
+                                    Payment Proof
                                 </div>
+                                <div className="text-xs text-slate-400">*click image to zoom in & out</div>
+                                <div className="flex justify-center">
+                                <img onClick={() => { setIsZoomed(!isZoomed); setIdZoom(value.id) }} alt="payment-proof" src={value?.payment_proof} className={`cursor-pointer w-[125px] h-[125px] rounded-md ${isZoomed && idZoom === value.id? 'scale-[4] transition duration-500' : ''}`}/>
+                                </div>
+                                {value?.order_statuses[0]?.status_id === 2 ? 
+                                     <div className="flex justify-center mt-3">
+                                            <button
+                                                onClick={()=> dispatch(confirmPaymentAsync(value.cart_id))}
+                                                // onClick={()=> console.log(value.cart_id)}
+                                         className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
+                                     >
+                                         Confirm
+                                     </button>
+                                            <button
+                                                onClick={() => dispatch(cancelConfirmPaymentAsync(value.id))}
+                                                // onClick={()=> console.log(value.id)}
+                                                
+                                         className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 ml-2"
+                                     >
+                                         Reject
+                                     </button>
+                                 </div>
+                                : null}
+                            </div>
+                            : null}
                                 <div>
                                 <div className="my-3 text-lg font-semibold">Product Detail</div>
                                 <div className={`overflow-y-auto ${!openMore ? '' : 'h-64'}`}>
