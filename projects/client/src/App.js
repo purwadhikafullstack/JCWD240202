@@ -25,6 +25,7 @@ import './App.css';
 import { useLocation } from 'react-router-dom';
 import ProductStockPage from './pages/admin/productStockPage';
 import OrderDetailsPage from './pages/user/orderDetailsPage';
+import UserTransactions from './pages/user/userTransactions';
 import MutationPage from './pages/admin/mutationPage';
 
 function App() {
@@ -56,7 +57,14 @@ function App() {
                 />
                 <Route path="/cart" element={<UserCart />} />
                 <Route path="/cart/checkout" element={<CheckoutCart />} />
-                <Route path="/order/:order_id" element={<OrderDetailsPage />} />
+                <Route
+                    path="/orders/:order_id"
+                    element={<OrderDetailsPage />}
+                />
+                <Route
+                    path="/users/transactions"
+                    element={<UserTransactions />}
+                />
 
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
@@ -71,7 +79,10 @@ function App() {
                     path="/admins/warehouse-management"
                     element={<WarehousePageAdmin />}
                 />
-                <Route path="/admins/transactions" element={<TransactionAdmin />} />
+                <Route
+                    path="/admins/transactions"
+                    element={<TransactionAdmin />}
+                />
                 <Route
                     path="/admins/stock-management"
                     element={<ProductStockPage />}

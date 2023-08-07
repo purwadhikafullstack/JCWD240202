@@ -22,6 +22,7 @@ const {
     stockRouter,
     checkoutCartRouter,
     mutationRouter,
+    orderRouter,
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -31,7 +32,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('src/public/images'));
-app.use(express.static('public'))
+app.use(express.static('public'));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // #region API ROUTES
@@ -52,6 +53,7 @@ app.use('/api/warehouses', warehouseRouter);
 app.use('/api/color', colorRouter);
 app.use('/api/transactions', transactionRouter);
 app.use('/api/status', statusRouter);
+app.use('/api/orders', orderRouter);
 
 app.use('/api/stocks', stockRouter);
 app.use('/api/checkout', checkoutCartRouter);

@@ -72,15 +72,15 @@ export default function ModalAddCategory(props) {
     };
 
     const close = () => {
-        setImagePreview(null)
+        setImagePreview(null);
         name.current.value = '';
-    }
+    };
 
     useEffect(() => {
         // documentBodyRef.current = document.body;
         if (isSuccess) {
             name.current.value = '';
-            setImagePreview(null)
+            setImagePreview(null);
             props.funcShow(false);
         }
     }, [isSuccess]);
@@ -161,7 +161,10 @@ export default function ModalAddCategory(props) {
                     </button>
                     <button
                         className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                        onClick={() => { props.funcShow(false); close()}}
+                        onClick={() => {
+                            props.funcShow(false);
+                            close();
+                        }}
                     >
                         Cancel
                     </button>

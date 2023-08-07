@@ -1,4 +1,4 @@
-import { Button, Select } from 'flowbite-react';
+import { Button, Dropdown, Select } from 'flowbite-react';
 import ModalChangeAddress from '../../components/user/checkoutCart/modalChangeAddress';
 import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -16,8 +16,13 @@ import {
     getShippingListAsync,
     setShipping,
 } from '../../redux/features/shippingSlice';
-import { createNewOrderAsync } from '../../redux/features/checkoutSlice';
+import {
+    createNewOrderAsync,
+    setIsOrderSuccess,
+    setOrderId,
+} from '../../redux/features/checkoutSlice';
 import { useNavigate } from 'react-router-dom';
+import PaymentMethod from '../../components/user/checkoutCart/paymentMethod';
 
 export default function CheckoutCart() {
     const dispatch = useDispatch();
@@ -31,6 +36,8 @@ export default function CheckoutCart() {
     const [courier, setCourier] = useState('');
     const [shippingFee, setShippingFee] = useState(0);
     const [shippingMethod, setShippingMethod] = useState('');
+    const orderSuccess = useSelector((state) => state.checkout.isOrderSuccess);
+    const getOrderId = useSelector((state) => state.checkout.orderId);
     const navigate = useNavigate();
 
     const handleIkewaCourier = (e) => {
@@ -105,7 +112,14 @@ export default function CheckoutCart() {
             setShippingFee(0);
             setShippingMethod('');
         }
-    }, [courier]);
+
+        if (orderSuccess === true) {
+            navigate(`/order/${getOrderId?.data?.id}`);
+            dispatch(setIsOrderSuccess(false));
+            dispatch(setOrderId(''));
+        }
+    }, [courier, getOrderId]);
+
     return (
         <>
             <Toaster />
@@ -153,7 +167,7 @@ export default function CheckoutCart() {
                                 <div className="pb-2 font-bold text-lg">
                                     Delivery Method
                                 </div>
-                                {userCart.totalWeight <= 30 ? (
+                                {userCart.totalWeight / 1000 <= 30 ? (
                                     <Select
                                         onChange={(e) =>
                                             setCourier(e.target.value)
@@ -246,6 +260,8 @@ export default function CheckoutCart() {
                     ) : (
                         ''
                     )}
+                    {/* Payment Method */}
+                    <PaymentMethod />
                     {/* cart items */}
                     <div>
                         <div className="pt-9 font-bold text-lg pb-4">

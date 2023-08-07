@@ -1,14 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { redirect, useNavigate } from 'react-router-dom';
+import { getUserCartAsync } from './cartSlice';
 
-const initialState = {};
+const initialState = {
+    isOrderSuccess: false,
+    orderId: null,
+};
 
 export const checkoutSlice = createSlice({
     name: 'checkout',
     initialState,
-    reducers: {},
+    reducers: {
+        setIsOrderSuccess: (initialState, action) => {
+            initialState.isOrderSuccess = action.payload;
+        },
+        setOrderId: (initialState, action) => {
+            initialState.orderId = action.payload;
+        },
+    },
 });
 
 export const createNewOrderAsync = (data) => async (dispatch) => {
@@ -39,6 +49,9 @@ export const createNewOrderAsync = (data) => async (dispatch) => {
         );
 
         if (createOrder.data.success) {
+            dispatch(setIsOrderSuccess(true));
+            dispatch(setOrderId(createOrder.data));
+            dispatch(getUserCartAsync());
             toast.success('Checkout Order Success!');
         }
     } catch (error) {
@@ -46,5 +59,5 @@ export const createNewOrderAsync = (data) => async (dispatch) => {
     }
 };
 
-export const {} = checkoutSlice.actions;
+export const { setIsOrderSuccess, setOrderId } = checkoutSlice.actions;
 export default checkoutSlice.reducer;
