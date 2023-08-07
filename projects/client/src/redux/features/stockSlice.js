@@ -24,11 +24,10 @@ export const stockSlice = createSlice({
     },
 });
 
-const dataLogin = JSON.parse(localStorage?.getItem('user'));
-
 export const getDataStock =
     (page, search, sort, category, warehouse) => async (dispatch) => {
         try {
+            const token = JSON.parse(localStorage?.getItem('user'));
             const dataStock = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/stocks',
                 {
@@ -40,7 +39,7 @@ export const getDataStock =
                         warehouse,
                     },
                     headers: {
-                        authorization: `Bearer ${dataLogin}`,
+                        authorization: `Bearer ${token}`,
                     },
                 },
             );
@@ -54,6 +53,7 @@ export const getDataStock =
 export const addQuantity =
     (product_stock_id, quantity, params) => async (dispatch) => {
         try {
+            const token = JSON.parse(localStorage?.getItem('user'));
             dispatch(setDisabledButton(true));
             const addStock = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL +
@@ -61,7 +61,7 @@ export const addQuantity =
                 { quantity },
                 {
                     headers: {
-                        authorization: `Bearer ${dataLogin}`,
+                        authorization: `Bearer ${token}`,
                     },
                 },
             );
@@ -111,6 +111,7 @@ export const addQuantity =
 export const reduceQuantity =
     (product_stock_id, quantity, params) => async (dispatch) => {
         try {
+            const token = JSON.parse(localStorage?.getItem('user'));
             dispatch(setDisabledButton(true));
             const addStock = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL +
@@ -118,7 +119,7 @@ export const reduceQuantity =
                 { quantity },
                 {
                     headers: {
-                        authorization: `Bearer ${dataLogin}`,
+                        authorization: `Bearer ${token}`,
                     },
                 },
             );

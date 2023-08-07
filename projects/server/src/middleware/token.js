@@ -44,4 +44,26 @@ module.exports = {
             data: null,
         });
     },
+    checkUserRole: async (req, res, next) => {
+        if (req.User.role_id === 2 || req.User.role_id === 3) {
+            return next();
+        }
+
+        return res.status(401).send({
+            success: false,
+            message: 'Unauthorized!',
+            data: null,
+        });
+    },
+    checkWhAdminRole: async (req, res, next) => {
+        if (req.User.role_id === 2) {
+            return next();
+        }
+
+        return res.status(401).send({
+            success: false,
+            message: 'Unauthorized!',
+            data: null,
+        });
+    },
 };

@@ -96,6 +96,7 @@ export const addNewAddressAsync = (data) => async (dispatch) => {
 
         if (addAddress.data.success) {
             toast.success('Create New Address Success');
+            dispatch(getUserAddressAsync());
         }
     } catch (error) {
         toast.error(error.message);
@@ -122,9 +123,7 @@ export const getChosenAddressAsync = () => async (dispatch) => {
                 address_id: getChosen.data.data.id,
             }),
         );
-    } catch (error) {
-        toast.error(error.message);
-    }
+    } catch (error) {}
 };
 
 export const changeChosenAddressAsync = (data) => async (dispatch) => {

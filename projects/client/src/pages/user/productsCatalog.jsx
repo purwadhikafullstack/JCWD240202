@@ -52,7 +52,7 @@ export default function ProductsCatalog() {
             queryParams['page'] = page;
         }
         if (category) {
-            queryParams['category'] = category;
+            queryParams['category'] = category.replaceAll(' ', '%');
         }
         if (sort) {
             queryParams['sort'] = sort;
@@ -80,7 +80,7 @@ export default function ProductsCatalog() {
             {productLists?.data?.rows?.length !== 0 ? (
                 <div className=" flex gap-6 flex-wrap pt-12">
                     {productLists?.data?.rows?.map((value, index) => {
-                        return <ProductsCard key={index} data={value} />;
+                        return <ProductsCard key={index} data={{ value }} />;
                     })}
                 </div>
             ) : (

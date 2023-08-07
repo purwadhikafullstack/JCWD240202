@@ -11,10 +11,10 @@ const adminController = require('./adminController');
 const warehouseController = require('./warehouseController');
 const colorController = require('./colorController');
 const transactionController = require('./transactionController');
-const orderController = require('./orderController');
 const statusController = require('./statusController');
 const stockController = require('./stockController');
 const checkoutCartController = require('./checkoutCartController');
+const mutationController = require('./mutationController');
 
 module.exports = {
     rajaOngkirController,
@@ -30,8 +30,8 @@ module.exports = {
     warehouseController,
     colorController,
     transactionController,
-    orderController,
     statusController,
     stockController,
     checkoutCartController,
+    mutationController,
 };

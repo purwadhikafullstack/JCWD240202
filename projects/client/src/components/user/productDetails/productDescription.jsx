@@ -2,25 +2,27 @@ export default function ProductDescription(props) {
     return (
         <>
             <div className="text-2xl font-bold">
-                {props?.data?.proDetails?.data?.name}
+                {props?.data?.proDetails?.findProduct?.name}
             </div>
             <div>
-                {props?.data?.proDetails?.data?.length} cm x{' '}
-                {props?.data?.proDetails?.data?.width} cm x{' '}
-                {props?.data?.proDetails?.data?.height} cm
+                {props?.data?.proDetails?.findProduct?.length} cm x{' '}
+                {props?.data?.proDetails?.findProduct?.width} cm x{' '}
+                {props?.data?.proDetails?.findProduct?.height} cm
             </div>
             <div className="pt-4 font-bold text-lg">
                 Rp{' '}
-                {props?.data?.proDetails?.data?.price.toLocaleString('id-ID')}
+                {props?.data?.proDetails?.findProduct?.price.toLocaleString(
+                    'id-ID',
+                )}
             </div>
             <div className="pt-4 text-md flex items-center gap-2">
                 <div
-                    className={`h-9 w-9 border bg-[${props?.data?.proDetails?.data?.color?.color_code}]`}
+                    className={`h-9 w-9 border bg-[${props?.data?.proDetails?.findProduct?.color?.color_code}]`}
                 ></div>
-                <div>{props?.data?.proDetails?.data?.color?.name}</div>
+                <div>{props?.data?.proDetails?.findProduct?.color?.name}</div>
             </div>
             <div className="pt-4 text-lg">
-                {props?.data?.proDetails?.data?.description}
+                {props?.data?.proDetails?.findProduct?.description}
             </div>
         </>
     );

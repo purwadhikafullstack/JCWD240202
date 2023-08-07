@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'mutation_id',
             });
             mutation_details.belongsTo(models.warehouses, {
+                as: 'destination',
                 foreignKey: 'warehouse_destination_id',
             });
         }

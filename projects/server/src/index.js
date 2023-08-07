@@ -18,10 +18,10 @@ const {
     warehouseRouter,
     colorRouter,
     transactionRouter,
-    orderRouter,
     statusRouter,
     stockRouter,
     checkoutCartRouter,
+    mutationRouter,
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -31,6 +31,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('src/public/images'));
+app.use(express.static('public'))
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // #region API ROUTES
@@ -49,12 +50,12 @@ app.use('/api/auth/admins', adminAuthRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/warehouses', warehouseRouter);
 app.use('/api/color', colorRouter);
-app.use('/api/transactions', transactionRouter)
-app.use('/api/order', orderRouter);
+app.use('/api/transactions', transactionRouter);
 app.use('/api/status', statusRouter);
 
 app.use('/api/stocks', stockRouter);
 app.use('/api/checkout', checkoutCartRouter);
+app.use('/api/mutations', mutationRouter);
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

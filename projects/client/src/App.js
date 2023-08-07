@@ -24,6 +24,8 @@ import CheckoutCart from './pages/user/checkoutCart';
 import './App.css';
 import { useLocation } from 'react-router-dom';
 import ProductStockPage from './pages/admin/productStockPage';
+import OrderDetailsPage from './pages/user/orderDetailsPage';
+import MutationPage from './pages/admin/mutationPage';
 
 function App() {
     const { pathname } = useLocation();
@@ -31,59 +33,18 @@ function App() {
         <>
             <Navbar />
             <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <>
-                            <Homepage />
-                        </>
-                    }
-                />
-                <Route
-                    path="/products"
-                    element={
-                        <>
-                            <ProductsCatalog />
-                        </>
-                    }
-                />
-                <Route
-                    path="/products/:id"
-                    element={
-                        <>
-                            <ProductDetails />
-                        </>
-                    }
-                />
+                {/* User */}
+                <Route path="/" element={<Homepage />} />
+                <Route path="/products" element={<ProductsCatalog />} />
+                <Route path="/products/:id" element={<ProductDetails />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route
-                    path="/login"
-                    element={
-                        <>
-                            <LoginPage />
-                        </>
-                    }
-                />
+                <Route path="/login" element={<LoginPage />} />
                 <Route
                     path="/verification/:token"
                     element={<VerificationPage />}
                 />
-                <Route
-                    path="/users/profile"
-                    element={
-                        <>
-                            <ProfilePage />
-                        </>
-                    }
-                />
-                <Route
-                    path="/users/address"
-                    element={
-                        <>
-                            <Address />
-                        </>
-                    }
-                />
+                <Route path="/users/profile" element={<ProfilePage />} />
+                <Route path="/users/address" element={<Address />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route
                     path="/reset-password/:token"
@@ -91,28 +52,11 @@ function App() {
                 />
                 <Route
                     path="/users/change-password"
-                    element={
-                        <>
-                            <ChangePasswordUser />
-                        </>
-                    }
+                    element={<ChangePasswordUser />}
                 />
-                <Route
-                    path="/cart"
-                    element={
-                        <>
-                            <UserCart />
-                        </>
-                    }
-                />
-                <Route
-                    path="/cart/checkout"
-                    element={
-                        <>
-                            <CheckoutCart />
-                        </>
-                    }
-                />
+                <Route path="/cart" element={<UserCart />} />
+                <Route path="/cart/checkout" element={<CheckoutCart />} />
+                <Route path="/order/:order_id" element={<OrderDetailsPage />} />
 
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
@@ -131,6 +75,10 @@ function App() {
                 <Route
                     path="/admins/stock-management"
                     element={<ProductStockPage />}
+                />
+                <Route
+                    path="/admins/mutation-management"
+                    element={<MutationPage />}
                 />
             </Routes>
 

@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     carts.init(
         {
             user_id: DataTypes.INTEGER,
-            is_checkout: DataTypes.BOOLEAN,
+            is_checkout: { type: DataTypes.BOOLEAN, defaultValue: false },
         },
         {
             sequelize,

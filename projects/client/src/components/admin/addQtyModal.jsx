@@ -56,6 +56,7 @@ export default function AddQuantityModal({ showModal, selected, params }) {
                                             <input
                                                 type="number"
                                                 min={0}
+                                                placeholder={0}
                                                 className="border border-gray-400 rounded-md px-2 h-10 w-[65px] focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1 text-black flex justify-center"
                                                 value={addQty}
                                                 onChange={(e) => {

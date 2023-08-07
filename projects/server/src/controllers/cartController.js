@@ -109,9 +109,6 @@ const getUserCart = async (req, res) => {
                 include: [{ model: products, attributes: [] }],
                 group: ['cart_id'],
             });
-            const weightInKgs = (
-                totalWeight[0].dataValues.total_weight / 1000
-            ).toFixed(2);
 
             const totalCartPrice = await cart_products.findAll({
                 where: { cart_id: findCart.id },
@@ -126,14 +123,14 @@ const getUserCart = async (req, res) => {
                     success: true,
                     message: 'get user cart success',
                     data: findCartProducts,
-                    totalWeight: weightInKgs,
+                    totalWeight: totalWeight[0].dataValues.total_weight,
                     totalPrice: totalCartPrice[0].dataValues.total_price,
                 });
             } else {
                 const removeCart = await carts.destroy({
                     where: { id: findCart.id },
                 });
-                res.send({ message: 'cart removed' });
+                res.status(200).send({ message: 'cart removed' });
             }
         } else {
             res.send({
