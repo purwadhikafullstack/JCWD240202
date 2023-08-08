@@ -1,49 +1,68 @@
 import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
+import { useDispatch } from 'react-redux';
 
 export default function TransactionHistoryBox(props) {
+    const dispatch = useDispatch();
+
     return (
         <div className="border w-full h-full shadow-xl rounded-2xl px-4">
             <div className="flex gap-9 items-center border-b py-2">
                 <div>{props?.data?.value?.createdAt}</div>
                 <div
                     className={`border px-4 py-1 rounded-full ${
-                        props?.data?.value?.order_statuses[0]?.status_id === 1
+                        props?.data?.value?.order_statuses[
+                            props?.data?.value?.order_statuses.length - 1
+                        ]?.status_id === 1
                             ? 'bg-[#F9E79F] text-[#D6A500] border-[#F8C471]'
                             : ''
                     }
                                     ${
-                                        props?.data?.value?.order_statuses[0]
-                                            ?.status_id === 2
+                                        props?.data?.value?.order_statuses[
+                                            props?.data?.value?.order_statuses
+                                                .length - 1
+                                        ]?.status_id === 2
                                             ? 'bg-[#F5CBA7] text-[#E67E22] border-[#F5B041]'
                                             : ''
                                     }
                                     ${
-                                        props?.data?.value?.order_statuses[0]
-                                            ?.status_id === 3
+                                        props?.data?.value?.order_statuses[
+                                            props?.data?.value?.order_statuses
+                                                .length - 1
+                                        ]?.status_id === 3
                                             ? 'bg-[#D2B4DE] text-[#8E44AD] border-[#AF7AC5]'
                                             : ''
                                     }
                                     ${
-                                        props?.data?.value?.order_statuses[0]
-                                            ?.status_id === 4
+                                        props?.data?.value?.order_statuses[
+                                            props?.data?.value?.order_statuses
+                                                .length - 1
+                                        ]?.status_id === 4
                                             ? 'bg-[#AED6F1] text-[#2471A3] border-[#7FB3D5]'
                                             : ''
                                     }
                                     ${
-                                        props?.data?.value?.order_statuses[0]
-                                            ?.status_id === 5
+                                        props?.data?.value?.order_statuses[
+                                            props?.data?.value?.order_statuses
+                                                .length - 1
+                                        ]?.status_id === 5
                                             ? 'bg-[#A9DFBF] text-[#28B463] border-[#7DCEA0]'
                                             : ''
                                     }
                                     ${
-                                        props?.data?.value?.order_statuses[0]
-                                            ?.status_id === 6
+                                        props?.data?.value?.order_statuses[
+                                            props?.data?.value?.order_statuses
+                                                .length - 1
+                                        ]?.status_id === 6
                                             ? 'bg-[#F1948A] text-[#EE0303] border-[#FC4A4A]'
                                             : ''
                                     }`}
                 >
-                    {props?.data?.value?.order_statuses[0]?.status?.name}
+                    {
+                        props?.data?.value?.order_statuses[
+                            props?.data?.value?.order_statuses.length - 1
+                        ]?.status?.name
+                    }
                 </div>
                 <div className="font-bold">
                     {props?.data?.value?.invoice_number}
@@ -107,8 +126,12 @@ export default function TransactionHistoryBox(props) {
                             Transaction Details
                         </Button>
                     </Link>
-                    {props?.data?.value?.order_statuses[0]?.status_id >= 3 &&
-                    props?.data?.value?.order_statuses[0]?.status_id !== 6 ? (
+                    {props?.data?.value?.order_statuses[
+                        props?.data?.value?.order_statuses.length - 1
+                    ]?.status_id >= 3 &&
+                    props?.data?.value?.order_statuses[
+                        props?.data?.value?.order_statuses.length - 1
+                    ]?.status_id !== 6 ? (
                         <div className="px-2 bg-sky-700 text-yellow-200 hover:cursor-pointer hover:bg-sky-900">
                             Generate Invoice
                         </div>
@@ -116,10 +139,25 @@ export default function TransactionHistoryBox(props) {
                         ''
                     )}
                 </div>
-                {props?.data?.value?.order_statuses[0]?.status_id === 1 ? (
-                    <Button className="px-2 bg-yellow-200 text-sky-700 hover:cursor-pointer hover:bg-sky-700 hover:text-yellow-200">
-                        Upload Payment Receipt
-                    </Button>
+                {props?.data?.value?.order_statuses[
+                    props?.data?.value?.order_statuses.length - 1
+                ]?.status_id === 1 ? (
+                    <div className="flex gap-4">
+                        <Button className="px-2 bg-yellow-200 text-sky-700 hover:cursor-pointer hover:bg-sky-700 hover:text-yellow-200">
+                            Upload Payment Receipt
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                props?.state?.setOrderId(
+                                    props?.data?.value?.id,
+                                );
+                                props?.state?.setCancelOrder(true);
+                            }}
+                            color={'failure'}
+                        >
+                            Cancel Order
+                        </Button>
+                    </div>
                 ) : (
                     ''
                 )}

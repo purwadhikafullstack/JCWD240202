@@ -20,13 +20,14 @@ export const orderSlice = createSlice({
     },
 });
 
-export const getAllUserOrderAsync = () => async (dispatch) => {
+export const getAllUserOrderAsync = (data) => async (dispatch) => {
     const getUser = localStorage.getItem('user')
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
     try {
         const getOrders = await axios.get(
-            process.env.REACT_APP_API_BASE_URL + `/orders`,
+            process.env.REACT_APP_API_BASE_URL +
+                `/orders?page=${data.page}&sort=${data.sort}&status_id=${data.status_id}&search=${data.search}`,
             {
                 headers: {
                     Authorization: `bearer ${getUser}`,
@@ -75,6 +76,31 @@ export const postUserPaymentProofAsync = (data) => async (dispatch) => {
 
         if (postProof?.data?.success === true) {
             toast.success('Payment Proof Successfuly Uploaded');
+            dispatch(getOrderDetailsAsync({ order_id: data.order_id }));
+        }
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+
+export const userCancelOrderAsync = (data) => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const cancelOrder = await axios.post(
+            process.env.REACT_APP_API_BASE_URL + `/orders/cancel`,
+            {
+                order_id: data.order_id,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${getUser}`,
+                },
+            },
+        );
+        if (cancelOrder?.data?.success === true) {
+            toast.success('Order Cancelled');
             dispatch(getOrderDetailsAsync({ order_id: data.order_id }));
         }
     } catch (error) {

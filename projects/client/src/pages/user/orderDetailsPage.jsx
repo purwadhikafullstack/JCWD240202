@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import {
     getOrderDetailsAsync,
     postUserPaymentProofAsync,
+    userCancelOrderAsync,
 } from '../../redux/features/orderSlice';
 import { useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
@@ -20,6 +21,9 @@ import ModalImageProof from '../../components/user/orderDetails/modalImageProof'
 import ModalSubmitProof from '../../components/user/orderDetails/modalSubmitProof';
 import ShoppingItemLists from '../../components/user/orderDetails/itemsLists';
 import PaymentMethod from '../../components/user/checkoutCart/paymentMethod';
+import { IoIosArrowBack } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+import ModalCancelOrder from '../../components/user/transactions/modalCancelOrder';
 
 export default function OrderDetailsPage() {
     const dispatch = useDispatch();
@@ -33,6 +37,7 @@ export default function OrderDetailsPage() {
     const [modalImageProof, setModalImageProof] = useState(false);
     const [modalSubmitProof, setModalSubmitProof] = useState(false);
     const [showHistoryStatus, setShowHistoryStatus] = useState(false);
+    const [cancelOrder, setCancelOrder] = useState(false);
 
     const handleImagePreview = (e) => {
         try {
@@ -76,17 +81,47 @@ export default function OrderDetailsPage() {
         );
     };
 
+    const handleCancelOrder = () => {
+        dispatch(
+            userCancelOrderAsync({ order_id: userOrderDetails?.data?.id }),
+        );
+        dispatch(getOrderDetailsAsync({ order_id: order_id }));
+        setCancelOrder(false);
+    };
+
     useEffect(() => {
         dispatch(getOrderDetailsAsync({ order_id: order_id }));
     }, []);
     return (
         <>
+            {console.log('==>', userOrderDetails?.data?.id)}
             <Toaster />
             <div className="flex justify-center">
                 <div className="w-1/2">
-                    <div className="p-[100px]">
-                        <div className="font-bold text-2xl">
-                            Transaction Details
+                    <div className="px-[100px] py-[50px]">
+                        <Link to={'/users/transactions'}>
+                            <div className="pb-[30px] flex items-center">
+                                <IoIosArrowBack />
+                                All Transaction
+                            </div>
+                        </Link>
+                        <div className="font-bold text-2xl flex justify-between">
+                            <div>Transaction Details</div>
+                            {userOrderDetails?.data?.order_statuses[
+                                userOrderDetails?.data?.order_statuses.length -
+                                    1
+                            ]?.status_id === 1 ? (
+                                <div>
+                                    <Button
+                                        onClick={() => setCancelOrder(true)}
+                                        color={'failure'}
+                                    >
+                                        Cancel Order
+                                    </Button>
+                                </div>
+                            ) : (
+                                ''
+                            )}
                         </div>
                         {/* Order status */}
                         <div className="border px-4 mt-9 pb-4">
@@ -173,6 +208,10 @@ export default function OrderDetailsPage() {
                                     ''
                                 )}
                             </div>
+                        ) : userOrderDetails?.data?.order_statuses[
+                              userOrderDetails?.data?.order_statuses.length - 1
+                          ]?.status_id === 6 ? (
+                            ''
                         ) : (
                             <>
                                 <div className="border px-4 mt-9">
@@ -196,7 +235,6 @@ export default function OrderDetailsPage() {
                             </>
                         )}
                         {/* Payment Method */}
-                        {console.log(userOrderDetails)}
                         {userOrderDetails?.data?.order_statuses[
                             userOrderDetails?.data?.order_statuses.length - 1
                         ].status_id === 1 ? (
@@ -257,7 +295,18 @@ export default function OrderDetailsPage() {
                                         </div>
                                         <div className="flex justify-between mt-2 pt-2 border-t font-bold">
                                             <div>Total</div>
-                                            <div>
+                                            <div
+                                                className={`${
+                                                    userOrderDetails?.data
+                                                        ?.order_statuses[
+                                                        userOrderDetails?.data
+                                                            ?.order_statuses
+                                                            .length - 1
+                                                    ]?.status_id === 6
+                                                        ? 'line-through'
+                                                        : ''
+                                                }`}
+                                            >
                                                 Rp{' '}
                                                 {userOrderDetails?.data?.total.toLocaleString(
                                                     'ID-id',
@@ -291,6 +340,10 @@ export default function OrderDetailsPage() {
                 data={{ images: imageProof[0], order_id: order_id }}
                 func={{ uploadProof }}
                 state={{ setModalSubmitProof, modalSubmitProof }}
+            />
+            <ModalCancelOrder
+                func={{ handleCancelOrder }}
+                state={{ setCancelOrder, cancelOrder }}
             />
         </>
     );
