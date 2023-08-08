@@ -25,7 +25,7 @@ module.exports = {
             const offset = (Number(page ? page : 1) - 1) * limit;
             let order = [['createdAt', 'DESC']];
             let where = undefined;
-            let whereStatus = undefined;
+            let whereStatus = {is_active: true};
             if (startDate && endDate) {
                 var dateEnd = new Date(endDate).setDate(
                     new Date(endDate).getDate() + 1,
@@ -106,7 +106,7 @@ module.exports = {
                 }
             }
             if (statusId) {
-                whereStatus = { status_id: statusId };
+                whereStatus['status_id'] = statusId
             }
             const result = await orders.findAndCountAll({
                 where: where,
@@ -291,7 +291,7 @@ module.exports = {
                                 warehouse_destination_id: value.warehouse_destination_id,
                                 mutation_id: val.id,
                                 quantity: value.quantity
-                            })  
+                            }, { transaction: t })  
                         }
                     })
                 })
@@ -323,15 +323,16 @@ module.exports = {
             })
             // confimation payment tidak generate log barang dikirim ke user
             // const updateStockHistory = await db.stock_histories.bulkCreate(history, { transaction: t })
-            const changeStatus = await db.order_statuses.update({status_id: 3}, {where:{order_id: data.id}}, { transaction: t })
-
+            const createStatus = await db.order_statuses.create({ status_id: 3, order_id: data.id, is_active: 1 }, { transaction: t })
+            console.log(createStatus)
+            const tes = await db.order_statuses.update({is_active: 0}, { where: { status_id: 2, order_id: data.id } }, { transaction: t })
             await t.commit();
 
             // res.send({data, findNearestWh, stockWh, enoughStock, stockNextWh, history, mutation, historyMut, mutationDetail, reqStock, updateMutation, updateStockHistory})
             return res.status(200).send({
                 success: true,
                 message: 'Payment confirmation success!',
-                data: history, historyMut, mutation, mutationDetail, enoughStock, findNearestWh
+                data: history, historyMut, mutation, mutationDetail, enoughStock, createStatus, findNearestWh
             });
         } catch (error) {
             await t.rollback();
@@ -358,13 +359,62 @@ module.exports = {
                     success: false,
                     message: "Data not found"
                 })
-            const changeStatus = await db.order_statuses.update({ status_id: 1 }, { where: { order_id } }, { transaction: t })
+            const changeStatus = await db.order_statuses.destroy({ where: { status_id: 2, order_id } }, { transaction: t })
             deleteSingleFile(`src/public/images/${dataOrder?.payment_proof}`);
             await t.commit();
+            await db.order_statuses.update({is_active: 1}, { where: { status_id: 1, order_id } }, { transaction: t })
             return res.status(200).send({
                 success: true,
                 message: "Cancel payment confirmation success!",
                 data: changeStatus
+            })
+        } catch (error) {
+            await t.rollback();
+            return res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    sendUserOrders: async (req, res) => {
+        const t = await sequelize.transaction();
+        try {
+            const user_id = req.User.id
+            const { order_id } = req.body
+            const data = await orders.findOne({
+                where: {
+                    id: order_id
+                },
+                include: [{ model: cart, include: [{ model: cartProduct }]}]
+            })
+            const stockHistory = await data.cart?.cart_products.map((value) => {
+                return {
+                    product_id: value.product_id,
+                    quantity: value.quantity,
+                    order_id: data.id,
+                    user_id,
+                    warehouse_id: data.warehouse_id,
+                    type_id: 2,
+                    information_id: 2
+                }
+            })
+            console.log(new Date(new Date().setDate(new Date().getDate() + 7)))
+            console.log(new Date())
+            const updateStockHistory = await db.stock_histories.bulkCreate(stockHistory, { transaction: t })
+            const createStatus = await db.order_statuses.create({ status_id: 4, order_id, is_active: 1, expired: new Date(new Date().setDate(new Date().getDate() + 7)) }, { transaction: t })
+            const expired = await sequelize.query(`
+            CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 2 MINUTE
+            DO BEGIN
+            INSERT INTO order_statuses (status_id, order_id, is_active, createdAt, updatedAt) VALUES (5, "${order_id}", 1, current_timestamp(), current_timestamp());
+            UPDATE order_statuses SET is_active = 0 WHERE order_id = "${order_id}" AND status_id = 4;
+            END;`)
+            await t.commit();
+            await db.order_statuses.update({ is_active: 0 }, { where: { status_id: 3, order_id } }, { transaction: t })
+            return res.status(200).send({
+                success: true,
+                message: "Sending users order!",
+                data: updateStockHistory, createStatus, expired
             })
         } catch (error) {
             await t.rollback();
