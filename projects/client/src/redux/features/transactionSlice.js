@@ -48,7 +48,7 @@ export const confirmPaymentAsync = (cartId) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(
-            process.env.REACT_APP_API_BASE_URL + '/transactions/confirmation',
+            process.env.REACT_APP_API_BASE_URL + '/transactions/confirmation-payment',
             {
                 cart_id: cartId,
             },
@@ -110,6 +110,37 @@ export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
                 },
             },
         );
+        dispatch(allTransactionAsync());
+        toast.success(result.data.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#0051BA',
+                color: 'white',
+            },
+        });
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response?.data?.message)
+        } else {
+            console.log(error.message);
+        }
+    }
+}
+
+export const sendUserOrder = (order_id) => async (dispatch) => {
+    try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        const result = await axios.post(process.env.REACT_APP_API_BASE_URL + '/transactions/confirmation-shipping',
+        {
+            order_id,
+        },{
+            headers: {
+                authorization: `Bearer ${dataLogin}`,
+            },
+        },)
         dispatch(allTransactionAsync());
         toast.success(result.data.message, {
             position: 'top-center',

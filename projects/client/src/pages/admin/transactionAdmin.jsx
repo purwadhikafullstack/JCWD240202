@@ -17,7 +17,7 @@ export default function TransactionAdmin() {
     const dispatch = useDispatch();
     const status = useSelector((state) => state.status.status);
     const transaction = useSelector((state) => state.transaction.data);
-    console.log(transaction)
+    // console.log(transaction)
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(searchParams.get('page') || 1);
     const [warehouse, setWarehouse] = useState(

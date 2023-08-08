@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'mutation_id'
       })
       mutations.belongsTo(models.warehouses, {
+        as: 'origin',
         foreignKey: 'warehouse_origin_id'
       })
       mutations.belongsTo(models.products, {
