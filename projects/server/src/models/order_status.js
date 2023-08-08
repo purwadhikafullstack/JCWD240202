@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             status_id: DataTypes.INTEGER,
             order_id: DataTypes.INTEGER,
-            expired: DataTypes.DATE,
+            expired: { type: DataTypes.DATE },
             is_rejected: { type: DataTypes.BOOLEAN, defaultValue: false },
             is_active: { type: DataTypes.BOOLEAN },
         },

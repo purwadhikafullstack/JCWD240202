@@ -8,7 +8,8 @@ const carts = db.carts;
 const product_stocks = db.product_stocks;
 const orders = db.orders;
 const order_statuses = db.order_statuses;
-const sequelize = require('sequelize');
+const Sequelize = require('sequelize');
+const { sequelize } = require('../models');
 
 const getClosestWarehouse = async (req, res) => {
     try {
@@ -30,33 +31,33 @@ const getClosestWarehouse = async (req, res) => {
                     'street',
                     'postcode',
                     [
-                        sequelize.fn(
+                        Sequelize.fn(
                             'ST_Distance_Sphere',
-                            sequelize.fn(
+                            Sequelize.fn(
                                 'POINT',
                                 findAddress.longitude,
                                 findAddress.latitude,
                             ),
-                            sequelize.fn(
+                            Sequelize.fn(
                                 'POINT',
-                                sequelize.col('longitude'),
-                                sequelize.col('latitude'),
+                                Sequelize.col('longitude'),
+                                Sequelize.col('latitude'),
                             ),
                         ),
                         'distance',
                     ],
                 ],
-                order: sequelize.fn(
+                order: Sequelize.fn(
                     'ST_Distance_Sphere',
-                    sequelize.fn(
+                    Sequelize.fn(
                         'POINT',
                         findAddress.longitude,
                         findAddress.latitude,
                     ),
-                    sequelize.fn(
+                    Sequelize.fn(
                         'POINT',
-                        sequelize.col('longitude'),
-                        sequelize.col('latitude'),
+                        Sequelize.col('longitude'),
+                        Sequelize.col('latitude'),
                     ),
                 ),
             });
@@ -132,6 +133,7 @@ const createUserOrder = async (req, res) => {
             } else {
                 const timestamp = new Date().getTime();
                 const invoiceNumber = `inv/${timestamp}`;
+                const currentTime = new Date();
 
                 const createOrder = await orders.create({
                     cart_id: findCart.id,
@@ -153,6 +155,7 @@ const createUserOrder = async (req, res) => {
                         status_id: 1,
                         order_id: createOrder.id,
                         is_active: true,
+                        expired: currentTime.getTime() + 24 * 60 * 60 * 1000,
                     });
 
                     const updateCart = await carts.update(
@@ -176,6 +179,13 @@ const createUserOrder = async (req, res) => {
                             { where: { id: value.product_id } },
                         );
                     });
+
+                    const eventScheduler =
+                        await sequelize.query(`CREATE EVENT payment_expired_${createStatus.id} ON SCHEDULE AT NOW() + INTERVAL 24 HOUR
+                        DO BEGIN
+                        INSERT INTO order_statuses (status_id, order_id, createdAt, updatedAt, is_active, is_rejected) VALUES (6, "${createStatus.order_id}", current_timestamp(), current_timestamp(), 1, 0);
+                        UPDATE order_statuses SET is_active = 0 WHERE id = "${createStatus.id}" AND status_id = 1;
+                        END;`);
 
                     res.status(200).send({
                         success: true,
