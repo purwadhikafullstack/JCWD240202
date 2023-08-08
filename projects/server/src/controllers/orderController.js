@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const db = require('../models');
 const users = db.users;
 const warehouses = db.warehouses;
@@ -15,13 +16,38 @@ const { deleteSingleFile } = require('./../helper/deleteFiles');
 const getAllUserOrder = async (req, res) => {
     try {
         const user_id = req.User.id;
-        const { page } = req.query;
+        const { page, status_id, sort, search } = req.query;
 
-        const paginationLimit = 100;
+        let where = {};
+        let order = [['id', 'DESC']];
+        let searchInvoice = '';
+
+        const paginationLimit = 5;
         const paginationOffset =
             (Number(page ? page : 1) - 1) * paginationLimit;
 
+        if (status_id) {
+            if (status_id === '0') {
+                where = {};
+            } else {
+                where = { status_id: Number(status_id), is_active: true };
+            }
+        }
+        if (sort) {
+            if (sort === 'newest') {
+                order = [['id', 'DESC']];
+            } else if (sort === 'oldest') {
+                order = [['id', 'ASC']];
+            }
+        }
+        if (search) {
+            searchInvoice = search;
+        }
+
         const getOrder = await orders.findAndCountAll({
+            where: {
+                invoice_number: { [Op.substring]: [searchInvoice] },
+            },
             offset: paginationOffset,
             limit: paginationLimit,
             attributes: [
@@ -49,25 +75,31 @@ const getAllUserOrder = async (req, res) => {
                 ],
             ],
             include: [
-                { model: order_statuses, include: [{ model: statuses }] },
+                {
+                    model: order_statuses,
+                    where,
+                    include: [{ model: statuses }],
+                },
                 {
                     model: carts,
                     where: { user_id: user_id },
                     include: [{ model: cart_products }],
                 },
             ],
-            order: [['id', 'DESC']],
+            order,
         });
 
-        if (getOrder.count === 0) {
+        if (getOrder.rows.length === 0) {
             res.status(200).send({
-                message: 'user do not have any transaction history',
+                message: 'No transaction yet',
             });
         } else {
+            const totalPage = Math.ceil(getOrder.count / paginationLimit);
             res.status(200).send({
                 success: true,
                 message: 'get all user order success',
                 data: getOrder,
+                totalPage,
             });
         }
     } catch (error) {
@@ -165,17 +197,21 @@ const postUserPaymentProof = async (req, res) => {
                 { transaction: t },
             );
 
-            const updateStatus = await order_statuses.create({
-                status_id: 2,
-                order_id: findOrder.id,
-                is_active: true,
-            });
+            const updateStatus = await order_statuses.create(
+                {
+                    status_id: 2,
+                    order_id: findOrder.id,
+                    is_active: true,
+                },
+                { transaction: t },
+            );
 
             const updatePrevStatus = await order_statuses.update(
                 {
                     is_active: false,
                 },
                 { where: { status_id: 1, order_id: findOrder.id } },
+                { transaction: t },
             );
 
             if (uploadProof && updateStatus) {
@@ -207,4 +243,100 @@ const postUserPaymentProof = async (req, res) => {
     }
 };
 
-module.exports = { getAllUserOrder, getOrderDetails, postUserPaymentProof };
+const userCancelOrder = async (req, res) => {
+    const t = await sequelize.transaction();
+    try {
+        const user_id = req.User.id;
+        const { order_id } = req.body;
+
+        const findOrder = await orders.findOne({
+            where: { id: order_id },
+            include: [{ model: carts, include: [{ model: cart_products }] }],
+        });
+        if (findOrder) {
+            const getStatus = await order_statuses.findOne({
+                where: {
+                    order_id: findOrder.id,
+                    status_id: 1,
+                    is_active: true,
+                },
+            });
+            if (getStatus) {
+                const cancelOrder = await order_statuses.create(
+                    {
+                        order_id: findOrder.id,
+                        status_id: 6,
+                        is_active: true,
+                    },
+                    { transaction: t },
+                );
+                const updatePrev = await order_statuses.update(
+                    {
+                        is_active: false,
+                    },
+                    { where: { id: getStatus.id } },
+                    { transaction: t },
+                );
+
+                const updateStock = findOrder.cart.cart_products.map(
+                    async (value) => {
+                        const getStock = await products.findOne({
+                            where: { id: value.product_id },
+                        });
+
+                        await products.update(
+                            {
+                                total_stock:
+                                    getStock.total_stock + value.quantity,
+                            },
+                            {
+                                where: { id: value.product_id },
+                            },
+                            { transaction: t },
+                        );
+                    },
+                );
+
+                if (cancelOrder && updatePrev) {
+                    await t.commit();
+                    res.status(200).send({
+                        success: true,
+                        message: 'order cancelled',
+                        data: {},
+                    });
+                } else {
+                    res.status(400).send({
+                        success: false,
+                        message: 'failed to cancel order',
+                        data: null,
+                    });
+                }
+            } else {
+                res.status(400).send({
+                    success: false,
+                    message: 'order cannot be cancelled',
+                    data: null,
+                });
+            }
+        } else {
+            res.status(400).send({
+                success: false,
+                message: 'order not found',
+                data: null,
+            });
+        }
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message,
+            data: null,
+        });
+    }
+};
+
+module.exports = {
+    getAllUserOrder,
+    getOrderDetails,
+    postUserPaymentProof,
+    userCancelOrder,
+};

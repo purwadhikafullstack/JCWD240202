@@ -12,5 +12,6 @@ router.post(
     upload,
     orderController.postUserPaymentProof,
 );
+router.post('/cancel', verifyToken, orderController.userCancelOrder);
 
 module.exports = router;

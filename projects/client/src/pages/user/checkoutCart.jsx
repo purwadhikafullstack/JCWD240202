@@ -114,7 +114,7 @@ export default function CheckoutCart() {
         }
 
         if (orderSuccess === true) {
-            navigate(`/order/${getOrderId?.data?.id}`);
+            navigate(`/orders/${getOrderId?.data?.id}`);
             dispatch(setIsOrderSuccess(false));
             dispatch(setOrderId(''));
         }
