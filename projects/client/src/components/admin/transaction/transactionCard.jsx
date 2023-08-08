@@ -7,8 +7,11 @@ import {
     FcViewDetails,
     FcVoicePresentation,
 } from 'react-icons/fc';
+import { useDispatch } from "react-redux";
+import { sendUserOrder } from '../../../redux/features/transactionSlice';
 
 export default function TransactionCard(props) {
+    const dispatch = useDispatch()
     return (
         <>
             {props?.transaction?.data?.rows?.length !== 0 ? (
@@ -176,6 +179,7 @@ export default function TransactionCard(props) {
                                 {value?.order_statuses[0]?.status_id === 3 ? (
                                     <div className="flex-1 flex justify-end gap-5 mr-5">
                                         <button
+                                            onClick={()=> dispatch(sendUserOrder(value.id))}
                                             className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36`}
                                         >
                                             Ready To Ship
