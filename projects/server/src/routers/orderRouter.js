@@ -1,9 +1,17 @@
 const express = require('express');
-const orderController = require('../controllers/orderController');
-const { verifyToken } = require('../middleware/token');
-
 const router = express.Router();
+const orderController = require('../controllers/orderController');
+const { verifyToken } = require('./../middleware/token');
+const upload = require('../middleware/upload');
 
-router.post('/', verifyToken, orderController.userCheckout);
+router.get('/', verifyToken, orderController.getAllUserOrder);
+router.get('/:order_id', verifyToken, orderController.getOrderDetails);
+router.post(
+    '/payment_proof',
+    verifyToken,
+    upload,
+    orderController.postUserPaymentProof,
+);
+router.post('/cancel', verifyToken, orderController.userCancelOrder);
 
 module.exports = router;

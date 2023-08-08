@@ -8,7 +8,7 @@ export default function OrderSummary(props) {
     return (
         <>
             <div className="border h-[500px] w-[350px] mt-9 rounded-2xl shadow-xl relative">
-                <div className="font-bold text-lg p-4 border-b bg-sky-700 text-yellow-200">
+                <div className="font-bold text-lg p-4 border-b bg-yellow-200 text-sky-700">
                     Order Summary
                 </div>
                 <div className="p-4 flex flex-col gap-4">
@@ -84,12 +84,12 @@ export default function OrderSummary(props) {
                         </div>
                     </div>
                 </div>
-                <div className="w-full absolute bottom-0 p-2">
+                <div className="w-full absolute bottom-0 p-4">
                     <Button
                         onClick={() => setModalConfirmation(true)}
-                        className="w-full bg-sky-700 text-yellow-200 h-[70px]"
+                        className="w-full bg-sky-700 text-yellow-200 h-[50px]"
                     >
-                        <div className="text-2xl">Confirm Order</div>
+                        <div className="text-xl">Confirm Order</div>
                     </Button>
                 </div>
             </div>
