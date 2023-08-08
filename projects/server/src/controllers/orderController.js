@@ -89,6 +89,24 @@ const getAllUserOrder = async (req, res) => {
             order,
         });
 
+        const countOrder = await orders.count({
+            where: {
+                invoice_number: { [Op.substring]: [searchInvoice] },
+            },
+            include: [
+                {
+                    model: order_statuses,
+                    where,
+                    include: [{ model: statuses }],
+                },
+                {
+                    model: carts,
+                    where: { user_id: user_id },
+                    include: [{ model: cart_products }],
+                },
+            ],
+        });
+
         if (getOrder.rows.length === 0) {
             res.status(200).send({
                 message: 'No transaction yet',

@@ -94,17 +94,20 @@ export default function OrderDetailsPage() {
     }, []);
     return (
         <>
-            {console.log('==>', userOrderDetails?.data?.id)}
             <Toaster />
             <div className="flex justify-center">
                 <div className="w-1/2">
                     <div className="px-[100px] py-[50px]">
-                        <Link to={'/users/transactions'}>
-                            <div className="pb-[30px] flex items-center">
-                                <IoIosArrowBack />
-                                All Transaction
-                            </div>
-                        </Link>
+                        <div className="pb-[30px] flex items-center justify-start">
+                            <Link to={'/users/transactions'}>
+                                <div className="flex items-center">
+                                    <div>
+                                        <IoIosArrowBack />
+                                    </div>
+                                    <div>All Transaction</div>
+                                </div>
+                            </Link>
+                        </div>
                         <div className="font-bold text-2xl flex justify-between">
                             <div>Transaction Details</div>
                             {userOrderDetails?.data?.order_statuses[
