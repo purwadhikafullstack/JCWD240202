@@ -157,9 +157,11 @@ export default function TransactionHistoryBox(props) {
                         props?.data?.value?.order_statuses.length - 1
                     ]?.status_id === 1 ? (
                         <div className="flex gap-4">
-                            <Button className="px-2 bg-yellow-200 text-sky-700 hover:cursor-pointer hover:bg-sky-700 hover:text-yellow-200">
-                                Upload Payment Receipt
-                            </Button>
+                            <Link to={`/orders/${props?.data?.value?.id}`}>
+                                <Button className="px-2 bg-yellow-200 text-sky-700 hover:cursor-pointer hover:bg-sky-700 hover:text-yellow-200">
+                                    Upload Payment Receipt
+                                </Button>
+                            </Link>
                             <Button
                                 onClick={() => {
                                     props?.state?.setOrderId(
