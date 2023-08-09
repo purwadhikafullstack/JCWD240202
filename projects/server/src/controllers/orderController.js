@@ -121,6 +121,7 @@ const getOrderDetails = async (req, res) => {
             include: [
                 {
                     model: order_statuses,
+                    as: 'order_statuses',
                     attributes: [
                         'id',
                         'status_id',
@@ -144,6 +145,7 @@ const getOrderDetails = async (req, res) => {
                     include: [{ model: cart_products }],
                 },
             ],
+            order: [[order_statuses, 'id', 'ASC']],
         });
 
         if (getDetails) {

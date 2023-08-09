@@ -32,9 +32,17 @@ export default function UserTransactions() {
         setPage(value);
     };
 
-    const handleCancelOrder = () => {
-        dispatch(userCancelOrderAsync({ order_id: orderId }));
-        navigate(`/orders/${orderId}`);
+    const handleCancelOrder = async () => {
+        await dispatch(userCancelOrderAsync({ order_id: orderId }));
+        // navigate(`/orders/${orderId}`);
+        await dispatch(
+            getAllUserOrderAsync({
+                sort: sortTransaction,
+                page,
+                status_id,
+                search,
+            }),
+        );
         setOrderId(0);
         setCancelOrder(false);
     };
