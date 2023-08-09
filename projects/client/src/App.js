@@ -27,6 +27,7 @@ import ProductStockPage from './pages/admin/productStockPage';
 import OrderDetailsPage from './pages/user/orderDetailsPage';
 import UserTransactions from './pages/user/userTransactions';
 import MutationPage from './pages/admin/mutationPage';
+import AdminSalesReport from './pages/admin/adminSalesReport';
 
 function App() {
     const { pathname } = useLocation();
@@ -90,6 +91,10 @@ function App() {
                 <Route
                     path="/admins/mutation-management"
                     element={<MutationPage />}
+                />
+                <Route
+                    path="/admins/sales-report"
+                    element={<AdminSalesReport />}
                 />
             </Routes>
 
