@@ -16,6 +16,7 @@ export default function InvoiceSearch(props) {
             <div
                 onClick={() => {
                     props?.state?.setSearch(_search.current.value);
+                    props?.state?.setPage(1);
                 }}
                 className="border p-2 rounded-lg bg-sky-700 text-yellow-300 hover:cursor-pointer"
             >

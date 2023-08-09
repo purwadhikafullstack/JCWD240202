@@ -110,10 +110,8 @@ export default function OrderDetailsPage() {
                         </div>
                         <div className="font-bold text-2xl flex justify-between">
                             <div>Transaction Details</div>
-                            {userOrderDetails?.data?.order_statuses[
-                                userOrderDetails?.data?.order_statuses.length -
-                                    1
-                            ]?.status_id === 1 ? (
+                            {userOrderDetails?.data?.order_statuses[0]
+                                ?.status_id === 1 ? (
                                 <div>
                                     <Button
                                         onClick={() => setCancelOrder(true)}
@@ -137,9 +135,8 @@ export default function OrderDetailsPage() {
                             />
                         </div>
                         {/* image proof upload */}
-                        {userOrderDetails?.data?.order_statuses[
-                            userOrderDetails?.data?.order_statuses.length - 1
-                        ]?.status_id === 1 ? (
+                        {userOrderDetails?.data?.order_statuses[0]
+                            ?.status_id === 1 ? (
                             <div className="border px-4 mt-9">
                                 <div className="text-lg border-b py-4 font-bold flex items-center">
                                     Payment Proof
@@ -211,9 +208,8 @@ export default function OrderDetailsPage() {
                                     ''
                                 )}
                             </div>
-                        ) : userOrderDetails?.data?.order_statuses[
-                              userOrderDetails?.data?.order_statuses.length - 1
-                          ]?.status_id === 6 ? (
+                        ) : userOrderDetails?.data?.order_statuses[0]
+                              ?.status_id === 6 ? (
                             ''
                         ) : (
                             <>
