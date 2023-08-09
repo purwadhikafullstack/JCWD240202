@@ -82,6 +82,7 @@ const getAllUserOrder = async (req, res) => {
                 },
                 {
                     model: carts,
+                    where: { user_id: user_id },
                     include: [{ model: cart_products }],
                 },
             ],
