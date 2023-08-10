@@ -14,11 +14,11 @@ export default function ComListProduct(props) {
                         scope="row"
                         className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
                     >
-                        <td className="flex justify-center items-center h-[100px] w-[100px] border-r">
+                        <td className="flex justify-center items-center border-r">
                             <img
                                 alt="img"
-                                className="object-contain"
-                                src={value.product_images[0].name}
+                                className="object-contain w-[100px]"
+                                src={value.product_images[0].name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value.product_images[0].name : value.product_images[0].name}
                             />
                         </td>
                         <td className="px-3 font-medium w-[250px] text-gray-900 dark:text-white border-r">

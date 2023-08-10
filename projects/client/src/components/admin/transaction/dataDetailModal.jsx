@@ -13,7 +13,7 @@ export default function DataDetail(props) {
         <>
             {props?.data?.data?.rows?.map((value, index) => {
                 if (value?.cart_id === props?.detailId) {
-                    console.log(value)
+                    // console.log(value)
                     return (
                         <div key={index} className="flex-auto w-full">
                             <div className="flex justify-center mb-3">
@@ -74,14 +74,14 @@ export default function DataDetail(props) {
                                         ]}</div>
                             </div>
                             {/* confirm payment */}
-                            {value?.order_statuses[0]?.status_id === 2 && value?.order_statuses[0]?.status_id !== 1 && value?.order_statuses[0]?.status_id !== 6 ?
+                            {value?.order_statuses[0]?.status_id === 2 || value?.order_statuses[0]?.status_id === 3 || value?.order_statuses[0]?.status_id === 4 || value?.order_statuses[0]?.status_id === 5 ?
                                 <div className="border-b mt-3 pb-3">
                                 <div className="text-lg font-semibold">
                                     Payment Proof
                                 </div>
                                 <div className="text-xs text-slate-400">*click image to zoom in & out</div>
                                 <div className="flex justify-center">
-                                <img onClick={() => { setIsZoomed(!isZoomed); setIdZoom(value.id) }} alt="payment-proof" src={value?.payment_proof} className={`cursor-pointer w-[125px] h-[125px] rounded-md ${isZoomed && idZoom === value.id? 'scale-[4] transition duration-500' : ''}`}/>
+                                <img onClick={() => { setIsZoomed(!isZoomed); setIdZoom(value.id) }} alt="payment-proof" src={value?.payment_proof.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.payment_proof : value?.payment_proof} className={`cursor-pointer w-[125px] h-[125px] rounded-md ${isZoomed && idZoom === value.id? 'scale-[4] transition duration-500' : ''}`}/>
                                 </div>
                                 {value?.order_statuses[0]?.status_id === 2 ? 
                                      <div className="flex justify-center mt-3">
