@@ -17,6 +17,7 @@ export default function TransactionAdmin() {
     const dispatch = useDispatch();
     const status = useSelector((state) => state.status.status);
     const transaction = useSelector((state) => state.transaction.data);
+    // console.log(transaction)
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(searchParams.get('page') || 1);
     const [warehouse, setWarehouse] = useState(
@@ -37,17 +38,23 @@ export default function TransactionAdmin() {
     };
     const warehouseChange = (warehouse) => {
         setWarehouse(warehouse);
+        setPage(1)
     };
     const searchChange = (search) => {
         setSearch(search);
+        setPage(1)
     };
     const handleDateChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
+        if (start && end) {
+            setPage(1)
+        }
     };
     const handleStatusChange = (statusId) => {
         setStatus(statusId);
+        setPage(1)
     };
     const handleSort = (sort) => {
         setSort(sort);
@@ -104,9 +111,9 @@ export default function TransactionAdmin() {
                     <div className="my-3 p-2">
                         <div className="flex justify-between">
                             <div className="flex gap-2">
-                                <FilterAdmin
+                                {transaction.roleId === 3 ? <FilterAdmin
                                     data={{ warehouseChange, warehouse }}
-                                />
+                                /> : null}
                                 <DateRangePicker
                                     data={{
                                         handleDateChange,

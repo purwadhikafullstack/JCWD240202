@@ -88,7 +88,7 @@ export default function ProductStockPage() {
                                         Welcome, {dataLogin?.first_name}{' '}
                                         {dataLogin?.last_name}!
                                     </h1>
-                                    <h1 className="mt-3">
+                                    <h1>
                                         {dataLogin?.warehouse?.city} Warehouse
                                     </h1>
                                 </>
@@ -148,7 +148,11 @@ export default function ProductStockPage() {
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
                                             {sort === 'name-asc'
                                                 ? 'A-Z'
-                                                : 'Z-A'}
+                                                : sort === 'name-desc'
+                                                ? 'Z-A'
+                                                : sort === 'newest'
+                                                ? 'Newest'
+                                                : 'Oldest'}
                                         </div>
                                     </button>
                                 ) : (

@@ -27,11 +27,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'product_id',
             });
             products.hasMany(models.stock_histories, {
-                foreignKey: 'product_id'
-            })
+                foreignKey: 'product_id',
+            });
             products.hasMany(models.mutations, {
-                foreignKey: 'product_id'
-            })
+                foreignKey: 'product_id',
+            });
         }
     }
     products.init(

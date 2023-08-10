@@ -2,14 +2,13 @@
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
-import { useLocation } from 'react-router-dom';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -106,7 +105,9 @@ export default function Navbar() {
                                     <Link to="/users/profile">Profile</Link>
                                 </li>
                                 <li>
-                                    <Link to="/transactions">Transactions</Link>
+                                    <Link to="/users/transactions">
+                                        Transactions
+                                    </Link>
                                 </li>
                                 <li className="border-t">
                                     <button onClick={() => setOpenModal(true)}>

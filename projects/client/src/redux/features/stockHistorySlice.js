@@ -20,7 +20,7 @@ export const stockHistorySlice = createSlice({
 });
 
 export const getStockHistory =
-    (page, date, category, search, warehouse) => async (dispatch) => {
+    (page, date, category, search, warehouse, sort) => async (dispatch) => {
         try {
             const token = JSON.parse(localStorage?.getItem('user'));
             const dataStockHistory = await axios.get(
@@ -32,6 +32,7 @@ export const getStockHistory =
                         category,
                         search,
                         warehouse,
+                        sort,
                     },
                     headers: {
                         authorization: `Bearer ${token}`,

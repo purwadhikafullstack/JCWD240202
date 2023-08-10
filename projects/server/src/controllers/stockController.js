@@ -8,7 +8,7 @@ module.exports = {
         try {
             let where = undefined;
             let cat = undefined;
-            let order = undefined;
+            let order = [[db.products, 'category_id', 'ASC']];
             const { id, role_id } = req.User;
             console.log(id);
             const { page, warehouse, search, sort, category } = req.query;
@@ -107,12 +107,16 @@ module.exports = {
                     order = [[db.products, 'name', 'ASC']];
                 } else if (sort === 'name-desc') {
                     order = [[db.products, 'name', 'DESC']];
+                } else if (sort === 'newest') {
+                    order = [['createdAt', 'DESC']];
+                } else if (sort === 'oldest') {
+                    order = [['createdAt', 'ASC']];
                 }
             }
 
             const dataStock = await stock.findAndCountAll({
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt'],
+                    exclude: ['updatedAt'],
                 },
                 where: where,
                 offset: paginationOffset,

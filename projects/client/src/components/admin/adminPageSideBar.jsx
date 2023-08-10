@@ -281,11 +281,11 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className={`${
-                                pathname === '/admins/dashboard'
+                                pathname === '/admins/sales_report'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7`}
-                            onClick={() => navigate('/admins/dashboard')}
+                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
+                            onClick={() => navigate('/admins/sales-report')}
                         >
                             <FcSalesPerformance
                                 size={30}
@@ -452,8 +452,8 @@ export default function SideBarAdmin() {
                             <FcExternal size={25} />
                         </li>
                         <li
-                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={() => navigate('/admins/dashboard')}
+                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            onClick={() => navigate('/admins/sales-report')}
                         >
                             <FcSalesPerformance size={25} />
                         </li>

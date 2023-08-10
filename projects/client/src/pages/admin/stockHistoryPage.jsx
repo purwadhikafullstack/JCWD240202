@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { getStockHistory } from '../../redux/features/stockHistorySlice';
 import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import { IoCloseCircleSharp } from 'react-icons/io5';
+import SortAdmin from '../../components/admin/sortAdmin';
 import FilterAdmin from '../../components/admin/filterAdmin';
 import DatePicker from 'react-datepicker';
 import SearchBarAdmin from '../../components/admin/searchBarAdmin';
@@ -30,6 +31,7 @@ export default function StockHistoryProduct() {
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
+    const [sort, setSort] = useState(searchParams.get('sort') || '');
 
     const months = [
         'January',
@@ -60,6 +62,11 @@ export default function StockHistoryProduct() {
         setPage(1);
     };
 
+    const sortChange = (sort) => {
+        setSort(sort);
+        setPage(1);
+    };
+
     useEffect(() => {
         let queryParams = {};
         if (page) {
@@ -77,10 +84,15 @@ export default function StockHistoryProduct() {
         if (warehouse) {
             queryParams['warehouse'] = warehouse;
         }
+        if (sort) {
+            queryParams['sort'] = sort;
+        }
         setSearchParams(queryParams);
-        dispatch(getStockHistory(page, date, category, search, warehouse));
+        dispatch(
+            getStockHistory(page, date, category, search, warehouse, sort),
+        );
         dispatch(getAllCategoriesAsync());
-    }, [page, date, category, search, warehouse]);
+    }, [page, date, category, search, warehouse, sort]);
 
     return (
         <>
@@ -98,7 +110,7 @@ export default function StockHistoryProduct() {
                                         Welcome, {dataLogin?.first_name}{' '}
                                         {dataLogin?.last_name}!
                                     </h1>
-                                    <h1 className="mt-3">
+                                    <h1>
                                         {dataLogin?.warehouse?.city} Warehouse
                                     </h1>
                                 </>
@@ -153,10 +165,12 @@ export default function StockHistoryProduct() {
                             </div>
                             <div
                                 className={`w-full flex items-center ${
-                                    search || date || warehouse ? 'mt-4' : ''
+                                    search || date || warehouse || sort
+                                        ? 'mt-4'
+                                        : ''
                                 } mb-4`}
                             >
-                                {search || date || warehouse ? (
+                                {search || date || warehouse || sort ? (
                                     <div className="mr-2 text-xs">
                                         Reset Filter :
                                     </div>
@@ -211,6 +225,28 @@ export default function StockHistoryProduct() {
                                 ) : (
                                     <></>
                                 )}
+                                {sort ? (
+                                    <button
+                                        onClick={() => {
+                                            setSort('');
+                                        }}
+                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
+                                    >
+                                        <IoCloseCircleSharp />
+
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
+                                            {sort === 'name-asc'
+                                                ? 'A-Z'
+                                                : sort === 'name-desc'
+                                                ? 'Z-A'
+                                                : sort === 'newest'
+                                                ? 'Newest'
+                                                : 'Oldest'}
+                                        </div>
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                             <div className="mb-4">
                                 <hr className="border border-gray-200"></hr>
@@ -250,7 +286,8 @@ export default function StockHistoryProduct() {
                                         );
                                     })}
                                 </div>
-                                <div className="ml-28 sm:ml-0">
+                                <div className="sm:ml-0 flex justify-center gap-3">
+                                    <SortAdmin data={{ sortChange, sort }} />
                                     <SearchBarAdmin
                                         data={{ searchChange, search }}
                                     />

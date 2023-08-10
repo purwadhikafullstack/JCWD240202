@@ -95,7 +95,7 @@ export default function StockLogPage() {
                                         Welcome, {dataLogin?.first_name}{' '}
                                         {dataLogin?.last_name}!
                                     </h1>
-                                    <h1 className="mt-3">
+                                    <h1>
                                         {dataLogin?.warehouse?.city} Warehouse
                                     </h1>
                                 </>
@@ -230,7 +230,7 @@ export default function StockLogPage() {
                             <div className="mb-4">
                                 <hr className="border border-gray-200"></hr>
                             </div>
-                            <div className="flex gap-6 mb-4">
+                            <div className="flex gap-3 mb-4">
                                 <SearchBarAdmin
                                     data={{ searchChange, search }}
                                 />
@@ -309,15 +309,15 @@ export default function StockLogPage() {
                                     <></>
                                 )}
                             </div>
-                                <div className="w-full flex justify-center mt-3">
-                                    <PaginationAdmin
-                                        data={{
-                                            totalPage: dataStockLog?.totalPage,
-                                            page,
-                                            pageChange,
-                                        }}
-                                    />
-                                </div>
+                            <div className="w-full flex justify-center mt-3">
+                                <PaginationAdmin
+                                    data={{
+                                        totalPage: dataStockLog?.totalPage,
+                                        page,
+                                        pageChange,
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

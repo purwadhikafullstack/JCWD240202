@@ -133,7 +133,7 @@ export default function MutationPage() {
                                         Welcome, {dataLogin?.first_name}{' '}
                                         {dataLogin?.last_name}!
                                     </h1>
-                                    <h1 className="mt-3">
+                                    <h1>
                                         {dataLogin?.warehouse?.city} Warehouse
                                         Mutation
                                     </h1>

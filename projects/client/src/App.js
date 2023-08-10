@@ -25,7 +25,9 @@ import './App.css';
 import { useLocation } from 'react-router-dom';
 import ProductStockPage from './pages/admin/productStockPage';
 import OrderDetailsPage from './pages/user/orderDetailsPage';
+import UserTransactions from './pages/user/userTransactions';
 import MutationPage from './pages/admin/mutationPage';
+import AdminSalesReport from './pages/admin/adminSalesReport';
 import StockHistoryProduct from './pages/admin/stockHistoryPage';
 import StockLogPage from './pages/admin/logStockPage';
 
@@ -58,7 +60,14 @@ function App() {
                 />
                 <Route path="/cart" element={<UserCart />} />
                 <Route path="/cart/checkout" element={<CheckoutCart />} />
-                <Route path="/order/:order_id" element={<OrderDetailsPage />} />
+                <Route
+                    path="/orders/:order_id"
+                    element={<OrderDetailsPage />}
+                />
+                <Route
+                    path="/users/transactions"
+                    element={<UserTransactions />}
+                />
 
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
@@ -86,11 +95,14 @@ function App() {
                     element={<MutationPage />}
                 />
                 <Route
+                    path="/admins/sales-report"
+                    element={<AdminSalesReport />}
+                />
+                <Route
                     path="/admins/stock-history"
                     element={<StockHistoryProduct />}
                 />
-                <Route path="admins/stock-log" element={<StockLogPage />} />
-                <Route />
+                <Route path="/admins/stock-log" element={<StockLogPage />} />
             </Routes>
 
             <Footer />

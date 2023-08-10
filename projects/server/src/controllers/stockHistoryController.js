@@ -7,13 +7,14 @@ const moment = require('moment');
 module.exports = {
     getStockHistory: async (req, res) => {
         try {
-            const { page, date, category, search, warehouse } = req.query;
+            const { page, date, category, search, warehouse, sort } = req.query;
             const { id, role_id } = req.User;
             const dates = date
                 ? moment(new Date(date)).format('MM/01/YYYY')
                 : moment(new Date()).format('MM/01/YYYY');
             let product = undefined;
             let wh = undefined;
+            let order = [['name', 'ASC']];
             const paginationLimit = 10;
             const paginationOffset =
                 (Number(page ? page : 1) - 1) * paginationLimit;
@@ -88,11 +89,24 @@ module.exports = {
                 }
             }
 
+            if (sort) {
+                if (sort === 'name-asc') {
+                    order = [['name', 'ASC']];
+                } else if (sort === 'name-desc') {
+                    order = [['first_name', 'DESC']];
+                } else if (sort === 'newest') {
+                    order = [['createdAt', 'DESC']];
+                } else if (sort === 'oldest') {
+                    order = [['createdAt', 'ASC']];
+                }
+            }
+
             const getProduct = await db.products.findAndCountAll({
                 where: product,
                 offset: paginationOffset,
                 limit: paginationLimit,
                 include: [{ model: db.categories }],
+                order,
             });
             for await (const item of getProduct.rows) {
                 var add = 0;

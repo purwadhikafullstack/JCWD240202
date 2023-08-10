@@ -197,7 +197,7 @@ module.exports = {
     },
     getAllDataWarehouse: async (req, res) => {
         try {
-            let order = undefined;
+            let order = [['createdAt', 'DESC']];
             let where = { is_deleted: false };
             let uname = undefined;
             const { page, search, sort, warehouses } = req.query;
