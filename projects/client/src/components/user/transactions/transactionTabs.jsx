@@ -13,7 +13,11 @@ export default function TransactionTabs(props) {
     return (
         <div className="flex gap-9 items-center">
             <div
-                onClick={() => props?.state?.setStatusId(0)}
+                onClick={() => {
+                    props?.state?.setStatusId(0);
+                    props?.state?.setPage(1);
+                    props?.state?.setStatusName('');
+                }}
                 className={`border px-7 py-2 rounded-full hover:cursor-pointer ${
                     props?.state?.status_id === 0
                         ? 'bg-sky-700 text-yellow-200 font-bold'
@@ -23,10 +27,13 @@ export default function TransactionTabs(props) {
                 All Transactions
             </div>
             {getStatus?.data?.map((value, index) => {
-                console.log(value);
                 return (
                     <div
-                        onClick={() => props?.state?.setStatusId(value.id)}
+                        onClick={() => {
+                            props?.state?.setStatusId(value.id);
+                            props?.state?.setPage(1);
+                            props?.state?.setStatusName(value.label);
+                        }}
                         className={`border px-7 py-2 rounded-full hover:cursor-pointer ${
                             props?.state?.status_id === value.id
                                 ? 'bg-sky-700 text-yellow-200 font-bold'

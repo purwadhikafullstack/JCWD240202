@@ -10,6 +10,7 @@ import FilterCategoryAdmin from '../../components/admin/filterCategoryProductAdm
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import { getDataStock } from '../../redux/features/stockSlice';
 import TableStockManagement from '../../components/admin/tableStockManagement';
+import { Toaster } from 'react-hot-toast';
 
 export default function ProductStockPage() {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function ProductStockPage() {
     const [category, setCategory] = useState(
         searchParams.get('category') || '',
     );
+    console.log(category);
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
@@ -73,18 +75,20 @@ export default function ProductStockPage() {
     }, [page, search, sort, category, warehouse]);
     return (
         <>
+            <Toaster />
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
+                            <h1 className="text-4xl mb-8">STOCK MANAGEMENT</h1>
                             {dataLogin?.warehouse?.city ? (
                                 <>
                                     <h1>
                                         Welcome, {dataLogin?.first_name}{' '}
                                         {dataLogin?.last_name}!
                                     </h1>
-                                    <h1 className="mt-3">
+                                    <h1>
                                         {dataLogin?.warehouse?.city} Warehouse
                                     </h1>
                                 </>
@@ -144,7 +148,11 @@ export default function ProductStockPage() {
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
                                             {sort === 'name-asc'
                                                 ? 'A-Z'
-                                                : 'Z-A'}
+                                                : sort === 'name-desc'
+                                                ? 'Z-A'
+                                                : sort === 'newest'
+                                                ? 'Newest'
+                                                : 'Oldest'}
                                         </div>
                                     </button>
                                 ) : (
@@ -160,7 +168,7 @@ export default function ProductStockPage() {
                                         <IoCloseCircleSharp />
 
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {category}
+                                            {category.replace(/%/g, ' ')}
                                         </div>
                                     </button>
                                 ) : (
@@ -176,7 +184,7 @@ export default function ProductStockPage() {
                                         <IoCloseCircleSharp />
 
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {warehouse}
+                                            {warehouse.replace(/%/g, ' ')}
                                         </div>
                                     </button>
                                 ) : (

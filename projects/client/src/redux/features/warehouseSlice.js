@@ -60,113 +60,127 @@ export const getAvailableWh = () => async (dispatch) => {
     }
 };
 
-export const setWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
-    try {
-        dispatch(setDisabledButton(true));
-        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+export const setWhAdmin =
+    (warehouse_id, user_id, params) => async (dispatch) => {
+        try {
+            dispatch(setDisabledButton(true));
+            const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
-        if (!warehouse_id) {
-            throw new Error("Field can't be Empty");
-        }
+            if (!warehouse_id) {
+                throw new Error("Field can't be Empty");
+            }
 
-        const result = await axios.patch(
-            process.env.REACT_APP_API_BASE_URL +
-                `/warehouses/assign-admin/${user_id}`,
-            {
-                warehouse_id,
-            },
-            {
-                headers: {
-                    authorization: `Bearer ${dataLogin}`,
+            const result = await axios.patch(
+                process.env.REACT_APP_API_BASE_URL +
+                    `/warehouses/assign-admin/${user_id}`,
+                {
+                    warehouse_id,
                 },
-            },
-        );
+                {
+                    headers: {
+                        authorization: `Bearer ${dataLogin}`,
+                    },
+                },
+            );
 
-        if (result) {
-            dispatch(setModal(true));
-            toast.success(result.data.message, {
+            if (result) {
+                dispatch(setModal(true));
+                toast.success(result.data.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+                dispatch(
+                    getDataAdminUser(
+                        params.page,
+                        params.search,
+                        params.sort,
+                        params.warehouse,
+                    ),
+                );
+            }
+        } catch (error) {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
+            toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
                 style: {
                     border: '2px solid #000',
                     borderRadius: '10px',
-                    background: '#0051BA',
+                    background: '#DC2626',
                     color: 'white',
                 },
             });
+        } finally {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
         }
+    };
 
-        dispatch(getDataAdminUser());
-    } catch (error) {
-        dispatch(setDisabledButton(false));
-        dispatch(setModal(false));
-        toast.error(error.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#DC2626',
-                color: 'white',
-            },
-        });
-    } finally {
-        dispatch(setDisabledButton(false));
-        dispatch(setModal(false));
-    }
-};
+export const unassignWhAdmin =
+    (warehouse_id, user_id, params) => async (dispatch) => {
+        try {
+            dispatch(setDisabledButton(true));
+            const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
-export const unassignWhAdmin = (warehouse_id, user_id) => async (dispatch) => {
-    try {
-        dispatch(setDisabledButton(true));
-        const dataLogin = JSON.parse(localStorage?.getItem('user'));
-
-        const result = await axios.patch(
-            process.env.REACT_APP_API_BASE_URL +
-                `/warehouses/unassign-admin/${user_id}`,
-            {
-                warehouse_id,
-            },
-            {
-                headers: {
-                    authorization: `Bearer ${dataLogin}`,
+            const result = await axios.patch(
+                process.env.REACT_APP_API_BASE_URL +
+                    `/warehouses/unassign-admin/${user_id}`,
+                {
+                    warehouse_id,
                 },
-            },
-        );
+                {
+                    headers: {
+                        authorization: `Bearer ${dataLogin}`,
+                    },
+                },
+            );
 
-        if (result) {
-            dispatch(setModal(true));
-            toast.success(result.data.message, {
+            if (result) {
+                dispatch(setModal(true));
+                toast.success(result.data.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+                dispatch(
+                    getDataAdminUser(
+                        params.page,
+                        params.search,
+                        params.sort,
+                        params.warehouse,
+                    ),
+                );
+            }
+        } catch (error) {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
+            toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
                 style: {
                     border: '2px solid #000',
                     borderRadius: '10px',
-                    background: '#0051BA',
+                    background: '#DC2626',
                     color: 'white',
                 },
             });
+        } finally {
+            dispatch(setDisabledButton(false));
+            dispatch(setModal(false));
         }
-
-        dispatch(getDataAdminUser());
-    } catch (error) {
-        dispatch(setDisabledButton(false));
-        dispatch(setModal(false));
-        toast.error(error.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#DC2626',
-                color: 'white',
-            },
-        });
-    } finally {
-        dispatch(setDisabledButton(false));
-        dispatch(setModal(false));
-    }
-};
+    };
 
 export const getAllDataWh =
     (page, search, sort, warehouses) => async (dispatch) => {
@@ -219,7 +233,16 @@ export const getDataCitiesRo = () => async (dispatch) => {
 };
 
 export const addWarehouse =
-    (street, province, province_id, city, city_id, subdistrict, postcode) =>
+    (
+        street,
+        province,
+        province_id,
+        city,
+        city_id,
+        subdistrict,
+        postcode,
+        params,
+    ) =>
     async (dispatch) => {
         try {
             dispatch(setDisabledButton(true));
@@ -259,9 +282,15 @@ export const addWarehouse =
                         color: 'white',
                     },
                 });
+                dispatch(
+                    getAllDataWh(
+                        params.page,
+                        params.search,
+                        params.sort,
+                        params.wh,
+                    ),
+                );
             }
-
-            dispatch(getAllDataWh());
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
@@ -304,6 +333,7 @@ export const editWarehouse =
         subdistrict,
         postcode,
         warehouse_id,
+        params,
     ) =>
     async (dispatch) => {
         try {
@@ -351,9 +381,15 @@ export const editWarehouse =
                         color: 'white',
                     },
                 });
+                dispatch(
+                    getAllDataWh(
+                        params.page,
+                        params.search,
+                        params.sort,
+                        params.wh,
+                    ),
+                );
             }
-
-            dispatch(getAllDataWh());
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));

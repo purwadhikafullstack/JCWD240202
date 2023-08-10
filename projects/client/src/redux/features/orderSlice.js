@@ -108,5 +108,30 @@ export const userCancelOrderAsync = (data) => async (dispatch) => {
     }
 };
 
+export const userConfirmOrderAsync = (data) => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const confirm = await axios.post(
+            process.env.REACT_APP_API_BASE_URL + `/orders/confirm`,
+            {
+                order_id: data.order_id,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${getUser}`,
+                },
+            },
+        );
+        if (confirm.data.success === true) {
+            toast.success('Order Confirmed');
+            dispatch(getOrderDetailsAsync({ order_id: data.order_id }));
+        }
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+
 export const { setOrder, setOrderDetails } = orderSlice.actions;
 export default orderSlice.reducer;

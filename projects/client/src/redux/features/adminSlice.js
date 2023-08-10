@@ -51,7 +51,7 @@ export const getDataAdminUser =
     };
 
 export const editDataWarehouseAdmin =
-    (first_name, last_name, phone_number, id) => async (dispatch) => {
+    (first_name, last_name, phone_number, id, params) => async (dispatch) => {
         try {
             dispatch(setDisabledButton(true));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
@@ -87,9 +87,15 @@ export const editDataWarehouseAdmin =
                         color: 'white',
                     },
                 });
+                dispatch(
+                    getDataAdminUser(
+                        params.page,
+                        params.search,
+                        params.sort,
+                        params.warehouse,
+                    ),
+                );
             }
-
-            dispatch(getDataAdminUser());
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
@@ -123,7 +129,7 @@ export const editDataWarehouseAdmin =
     };
 
 export const changePasswordWarehouseAdmin =
-    (new_password, confirm_password, id) => async (dispatch) => {
+    (new_password, confirm_password, id, params) => async (dispatch) => {
         try {
             dispatch(setDisabledButton(true));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
@@ -168,9 +174,15 @@ export const changePasswordWarehouseAdmin =
                         color: 'white',
                     },
                 });
+                dispatch(
+                    getDataAdminUser(
+                        params.page,
+                        params.search,
+                        params.sort,
+                        params.warehouse,
+                    ),
+                );
             }
-
-            dispatch(getDataAdminUser());
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
@@ -229,9 +241,8 @@ export const deleteWarehouseAdmin = (id) => async (dispatch) => {
                     color: 'white',
                 },
             });
+            dispatch(getDataAdminUser());
         }
-
-        dispatch(getDataAdminUser());
     } catch (error) {
         dispatch(setDisabledButton(false));
         dispatch(setModal(false));
@@ -264,9 +275,5 @@ export const deleteWarehouseAdmin = (id) => async (dispatch) => {
     }
 };
 
-export const {
-    setDataAdmin,
-    setDisabledButton,
-    setModal,
-} = adminSlice.actions;
+export const { setDataAdmin, setDisabledButton, setModal } = adminSlice.actions;
 export default adminSlice.reducer;

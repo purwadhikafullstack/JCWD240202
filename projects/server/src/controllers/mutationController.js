@@ -438,7 +438,7 @@ module.exports = {
             if (role_id === 3 && warehouse) {
                 const findWh = await db.warehouses.findOne({
                     where: {
-                        city: warehouse,
+                        city: warehouse.replace(/%/g, ' '),
                     },
                 });
 
@@ -642,6 +642,64 @@ module.exports = {
                 message: 'Fetch Success!',
                 data: dataMutation,
                 totalPage: totalPage,
+            });
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    getAllMutationDetails: async (req, res) => {
+        try {
+            const mutationDetails = await db.mutation_details.findAndCountAll({
+                include: [
+                    { model: db.warehouses, as: 'destination' },
+                    {
+                        model: db.mutations,
+                        attributes: {
+                            exclude: ['createdAt', 'updatedAt'],
+                        },
+                        include: [
+                            {
+                                model: db.warehouses,
+                                as: 'origin',
+                            },
+                            {
+                                model: db.products,
+                                attributes: [
+                                    'id',
+                                    'name',
+                                    'category_id',
+                                    'is_deleted',
+                                ],
+                                include: [
+                                    {
+                                        model: db.product_images,
+                                        attributes: [
+                                            'id',
+                                            'product_id',
+                                            'name',
+                                            'is_thumbnail',
+                                        ],
+                                        where: { is_thumbnail: true },
+                                    },
+                                    {
+                                        model: db.categories,
+                                        attributes: ['name'],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            res.status(200).send({
+                success: true,
+                message: 'Fetch Success!',
+                data: mutationDetails,
             });
         } catch (error) {
             res.status(500).send({

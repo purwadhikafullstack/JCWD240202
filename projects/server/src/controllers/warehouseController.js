@@ -199,6 +199,7 @@ module.exports = {
         try {
             let order = [['createdAt', 'DESC']];
             let where = { is_deleted: false };
+            let uname = undefined;
             const { page, search, sort, warehouses } = req.query;
 
             const paginationLimit = 4;
@@ -211,53 +212,36 @@ module.exports = {
                         order = [['city', 'ASC']];
                     } else if (sort === 'name-desc') {
                         order = [['city', 'DESC']];
+                    } else if (sort === 'newest') {
+                        order = [['createdAt', 'DESC']];
+                    } else if (sort === 'oldest') {
+                        order = [['createdAt', 'ASC']];
                     }
                 }
             }
 
             if (search) {
-                const userId = await user.findOne({
-                    where: {
-                        first_name: { [Op.like]: `%${search}%` },
-                        role_id: 2,
-                    },
-                });
-
-                if (userId) {
-                    where['user_id'] = userId.id;
-                } else {
-                    where = {
-                        is_deleted: false,
-                        id: 0,
-                    };
-                }
+                uname = {
+                    [Op.or]: [
+                        { first_name: { [Op.substring]: [search] } },
+                        { last_name: { [Op.substring]: [search] } },
+                    ],
+                    role_id: 2,
+                };
             }
 
             if (warehouses) {
+                where = {
+                    is_deleted: false,
+                    city: warehouses.replace(/%/g, ' '),
+                };
                 if (search) {
-                    const userId = await user.findOne({
-                        where: {
-                            first_name: { [Op.like]: `%${search}%` },
-                            role_id: 2,
-                        },
-                    });
-
-                    if (userId) {
-                        where = {
-                            is_deleted: false,
-                            city: warehouses,
-                            user_id: userId.id,
-                        };
-                    } else {
-                        where = {
-                            is_deleted: false,
-                            id: 0,
-                        };
-                    }
-                } else {
-                    where = {
-                        is_deleted: false,
-                        city: warehouses,
+                    uname = {
+                        [Op.or]: [
+                            { first_name: { [Op.substring]: [search] } },
+                            { last_name: { [Op.substring]: [search] } },
+                        ],
+                        role_id: 2,
                     };
                 }
             }
@@ -269,6 +253,7 @@ module.exports = {
                 include: [
                     {
                         model: db.users,
+                        where: uname,
                         attributes: [
                             'first_name',
                             'last_name',

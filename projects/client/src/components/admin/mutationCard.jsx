@@ -50,15 +50,13 @@ export default function MutationCard({ data, dataLogin, params }) {
                                                 <div className="date flex items-center gap-1 p-1 px-2">
                                                     <FcCalendar size={15} />
                                                     <span className="text-sm">
-                                                        {[
-                                                            new Date(
-                                                                value.createdAt,
-                                                            )
-                                                                .toString()
-                                                                .split(
-                                                                    'GMT+0700 (Western Indonesia Time)',
-                                                                ),
-                                                        ]}
+                                                        {new Date(
+                                                            value.createdAt,
+                                                        )
+                                                            .toString()
+                                                            .split(
+                                                                'GMT+0700 (Western Indonesia Time)',
+                                                            )}
                                                     </span>
                                                 </div>
                                             </div>

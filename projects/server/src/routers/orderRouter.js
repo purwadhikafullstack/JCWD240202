@@ -13,5 +13,6 @@ router.post(
     orderController.postUserPaymentProof,
 );
 router.post('/cancel', verifyToken, orderController.userCancelOrder);
+router.post('/confirm', verifyToken, orderController.userConfirmDelivery);
 
 module.exports = router;

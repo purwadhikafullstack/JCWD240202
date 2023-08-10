@@ -68,7 +68,7 @@ export default function ProductsCatalog() {
             <div className="font-bold text-4xl">All Products</div>
             <div className="flex justify-between pt-9">
                 <div className="flex flex-1 gap-9 w-full">
-                    <FilterButton data={{ categoryChange }} />
+                    <FilterButton data={{ categoryChange, setPage }} />
                     <SortButton data={{ sortChange }} />
                 </div>
                 <div className="flex-2">
