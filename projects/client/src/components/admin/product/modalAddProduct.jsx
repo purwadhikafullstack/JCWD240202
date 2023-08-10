@@ -142,7 +142,7 @@ export default function ModalAddProduct(props) {
                             })
                         ) : (
                             <img
-                                src="https://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Tkm2I2eZS-dnuXspUUvm8WiB07J0XE8f4A&usqp=CAU"
                                 alt="image-preview"
                                 className="border object-contain border-slate-400 h-[100px] rounded-md"
                             />

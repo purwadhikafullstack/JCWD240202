@@ -128,8 +128,8 @@ export default function ModalEditProduct(props) {
                                       />
                                   );
                               })
-                            : proDetails.data?.product_images?.map(
-                                  (value, index) => {
+                            : proDetails.data?.findProduct?.product_images?.map(
+                                (value, index) => {
                                       return (
                                           <img
                                               src={
