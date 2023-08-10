@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editDataWarehouseAdmin } from '../../redux/features/adminSlice';
 
-export default function EditDataAdmin({ showModal, selected }) {
+export default function EditDataAdmin({ showModal, selected, params }) {
     // input
     const [inputFirstName, setInputFirstName] = useState('');
     const [inputLastName, setInputLastName] = useState('');
@@ -139,6 +139,7 @@ export default function EditDataAdmin({ showModal, selected }) {
                                                 inputLastName,
                                                 inputPhoneNumber,
                                                 selected?.id,
+                                                params,
                                             ),
                                         );
                                     }}

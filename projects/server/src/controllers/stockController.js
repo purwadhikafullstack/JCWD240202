@@ -52,7 +52,7 @@ module.exports = {
             if (category) {
                 const findCategory = await db.categories.findOne({
                     where: {
-                        name: category,
+                        name: category.replace(/%/g, ' '),
                     },
                 });
 
@@ -82,7 +82,7 @@ module.exports = {
             if (warehouse) {
                 const wh = await db.warehouses.findOne({
                     where: {
-                        city: warehouse,
+                        city: warehouse.replace(/%/g, ' '),
                     },
                 });
                 if (role_id === 3) {
@@ -192,7 +192,9 @@ module.exports = {
                     message: 'Product Not Found!',
                     data: null,
                 });
-            } else if (
+            }
+
+            if (
                 role_id === 2 &&
                 checkWarehouse.id !== checkProduct.warehouse_id
             ) {
@@ -201,12 +203,35 @@ module.exports = {
                     message: 'Unauthorized!',
                     data: null,
                 });
-            } else {
+            }
+
+            if (checkProduct) {
+                // Find Products Stock
+                const findProduct = await db.products.findOne({
+                    where: {
+                        id: checkProduct.product_id,
+                    },
+                });
+
                 var addQuantity = await stock.update(
                     {
                         stock: Number(checkProduct.stock) + Number(quantity),
                     },
                     { where: { id: product_stock_id } },
+                    { transaction: t },
+                );
+
+                // Update total_stock in products table
+                var updateTotalStock = await db.products.update(
+                    {
+                        total_stock:
+                            Number(findProduct.total_stock) + Number(quantity),
+                    },
+                    {
+                        where: {
+                            id: findProduct.id,
+                        },
+                    },
                     { transaction: t },
                 );
 
@@ -217,7 +242,7 @@ module.exports = {
                         type_id: 1,
                         information_id: 1,
                         user_id: id,
-                        warehouse_id: checkWarehouse.id,
+                        warehouse_id: checkProduct.warehouse_id,
                     },
                     { transaction: t },
                 );
@@ -227,7 +252,10 @@ module.exports = {
                 return res.status(200).send({
                     success: true,
                     message: 'Quantity Updated!',
-                    data: addQuantity,
+                    data: {
+                        warehouseStock: addQuantity,
+                        totalStock: updateTotalStock,
+                    },
                 });
             }
         } catch (error) {
@@ -264,7 +292,9 @@ module.exports = {
                     message: 'Product Not Found!',
                     data: null,
                 });
-            } else if (
+            }
+
+            if (
                 role_id === 2 &&
                 checkWarehouse.id !== checkProduct.warehouse_id
             ) {
@@ -273,12 +303,34 @@ module.exports = {
                     message: 'Unauthorized!',
                     data: null,
                 });
-            } else {
+            }
+
+            if (checkProduct) {
+                // Find Products Stock
+                const findProduct = await db.products.findOne({
+                    where: {
+                        id: checkProduct.product_id,
+                    },
+                });
+
                 var reduceQuantity = await stock.update(
                     {
                         stock: Number(checkProduct.stock) - Number(quantity),
                     },
                     { where: { id: product_stock_id } },
+                    { transaction: t },
+                );
+
+                var updateTotalStock = await db.products.update(
+                    {
+                        total_stock:
+                            Number(findProduct.total_stock) - Number(quantity),
+                    },
+                    {
+                        where: {
+                            id: findProduct.id,
+                        },
+                    },
                     { transaction: t },
                 );
 
@@ -289,7 +341,7 @@ module.exports = {
                         type_id: 1,
                         information_id: 2,
                         user_id: id,
-                        warehouse_id: checkWarehouse.id,
+                        warehouse_id: checkProduct.warehouse_id,
                     },
                     { transaction: t },
                 );
@@ -299,7 +351,10 @@ module.exports = {
                 return res.status(200).send({
                     success: true,
                     message: 'Quantity Updated!',
-                    data: reduceQuantity,
+                    data: {
+                        warehouseStock: reduceQuantity,
+                        totalStock: updateTotalStock,
+                    },
                 });
             }
         } catch (error) {

@@ -13,6 +13,8 @@ import {
     FcShop,
     FcAddDatabase,
     FcFilingCabinet,
+    FcViewDetails,
+    FcProcess,
 } from 'react-icons/fc';
 import toast from 'react-hot-toast';
 import { getDataLogin } from '../../redux/features/userSlice';
@@ -22,6 +24,7 @@ export default function SideBarAdmin() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(true);
     const [openProduct, setOpenProduct] = useState(false);
+    const [openProductHistory, setOpenProductHistory] = useState(false);
     const { pathname } = window.location;
     const [disabled, setDisabled] = useState(false);
     const dispatch = useDispatch();
@@ -65,17 +68,17 @@ export default function SideBarAdmin() {
 
     return (
         <>
-            <div className="hidden sm:block h-screen sticky top-0">
+            <div className="hidden sm:block h-screen sticky top-0 left-0">
                 <div
                     className={`${
                         open ? 'w-60' : 'w-20'
-                    } p-5 pt-8 h-screen bg-white relative`}
+                    } p-5 pt-4 h-screen bg-white relative`}
                 >
                     <IoIosArrowBack
                         size={30}
                         className={`absolute right-6 ${
                             open ? 'right-[-15px]' : ''
-                        } rounded-full cursor-pointer top-12 border-2 duration-300 bg-white ${
+                        } rounded-full cursor-pointer top-9 border-2 duration-300 bg-white ${
                             !open && 'rotate-180'
                         } ring-2 ring-[#0051BA]`}
                         onClick={() => setOpen(!open)}
@@ -99,13 +102,13 @@ export default function SideBarAdmin() {
                             IKEA
                         </span> */}
                     </div>
-                    <ul className={`pt-16 mx-1 ${open === true ? 'pt-9' : ''}`}>
+                    <ul className={`mx-1 ${open === true ? 'mt-6' : 'mt-20'}`}>
                         <li
                             className={`${
                                 pathname === '/admins/dashboard'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md ${
+                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md ${
                                 !open && 'mt-5'
                             }`}
                             onClick={() => navigate('/admins/dashboard')}
@@ -121,8 +124,11 @@ export default function SideBarAdmin() {
                             </span>
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10"
-                            onClick={() => setOpenProduct(!openProduct)}
+                            className="font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7"
+                            onClick={() => {
+                                setOpenProduct(!openProduct);
+                                setOpenProductHistory(false);
+                            }}
                         >
                             <FcBriefcase
                                 size={30}
@@ -151,13 +157,13 @@ export default function SideBarAdmin() {
                                     : 'no-underline'
                             } ${
                                 openProduct ? 'block' : 'hidden'
-                            } font-semibold text-sm flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
+                            } font-semibold text-xs flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-5 ${
                                 open ? 'ml-8' : ''
                             }`}
                             onClick={() => navigate('/admins/products')}
                         >
                             <FcAddDatabase
-                                size={`${open ? 23 : 30}`}
+                                size={`${open ? 20 : 30}`}
                                 className={`duration-500 ${
                                     open && 'rotate-[360deg]'
                                 }`}
@@ -174,13 +180,13 @@ export default function SideBarAdmin() {
                                     : 'no-underline'
                             } ${
                                 openProduct ? 'block' : 'hidden'
-                            } font-semibold text-sm flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
+                            } font-semibold text-xs flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-5 ${
                                 open ? 'ml-8' : ''
                             }`}
                             onClick={() => navigate('/admins/stock-management')}
                         >
                             <FcFilingCabinet
-                                size={`${open ? 23 : 30}`}
+                                size={`${open ? 20 : 30}`}
                                 className={`duration-500 ${
                                     open && 'rotate-[360deg]'
                                 }`}
@@ -194,7 +200,7 @@ export default function SideBarAdmin() {
                                 pathname === '/admins/user-management'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
+                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7 ${
                                 dataLogin?.role?.name === 'warehouse admin'
                                     ? 'hidden'
                                     : ''
@@ -216,7 +222,7 @@ export default function SideBarAdmin() {
                                 pathname === '/admins/warehouse-management'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10 ${
+                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7 ${
                                 dataLogin?.role?.name === 'warehouse admin'
                                     ? 'hidden'
                                     : ''
@@ -240,7 +246,7 @@ export default function SideBarAdmin() {
                                 pathname === '/admins/transactions'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
+                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7`}
                             onClick={() => navigate('/admins/transactions')}
                         >
                             <FcInTransit
@@ -258,7 +264,7 @@ export default function SideBarAdmin() {
                                 pathname === '/admins/mutation-management'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
+                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7`}
                             onClick={() =>
                                 navigate('/admins/mutation-management')
                             }
@@ -278,7 +284,7 @@ export default function SideBarAdmin() {
                                 pathname === '/admins/dashboard'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
+                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7`}
                             onClick={() => navigate('/admins/dashboard')}
                         >
                             <FcSalesPerformance
@@ -291,13 +297,13 @@ export default function SideBarAdmin() {
                                 Sales Report
                             </span>
                         </li>
+                        {/* PRODUCT HISTORY */}
                         <li
-                            className={`${
-                                pathname === '/admins/dashboard'
-                                    ? 'underline'
-                                    : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
-                            onClick={() => navigate('/admins/dashboard')}
+                            className="font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7"
+                            onClick={() => {
+                                setOpenProductHistory(!openProductHistory);
+                                setOpenProduct(false);
+                            }}
                         >
                             <FcClock
                                 size={30}
@@ -306,7 +312,62 @@ export default function SideBarAdmin() {
                                 }`}
                             />
                             <span className={`${!open && 'hidden'}`}>
-                                Product History
+                                Product <br></br> History
+                            </span>
+                            <IoIosArrowDown
+                                className={`${
+                                    open ? 'block ml-8 duration-200' : 'hidden'
+                                } ${
+                                    openProductHistory
+                                        ? 'rotate-[180deg] duration-200'
+                                        : ''
+                                }`}
+                            />
+                        </li>
+                        {/* Stok History */}
+                        <li
+                            className={`${
+                                pathname === '/admins/stock-history'
+                                    ? 'underline'
+                                    : 'no-underline'
+                            } ${
+                                openProductHistory ? 'block' : 'hidden'
+                            } font-semibold text-xs flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-5 ${
+                                open ? 'ml-8' : ''
+                            }`}
+                            onClick={() => navigate('/admins/stock-history')}
+                        >
+                            <FcProcess
+                                size={`${open ? 20 : 30}`}
+                                className={`duration-500 ${
+                                    open && 'rotate-[360deg]'
+                                }`}
+                            />
+                            <span className={`${!open && 'hidden'}`}>
+                                Stock History
+                            </span>
+                        </li>
+                        {/* Log Stock */}
+                        <li
+                            className={`${
+                                pathname === '/admins/stock-log'
+                                    ? 'underline'
+                                    : 'no-underline'
+                            } ${
+                                openProductHistory ? 'block' : 'hidden'
+                            } font-semibold text-xs flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-5 ${
+                                open ? 'ml-8' : ''
+                            }`}
+                            onClick={() => navigate('/admins/stock-log')}
+                        >
+                            <FcViewDetails
+                                size={`${open ? 20 : 30}`}
+                                className={`duration-500 ${
+                                    open && 'rotate-[360deg]'
+                                }`}
+                            />
+                            <span className={`${!open && 'hidden'}`}>
+                                Log Stock
                             </span>
                         </li>
                         <li>
@@ -315,14 +376,14 @@ export default function SideBarAdmin() {
                                     pathname === '/admins/dashboard'
                                         ? 'underline'
                                         : 'no-underline'
-                                } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-9 disabled:cursor-not-allowed ${
+                                } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7 disabled:cursor-not-allowed ${
                                     dataLogin?.role?.name === 'warehouse admin'
-                                        ? 'mt-[44px]'
+                                        ? 'mt-[41px]'
                                         : ''
-                                }${open === false ? 'mt-[44px]' : ''} ${
+                                }${open === false ? 'mt-[39px]' : ''} ${
                                     open === false &&
                                     dataLogin?.role?.name === 'warehouse admin'
-                                        ? 'mt-[44px]'
+                                        ? 'mt-[41px]'
                                         : ''
                                 }`}
                                 disabled={disabled}
@@ -351,25 +412,25 @@ export default function SideBarAdmin() {
                     /> */}
                     <ul className="flex items-center justify-center gap-4">
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() => navigate('/admins/dashboard')}
                         >
                             <FcTemplate size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() => setOpenProduct(!openProduct)}
                         >
                             <FcBriefcase size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() => navigate('/admins/user-management')}
                         >
                             <FcAssistant size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() =>
                                 navigate('/admins/warehouse-management')
                             }
@@ -377,13 +438,13 @@ export default function SideBarAdmin() {
                             <FcShop size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() => navigate('/admins/dashboard')}
                         >
                             <FcInTransit size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() =>
                                 navigate('/admins/mutation-management')
                             }
@@ -391,51 +452,92 @@ export default function SideBarAdmin() {
                             <FcExternal size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={() => navigate('/admins/dashboard')}
                         >
                             <FcSalesPerformance size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={() => navigate('/admins/dashboard')}
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            onClick={() =>
+                                setOpenProductHistory(!openProductHistory)
+                            }
                         >
                             <FcClock size={25} />
                         </li>
                         <li
-                            className="font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
+                            className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
                             onClick={onLogout}
                         >
                             <FcUndo size={25} />
                         </li>
                     </ul>
-                    <div className="w-full flex justify-start">
-                        <IoIosArrowDown
-                            className={`${
-                                openProduct
-                                    ? 'rotate-[180deg] duration-200'
-                                    : 'duration-200'
-                            } ml-[46px]`}
-                        />
+                    <div className="flex justify-between w-full">
+                        <div className="ml-6">
+                            <div className="w-full flex justify-center mr-11">
+                                <IoIosArrowDown
+                                    className={`${
+                                        openProduct
+                                            ? 'rotate-[180deg] duration-200'
+                                            : 'duration-200'
+                                    }`}
+                                />
+                            </div>
+                            <ul className="flex justify-start gap-2 w-full">
+                                <li
+                                    className={`${
+                                        openProduct ? 'block' : 'hidden'
+                                    } font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md`}
+                                    onClick={() => navigate('/admins/products')}
+                                >
+                                    <FcAddDatabase size={25} />
+                                </li>
+                                <li
+                                    className={`${
+                                        openProduct ? 'block' : 'hidden'
+                                    } font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md`}
+                                    onClick={() =>
+                                        navigate('/admins/stock-management')
+                                    }
+                                >
+                                    <FcFilingCabinet size={25} />
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="mr-6">
+                            <div className="w-full flex justify-center mr-11">
+                                <IoIosArrowDown
+                                    className={`${
+                                        openProductHistory
+                                            ? 'rotate-[180deg] duration-200'
+                                            : 'duration-200'
+                                    }`}
+                                />
+                            </div>
+                            <ul className="flex justify-start gap-2 w-full">
+                                <li
+                                    className={`${
+                                        openProductHistory ? 'block' : 'hidden'
+                                    } font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md`}
+                                    onClick={() =>
+                                        navigate('/admins/stock-history')
+                                    }
+                                >
+                                    <FcProcess size={25} />
+                                </li>
+                                <li
+                                    className={`${
+                                        openProductHistory ? 'block' : 'hidden'
+                                    } font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md`}
+                                    onClick={() =>
+                                        navigate('/admins/stock-log')
+                                    }
+                                >
+                                    <FcViewDetails size={25} />
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul className="flex justify-start gap-2 w-full">
-                        <li
-                            className={`${
-                                openProduct ? 'block' : 'hidden'
-                            } font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md ml-[26px]`}
-                            onClick={() => navigate('/admins/products')}
-                        >
-                            <FcAddDatabase size={25} />
-                        </li>
-                        <li
-                            className={`${
-                                openProduct ? 'block' : 'hidden'
-                            } font-semibold text-xl flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md`}
-                            onClick={() => navigate('/admins/dashboard')}
-                        >
-                            <FcFilingCabinet size={25} />
-                        </li>
-                    </ul>
                 </div>
             </div>
         </>

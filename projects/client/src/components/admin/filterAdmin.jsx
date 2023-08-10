@@ -6,11 +6,11 @@ import { Dropdown, Label, Radio } from 'flowbite-react';
 import axios from 'axios';
 
 export default function FilterAdmin(props) {
+    console.log(props?.data?.warehouse);
     const dispatch = useDispatch();
     const warehouse = useSelector((state) => state.warehouse.dataWh);
     const dataLogin = JSON.parse(localStorage?.getItem('user'));
     const [result, setResult] = useState([]);
-
 
     const setWh = async () => {
         try {
@@ -41,9 +41,9 @@ export default function FilterAdmin(props) {
             <Dropdown
                 label={
                     props?.data?.warehouse
-                        ? props?.data?.warehouse
+                        ? props?.data?.warehouse?.replace(/%/g, ' ')
                         : props?.data?.wh
-                        ? props?.data?.wh
+                        ? props?.data?.wh?.replace(/%/g, ' ')
                         : 'Warehouse'
                 }
                 className="px-5 text-center"
@@ -62,15 +62,17 @@ export default function FilterAdmin(props) {
                                           id={value.city}
                                           name="warehouses"
                                           onChange={() =>
-                                              handleWarehouses(value.city)
+                                              handleWarehouses(
+                                                  value.city.replace(/ /g, '%'),
+                                              )
                                           }
                                           value={value.city}
                                           checked={
                                               value.city ===
-                                              props?.data?.warehouse
+                                              (props?.data?.warehouse?.replace(/%/g, ' '))
                                                   ? true
                                                   : value.city ===
-                                                    props?.data?.wh
+                                                    (props?.data?.wh?.replace(/%/g, ' '))
                                                   ? true
                                                   : false
                                           }

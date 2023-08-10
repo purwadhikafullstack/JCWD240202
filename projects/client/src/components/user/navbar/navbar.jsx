@@ -9,6 +9,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
+import { useLocation } from 'react-router-dom';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -42,6 +43,25 @@ export default function Navbar() {
     useEffect(() => {
         dispatch(getUserCartAsync());
     }, [userLogin]);
+
+    const { pathname } = useLocation();
+
+    const path = [
+        '/admins/login',
+        '/admins/dashboard',
+        '/admins/products',
+        '/admins/products/categories',
+        '/admins/user-management',
+        '/admins/warehouse-management',
+        '/admins/stock-management',
+        '/admins/mutation-management',
+        '/admins/stock-history',
+        '/admins/stock-log',
+    ];
+
+    if (path.includes(pathname)) {
+        return null;
+    }
 
     return (
         <>

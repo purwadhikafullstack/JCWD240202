@@ -10,6 +10,7 @@ import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import SortAdmin from '../../components/admin/sortAdmin';
 import FilterAdmin from '../../components/admin/filterAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
+import { Toaster } from 'react-hot-toast';
 
 export default function WarehousePageAdmin() {
     const [showAddWhModal, setShowAddWhModal] = useState(false);
@@ -28,14 +29,17 @@ export default function WarehousePageAdmin() {
 
     const searchChange = (search) => {
         setSearch(search);
+        setPage(1);
     };
 
     const sortChange = (sort) => {
         setSort(sort);
+        setPage(1);
     };
 
     const warehouseChange = (wh) => {
         setWh(wh);
+        setPage(1);
     };
 
     useEffect(() => {
@@ -58,12 +62,13 @@ export default function WarehousePageAdmin() {
 
     return (
         <>
+            <Toaster />
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
-                            <h1>WAREHOUSE</h1>
+                            <h1 className="text-4xl">WAREHOUSE</h1>
                         </div>
                         <div className="mt-5 p-3 bg-white shadow-md rounded-lg">
                             <div className="sm:flex sm:justify-between w-full mb-2">
@@ -112,7 +117,11 @@ export default function WarehousePageAdmin() {
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
                                             {sort === 'name-asc'
                                                 ? 'A-Z'
-                                                : 'Z-A'}
+                                                : sort === 'name-desc'
+                                                ? 'Z-A'
+                                                : sort === 'newest'
+                                                ? 'Newest'
+                                                : 'Oldest'}
                                         </div>
                                     </button>
                                 ) : (
@@ -128,7 +137,7 @@ export default function WarehousePageAdmin() {
                                         <IoCloseCircleSharp />
 
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {wh}
+                                            {wh.replace(/%/g, ' ')}
                                         </div>
                                     </button>
                                 ) : (
@@ -181,20 +190,30 @@ export default function WarehousePageAdmin() {
                                         {warehouse?.data?.rows?.length !== 0 ? (
                                             <WarehouseTableSetting
                                                 data={warehouse?.data?.rows}
+                                                params={{
+                                                    page,
+                                                    search,
+                                                    sort,
+                                                    wh,
+                                                }}
+                                                page={setPage}
                                             />
                                         ) : (
-                                            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center text-2xl">
-                                                <td></td>
-                                                <td></td>
-                                                <td className="p-12">
-                                                    Not Found
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            <></>
                                         )}
                                     </tbody>
                                 </table>
+                                {warehouse?.data?.rows?.length == 0 ? (
+                                    <div className="w-full flex justify-center items-center">
+                                        <img
+                                            src="/images/not-found-pic.png"
+                                            alt="not-found"
+                                            className="min-w-[200px]"
+                                        ></img>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                             <div className="w-full flex justify-center mt-3">
                                 <PaginationAdmin
@@ -211,7 +230,10 @@ export default function WarehousePageAdmin() {
                 <>
                     {/* Add Warehouse */}
                     {showAddWhModal === true ? (
-                        <AddWareHouseModal showModal={setShowAddWhModal} />
+                        <AddWareHouseModal
+                            showModal={setShowAddWhModal}
+                            params={{ page, search, sort, wh }}
+                        />
                     ) : (
                         <></>
                     )}

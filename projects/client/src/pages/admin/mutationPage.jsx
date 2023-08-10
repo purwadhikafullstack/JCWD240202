@@ -18,6 +18,7 @@ export default function MutationPage() {
     const dispatch = useDispatch();
     const dataMutation = useSelector((state) => state.mutation.allMutation);
     const dataLogin = useSelector((state) => state.user.dataLogin);
+    console.log(dataLogin);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -125,6 +126,7 @@ export default function MutationPage() {
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
+                            <h1 className='text-4xl mb-8'>Mutation Management</h1>
                             {dataLogin?.warehouse?.city ? (
                                 <>
                                     <h1>
@@ -139,7 +141,6 @@ export default function MutationPage() {
                             ) : (
                                 <>
                                     <h1>Welcome, Admin!</h1>
-                                    <h1>Mutation Management</h1>
                                 </>
                             )}
                         </div>
@@ -211,7 +212,7 @@ export default function MutationPage() {
                                             <IoCloseCircleSharp />
 
                                             <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                                {warehouse}
+                                                {warehouse.replace(/%/g, ' ')}
                                             </div>
                                         </button>
                                     ) : (

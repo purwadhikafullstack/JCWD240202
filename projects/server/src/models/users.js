@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
             users.hasOne(models.warehouses, {
                 foreignKey: 'user_id',
             });
+
+            users.hasMany(models.stock_histories, {
+                foreignKey: 'user_id'
+            })
         }
     }
     users.init(

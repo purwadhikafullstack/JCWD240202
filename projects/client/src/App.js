@@ -26,6 +26,8 @@ import { useLocation } from 'react-router-dom';
 import ProductStockPage from './pages/admin/productStockPage';
 import OrderDetailsPage from './pages/user/orderDetailsPage';
 import MutationPage from './pages/admin/mutationPage';
+import StockHistoryProduct from './pages/admin/stockHistoryPage';
+import StockLogPage from './pages/admin/logStockPage';
 
 function App() {
     const { pathname } = useLocation();
@@ -71,7 +73,10 @@ function App() {
                     path="/admins/warehouse-management"
                     element={<WarehousePageAdmin />}
                 />
-                <Route path="/admins/transactions" element={<TransactionAdmin />} />
+                <Route
+                    path="/admins/transactions"
+                    element={<TransactionAdmin />}
+                />
                 <Route
                     path="/admins/stock-management"
                     element={<ProductStockPage />}
@@ -80,6 +85,12 @@ function App() {
                     path="/admins/mutation-management"
                     element={<MutationPage />}
                 />
+                <Route
+                    path="/admins/stock-history"
+                    element={<StockHistoryProduct />}
+                />
+                <Route path="admins/stock-log" element={<StockLogPage />} />
+                <Route />
             </Routes>
 
             <Footer />

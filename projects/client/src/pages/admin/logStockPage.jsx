@@ -1,33 +1,45 @@
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import PaginationAdmin from '../../components/admin/paginationAdmin';
-import SearchBarAdmin from '../../components/admin/searchBarAdmin';
-import SortAdmin from '../../components/admin/sortAdmin';
 import FilterAdmin from '../../components/admin/filterAdmin';
-import FilterCategoryAdmin from '../../components/admin/filterCategoryProductAdmin';
+import DatePicker from 'react-datepicker';
+import SearchBarAdmin from '../../components/admin/searchBarAdmin';
+import SortNewestMutation from '../../components/admin/sortNewestMutation';
+import TableStockLog from '../../components/admin/tableStockLog';
+import { getStockLog } from '../../redux/features/stockHistorySlice';
+import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
-import { getDataStock } from '../../redux/features/stockSlice';
-import TableStockManagement from '../../components/admin/tableStockManagement';
-import { Toaster } from 'react-hot-toast';
+const moment = require('moment');
 
-export default function ProductStockPage() {
+export default function StockLogPage() {
     const dispatch = useDispatch();
-    const dataStocks = useSelector((state) => state.stock.stocks);
     const dataLogin = useSelector((state) => state.user.dataLogin);
+    const dataStockLog = useSelector((state) => state.stockHistory.stockLog);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
+    const [date, setDate] = useState(searchParams.get('date') || null);
     const [search, setSearch] = useState(searchParams.get('search') || '');
-    const [sort, setSort] = useState(searchParams.get('sort') || '');
-    const [category, setCategory] = useState(
-        searchParams.get('category') || '',
-    );
-    console.log(category);
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
+    const [sort, setSort] = useState(searchParams.get('status') || '');
+
+    const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+    ];
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -38,18 +50,13 @@ export default function ProductStockPage() {
         setPage(1);
     };
 
-    const sortChange = (sort) => {
-        setSort(sort);
-        setPage(1);
-    };
-
-    const categoryChange = (category) => {
-        setCategory(category);
-        setPage(1);
-    };
-
     const warehouseChange = (warehouse) => {
         setWarehouse(warehouse);
+        setPage(1);
+    };
+
+    const sortChange = (sort) => {
+        setSort(sort);
         setPage(1);
     };
 
@@ -58,30 +65,30 @@ export default function ProductStockPage() {
         if (page) {
             queryParams['page'] = page;
         }
+        if (date) {
+            queryParams['date'] = date;
+        }
         if (search) {
             queryParams['search'] = search;
-        }
-        if (sort) {
-            queryParams['sort'] = sort;
-        }
-        if (category) {
-            queryParams['category'] = category;
         }
         if (warehouse) {
             queryParams['warehouse'] = warehouse;
         }
+        if (sort) {
+            queryParams['sort'] = sort;
+        }
         setSearchParams(queryParams);
-        dispatch(getDataStock(page, search, sort, category, warehouse));
-    }, [page, search, sort, category, warehouse]);
+        dispatch(getStockLog(page, date, search, warehouse, sort));
+    }, [page, date, search, warehouse, sort]);
+
     return (
         <>
-            <Toaster />
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
+                        <div className="mb-6 font-bold text-4xl">STOCK LOG</div>
                         <div className="font-bold text-2xl">
-                            <h1 className="text-4xl mb-8">STOCK MANAGEMENT</h1>
                             {dataLogin?.warehouse?.city ? (
                                 <>
                                     <h1>
@@ -97,29 +104,62 @@ export default function ProductStockPage() {
                             )}
                         </div>
                         <div className="mt-5 p-3 bg-white shadow-md rounded-lg">
-                            <div className="sm:flex sm:justify-between w-full mb-2">
-                                <div className="sm:flex sm:justify-start sm:items-center sm:gap-2 w-full">
-                                    <SearchBarAdmin
-                                        data={{ searchChange, search }}
-                                    />
-                                    <SortAdmin data={{ sortChange, sort }} />
-
-                                    <FilterCategoryAdmin
-                                        data={{ categoryChange, category }}
-                                    />
-                                    {dataLogin?.role_id === 3 ? (
+                            <div className="flex justify-between items-end">
+                                {dataLogin?.role_id === 3 ? (
+                                    <div className="mr-3 w-2/6">
                                         <FilterAdmin
                                             data={{
                                                 warehouseChange,
                                                 warehouse,
                                             }}
                                         />
-                                    ) : (
-                                        <></>
-                                    )}
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
+                                <div className="flex justify-end items-center w-full gap-2 ml-5">
+                                    <label
+                                        className="hidden md:block text-xs text-gray-700"
+                                        htmlFor="A"
+                                    >
+                                        Choose month :
+                                    </label>
+                                    <DatePicker
+                                        dateFormat="MMMM yyyy"
+                                        id="A"
+                                        showMonthYearPicker
+                                        placeholderText="Select month"
+                                        className="bg-white border w-fit border-gray-300 text-gray-900 text-xs rounded-md"
+                                        selected={
+                                            dataStockLog?.dates
+                                                ? new Date(dataStockLog?.dates)
+                                                : new Date()
+                                        }
+                                        onChange={(date) => {
+                                            setDate(
+                                                moment(new Date(date)).format(
+                                                    'MM/01/YYYY',
+                                                ),
+                                            );
+                                            setPage(1);
+                                        }}
+                                    />
                                 </div>
                             </div>
-                            <div className="w-full flex justify-start mb-3">
+                            <div
+                                className={`w-full flex items-center ${
+                                    search || date || warehouse || sort
+                                        ? 'mt-4'
+                                        : ''
+                                } mb-4`}
+                            >
+                                {search || date || warehouse || sort ? (
+                                    <div className="mr-2 text-xs">
+                                        Reset Filter :
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
                                 {search ? (
                                     <button
                                         onClick={() => {
@@ -136,35 +176,17 @@ export default function ProductStockPage() {
                                 ) : (
                                     <></>
                                 )}
-                                {sort ? (
+                                {date ? (
                                     <button
                                         onClick={() => {
-                                            setSort('');
+                                            setDate('');
                                         }}
                                         className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
                                     >
                                         <IoCloseCircleSharp />
 
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {sort === 'name-asc'
-                                                ? 'A-Z'
-                                                : 'Z-A'}
-                                        </div>
-                                    </button>
-                                ) : (
-                                    <></>
-                                )}
-                                {category ? (
-                                    <button
-                                        onClick={() => {
-                                            setCategory('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
-                                        <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {category.replace(/%/g, ' ')}
+                                            {months[new Date(date).getMonth()]}
                                         </div>
                                     </button>
                                 ) : (
@@ -186,17 +208,46 @@ export default function ProductStockPage() {
                                 ) : (
                                     <></>
                                 )}
+                                {sort ? (
+                                    <button
+                                        onClick={() => {
+                                            setSort('');
+                                        }}
+                                        className="flex items-center gap-1 mr-2"
+                                    >
+                                        <IoCloseCircleSharp size={12} />
+
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
+                                            {sort === 'newest'
+                                                ? 'Newest'
+                                                : 'Oldest'}
+                                        </div>
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}
+                            </div>
+                            <div className="mb-4">
+                                <hr className="border border-gray-200"></hr>
+                            </div>
+                            <div className="flex gap-6 mb-4">
+                                <SearchBarAdmin
+                                    data={{ searchChange, search }}
+                                />
+                                <SortNewestMutation
+                                    data={{ sortChange, sort }}
+                                />
                             </div>
                             <div className="relative overflow-x-auto shadow-md rounded-lg">
                                 <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                                     <thead className="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            {/* <th
+                                            <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
-                                                Image
-                                            </th> */}
+                                                Date
+                                            </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
@@ -207,47 +258,46 @@ export default function ProductStockPage() {
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
-                                                Category
+                                                User
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
-                                                Warehouse
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Stock
+                                                Quantity
                                             </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-gray-300 text-center"
                                             >
-                                                Action
+                                                Warehouse
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3 border-gray-300 text-center"
+                                            >
+                                                Type
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3 border-gray-300 text-center"
+                                            >
+                                                Information
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {dataStocks?.data?.rows?.length !==
+                                        {dataStockLog?.data?.rows?.length !==
                                         0 ? (
-                                            <TableStockManagement
-                                                data={dataStocks?.data?.rows}
-                                                params={{
-                                                    page,
-                                                    search,
-                                                    sort,
-                                                    category,
-                                                    warehouse,
-                                                }}
+                                            <TableStockLog
+                                                data={dataStockLog?.data}
                                             />
                                         ) : (
                                             <></>
                                         )}
                                     </tbody>
                                 </table>
-                                {dataStocks?.data?.rows?.length == 0 ? (
+                                {dataStockLog?.data?.rows?.length == 0 ? (
                                     <div className="w-full flex justify-center items-center">
                                         <img
                                             src="/images/not-found-pic.png"
@@ -259,15 +309,15 @@ export default function ProductStockPage() {
                                     <></>
                                 )}
                             </div>
-                            <div className="w-full flex justify-center mt-3">
-                                <PaginationAdmin
-                                    data={{
-                                        totalPage: dataStocks?.totalPage,
-                                        page,
-                                        pageChange,
-                                    }}
-                                />
-                            </div>
+                                <div className="w-full flex justify-center mt-3">
+                                    <PaginationAdmin
+                                        data={{
+                                            totalPage: dataStockLog?.totalPage,
+                                            page,
+                                            pageChange,
+                                        }}
+                                    />
+                                </div>
                         </div>
                     </div>
                 </div>

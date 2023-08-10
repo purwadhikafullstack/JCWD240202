@@ -5,6 +5,9 @@ const warehouses = db.warehouses;
 const role = db.roles;
 const { sequelize } = require('./../models');
 const { Op } = require('sequelize');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const transporter = require('../helper/nodemailer');
 
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -13,7 +16,7 @@ module.exports = {
         try {
             const { page, sort, search, warehouse } = req.query;
 
-            let order = [['createdAt', 'DESC']];
+            let order = undefined;
             let where = { role_id: 2 };
 
             const paginationLimit = 5;
@@ -22,15 +25,18 @@ module.exports = {
 
             if (search) {
                 where = {
-                    first_name: { [Op.substring]: [search] },
-                    role_id: 2,
+                    ...where,
+                    [Op.or]: [
+                        { first_name: { [Op.substring]: [search] } },
+                        { last_name: { [Op.substring]: [search] } },
+                    ],
                 };
             }
 
             if (warehouse) {
                 const warehouseId = await warehouses.findOne({
                     where: {
-                        city: warehouse,
+                        city: warehouse.replace(/%/g, ' '),
                     },
                 });
                 if (search) {
@@ -38,7 +44,10 @@ module.exports = {
                 } else {
                     where = {
                         role_id: 2,
-                        first_name: { [Op.substring]: [search] },
+                        [Op.or]: [
+                            { first_name: { [Op.substring]: [search] } },
+                            { last_name: { [Op.substring]: [search] } },
+                        ],
                         id: warehouseId.user_id,
                     };
                 }
@@ -49,6 +58,10 @@ module.exports = {
                     order = [['first_name', 'ASC']];
                 } else if (sort === 'name-desc') {
                     order = [['first_name', 'DESC']];
+                } else if (sort === 'newest') {
+                    order = [['createdAt', 'DESC']];
+                } else if (sort === 'oldest') {
+                    order = [['createdAt', 'ASC']];
                 }
             }
 
@@ -65,7 +78,12 @@ module.exports = {
                 where,
                 offset: paginationOffset,
                 limit: paginationLimit,
-                include: { all: true },
+                include: [
+                    {
+                        model: db.warehouses,
+                        attributes: { exclude: ['createdAt', 'updatedAt'] },
+                    },
+                ],
                 order,
             });
 
@@ -143,6 +161,20 @@ module.exports = {
             const { id } = req.params;
             const { new_password, confirm_password } = req.body;
 
+            const checkUser = await user.findOne({
+                where: {
+                    id,
+                },
+            });
+
+            if (!checkUser) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'User Not Found!',
+                    data: null,
+                });
+            }
+
             if (!new_password || !confirm_password) {
                 return res.status(400).send({
                     success: false,
@@ -184,13 +216,33 @@ module.exports = {
                 { transaction: t },
             );
 
-            await t.commit();
+            if (changePass) {
+                const data = fs.readFileSync(
+                    './src/email_template/resetPasswordAdmin.html',
+                    'utf-8',
+                );
 
-            return res.status(200).send({
-                success: true,
-                message: 'Change password success!',
-                data: changePass,
-            });
+                const tempCompile = await handlebars.compile(data);
+                const tempResult = tempCompile({
+                    user_name: checkUser.first_name + ' ' + checkUser.last_name,
+                    password: new_password,
+                });
+
+                await transporter.sendMail({
+                    sender: 'IKEWA User Support Team',
+                    to: 'jcwd2402@gmail.com',
+                    subject: 'Your New Password',
+                    html: tempResult,
+                });
+
+                await t.commit();
+
+                return res.status(200).send({
+                    success: true,
+                    message: 'Change password success!',
+                    data: changePass,
+                });
+            }
         } catch (error) {
             await t.rollback();
             res.status(500).send({

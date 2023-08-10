@@ -12,7 +12,7 @@ import DeleteAdmin from '../../components/admin/deleteAdminModal';
 import AssignWarehouseAdmin from '../../components/admin/assignWarehouseAdminModal';
 import UnassignedWhAdmin from '../../components/admin/unassignWarehouseAdmin';
 
-export default function UserAdminTable({ data }) {
+export default function UserAdminTable({ data, params, page }) {
     const [showEditAdminModal, setShowEditAdminModal] = useState(false);
     const [showChangePassAdminModal, setShowChangePassAdminModal] =
         useState(false);
@@ -105,6 +105,7 @@ export default function UserAdminTable({ data }) {
                         <EditDataAdmin
                             showModal={setShowEditAdminModal}
                             selected={selectedEdit}
+                            params={params}
                         />
                     ) : (
                         <></>
@@ -115,6 +116,7 @@ export default function UserAdminTable({ data }) {
                         <ChangePasswordAdmin
                             showModal={setShowChangePassAdminModal}
                             selected={selectedEdit}
+                            params={params}
                         />
                     ) : (
                         <></>
@@ -125,6 +127,7 @@ export default function UserAdminTable({ data }) {
                         <DeleteAdmin
                             showModal={setShowDeleteAdminModal}
                             selected={selectedEdit}
+                            page={page}
                         />
                     ) : (
                         <></>
@@ -135,6 +138,7 @@ export default function UserAdminTable({ data }) {
                         <AssignWarehouseAdmin
                             showModal={setShowAssignAdminModal}
                             selected={selectedEdit}
+                            params={params}
                         />
                     ) : (
                         <></>
@@ -145,6 +149,7 @@ export default function UserAdminTable({ data }) {
                         <UnassignedWhAdmin
                             showModal={setShowUnassignAdminModal}
                             selected={selectedEdit}
+                            params={params}
                         />
                     ) : (
                         <></>

@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
             stock_histories.belongsTo(models.informations, {
                 foreignKey: 'information_id',
             });
+            stock_histories.belongsTo(models.users, {
+                foreignKey: 'user_id',
+            });
+            stock_histories.belongsTo(models.warehouses, {
+                foreignKey: 'warehouse_id',
+            });
         }
     }
     stock_histories.init(
