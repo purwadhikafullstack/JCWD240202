@@ -7,7 +7,7 @@ import { addWarehouse } from '../../redux/features/warehouseSlice';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-export default function AddWareHouseModal({ showModal }) {
+export default function AddWareHouseModal({ showModal, params }) {
     const dispatch = useDispatch();
     const dataProvinces = useSelector(
         (state) => state.warehouse.dataProvincesRo,
@@ -256,6 +256,7 @@ export default function AddWareHouseModal({ showModal }) {
                                                 inputCityId,
                                                 inputSubdistrict,
                                                 inputPostalCode,
+                                                params,
                                             ),
                                         );
                                     }}

@@ -11,6 +11,7 @@ export default function EditWareHouseModal({
     selected,
     dataProvince,
     dataCity,
+    params,
 }) {
     const dispatch = useDispatch();
     const setDisabledButton = useSelector(
@@ -273,6 +274,7 @@ export default function EditWareHouseModal({
                                                 inputSubdistrict,
                                                 inputPostalCode,
                                                 selected?.id,
+                                                params,
                                             ),
                                         );
                                     }}

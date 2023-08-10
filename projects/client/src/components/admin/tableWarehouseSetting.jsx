@@ -7,11 +7,10 @@ import DeleteWarehouseModal from './deleteWarehouseModal';
 import { getDataProvincesRo } from '../../redux/features/warehouseSlice';
 import { getDataCitiesRo } from '../../redux/features/warehouseSlice';
 
-export default function WarehouseTableSetting({ data }) {
+export default function WarehouseTableSetting({ data, params, page }) {
     const [showEditWhModal, setShowEditWhModal] = useState(false);
     const [showDeleteWhModal, setShowDeleteWhModal] = useState(false);
     const [selectedEdit, setSelectedEdit] = useState({});
-    console.log(data)
 
     const dispatch = useDispatch();
     const dataProvinces = useSelector(
@@ -95,6 +94,7 @@ export default function WarehouseTableSetting({ data }) {
                             selected={selectedEdit}
                             dataProvince={dataProvinces}
                             dataCity={dataCities}
+                            params={params}
                         />
                     ) : (
                         <></>
@@ -105,6 +105,7 @@ export default function WarehouseTableSetting({ data }) {
                         <DeleteWarehouseModal
                             showModal={setShowDeleteWhModal}
                             selected={selectedEdit}
+                            page={page}
                         />
                     ) : (
                         <></>

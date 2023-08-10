@@ -28,6 +28,8 @@ import OrderDetailsPage from './pages/user/orderDetailsPage';
 import UserTransactions from './pages/user/userTransactions';
 import MutationPage from './pages/admin/mutationPage';
 import AdminSalesReport from './pages/admin/adminSalesReport';
+import StockHistoryProduct from './pages/admin/stockHistoryPage';
+import StockLogPage from './pages/admin/logStockPage';
 
 function App() {
     const { pathname } = useLocation();
@@ -96,6 +98,11 @@ function App() {
                     path="/admins/sales-report"
                     element={<AdminSalesReport />}
                 />
+                <Route
+                    path="/admins/stock-history"
+                    element={<StockHistoryProduct />}
+                />
+                <Route path="/admins/stock-log" element={<StockLogPage />} />
             </Routes>
 
             <Footer />

@@ -16,6 +16,7 @@ import shippingReducer from '../features/shippingSlice';
 import checkoutReducer from '../features/checkoutSlice';
 import mutationReducer from '../features/mutationSlice';
 import orderReducer from '../features/orderSlice';
+import stockHistoryReducer from '../features/stockHistorySlice';
 
 export const store = configureStore({
     reducer: {
@@ -36,5 +37,6 @@ export const store = configureStore({
         checkout: checkoutReducer,
         mutation: mutationReducer,
         order: orderReducer,
+        stockHistory: stockHistoryReducer,
     },
 });

@@ -12,6 +12,10 @@ export default function SortAdmin(props) {
                         ? 'A-Z'
                         : props?.data?.sort === 'name-desc'
                         ? 'Z-A'
+                        : props?.data?.sort === 'newest'
+                        ? 'Newest'
+                        : props?.data?.sort === 'oldest'
+                        ? 'Oldest'
                         : 'Sort'
                 }
                 className="px-5 text-center"
@@ -42,6 +46,30 @@ export default function SortAdmin(props) {
                             }
                         />
                         <Label>Z-A</Label>
+                    </div>
+                    <div className="flex gap-3 items-center mb-2">
+                        <Radio
+                            id="name"
+                            name="sort"
+                            value={'name-desc'}
+                            onChange={() => handleSort('newest')}
+                            checked={
+                                props?.data?.sort === 'newest' ? true : false
+                            }
+                        />
+                        <Label>Newest</Label>
+                    </div>
+                    <div className="flex gap-3 items-center mb-2">
+                        <Radio
+                            id="name"
+                            name="sort"
+                            value={'name-desc'}
+                            onChange={() => handleSort('oldest')}
+                            checked={
+                                props?.data?.sort === 'oldest' ? true : false
+                            }
+                        />
+                        <Label>Oldest</Label>
                     </div>
                 </div>
             </Dropdown>

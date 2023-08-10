@@ -76,7 +76,15 @@ export const adminLogin = (email, password) => async (dispatch) => {
 };
 
 export const adminRegister =
-    (first_name, last_name, email, phone_number, password, confirm_password) =>
+    (
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        password,
+        confirm_password,
+        params,
+    ) =>
     async (dispatch) => {
         try {
             dispatch(setDisabledButton(true));
@@ -130,9 +138,15 @@ export const adminRegister =
                         color: 'white',
                     },
                 });
+                dispatch(
+                    getDataAdminUser(
+                        params.page,
+                        params.search,
+                        params.sort,
+                        params.warehouse,
+                    ),
+                );
             }
-
-            dispatch(getDataAdminUser());
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));

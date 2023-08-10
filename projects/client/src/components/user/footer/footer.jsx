@@ -21,6 +21,8 @@ export default function Footer() {
         '/admins/warehouse-management',
         '/admins/stock-management',
         '/admins/mutation-management',
+        '/admins/stock-history',
+        '/admins/stock-log',
     ];
 
     if (path.includes(pathname)) {

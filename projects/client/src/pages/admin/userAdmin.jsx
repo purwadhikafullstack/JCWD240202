@@ -12,6 +12,7 @@ import SortAdmin from '../../components/admin/sortAdmin';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { useSearchParams } from 'react-router-dom';
 import { IoCloseCircleSharp } from 'react-icons/io5';
+import { Toaster } from 'react-hot-toast';
 
 export default function UserAdmin() {
     const [showRegisModal, setShowRegisModal] = useState(false);
@@ -24,6 +25,7 @@ export default function UserAdmin() {
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
+    console.log(warehouse);
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -31,14 +33,17 @@ export default function UserAdmin() {
 
     const sortChange = (sort) => {
         setSort(sort);
+        setPage(1);
     };
 
     const searchChange = (search) => {
         setSearch(search);
+        setPage(1);
     };
 
     const warehouseChange = (warehouse) => {
         setWarehouse(warehouse);
+        setPage(1);
     };
 
     useEffect(() => {
@@ -61,12 +66,13 @@ export default function UserAdmin() {
 
     return (
         <>
+            <Toaster />
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
-                            <h1>ADMIN</h1>
+                            <h1 className="text-4xl">ADMIN</h1>
                         </div>
                         <div className="mt-5 p-3 bg-white shadow-md rounded-lg">
                             <div className="sm:flex sm:justify-between w-full mb-2">
@@ -117,7 +123,11 @@ export default function UserAdmin() {
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
                                             {sort === 'name-asc'
                                                 ? 'A-Z'
-                                                : 'Z-A'}
+                                                : sort === 'name-desc'
+                                                ? 'Z-A'
+                                                : sort === 'newest'
+                                                ? 'Newest'
+                                                : 'Oldest'}
                                         </div>
                                     </button>
                                 ) : (
@@ -133,7 +143,7 @@ export default function UserAdmin() {
                                         <IoCloseCircleSharp />
 
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {warehouse}
+                                            {warehouse.replace(/%/g, ' ')}
                                         </div>
                                     </button>
                                 ) : (
@@ -180,20 +190,30 @@ export default function UserAdmin() {
                                         {admins?.data?.rows?.length !== 0 ? (
                                             <UserAdminTable
                                                 data={admins?.data?.rows}
+                                                params={{
+                                                    page,
+                                                    search,
+                                                    sort,
+                                                    warehouse,
+                                                }}
+                                                page={setPage}
                                             />
                                         ) : (
-                                            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center text-2xl">
-                                                <td></td>
-                                                <td></td>
-                                                <td className="p-12">
-                                                    Not Found
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                            <></>
                                         )}
                                     </tbody>
                                 </table>
+                                {admins?.data?.rows?.length == 0 ? (
+                                    <div className="w-full flex justify-center items-center">
+                                        <img
+                                            src="/images/not-found-pic.png"
+                                            alt="not-found"
+                                            className="min-w-[200px]"
+                                        ></img>
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
                             </div>
                             <div className="w-full flex justify-center mt-3">
                                 <PaginationAdmin
@@ -210,7 +230,10 @@ export default function UserAdmin() {
                 <>
                     {/* Register Admin */}
                     {showRegisModal === true ? (
-                        <RegisterAdmin showModal={setShowRegisModal} />
+                        <RegisterAdmin
+                            showModal={setShowRegisModal}
+                            params={{ page, search, sort, warehouse }}
+                        />
                     ) : (
                         <></>
                     )}

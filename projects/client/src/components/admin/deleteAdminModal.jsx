@@ -3,7 +3,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteWarehouseAdmin } from '../../redux/features/adminSlice';
 
-export default function DeleteAdmin({ showModal, selected }) {
+export default function DeleteAdmin({ showModal, selected, page }) {
     const dispatch = useDispatch();
     const setDisabledButton = useSelector(
         (state) => state.admin.disabledButton,
@@ -49,6 +49,7 @@ export default function DeleteAdmin({ showModal, selected }) {
                                         dispatch(
                                             deleteWarehouseAdmin(selected?.id),
                                         );
+                                        page(1);
                                     }}
                                 >
                                     Confirm
