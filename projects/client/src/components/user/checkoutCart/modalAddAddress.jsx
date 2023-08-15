@@ -203,6 +203,7 @@ export default function ModalAddAddress(props) {
                             {provinceLists?.map((value, index) => {
                                 return (
                                     <option
+                                        key={index}
                                         value={`${value.province_id}, ${value.province}`}
                                     >
                                         {value.province}
@@ -233,6 +234,7 @@ export default function ModalAddAddress(props) {
                             {filterCity?.map((value, index) => {
                                 return (
                                     <option
+                                        key={index}
                                         value={`${value.city_id}, ${value.type} ${value.city_name}`}
                                     >
                                         {value.type} {value.city_name}

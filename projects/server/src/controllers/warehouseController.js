@@ -534,4 +534,21 @@ module.exports = {
             });
         }
     },
+    getAllWarehouse: async (req, res) => {
+        try {
+            const warehouses = await warehouse.findAll();
+
+            res.status(200).send({
+                success: true,
+                message: 'get all warehouses success',
+                data: warehouses,
+            });
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
 };

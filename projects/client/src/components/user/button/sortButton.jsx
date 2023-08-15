@@ -18,7 +18,7 @@ export default function SortButton(props) {
                         name="sort"
                         value={''}
                         onClick={() => handleSort('')}
-                        checked={name === '' ? true : false}
+                        defaultChecked={name === '' ? true : false}
                     />
                     <Label>Off</Label>
                 </div>
@@ -28,7 +28,7 @@ export default function SortButton(props) {
                         name="sort"
                         value={'price-asc'}
                         onClick={() => handleSort('price-asc')}
-                        checked={name === 'price-asc' ? true : false}
+                        defaultChecked={name === 'price-asc' ? true : false}
                     />
                     <Label>Lowest Price</Label>
                 </div>
@@ -38,7 +38,7 @@ export default function SortButton(props) {
                         name="sort"
                         value={'price-desc'}
                         onClick={() => handleSort('price-desc')}
-                        checked={name === 'price-desc' ? true : false}
+                        defaultChecked={name === 'price-desc' ? true : false}
                     />
                     <Label>Highest Price</Label>
                 </div>
@@ -48,7 +48,7 @@ export default function SortButton(props) {
                         name="sort"
                         value={'name-asc'}
                         onClick={() => handleSort('name-asc')}
-                        checked={name === 'name-asc' ? true : false}
+                        defaultChecked={name === 'name-asc' ? true : false}
                     />
                     <Label>A-Z</Label>
                 </div>
@@ -58,7 +58,7 @@ export default function SortButton(props) {
                         name="sort"
                         value={'name-desc'}
                         onClick={() => handleSort('name-desc')}
-                        checked={name === 'name-desc' ? true : false}
+                        defaultChecked={name === 'name-desc' ? true : false}
                     />
                     <Label>Z-A</Label>
                 </div>
@@ -68,7 +68,7 @@ export default function SortButton(props) {
                         name="sort"
                         value={'newest'}
                         onClick={() => handleSort('newest')}
-                        checked={name === 'newest' ? true : false}
+                        defaultChecked={name === 'newest' ? true : false}
                     />
                     <Label>Newest</Label>
                 </div>
@@ -78,7 +78,7 @@ export default function SortButton(props) {
                         name="sort"
                         value={'oldest'}
                         onClick={() => handleSort('oldest')}
-                        checked={name === 'oldest' ? true : false}
+                        defaultChecked={name === 'oldest' ? true : false}
                     />
                     <Label>Oldest</Label>
                 </div>

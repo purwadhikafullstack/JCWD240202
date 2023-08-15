@@ -5,7 +5,7 @@ export default function PaymentMethod() {
             <div className="border w-full h-[250px] flex justify-evenly divide-x">
                 <div className="flex-1 flex items-center justify-center">
                     <img
-                        src="https://storage.googleapis.com/narasi-production.appspot.com/production/medium/1676270436983/beragam-jenis-tabungan-bca-yang-harus-kamu-ketahui-medium.jpeg"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/BANK_BRI_logo_%28vertical%29.svg/1200px-BANK_BRI_logo_%28vertical%29.svg.png"
                         alt="bca_image"
                         className="h-[200px] w-[300px] "
                     />
@@ -13,7 +13,9 @@ export default function PaymentMethod() {
                 <div className="flex-1 flex flex-col justify-center pl-9 bg-sky-700 text-yellow-200">
                     <div className="flex justify-evenly">
                         <div className="flex-1 font-bold">Bank</div>
-                        <div className="flex-1">Bank Central Asia (BCA)</div>
+                        <div className="flex-1">
+                            Bank Rakyat Indonesia (BRI)
+                        </div>
                     </div>
                     <div className="flex justify-evenly">
                         <div className="flex-1 font-bold">Account Name</div>

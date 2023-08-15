@@ -1,18 +1,23 @@
-import { Button } from 'flowbite-react';
+import { Button, Label, Radio } from 'flowbite-react';
 import { useState } from 'react';
 import ModalConfirmationOrder from './modalConfirmationOrder';
 
 export default function OrderSummary(props) {
     const [modalConfirmation, setModalConfirmation] = useState(false);
+    const [choosePayment, setChoosePayment] = useState(false);
 
     return (
         <>
-            <div className="border h-[500px] w-[350px] mt-9 rounded-2xl shadow-xl relative">
-                <div className="font-bold text-lg p-4 border-b bg-yellow-200 text-sky-700">
+            <div
+                className={`border h-[600px] w-[500px] mt-9 rounded-2xl shadow-xl relative ${
+                    choosePayment === true ? 'h-[550px]' : 'h-max'
+                }`}
+            >
+                <div className="font-bold text-lg p-4 border-b bg-gray-200 rounded-t-2xl">
                     Order Summary
                 </div>
-                <div className="p-4 flex flex-col gap-4">
-                    <div className="flex justify-between gap-4">
+                <div className="p-4 flex flex-col">
+                    <div className="flex justify-between items-center border-b py-2 gap-4">
                         <div className="font-bold">Warehouse Origin </div>
                         <div>
                             {props?.data?.closestWH?.data?.warehouseData.city
@@ -21,7 +26,7 @@ export default function OrderSummary(props) {
                                 : '-'}
                         </div>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center border-b py-2">
                         <div className="font-bold">Total Weight</div>{' '}
                         <div>
                             {props?.data?.weight
@@ -30,7 +35,7 @@ export default function OrderSummary(props) {
                             Kg
                         </div>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center border-b py-2">
                         <div className="font-bold">Distance </div>
                         <div>
                             {props?.data?.closestWH?.data?.distanceInKm
@@ -39,19 +44,7 @@ export default function OrderSummary(props) {
                             Km
                         </div>
                     </div>
-                    <div className="flex justify-between">
-                        <div className="font-bold">Courier</div>
-                        <div>
-                            {props?.data?.courier === 'pos'
-                                ? 'POS INDONESIA'
-                                : props?.data?.courier.toUpperCase()}
-                        </div>
-                    </div>
-                    <div className="flex justify-between">
-                        <div className="font-bold">Shipping Method</div>
-                        <div>{props?.data?.shippingMethod}</div>
-                    </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center border-b py-2">
                         <div className="font-bold">Shipping Fee</div>
                         <div>
                             Rp{' '}
@@ -60,7 +53,7 @@ export default function OrderSummary(props) {
                             )}
                         </div>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center border-b py-2">
                         <div className="font-bold">Total Cart Price</div>
                         <div>
                             Rp{' '}
@@ -71,7 +64,7 @@ export default function OrderSummary(props) {
                                 : 0}
                         </div>
                     </div>
-                    <div className="border-t pt-4 flex justify-between">
+                    <div className="pt-4 flex justify-between">
                         <div className="font-bold">Total</div>
                         <div>
                             Rp{' '}
@@ -84,7 +77,42 @@ export default function OrderSummary(props) {
                         </div>
                     </div>
                 </div>
-                <div className="w-full absolute bottom-0 p-4">
+                <div className="border-t px-4 py-4 bg-gray-200">
+                    <div className="font-bold">Choose Payment Method</div>
+                    <div className="pt-4">
+                        <div className="flex flex-col gap-2">
+                            <div className="flex gap-2 items-center mb-2">
+                                <Radio
+                                    onClick={() => {
+                                        setChoosePayment(!choosePayment);
+                                    }}
+                                    checked={
+                                        choosePayment === true ? true : false
+                                    }
+                                ></Radio>
+                                <Label className="text-md">Bank Transfer</Label>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-center">
+                            <div
+                                className={`w-max p-2 ${
+                                    choosePayment === true ? '' : 'hidden'
+                                }`}
+                            >
+                                <img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/BANK_BRI_logo_%28vertical%29.svg/1200px-BANK_BRI_logo_%28vertical%29.svg.png"
+                                    alt="payment_image"
+                                    className="w-[90px] h-[60px]"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    className={`w-full absolute bottom-0 p-4 bg-gray-200 ${
+                        choosePayment === true ? '' : 'hidden'
+                    }`}
+                >
                     <Button
                         onClick={() => setModalConfirmation(true)}
                         className="w-full bg-sky-700 text-yellow-200 h-[50px]"

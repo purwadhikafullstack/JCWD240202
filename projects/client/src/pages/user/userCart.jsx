@@ -27,7 +27,7 @@ export default function UserCart() {
     }, []);
     return (
         <>
-            <div className="px-[200px]">
+            <div className="px-[200px] mb-16">
                 <div className=" py-[50px] font-bold text-3xl border-b">
                     Your Shopping Cart
                 </div>
@@ -39,15 +39,14 @@ export default function UserCart() {
                     <div>
                         {userCart?.data?.rows?.map((value, index) => {
                             return (
-                                <>
+                                <div key={index}>
                                     <CartTable
-                                        key={index}
                                         data={{
                                             value,
                                             setUnavailableProduct,
                                         }}
                                     />
-                                </>
+                                </div>
                             );
                         })}
                     </div>

@@ -19,7 +19,7 @@ export default function Homepage() {
     }, []);
 
     return (
-        <div>
+        <div className="mb-16">
             <Toaster />
             <div>
                 <CarouselHome />
@@ -30,7 +30,11 @@ export default function Homepage() {
                 </div>
                 <div className="flex justify-evenly gap-24 flex-wrap px-[300px]">
                     {categories?.data?.map((value, index) => {
-                        return <CategoryCard key={index} data={value} />;
+                        return (
+                            <div key={index}>
+                                <CategoryCard data={value} />
+                            </div>
+                        );
                     })}
                 </div>
             </div>
@@ -39,7 +43,7 @@ export default function Homepage() {
                     New Arrivals
                 </div>
                 <div className="flex justify-center gap-14 px-9">
-                    <NewArrivalsCard />
+                    {/* <NewArrivalsCard /> */}
                 </div>
             </div>
             <div className="pt-9">

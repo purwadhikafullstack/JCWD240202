@@ -16,6 +16,7 @@ const stockController = require('./stockController');
 const checkoutCartController = require('./checkoutCartController');
 const mutationController = require('./mutationController');
 const orderController = require('./orderController');
+const reportController = require('./reportController');
 
 module.exports = {
     rajaOngkirController,
@@ -36,4 +37,5 @@ module.exports = {
     checkoutCartController,
     mutationController,
     orderController,
+    reportController,
 };

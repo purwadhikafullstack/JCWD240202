@@ -46,7 +46,7 @@ export default function Navbar() {
     return (
         <>
             <Toaster />
-            <div className="flex justify-between items-center border-b py-6 px-12 bg-white">
+            <div className="flex justify-between items-center border-b py-6 px-12 bg-white h-[100px]">
                 {/* left side => logo */}
                 <div className="w-24">
                     <Link to={'/'}>

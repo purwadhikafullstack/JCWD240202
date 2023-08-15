@@ -28,7 +28,10 @@ module.exports = {
         } catch (error) {
             return res.status(500).send({
                 success: false,
-                message: error.message === "jwt expired"? "Expired, you must re-login!" : error.message,
+                message:
+                    error.message === 'jwt expired'
+                        ? 'Expired, you must re-login!'
+                        : error.message,
                 data: null,
             });
         }

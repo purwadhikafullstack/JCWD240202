@@ -34,14 +34,14 @@ const getAllCategories = async (req, res) => {
 const getNewArrivals = async (req, res) => {
     try {
         const newArrivals = await products.findAll({
-            order: [['id', 'DESC']],
-            limit: 12,
+            limit: 10,
             include: [
                 {
                     model: product_images,
                     where: { is_thumbnail: true },
                 },
             ],
+            order: [['id', 'DESC']],
         });
 
         if (newArrivals) {

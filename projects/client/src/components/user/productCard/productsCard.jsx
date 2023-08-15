@@ -28,14 +28,15 @@ export default function ProductsCard(props) {
                 </div>
             ) : (
                 <div
-                    onClick={() =>
+                    onClick={() => {
                         dispatch(
                             userAddToCartAsync({
                                 product_id: props?.data?.value?.id,
                                 quantity: 1,
                             }),
-                        )
-                    }
+                        );
+                        props?.state?.setAddNewItem(true);
+                    }}
                     className="absolute bottom-5 right-5 hover:cursor-pointer hover:border hover: rounded-full hover:p-4 hover:bg-sky-700 hover:text-yellow-200"
                 >
                     <AiOutlineShoppingCart size={25} />
