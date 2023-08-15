@@ -44,6 +44,7 @@ const getAllProducts = async (req, res) => {
                     where: {
                         category_id: findCategory.id,
                         name: { [Op.substring]: [search] },
+                        is_deleted: false
                     },
                     offset: paginationOffset,
                     limit: paginationLimit,
@@ -95,6 +96,7 @@ const getAllProducts = async (req, res) => {
                     where: {
                         category_id: findCategory.id,
                         name: { [Op.substring]: [search] },
+                        is_deleted: false
                     },
                     offset: paginationOffset,
                     limit: paginationLimit,
@@ -143,7 +145,7 @@ const getAllProducts = async (req, res) => {
             }
 
             const result = await products.findAndCountAll({
-                where: { name: { [Op.substring]: [search] } },
+                where: { name: { [Op.substring]: [search] }, is_deleted: false },
                 offset: paginationOffset,
                 limit: paginationLimit,
                 include: [
@@ -172,7 +174,7 @@ const getAllProducts = async (req, res) => {
             }
         } else {
             const result = await products.findAndCountAll({
-                where: { name: { [Op.substring]: [search] } },
+                where: { name: { [Op.substring]: [search] }, is_deleted: false },
                 offset: paginationOffset,
                 limit: paginationLimit,
                 include: [
@@ -248,6 +250,7 @@ const addNewProduct = async (req, res) => {
     const t = await sequelize.transaction();
     try {
         const data = JSON.parse(req.body.data);
+        const findWarehouse = await db.warehouses.findAll()
 
         if (
             !data.name ||
@@ -278,12 +281,23 @@ const addNewProduct = async (req, res) => {
                 message: 'Products name already used!',
                 data: null,
             });
-
+        
+        
         const postProduct = await products.create(
-            { ...data },
-            { transaction: t },
-        );
-
+                { ...data },
+                { transaction: t },
+            );
+            const productStock = await findWarehouse.map((value) => {
+                return {
+                    product_id: postProduct.id,
+                    warehouse_id: value.id,
+                    stock: 0
+                }
+            })
+            const createProductStock = await product_stocks.bulkCreate(productStock, {
+                transaction: t
+            })
+            
         const images = await req.files.images.map((value) => {
             return {
                 name: value.filename,
@@ -313,7 +327,7 @@ const addNewProduct = async (req, res) => {
         return res.status(200).send({
             success: true,
             message: 'Create new product success!',
-            data: { postProduct, postProductImages },
+            data: { postProduct, postProductImages, createProductStock },
         });
     } catch (error) {
         deleteFiles(req.files.images);
@@ -503,7 +517,10 @@ const deleteProduct = async (req, res) => {
                 data: null,
             });
 
-        const result = await products.destroy(
+        const result = await products.update(
+            {
+                is_deleted: true
+            },
             {
                 where: { id },
             },
@@ -513,10 +530,9 @@ const deleteProduct = async (req, res) => {
         const imageToDelete = await product_images.findAll({
             where: {
                 product_id: id,
-                // is_thumbnail: 0,
+                is_thumbnail: 0,
             },
         });
-
         await imageToDelete.map((value) => {
             product_images.destroy(
                 {

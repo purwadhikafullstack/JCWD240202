@@ -21,10 +21,10 @@ export const categorySlice = createSlice({
     },
 });
 
-const dataLogin = JSON.parse(localStorage?.getItem('user'));
-
 export const addCategoryAsync = (name, imageCategory) => async (dispatch) => {
     try {
+    const dataLogin = JSON.parse(localStorage?.getItem('user'));
+
         if (!name) throw new Error('Name required!');
 
         let fd = new FormData();
@@ -86,6 +86,8 @@ export const addCategoryAsync = (name, imageCategory) => async (dispatch) => {
 
 export const editCategoryAsync = (name, id) => async (dispatch) => {
     try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+
         if (!name) throw new Error('Name required!');
 
         const result = await axios.patch(
@@ -144,6 +146,8 @@ export const editCategoryAsync = (name, id) => async (dispatch) => {
 export const editImageCategoryAsync =
     (imageCategory, id) => async (dispatch) => {
         try {
+            const dataLogin = JSON.parse(localStorage?.getItem('user'));
+
             // let fd = new FormData();
             // fd.append('images', imageCategory);
             // console.log(fd, 'masukkkk sini fd');
@@ -205,6 +209,8 @@ export const editImageCategoryAsync =
 
 export const deleteCategoryAsync = (id) => async (dispatch) => {
     try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+
         const result = await axios.delete(
             process.env.REACT_APP_API_BASE_URL + `/categories/${id}`,
             {

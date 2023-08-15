@@ -50,12 +50,14 @@ export default function Navbar() {
         '/admins/dashboard',
         '/admins/products',
         '/admins/products/categories',
+        '/admins/products/colors',
         '/admins/user-management',
         '/admins/warehouse-management',
         '/admins/stock-management',
         '/admins/mutation-management',
         '/admins/stock-history',
         '/admins/stock-log',
+        '/admins/transactions'
     ];
 
     if (path.includes(pathname)) {

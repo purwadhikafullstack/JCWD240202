@@ -16,7 +16,6 @@ export default function ComListCategory(props) {
                     >
                         <td className="flex justify-center items-center border-r">
                             <img
-                                key={index}
                                 alt="img"
                                 className="object-contain"
                                 src={
