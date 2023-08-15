@@ -39,6 +39,7 @@ export default function TransactionTabs(props) {
                                 ? 'bg-sky-700 text-yellow-200 font-bold'
                                 : ''
                         }`}
+                        key={index}
                     >
                         {value.label}
                     </div>

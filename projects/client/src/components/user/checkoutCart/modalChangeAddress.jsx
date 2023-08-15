@@ -47,7 +47,10 @@ export default function ModalChangeAddress(props) {
                     </div>
                     {userAddress?.data?.map((value, index) => {
                         return (
-                            <div className="border border-black mb-2 flex p-2 rounded-xl">
+                            <div
+                                key={index}
+                                className="border border-black mb-2 flex p-2 rounded-xl"
+                            >
                                 <div className="flex-1 pr-4">
                                     {value.is_primary === true ? (
                                         <div className="font-bold">

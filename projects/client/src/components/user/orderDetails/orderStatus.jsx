@@ -1,9 +1,9 @@
 import { AiOutlineCaretDown } from 'react-icons/ai';
+import { AiOutlineCaretUp } from 'react-icons/ai';
 
 export default function OrderStatus(props) {
     return (
         <>
-            {console.log(props)}
             <div className="text-lg border-b my-6 font-bold flex items-center gap-2">
                 <div>Order Status</div>{' '}
                 <div
@@ -14,7 +14,11 @@ export default function OrderStatus(props) {
                     }
                     className="hover:cursor-pointer"
                 >
-                    <AiOutlineCaretDown />
+                    {props?.state?.showHistoryStatus === true ? (
+                        <AiOutlineCaretDown />
+                    ) : (
+                        <AiOutlineCaretUp />
+                    )}
                 </div>
             </div>
             {props?.state?.showHistoryStatus === false ? (
@@ -78,7 +82,6 @@ export default function OrderStatus(props) {
             ) : (
                 props?.data?.userOrderDetails?.data?.order_statuses.map(
                     (value, index) => {
-                        console.log('value', value);
                         return (
                             <>
                                 <div
@@ -112,6 +115,7 @@ export default function OrderStatus(props) {
                 ? 'bg-[#F1948A] text-[#EE0303] border-[#FC4A4A]'
                 : ''
         }`}
+                                    key={index}
                                 >
                                     {value?.status?.name}
                                 </div>

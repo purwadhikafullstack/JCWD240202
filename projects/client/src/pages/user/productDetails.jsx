@@ -23,12 +23,28 @@ export default function ProductDetails() {
     );
     const [quantity, setQuantity] = useState(1);
 
+    const addQuantity = () => {
+        if (quantity === proDetails?.data?.findProduct?.total_stock) {
+            toast.error('Not enough stock available');
+        } else {
+            setQuantity(quantity + 1);
+        }
+    };
+
+    const decreaseQuantity = () => {
+        if (quantity <= 1) {
+            return null;
+        } else {
+            setQuantity(quantity - 1);
+        }
+    };
+
     useEffect(() => {
         dispatch(productDetailsAsync(id));
         dispatch(productRecommenadationAsync(id));
     }, []);
     return (
-        <div className="divide-y">
+        <div className="divide-y mb-16">
             <Toaster />
             <div className="flex px-[200px] justify-evenly gap-14 pt-9">
                 <div className="flex-1">
@@ -57,26 +73,14 @@ export default function ProductDetails() {
                             <div>Quantity</div>
                             <div className="flex gap-2 items-center border rounded-lg">
                                 <div
-                                    onClick={
-                                        quantity <= 1
-                                            ? ''
-                                            : () => setQuantity(quantity - 1)
-                                    }
+                                    onClick={decreaseQuantity}
                                     className="p-2 hover:cursor-pointer"
                                 >
                                     -
                                 </div>
                                 <div className="px-9">{quantity}</div>
                                 <div
-                                    onClick={() => {
-                                        quantity ===
-                                        proDetails?.data?.findProduct
-                                            ?.total_stock
-                                            ? toast.error(
-                                                  'Not enough stock available',
-                                              )
-                                            : setQuantity(quantity + 1);
-                                    }}
+                                    onClick={addQuantity}
                                     className="p-2 hover:cursor-pointer"
                                 >
                                     +
@@ -126,14 +130,14 @@ export default function ProductDetails() {
                                 <Button
                                     pill
                                     className="w-full p-4 bg-sky-700 text-yellow-200"
-                                    onClick={() =>
+                                    onClick={() => {
                                         dispatch(
                                             userAddToCartAsync({
                                                 product_id: Number(id),
                                                 quantity: quantity,
                                             }),
-                                        )
-                                    }
+                                        );
+                                    }}
                                 >
                                     <div className="text-xl">Add to Cart</div>
                                 </Button>

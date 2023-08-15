@@ -274,9 +274,49 @@ const modifyQuantity = async (req, res) => {
     }
 };
 
+const getNewestCartItem = async (req, res) => {
+    try {
+        const user_id = req.User.id;
+
+        const findCart = await carts.findOne({
+            where: { user_id: user_id, is_checkout: false },
+        });
+
+        if (findCart) {
+            const findNewestItems = await cart_products.findAll({
+                where: { cart_id: findCart.id },
+                include: [
+                    { model: products, include: [{ model: categories }] },
+                ],
+                order: [['updatedAt', 'DESC']],
+                limit: 1,
+            });
+
+            res.status(200).send({
+                success: true,
+                message: 'newest item in cart',
+                data: findNewestItems,
+            });
+        } else {
+            res.status(400).send({
+                success: false,
+                message: 'cart not found',
+                data: null,
+            });
+        }
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: error.message,
+            data: {},
+        });
+    }
+};
+
 module.exports = {
     userAddToCart,
     getUserCart,
     deleteProductCart,
     modifyQuantity,
+    getNewestCartItem,
 };

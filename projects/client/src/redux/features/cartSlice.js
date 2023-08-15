@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 
 const initialState = {
     cart: {},
+    newItem: null,
 };
 
 export const cartSlice = createSlice({
@@ -12,6 +13,9 @@ export const cartSlice = createSlice({
     reducers: {
         setCart: (initialState, action) => {
             initialState.cart = action.payload;
+        },
+        setNewItem: (initialState, action) => {
+            initialState.newItem = action.payload;
         },
     },
 });
@@ -56,6 +60,7 @@ export const userAddToCartAsync = (data) => async (dispatch) => {
 
         if (addCart.data.success === true) {
             toast.success('Product added to cart');
+            dispatch(getNewItemsAsync());
         }
         dispatch(getUserCartAsync());
     } catch (error) {
@@ -107,8 +112,30 @@ export const modifyQuantityAsync = (data) => async (dispatch) => {
             toast.success(editQty.data.message);
         }
         dispatch(getUserCartAsync());
-    } catch (error) {}
+    } catch (error) {
+        toast.error(error.message);
+    }
 };
 
-export const { setCart } = cartSlice.actions;
+export const getNewItemsAsync = () => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const newItem = await axios.get(
+            process.env.REACT_APP_API_BASE_URL + `/carts/newest`,
+            {
+                headers: {
+                    Authorization: `bearer ${getUser}`,
+                },
+            },
+        );
+
+        dispatch(setNewItem(newItem.data));
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+
+export const { setCart, setNewItem } = cartSlice.actions;
 export default cartSlice.reducer;

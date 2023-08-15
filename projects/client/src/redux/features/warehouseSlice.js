@@ -11,6 +11,7 @@ const initialState = {
     status: false,
     disabledButton: false,
     modal: false,
+    allWarehouse: null,
 };
 
 export const warehouseSlice = createSlice({
@@ -37,6 +38,9 @@ export const warehouseSlice = createSlice({
         },
         setModal: (initialState, action) => {
             initialState.modal = action.payload;
+        },
+        setAllWarehouse: (initialState, action) => {
+            initialState.allWarehouse = action.payload;
         },
     },
 });
@@ -485,6 +489,34 @@ export const deleteWarehouse = (warehouse_id) => async (dispatch) => {
     }
 };
 
+export const getAllWarehousesAsync = () => async (dispatch) => {
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+    try {
+        const data = await axios.get(
+            process.env.REACT_APP_API_BASE_URL + `/warehouses/all`,
+            {
+                headers: {
+                    Authorization: `bearer ${getUser}`,
+                },
+            },
+        );
+        dispatch(setAllWarehouse(data.data));
+    } catch (error) {
+        toast.error(error.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#DC2626',
+                color: 'white',
+            },
+        });
+    }
+};
+
 export const {
     setAvailableWh,
     setDataWh,
@@ -493,5 +525,6 @@ export const {
     setStatus,
     setDisabledButton,
     setModal,
+    setAllWarehouse,
 } = warehouseSlice.actions;
 export default warehouseSlice.reducer;

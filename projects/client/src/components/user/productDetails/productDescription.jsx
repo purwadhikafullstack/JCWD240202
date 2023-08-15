@@ -17,7 +17,12 @@ export default function ProductDescription(props) {
             </div>
             <div className="pt-4 text-md flex items-center gap-2">
                 <div
-                    className={`h-9 w-9 border bg-[${props?.data?.proDetails?.findProduct?.color?.color_code}]`}
+                    className={`h-9 w-9 border`}
+                    style={{
+                        backgroundColor:
+                            props?.data?.proDetails?.findProduct?.color
+                                ?.color_code,
+                    }}
                 ></div>
                 <div>{props?.data?.proDetails?.findProduct?.color?.name}</div>
             </div>

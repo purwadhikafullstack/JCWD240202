@@ -55,5 +55,11 @@ router.patch(
     checkAdminRole,
     warehouseController.unassignAdminWarehouse,
 );
+router.get(
+    '/all',
+    verifyToken,
+    checkUserRole,
+    warehouseController.getAllWarehouse,
+);
 
 module.exports = router;

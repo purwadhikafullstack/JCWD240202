@@ -27,6 +27,7 @@ export default function UserTransactions() {
     const [orderId, setOrderId] = useState(0);
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
+    const [expiredTime, setExpiredTime] = useState(false);
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -34,7 +35,6 @@ export default function UserTransactions() {
 
     const handleCancelOrder = async () => {
         await dispatch(userCancelOrderAsync({ order_id: orderId }));
-        // navigate(`/orders/${orderId}`);
         await dispatch(
             getAllUserOrderAsync({
                 sort: sortTransaction,
@@ -70,7 +70,7 @@ export default function UserTransactions() {
                 search,
             }),
         );
-    }, [page, sortTransaction, status_id, search]);
+    }, [page, sortTransaction, status_id, search, expiredTime]);
     return (
         <>
             <Toaster />
@@ -116,11 +116,13 @@ export default function UserTransactions() {
                                 (value, index) => {
                                     return (
                                         <TransactionHistoryBox
+                                            key={index}
                                             data={{ value }}
                                             state={{
                                                 setCancelOrder,
                                                 setOrderId,
                                                 setStatusId,
+                                                setExpiredTime,
                                             }}
                                         />
                                     );
