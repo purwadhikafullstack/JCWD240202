@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteWarehouseAdmin } from '../../redux/features/adminSlice';
 import { deleteWarehouse } from '../../redux/features/warehouseSlice';
 
-export default function DeleteWarehouseModal({ showModal, selected }) {
+export default function DeleteWarehouseModal({ showModal, selected, page }) {
     const dispatch = useDispatch();
     const setDisabledButton = useSelector(
         (state) => state.warehouse.disabledButton,
@@ -48,6 +48,7 @@ export default function DeleteWarehouseModal({ showModal, selected }) {
                                     disabled={setDisabledButton}
                                     onClick={() => {
                                         dispatch(deleteWarehouse(selected?.id));
+                                        page(1);
                                     }}
                                 >
                                     Confirm

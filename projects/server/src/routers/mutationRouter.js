@@ -36,5 +36,6 @@ router.patch(
 );
 
 router.get('/', verifyToken, mutationController.getAllMutation);
+router.get('/mutation-details', mutationController.getAllMutationDetails);
 
 module.exports = router;

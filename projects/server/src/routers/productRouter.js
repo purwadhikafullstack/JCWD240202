@@ -10,7 +10,7 @@ router.get('/:id', productController.getProductDetails);
 router.post('/', verifyToken, checkAdminRole, upload, productController.addNewProduct);
 router.patch('/:id', verifyToken, checkAdminRole, productController.editProduct)
 router.patch('/images/:id', verifyToken, checkAdminRole, upload, productController.editProductImages)
-router.delete('/:id', verifyToken, checkAdminRole, productController.deleteProduct)
+router.patch('/:id/delete', verifyToken, checkAdminRole, productController.deleteProduct)
 router.patch('/thumbnail/:product/:productImage', verifyToken, checkAdminRole, productController.changeThumbnail)
 
 module.exports = router;

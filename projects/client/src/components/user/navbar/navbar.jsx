@@ -43,6 +43,27 @@ export default function Navbar() {
         dispatch(getUserCartAsync());
     }, [userLogin]);
 
+    const { pathname } = useLocation();
+
+    const path = [
+        '/admins/login',
+        '/admins/dashboard',
+        '/admins/products',
+        '/admins/products/categories',
+        '/admins/products/colors',
+        '/admins/user-management',
+        '/admins/warehouse-management',
+        '/admins/stock-management',
+        '/admins/mutation-management',
+        '/admins/stock-history',
+        '/admins/stock-log',
+        '/admins/transactions'
+    ];
+
+    if (path.includes(pathname)) {
+        return null;
+    }
+
     return (
         <>
             <Toaster />

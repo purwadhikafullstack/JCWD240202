@@ -14,6 +14,7 @@ import ModalEditProduct from '../../components/admin/product/modalEditProduct';
 import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import { getAllColorAsync } from '../../redux/features/homepageSlice';
 import ModalDeleteProduct from '../../components/admin/product/modalDeleteProduct';
+import { Toaster } from 'react-hot-toast';
 
 export default function ProductAdmin() {
     const dispatch = useDispatch();
@@ -22,15 +23,15 @@ export default function ProductAdmin() {
     const categories = useSelector((state) => state.homepage.category);
     const color = useSelector((state) => state.homepage.color);
     const isSuccess = useSelector((state) => state.product.success);
-    const [page, setPage] = useState(1);
-    const [category, setCategory] = useState('');
-    const [sort, setSort] = useState('');
-    const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(searchParams.get('page') || 1);
+    const [category, setCategory] = useState(searchParams.get('category') || '');
+    const [sort, setSort] = useState(searchParams.get('sort') || '');
+    const [search, setSearch] = useState('');
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [dataDetail, setDataDetail] = useState();
+    const [dataDetail, setDataDetail] = useState('');
 
     const defaultValue = () => {
         if (isSuccess) {
@@ -40,22 +41,20 @@ export default function ProductAdmin() {
 
     const pageChange = (event, value) => {
         setPage(value);
-        showProducts();
     };
 
     const categoryChange = (category) => {
         setCategory(category);
-        showProducts();
+        setPage(1)
     };
 
     const sortChange = (sortCat) => {
         setSort(sortCat);
-        showProducts();
     };
 
     const searchChange = (search) => {
         setSearch(search);
-        showProducts();
+        setPage(1)
     };
 
     const showProducts = (page, category, sort, search) => {
@@ -96,6 +95,7 @@ export default function ProductAdmin() {
 
     return (
         <>
+            <Toaster/>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
@@ -106,7 +106,8 @@ export default function ProductAdmin() {
                         <ProductTabs />
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex justify-between items-center w-full mb-4">
-                                <div className="flex">
+                                <div className="flex gap-2 items-center">
+                                <SearchBar data={{ searchChange }} />
                                     <FilterButton data={{ categoryChange }} />
                                     <SortButton data={{ sortChange }} />
                                 </div>
@@ -116,7 +117,6 @@ export default function ProductAdmin() {
                                 >
                                     + ADD NEW PRODUCT
                                 </button>
-                                <SearchBar data={{ searchChange }} />
                             </div>
                             <div className="relative overflow-x-auto shadow-m rounded-lg">
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -124,7 +124,7 @@ export default function ProductAdmin() {
                                         <tr>
                                             <th
                                                 scope="col"
-                                                className="px- py-3 border-r text-center w-[100px]"
+                                                className="px- py-3 border-r text-center w-[150px]"
                                             >
                                                 Image
                                             </th>

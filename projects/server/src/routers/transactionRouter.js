@@ -7,6 +7,7 @@ router.get('/', verifyToken, transactionController.getAllTransaction);
 router.post('/confirmation-payment', verifyToken, transactionController.confirmationPayment);
 router.patch('/cancel-payment', verifyToken, transactionController.cancelConfirmPayment)
 router.post('/confirmation-shipping', verifyToken, transactionController.sendUserOrders);
+router.post('/cancel-shipping', verifyToken, transactionController.cancelReadyShipping);
 
 
 module.exports = router;

@@ -19,7 +19,7 @@ export default function FilterCategoryAdmin(props) {
         <div>
             <Dropdown
                 label={
-                    props?.data?.category ? props?.data?.category : 'Category'
+                    props?.data?.category ? props?.data?.category.replace(/%/g, ' ') : 'Category'
                 }
                 className="px-5 text-center"
                 color="light"
@@ -37,12 +37,12 @@ export default function FilterCategoryAdmin(props) {
                                           id={value.name}
                                           name="warehouses"
                                           onChange={() =>
-                                              handleCategory(value.name)
+                                              handleCategory(value.name.replace(/ /g, '%'))
                                           }
                                           value={value.name}
                                           checked={
                                               value.name ===
-                                              props?.data?.category
+                                              props?.data?.category.replace(/%/g, ' ')
                                                   ? true
                                                   : false
                                           }

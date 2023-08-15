@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { getAvailableWh } from '../../redux/features/warehouseSlice';
 import { setWhAdmin } from '../../redux/features/warehouseSlice';
 
-export default function AssignWarehouseAdmin({ showModal, selected }) {
+export default function AssignWarehouseAdmin({ showModal, selected, params }) {
     const dispatch = useDispatch();
     const setDisabledButton = useSelector(
         (state) => state.warehouse.disabledButton,
@@ -98,6 +98,7 @@ export default function AssignWarehouseAdmin({ showModal, selected }) {
                                             setWhAdmin(
                                                 warehouseId,
                                                 selected?.id,
+                                                params,
                                             ),
                                         );
                                     }}

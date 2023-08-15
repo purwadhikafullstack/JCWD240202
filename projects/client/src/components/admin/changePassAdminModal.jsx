@@ -3,8 +3,10 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { AiOutlineClose } from 'react-icons/ai';
 import { changePasswordWarehouseAdmin } from '../../redux/features/adminSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
-export default function ChangePasswordAdmin({ showModal, selected }) {
+export default function ChangePasswordAdmin({ showModal, selected, params }) {
     const [showNewPassword, setShowNewPassword] = useState(true);
     const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
@@ -154,6 +156,7 @@ export default function ChangePasswordAdmin({ showModal, selected }) {
                                                 newPassword,
                                                 confirmNewPassword,
                                                 selected?.id,
+                                                params,
                                             ),
                                         );
                                     }}
@@ -166,6 +169,16 @@ export default function ChangePasswordAdmin({ showModal, selected }) {
                                 >
                                     Cancel
                                 </button>
+                                <Backdrop
+                                    sx={{
+                                        color: '#fff',
+                                        zIndex: (theme) =>
+                                            theme.zIndex.drawer + 1,
+                                    }}
+                                    open={setDisabledButton}
+                                >
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>
                             </div>
                         </div>
                     </div>

@@ -28,6 +28,9 @@ import OrderDetailsPage from './pages/user/orderDetailsPage';
 import UserTransactions from './pages/user/userTransactions';
 import MutationPage from './pages/admin/mutationPage';
 import AdminSalesReport from './pages/admin/adminSalesReport';
+import StockHistoryProduct from './pages/admin/stockHistoryPage';
+import StockLogPage from './pages/admin/logStockPage';
+import ColorProductAdmin from './pages/admin/colorProductAdmin';
 
 function App() {
     const { pathname } = useLocation();
@@ -75,6 +78,7 @@ function App() {
                     path="/admins/products/categories"
                     element={<CategoryProductAdmin />}
                 />
+                <Route path="/admins/products/colors" element={<ColorProductAdmin />} />
                 <Route path="/admins/user-management" element={<UserAdmin />} />
                 <Route
                     path="/admins/warehouse-management"
@@ -96,6 +100,11 @@ function App() {
                     path="/admins/sales-report"
                     element={<AdminSalesReport />}
                 />
+                <Route
+                    path="/admins/stock-history"
+                    element={<StockHistoryProduct />}
+                />
+                <Route path="/admins/stock-log" element={<StockLogPage />} />
             </Routes>
 
             <Footer />

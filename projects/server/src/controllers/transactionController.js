@@ -63,7 +63,7 @@ module.exports = {
                 if (warehouse) {
                     const whId = await warehouses.findOne({
                         where: {
-                            city: warehouse,
+                            city: warehouse.replace(/%/g, ' '),
                         },
                     });
                     if (!whId)
@@ -218,7 +218,7 @@ module.exports = {
             });
 
             let enoughStock = []
-            let history = []
+            // let history = []
             let historyMut = []
             let mutation = []
             let mutationDetail = []
@@ -234,11 +234,11 @@ module.exports = {
                             if (stockWh.stock !== 0) {
                                 enoughStock.push({ product_id: product.product_id, resultStock: 0, product_stock_id: stockWh.id })
                             }
-                            history.push({ product_id: product.product_id, quantity: product.quantity, order_id: data.id, user_id, warehouse_id: data.warehouse_id, type_id: 2, information_id: 2 })
-                            mutation.push({ product_id: product.product_id, warehouse_origin_id: data.warehouse_id, user_id, is_approved: true, })
+                            // history.push({ product_id: product.product_id, quantity: product.quantity, order_id: data.id, user_id, warehouse_id: data.warehouse_id, type_id: 2, information_id: 2 })
+                            // mutation.push({ product_id: product.product_id, warehouse_origin_id: data.warehouse_id, user_id, is_approved: true, })
                         } else if (product.quantity < stockWh.stock) {
                             enoughStock.push({ product_id: product.product_id, resultStock: stockWh.stock - product.quantity, product_stock_id: stockWh.id })
-                            history.push({product_id: product.product_id, quantity: product.quantity, order_id: data.id, user_id, warehouse_id: data.warehouse_id, type_id: 2, information_id: 2})
+                            // history.push({product_id: product.product_id, quantity: product.quantity, order_id: data.id, user_id, warehouse_id: data.warehouse_id, type_id: 2, information_id: 2})
                        }
                     }
                 })
@@ -257,22 +257,23 @@ module.exports = {
                         stockNextWh.map((stockWh) => {
                             if (product.product_id === stockWh.product_id) {
                                 if (product.quantity > stockWh.stock) {
-                                    console.log(reqStock, 'atassss')
                                     nextWh.push({ product_id: product.product_id, warehouse_id: findNearestWh[nearestWh].id })
                                     if (stockWh.stock !== 0) {
                                         enoughStock.push({ product_id: product.product_id, resultStock: 0, product_stock_id: stockWh.id })
+                                        mutation.push({ product_id: product.product_id, warehouse_origin_id: data.warehouse_id, user_id, is_approved: true, warehouse_destination_id: stockWh.warehouse_id})
                                         mutationDetail.push({ warehouse_destination_id: stockWh.warehouse_id, quantity: stockWh.stock, product_id: product.product_id })
                                         historyMut.push(
-                                            { product_id: product.product_id, warehouse_id: stockWh.warehouse_id, quantity: stockWh.stock, user_id, type_id: 2, information_id: 3 },
-                                            { product_id: product.product_id, warehouse_id: product.whOriginId, quantity: stockWh.stock, user_id, type_id: 1, information_id: 3},)
+                                            { product_id: product.product_id, warehouse_id: stockWh.warehouse_id, quantity: stockWh.stock, user_id, type_id: 2, information_id: 3, cek: stockWh.warehouse_id },
+                                            { product_id: product.product_id, warehouse_id: product.whOriginId, quantity: stockWh.stock, user_id, type_id: 1, information_id: 3, cek: stockWh.warehouse_id},)
                                     }
                                         reqStock.push({ product_id: product.product_id, quantity: product.quantity - stockWh.stock, whOriginId: product.whOriginId })
                                         reqStock.shift()
                                 } else if (product.quantity < stockWh.stock) {
                                     enoughStock.push({ product_id: product.product_id, resultStock: stockWh.stock - product.quantity, product_stock_id: stockWh.id })
                                     historyMut.push(
-                                        { product_id: product.product_id, warehouse_id: stockWh.warehouse_id, quantity: product.quantity, user_id, type_id: 2, information_id: 3 },
-                                        { product_id: product.product_id, warehouse_id: product.whOriginId, quantity: product.quantity, user_id, type_id: 1, information_id: 3},)
+                                        { product_id: product.product_id, warehouse_id: stockWh.warehouse_id, quantity: product.quantity, user_id, type_id: 2, information_id: 3, cek: stockWh.warehouse_id },
+                                        { product_id: product.product_id, warehouse_id: product.whOriginId, quantity: product.quantity, user_id, type_id: 1, information_id: 3, cek: stockWh.warehouse_id },)
+                                    mutation.push({ product_id: product.product_id, warehouse_origin_id: data.warehouse_id, user_id, is_approved: true, warehouse_destination_id: stockWh.warehouse_id})
                                     mutationDetail.push({warehouse_destination_id: stockWh.warehouse_id, quantity: product.quantity, product_id: product.product_id})
                                     reqStock.shift()
                                 }
@@ -281,37 +282,69 @@ module.exports = {
                     })
                 }
             }
-
-            const updateMutation = await db.mutations.bulkCreate(mutation, { transaction: t })
-            if (updateMutation) {
-                await updateMutation.map(async (val) => {
-                    mutationDetail.map(async (value) => {
-                        if (val.product_id === value.product_id) {
-                            await db.mutation_details.create({
-                                warehouse_destination_id: value.warehouse_destination_id,
-                                mutation_id: val.id,
-                                quantity: value.quantity
-                            }, { transaction: t })  
-                        }
-                    })
-                })
-                await updateMutation.map(async (val) => {
-                    historyMut.map(async (value) => {
-                        if (val.product_id === value.product_id) {
-                            await db.stock_histories.create({
+            if (mutation.length > 0) {
+                mutation.map(async(value) => {
+                    mutationDetail.map(async (val) => {
+                        if (value.product_id === val.product_id && value.warehouse_destination_id === val.warehouse_destination_id) {
+                            const mut = await db.mutations.create({
                                 product_id: value.product_id,
-                                warehouse_id: value.warehouse_id,
-                                quantity: value.quantity,
-                                mutation_id: val.id,
-                                order_id: data.id,
+                                warehouse_origin_id: value.warehouse_origin_id,
                                 user_id,
-                                type_id: value.type_id,
-                                information_id: value.information_id,
-                            }, { transaction: t })
+                                is_approved: value.is_approved
+                            })
+                            const mutTail = await db.mutation_details.create({
+                                warehouse_destination_id: val.warehouse_destination_id,
+                                mutation_id: mut.id,
+                                quantity: val.quantity
+                            },)
+                            historyMut.map(async (value) => {
+                                if (value.cek === mutTail.warehouse_destination_id && value.product_id === mut.product_id) {
+                                    const sH = await db.stock_histories.create({
+                                    product_id: value.product_id,
+                                    warehouse_id: value.warehouse_id,
+                                    quantity: value.quantity,
+                                    mutation_id: mut.id,
+                                    order_id: data.id,
+                                    user_id,
+                                    type_id: value.type_id,
+                                    information_id: value.information_id,
+                                    })
+                                }
+                            })
                         }
                     })
                 })
             }
+            // const updateMutation = await db.mutations.bulkCreate(mutation, { transaction: t })
+            // if (updateMutation) {
+            //     await updateMutation.map(async (val) => {
+            //         mutationDetail.map(async (value) => {
+            //             if (val.product_id === value.product_id) {
+            //                 await db.mutation_details.create({
+            //                     warehouse_destination_id: value.warehouse_destination_id,
+            //                     mutation_id: val.id,
+            //                     quantity: value.quantity
+            //                 }, { transaction: t })  
+            //             }
+            //         })
+            //     })
+            //     await updateMutation.map(async (val) => {
+            //         historyMut.map(async (value) => {
+            //             if (val.product_id === value.product_id) {
+            //                 await db.stock_histories.create({
+            //                     product_id: value.product_id,
+            //                     warehouse_id: value.warehouse_id,
+            //                     quantity: value.quantity,
+            //                     mutation_id: val.id,
+            //                     order_id: data.id,
+            //                     user_id,
+            //                     type_id: value.type_id,
+            //                     information_id: value.information_id,
+            //                 }, { transaction: t })
+            //             }
+            //         })
+            //     })
+            // }
             enoughStock.map(async (value) => {
                 await db.product_stocks.update({
                     stock: value.resultStock,
@@ -321,18 +354,14 @@ module.exports = {
                     }
                 }, { transaction: t })  
             })
-            // confimation payment tidak generate log barang dikirim ke user
-            // const updateStockHistory = await db.stock_histories.bulkCreate(history, { transaction: t })
-            const createStatus = await db.order_statuses.create({ status_id: 3, order_id: data.id, is_active: 1 }, { transaction: t })
-            console.log(createStatus)
-            const tes = await db.order_statuses.update({is_active: 0}, { where: { status_id: 2, order_id: data.id } }, { transaction: t })
-            await t.commit();
 
-            // res.send({data, findNearestWh, stockWh, enoughStock, stockNextWh, history, mutation, historyMut, mutationDetail, reqStock, updateMutation, updateStockHistory})
+            await db.order_statuses.update({is_active: 0}, { where: { status_id: 2, order_id: data.id } }, { transaction: t })
+            const createStatus = await db.order_statuses.create({ status_id: 3, order_id: data.id, is_active: 1 }, { transaction: t })
+            await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Payment confirmation success!',
-                data: history, historyMut, mutation, mutationDetail, enoughStock, createStatus, findNearestWh
+                data: historyMut, mutation, mutationDetail, enoughStock, findNearestWh, createStatus
             });
         } catch (error) {
             await t.rollback();
@@ -351,7 +380,8 @@ module.exports = {
             const findData = await db.order_statuses.findOne({
                 where: {
                     order_id,
-                    status_id: 2
+                    status_id: 2,
+                    is_active: true
                 }
             })
             if (!findData)
@@ -359,14 +389,14 @@ module.exports = {
                     success: false,
                     message: "Data not found"
                 })
-            const changeStatus = await db.order_statuses.destroy({ where: { status_id: 2, order_id } }, { transaction: t })
-            deleteSingleFile(`src/public/images/${dataOrder?.payment_proof}`);
-            await t.commit();
-            await db.order_statuses.update({is_active: 1}, { where: { status_id: 1, order_id } }, { transaction: t })
+                await db.order_statuses.update({is_active: 1}, { where: { status_id: 1, order_id } }, { transaction: t })
+                const changeStatus = await db.order_statuses.destroy({ where: { status_id: 2, order_id } }, { transaction: t })
+                deleteSingleFile(`src/public/images/${dataOrder?.payment_proof}`);
+                await t.commit();
             return res.status(200).send({
                 success: true,
                 message: "Cancel payment confirmation success!",
-                data: changeStatus
+                data: null
             })
         } catch (error) {
             await t.rollback();
@@ -426,11 +456,12 @@ module.exports = {
         }
     },
     cancelReadyShipping: async (req, res) => {
-        // const t = await sequelize.transaction();
+        const t = await sequelize.transaction();
         try {
+            const user_id = req.User.id
             const { order_id } = req.body
             let prevStock = []
-            // let originStock = []
+            let stockHis = []
             const data = await orders.findOne({
                 where: {
                     id: order_id
@@ -443,87 +474,98 @@ module.exports = {
                     type_id: 2
                 }
             })
-            let totalFromMut = 0
-            const productStoc = await data.cart?.cart_products.map(async (product) => {
-                await stockHistory.map((value) => {
-                    if (product.product_id === value.product_id) {
-                        if (value.mutation_id) {
-                            prevStock.push({ product_id: value.product_id, warehouse_id: value.warehouse_id, stock: value.quantity })
-                            totalFromMut += value.quantity
-                        } else {
-                            prevStock.push({ product_id: product.product_id, warehouse_id: data.warehouse_id, stock: value.quantity })
-                        }
+            if (stockHistory.length === 0) {
+                await data.cart?.cart_products.map((val) => {
+                prevStock.push({product_id: val.product_id, warehouse_id: data.warehouse_id, stock: val.quantity})
+                })
+            } else {
+                let totalFromMut = 0
+                const productStock = await data.cart?.cart_products.map(async (product) => {
+                    await stockHistory.map((value) => {
+                        if (product.product_id === value.product_id) {
+                            if (value.mutation_id) {
+                                prevStock.push({ product_id: value.product_id, warehouse_id: value.warehouse_id, stock: value.quantity })
+                                stockHis.push({product_id: value.product_id, warehouse_id: value.warehouse_id, stock: value.quantity})
+                                totalFromMut += value.quantity
+                            } 
+                        } 
+                    })
+                    if (totalFromMut !== 0) {
+                        db.product_stocks.update({
+                            stock: product.quantity - totalFromMut
+                        }, {
+                            where: {
+                                product_id: product.product_id,
+                                warehouse_id: data.warehouse_id
+                            }
+                        }, { transaction: t })
+                        totalFromMut = 0
+                    } else {
+                        prevStock.push({ product_id: product.product_id, warehouse_id: data.warehouse_id, stock: product.quantity })
                     }
                 })
-                if (totalFromMut !== 0) {
-                    await db.product_stocks.update({
-                        stock: product.quantity - totalFromMut
-                    }, {
+                await stockHistory.map(async (value) => {
+                    await db.mutations.destroy({
                         where: {
-                            product_id: product.product_id,
-                            warehouse_id: data.warehouse_id
+                            id: value.mutation_id
                         }
-                    })
-                    console.log(product.quantity - totalFromMut)
-                    totalFromMut = 0
-                    console.log(totalFromMut)
-                }
-            })
+                    }, { transaction: t })
+                    await db.mutation_details.destroy({
+                        where: {
+                            mutation_id: value.mutation_id
+                        }
+                    }, { transaction: t })
+                })
+            }
             if (prevStock.length > 0) {
                 prevStock.map(async (value) => {
-                    await db.product_stocks.update({
-                        stock: value.stock
-                    }, {
+                    const data = await db.product_stocks.findOne({
                         where: {
                             product_id: value.product_id,
                             warehouse_id: value.warehouse_id
                         }
                     })
+                    await db.product_stocks.update({
+                        stock: value.stock + data.stock
+                    }, {
+                        where: {
+                            product_id: value.product_id,
+                            warehouse_id: value.warehouse_id
+                        }
+                    }, { transaction: t })
                 }) 
             }
-            // if (originStock.length > 0) {
-            //     originStock.map(async (value) => {
-            //         await db.product_stocks.update({
-            //             stock: value.stock
-            //         }, {
-            //             where: {
-            //                 product_id: value.product_id,
-            //                 warehouse_id: value.warehouse_id
-            //             }
-            //         })
-            //     })
-            // }
+            if (stockHis.length > 0) {
+                var createHis = stockHis.map((val) => {
+                    return {
+                        product_id: val.product_id,
+                        warehouse_id: val.warehouse_id,
+                        quantity: val.stock,
+                        order_id,
+                        user_id: user_id,
+                        type_id: 1,
+                        information_id: 4
+                    }
+                })
+                var createHistory = await db.stock_histories.bulkCreate(createHis, { transaction: t })
+            }
             // const mutationId = new Set();
             // const getMutationId = stockHistory.filter((item) => {
             //     const isDuplicate = mutationId.has(item.mutation_id);
             //     mutationId.add(item.mutation_id);
             //     return !isDuplicate;
             // });
-            await stockHistory.map(async (value) => {
-                await db.mutations.destroy({
-                    where: {
-                        id: value.mutation_id
-                    }
-                })
-                await db.mutation_details.destroy({
-                    where: {
-                        mutation_id: value.mutation_id
-                    }
-                })
-            })
-            const deleteStockHis = await db.stock_histories.destroy({
-                where: {
-                    order_id: data.id
-                }
-            })
-            // res.send({ data, stockHistory, prevStock, deleteStockHis })
+            
+            await db.order_statuses.update({ is_active: 0 }, { where: { status_id: 3, order_id } }, { transaction: t })
+            const createStatus = await db.order_statuses.create({ status_id: 6, order_id, is_active: 1 }, { transaction: t })
+            await t.commit();
             return res.status(200).send({
                 success: true,
-                message: 'Confirmation payment success!',
-                data: data, stockHistory, prevStock, deleteStockHis
+                message: 'Cancel order success!',
+                data: prevStock, createStatus, createHistory
             });
         } catch (error) {
-            // await t.rollback();
+            await t.rollback();
             return res.status(500).send({
                 success: false,
                 message: error.message,

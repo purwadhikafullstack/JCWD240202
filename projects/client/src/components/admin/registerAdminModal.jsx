@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { adminRegister } from '../../redux/features/adminAuthSlice';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function RegisterAdmin({ showModal }) {
+export default function RegisterAdmin({ showModal, params }) {
     const setDisabledButton = useSelector(
         (state) => state.adminAuth.disabledButton,
     );
@@ -238,6 +238,7 @@ export default function RegisterAdmin({ showModal }) {
                                                 inputPhoneNumber,
                                                 inputPassword,
                                                 inputConfirmPassword,
+                                                params,
                                             ),
                                         );
                                     }}

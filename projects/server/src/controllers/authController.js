@@ -278,7 +278,6 @@ module.exports = {
         try {
             const { password, confirmPassword } = req.body;
             const uid = req.User.id;
-            console.log(uid);
 
             if (!password || !confirmPassword)
                 return res.status(400).send({
@@ -310,7 +309,6 @@ module.exports = {
                     token_password: '0',
                 },
             });
-            console.log(checkRequest);
             if (checkRequest)
                 return res.status(401).send({
                     success: false,

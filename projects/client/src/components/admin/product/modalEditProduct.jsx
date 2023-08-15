@@ -16,14 +16,14 @@ export default function ModalEditProduct(props) {
     const [imageProduct, setImageProduct] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
     const [name, setName] = useState('');
-    const [category, setCategory] = useState(null);
-    const [color, setColor] = useState(null);
-    const [price, setPrice] = useState(null);
+    const [category, setCategory] = useState('');
+    const [color, setColor] = useState('');
+    const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
-    const [length, setLength] = useState(null);
-    const [width, setWidth] = useState(null);
-    const [height, setHeight] = useState(null);
-    const [weight, setWeight] = useState(null);
+    const [length, setLength] = useState('');
+    const [width, setWidth] = useState('');
+    const [height, setHeight] = useState('');
+    const [weight, setWeight] = useState('');
 
     const onChangeProductImg = (e) => {
         try {
@@ -52,7 +52,7 @@ export default function ModalEditProduct(props) {
             });
 
             if (!targetFiles) {
-                setImageProduct(proDetails.data.product_images);
+                setImageProduct(proDetails.data?.product_images);
             }
 
             setImageProduct(targetFiles);
@@ -128,8 +128,8 @@ export default function ModalEditProduct(props) {
                                       />
                                   );
                               })
-                            : proDetails.data?.product_images?.map(
-                                  (value, index) => {
+                            : proDetails.data?.findProduct?.product_images?.map(
+                                (value, index) => {
                                       return (
                                           <img
                                               src={
@@ -228,10 +228,10 @@ export default function ModalEditProduct(props) {
                         className="border border-gray-400 rounded-md mb-1"
                         value={category}
                     >
-                        <option value='none'>Category</option>
+                        <option value='' disabled>Category</option>
                         {props?.category?.data?.map((value, index) => {
                             return (
-                                <option value={value.id} key={index}>
+                                <option value={value.id} key={value.id}>
                                     {value.name}
                                 </option>
                             );
@@ -244,10 +244,10 @@ export default function ModalEditProduct(props) {
                         className="border border-gray-400 rounded-md ml-3"
                         value={color}
                     >
-                        <option>Base Color</option>
+                        <option value='' disabled>Base Color</option>
                         {props?.color?.data?.map((value, index) => {
                             return (
-                                <option value={value.id} key={index}>
+                                <option value={value.id} key={value.id}>
                                     {value.name}
                                 </option>
                             );
@@ -265,6 +265,7 @@ export default function ModalEditProduct(props) {
                             }}
                             value={price}
                             type="number"
+                            min={0}
                         />
                     </div>
                     <div className="flex gap-3">
@@ -280,6 +281,7 @@ export default function ModalEditProduct(props) {
                                     setLength(e.target.value);
                                 }}
                                 value={length}
+                                min={0}
                             ></input>
                         </div>
                         <div>
@@ -294,6 +296,7 @@ export default function ModalEditProduct(props) {
                                     setWidth(e.target.value);
                                 }}
                                 value={width}
+                                min={0}
                             ></input>
                         </div>
                         <div>
@@ -308,6 +311,7 @@ export default function ModalEditProduct(props) {
                                     setHeight(e.target.value);
                                 }}
                                 value={height}
+                                min={0}
                             ></input>
                         </div>
                         <div>
@@ -322,6 +326,7 @@ export default function ModalEditProduct(props) {
                                     setWeight(e.target.value);
                                 }}
                                 value={weight}
+                                min={0}
                             ></input>
                         </div>
                     </div>

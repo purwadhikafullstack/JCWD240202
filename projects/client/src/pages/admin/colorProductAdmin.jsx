@@ -1,24 +1,25 @@
-import { useEffect, useState } from 'react';
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
-import ComListCategory from '../../components/admin/product/comListCategory';
+import ComListColor from '../../components/admin/product/comListColor';
 import ProductTabs from '../../components/admin/product/productTabs';
-import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import ModalAddCategory from '../../components/admin/product/modalAddCategory';
-import ModalEditCategory from '../../components/admin/product/modalEditCategory';
-import ModalDeleteCategory from '../../components/admin/product/modalDeleteCategory';
+import { getAllColorAsync } from '../../redux/features/homepageSlice';
+import ModalAddColor from '../../components/admin/product/modalAddColor';
+import ModalDeleteColor from '../../components/admin/product/modalDeleteColor';
 import { Toaster } from 'react-hot-toast';
 
-export default function CategoryProductAdmin() {
+
+
+export default function ColorProductAdmin() {
     const dispatch = useDispatch();
     const [openModalAdd, setOpenModalAdd] = useState(false);
-    const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [dataDetail, setDataDetail] = useState();
 
     useEffect(() => {
-        dispatch(getAllCategoriesAsync());
+        dispatch(getAllColorAsync())
     }, []);
+
     return (
         <>
             <Toaster/>
@@ -27,7 +28,7 @@ export default function CategoryProductAdmin() {
                     <SideBarAdmin />
                     <div className="p-8 w-full">
                         <div className="font-bold text-2xl mt-2">
-                            <h1>CATEGORY PRODUCTS</h1>
+                            <h1>BASE COLOR PRODUCTS</h1>
                         </div>
                         <ProductTabs />
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
@@ -40,7 +41,7 @@ export default function CategoryProductAdmin() {
                                     onClick={() => setOpenModalAdd(true)}
                                     className="text-white text-[10px] border p-2 rounded-lg bg-[#0051BA] hover:bg-gray-400 font-bold focus:ring-2 focus:ring-main-500 w-22 md:mt-0"
                                 >
-                                    + ADD NEW CATEGORY
+                                    + ADD NEW COLOR
                                 </button>
                                 {/* <SearchBar data={{ searchChange }} /> */}
                             </div>
@@ -52,26 +53,28 @@ export default function CategoryProductAdmin() {
                                                 scope="col"
                                                 className="px- py-3 border-r text-center w-[100px]"
                                             >
-                                                Image
+                                                
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px- py-3 border-r text-center"
+                                                className="px- py-3 border-r text-center w-[350px]"
                                             >
                                                 name
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px- py-3 text-center"
+                                                className="px- py-3 text-center w-[350px]"
+                                            >color code</th>
+                                            <th
+                                                scope="col"
+                                                className="px- py-3 text-center w-[100px]"
                                             ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <ComListCategory
-                                            funcShow={setOpenModalEdit}
-                                            funcData={setDataDetail}
-                                            modalDelete={setOpenModalDelete}
-                                        />
+                                        <ComListColor
+                                        funcData={setDataDetail}
+                                        modalDelete={setOpenModalDelete}/>
                                     </tbody>
                                 </table>
                                 <div className="pt-9 flex justify-center">
@@ -86,22 +89,16 @@ export default function CategoryProductAdmin() {
                             </div>
                         </div>
                     </div>
-                    <ModalAddCategory
-                        show={openModalAdd}
-                        funcShow={setOpenModalAdd}
+                    <ModalAddColor
+                    show={openModalAdd}
+                    funcShow={setOpenModalAdd}
                     />
-                    <ModalEditCategory
-                        show={openModalEdit}
-                        funcShow={setOpenModalEdit}
-                        data={dataDetail}
-                    />
-                    <ModalDeleteCategory
+                    <ModalDeleteColor
                         show={openModalDelete}
                         funcShow={setOpenModalDelete}
-                        data={dataDetail}
-                    />
+                        data={dataDetail}/>
                 </div>
             </div>
         </>
-    );
+    )
 }

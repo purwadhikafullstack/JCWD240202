@@ -16,6 +16,7 @@ const stockController = require('./stockController');
 const checkoutCartController = require('./checkoutCartController');
 const mutationController = require('./mutationController');
 const orderController = require('./orderController');
+const stockHistoryController = require('./stockHistoryController');
 const reportController = require('./reportController');
 
 module.exports = {
@@ -37,5 +38,6 @@ module.exports = {
     checkoutCartController,
     mutationController,
     orderController,
+    stockHistoryController,
     reportController,
 };

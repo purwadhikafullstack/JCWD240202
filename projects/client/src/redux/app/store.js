@@ -16,6 +16,7 @@ import shippingReducer from '../features/shippingSlice';
 import checkoutReducer from '../features/checkoutSlice';
 import mutationReducer from '../features/mutationSlice';
 import orderReducer from '../features/orderSlice';
+import stockHistoryReducer from '../features/stockHistorySlice';
 import reportReducer from '../features/reportSlice';
 
 export const store = configureStore({
@@ -37,6 +38,7 @@ export const store = configureStore({
         checkout: checkoutReducer,
         mutation: mutationReducer,
         order: orderReducer,
+        stockHistory: stockHistoryReducer,
         report: reportReducer,
     },
     middleware: (getDefaultMiddleware) =>
