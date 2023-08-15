@@ -14,6 +14,7 @@ import ModalEditProduct from '../../components/admin/product/modalEditProduct';
 import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import { getAllColorAsync } from '../../redux/features/homepageSlice';
 import ModalDeleteProduct from '../../components/admin/product/modalDeleteProduct';
+import { Toaster } from 'react-hot-toast';
 
 export default function ProductAdmin() {
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export default function ProductAdmin() {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
-    const [dataDetail, setDataDetail] = useState();
+    const [dataDetail, setDataDetail] = useState('');
 
     const defaultValue = () => {
         if (isSuccess) {
@@ -94,6 +95,7 @@ export default function ProductAdmin() {
 
     return (
         <>
+            <Toaster/>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
@@ -105,9 +107,9 @@ export default function ProductAdmin() {
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex justify-between items-center w-full mb-4">
                                 <div className="flex gap-2 items-center">
+                                <SearchBar data={{ searchChange }} />
                                     <FilterButton data={{ categoryChange }} />
                                     <SortButton data={{ sortChange }} />
-                                <SearchBar data={{ searchChange }} />
                                 </div>
                                 <button
                                     onClick={() => setOpenModal(true)}
@@ -122,7 +124,7 @@ export default function ProductAdmin() {
                                         <tr>
                                             <th
                                                 scope="col"
-                                                className="px- py-3 border-r text-center w-[100px]"
+                                                className="px- py-3 border-r text-center w-[150px]"
                                             >
                                                 Image
                                             </th>

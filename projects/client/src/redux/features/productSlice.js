@@ -28,8 +28,6 @@ export const productSlice = createSlice({
     },
 });
 
-const dataLogin = JSON.parse(localStorage?.getItem('user'));
-
 export const getAllProductsAsync = (data) => async (dispatch) => {
     try {
         const allProducts = await axios.get(
@@ -77,7 +75,7 @@ export const productRecommenadationAsync = (id) => async (dispatch) => {
 
 export const addProductAsync = (data, imageProduct) => async (dispatch) => {
     try {
-        console.log(imageProduct);
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
         if (
             !data.name ||
             !data.category_id ||
@@ -162,21 +160,9 @@ export const addProductAsync = (data, imageProduct) => async (dispatch) => {
     }
 };
 
-export const editProductAsync =
-    (
-        name,
-        category_id,
-        color_id,
-        price,
-        description,
-        length,
-        width,
-        height,
-        weight,
-        id,
-    ) =>
-    async (dispatch) => {
+export const editProductAsync = ( name, category_id, color_id, price, description, length, width, height, weight, id, ) => async (dispatch) => {
         try {
+            const dataLogin = JSON.parse(localStorage?.getItem('user'));
             if (
                 !name ||
                 !category_id ||
@@ -211,7 +197,7 @@ export const editProductAsync =
             );
 
             dispatch(getAllProductsAsync());
-            dispatch(productDetailsAsync(id));
+            // dispatch(productDetailsAsync(id));
 
             toast.success(result.data.message, {
                 position: 'top-center',
@@ -255,6 +241,7 @@ export const editProductAsync =
 
 export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
     try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
         let fd = new FormData();
         imageProduct.forEach((value) => {
             fd.append('images', value);
@@ -312,8 +299,10 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
 
 export const deleteProductAsync = (id) => async (dispatch) => {
     try {
-        const result = await axios.delete(
-            process.env.REACT_APP_API_BASE_URL + `/products/${id}`,
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        const result = await axios.patch(
+            process.env.REACT_APP_API_BASE_URL + `/products/${id}/delete`,
+            {},
             {
                 headers: {
                     authorization: `Bearer ${dataLogin}`,
@@ -321,40 +310,24 @@ export const deleteProductAsync = (id) => async (dispatch) => {
             },
         );
 
-        if (result) {
             dispatch(getAllProductsAsync());
             toast.success(result.data.message, {
                 position: 'top-center',
                 duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
+                style: { border: '2px solid #000', borderRadius: '10px', background: '#0051BA', color: 'white', },
             });
-        }
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
                 position: 'top-center',
                 duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#DC2626',
-                    color: 'white',
-                },
+                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',},
             });
         } else {
             toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#DC2626',
-                    color: 'white',
+                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',
                 },
             });
         }

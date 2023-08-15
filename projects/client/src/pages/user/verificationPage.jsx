@@ -2,7 +2,7 @@
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link, useParams, Navigate } from 'react-router-dom';
+import { useNavigate, useParams, Navigate, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { verification } from '../../redux/features/authSlice';
 
@@ -46,11 +46,14 @@ export default function VerificationPage() {
             }, 3000);
         }
     };
-
+    console.log(token, 'ini tokennnn')
     useEffect(() => {
         defaultValue();
     }, [isVerif]);
-
+    
+    // const { pathname } = useLocation();
+    // console.log((pathname.split('/verification/'))[1])
+    
     if (userLogin) {
         return <Navigate to="/" />;
     }
@@ -206,14 +209,14 @@ export default function VerificationPage() {
                                 !strongPassword
                             }
                         >
-                            Login
+                            Confirm
                         </button>
-                        <Link
+                        {/* <Link
                             to="/register"
                             className="text-[#0258a3] text-center my-5 text-[15px] hover:text-black cursor-pointer"
                         >
                             Register a new account
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </div>

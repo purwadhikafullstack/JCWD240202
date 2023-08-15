@@ -63,7 +63,7 @@ module.exports = {
                 if (warehouse) {
                     const whId = await warehouses.findOne({
                         where: {
-                            city: warehouse,
+                            city: warehouse.replace(/%/g, ' '),
                         },
                     });
                     if (!whId)

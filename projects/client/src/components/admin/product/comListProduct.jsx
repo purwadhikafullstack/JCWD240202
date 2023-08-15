@@ -14,14 +14,14 @@ export default function ComListProduct(props) {
                         scope="row"
                         className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
                     >
-                        <td className="flex justify-center items-center border-r">
+                        <td className="flex justify-center items-center w-[150px]">
                             <img
                                 alt="img"
-                                className="object-contain w-[100px]"
+                                className="object-contain w-[150px] h-[100px]"
                                 src={value.product_images[0].name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value.product_images[0].name : value.product_images[0].name}
                             />
                         </td>
-                        <td className="px-3 font-medium w-[250px] text-gray-900 dark:text-white border-r">
+                        <td className="px-3 font-medium w-[250px] text-gray-900 dark:text-white border-x">
                             {value.name}
                         </td>
                         <td className="px-3 border-r w-[150px] text-ellipsis overflow-hidden">
@@ -57,7 +57,7 @@ export default function ComListProduct(props) {
                                         props.funcData(value);
                                         dispatch(productDetailsAsync(value.id))
                                     }}
-                                    className="flex justify-center text-[22px] pl-1 text-blue-600 dark:text-blue-500 hover:underline"
+                                    className="flex justify-center text-[20px] pl-1 text-blue-600 dark:text-blue-500 hover:underline"
                                 >
                                     <FaRegEdit />
                                 </button>

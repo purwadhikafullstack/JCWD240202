@@ -9,7 +9,6 @@ import { addCategoryAsync } from '../../../redux/features/categorySlice';
 
 export default function ModalAddCategory(props) {
     const isSuccess = useSelector((state) => state.category.success);
-    console.log(isSuccess);
     const dispatch = useDispatch();
     // const documentBodyRef = useRef(null);
     const [imageCategory, setImageCategory] = useState([]);
@@ -113,7 +112,7 @@ export default function ModalAddCategory(props) {
                             })
                         ) : (
                             <img
-                                src="https://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Tkm2I2eZS-dnuXspUUvm8WiB07J0XE8f4A&usqp=CAU"
                                 alt="image-preview"
                                 className="border object-contain border-slate-400 w-[150px] rounded-md"
                             />

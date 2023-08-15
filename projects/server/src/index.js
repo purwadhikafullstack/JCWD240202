@@ -51,7 +51,7 @@ app.use('/api/carts', cartRouter);
 app.use('/api/auth/admins', adminAuthRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/warehouses', warehouseRouter);
-app.use('/api/color', colorRouter);
+app.use('/api/colors', colorRouter);
 app.use('/api/transactions', transactionRouter);
 app.use('/api/status', statusRouter);
 app.use('/api/orders', orderRouter);
