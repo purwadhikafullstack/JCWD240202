@@ -13,11 +13,14 @@ export default function ModalTransactionDetail(props) {
                     <div className="text-2xl">Transaction Detail</div>
                 </Modal.Header>
                 <Modal.Body>
-                    <DataDetail data={props?.data?.transaction} detailId={props?.data?.detailId } />
+                    <DataDetail
+                        data={props?.data?.transaction}
+                        detailId={props?.data?.detailId}
+                    />
                 </Modal.Body>
                 {/* <Modal.Footer>
                 </Modal.Footer> */}
             </Modal>
         </>
-    )
+    );
 }

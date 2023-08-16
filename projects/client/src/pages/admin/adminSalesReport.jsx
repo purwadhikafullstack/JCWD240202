@@ -49,7 +49,7 @@ export default function AdminSalesReport() {
 
                         <FilterMonth state={{ setMonth, setYear }} />
                     </div>
-                    <div className="flex justify-evenly pt-9">
+                    <div className="flex justify-between pt-9 gap-4">
                         <TotalSalesMonthly
                             data={{ month, year, warehouseId }}
                         />

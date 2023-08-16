@@ -16,13 +16,13 @@ const getAllSales = async (req, res) => {
         if (user.role_id === 3) {
             if (!warehouse_id) {
                 const sumSales = await sequelize.query(
-                    `SELECT SUM(orders.total) AS total_sales FROM orders
+                    `SELECT SUM(orders.total_cart_price) AS total_sales FROM orders
                         JOIN order_statuses ON orders.id = order_statuses.order_id
                         WHERE MONTH(orders.createdAt) = ${month} AND YEAR(orders.createdAt) = ${year}
                         AND order_statuses.status_id = 5`,
                 );
                 const salesPrevMonth = await sequelize.query(
-                    `SELECT SUM(orders.total) AS total_sales FROM orders
+                    `SELECT SUM(orders.total_cart_price) AS total_sales FROM orders
                         JOIN order_statuses ON orders.id = order_statuses.order_id
                         WHERE MONTH(orders.createdAt) = ${
                             month === 1 ? (month = 12) : month - 1
@@ -41,13 +41,13 @@ const getAllSales = async (req, res) => {
                 });
             } else if (warehouse_id) {
                 const sumSales = await sequelize.query(
-                    `SELECT SUM(orders.total) AS total_sales FROM orders
+                    `SELECT SUM(orders.total_cart_price) AS total_sales FROM orders
                         JOIN order_statuses ON orders.id = order_statuses.order_id
                         WHERE MONTH(orders.createdAt) = ${month} AND YEAR(orders.createdAt) = ${year} AND orders.warehouse_id = ${warehouse_id}
                         AND order_statuses.status_id = 5`,
                 );
                 const salesPrevMonth = await sequelize.query(
-                    `SELECT SUM(orders.total) AS total_sales FROM orders
+                    `SELECT SUM(orders.total_cart_price) AS total_sales FROM orders
                         JOIN order_statuses ON orders.id = order_statuses.order_id
                         WHERE MONTH(orders.createdAt) = ${
                             month === 1 ? (month = 12) : month - 1

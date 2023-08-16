@@ -57,7 +57,8 @@ export default function Navbar() {
         '/admins/mutation-management',
         '/admins/stock-history',
         '/admins/stock-log',
-        '/admins/transactions'
+        '/admins/transactions',
+        '/admins/sales-report',
     ];
 
     if (path.includes(pathname)) {
