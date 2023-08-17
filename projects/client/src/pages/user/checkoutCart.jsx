@@ -267,9 +267,9 @@ export default function CheckoutCart() {
                         </div>
                         {userCart?.data?.rows?.map((value, index) => {
                             return (
-                                <>
+                                <div key={index}>
                                     {value?.product?.total_stock !== 0 ? (
-                                        <div key={index} className="border-y">
+                                        <div className="border-y">
                                             <CartLists data={{ value }} />
                                         </div>
                                     ) : (
@@ -277,7 +277,7 @@ export default function CheckoutCart() {
                                             id: value?.product?.id,
                                         })
                                     )}
-                                </>
+                                </div>
                             );
                         })}
                     </div>

@@ -1,13 +1,48 @@
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { FcLike } from 'react-icons/fc';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { userAddToCartAsync } from '../../../redux/features/cartSlice';
+import {
+    addWishlistsAsync,
+    removeWishlistAsync,
+} from '../../../redux/features/wishlistSlice';
+import { useSelector } from 'react-redux';
 
 export default function ProductsCard(props) {
     const dispatch = useDispatch();
+    const wishlistProducts = useSelector((state) => state.wishlist.wishlistIds);
 
     return (
         <div className="w-[400px] h-[550px] border flex flex-col p-2 relative shadow-lg mt-9">
+            {wishlistProducts.includes(props?.data?.value?.id) === true ? (
+                <div
+                    onClick={() =>
+                        dispatch(
+                            removeWishlistAsync({
+                                product_id: props?.data?.value?.id,
+                            }),
+                        )
+                    }
+                    className="absolute left-5 top-5 hover:cursor-pointer"
+                >
+                    <FcLike size={30} />
+                </div>
+            ) : (
+                <div
+                    onClick={() =>
+                        dispatch(
+                            addWishlistsAsync({
+                                product_id: props?.data?.value?.id,
+                            }),
+                        )
+                    }
+                    className="absolute left-5 top-5 hover:cursor-pointer"
+                >
+                    <AiOutlineHeart size={30} />
+                </div>
+            )}
             <Link to={`/products/${props?.data?.value?.id}`}>
                 <div className="flex justify-center">
                     <img

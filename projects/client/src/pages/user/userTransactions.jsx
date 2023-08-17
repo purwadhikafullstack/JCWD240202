@@ -74,13 +74,13 @@ export default function UserTransactions() {
     return (
         <>
             <Toaster />
-            <div className="flex justify-center gap-2">
-                <div className="py-[80px]">
+            <div className="flex">
+                <div className="flex-2 py-[80px] ml-[200px]">
                     <UserSidebar />
                 </div>
-                <div className="p-[80px] flex flex-col items-center">
+                <div className="flex-1 p-[80px] flex flex-col items-center mr-[100px]">
                     <div className="w-full">
-                        <div className="font-bold text-2xl">
+                        <div className="font-bold text-3xl">
                             Transaction History
                         </div>
                     </div>
