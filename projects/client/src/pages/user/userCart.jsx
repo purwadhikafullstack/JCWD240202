@@ -33,7 +33,15 @@ export default function UserCart() {
                 </div>
                 {userCart?.data === null ? (
                     <div className="pt-9 flex justify-center font-bold">
-                        Cart is Empty
+                        <div className="flex flex-col items-center gap-4">
+                            <div>Cart is Empty</div>
+                            <Button
+                                onClick={() => navigate('/products')}
+                                color={'light'}
+                            >
+                                Browse Products Here
+                            </Button>
+                        </div>
                     </div>
                 ) : (
                     <div>
