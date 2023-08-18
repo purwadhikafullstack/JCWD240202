@@ -42,8 +42,10 @@ export default function Navbar() {
     };
 
     useEffect(() => {
-        dispatch(getUserCartAsync());
-        dispatch(getUserWishlists());
+        if (userLogin) {
+            dispatch(getUserCartAsync());
+            dispatch(getUserWishlists());
+        }
     }, [userLogin]);
 
     const { pathname } = useLocation();
@@ -129,36 +131,38 @@ export default function Navbar() {
                             </div>
                         </Link>
                     )}
-                    <Link to={'/users/wishlists'}>
-                        <div className="flex items-center">
-                            <AiOutlineHeart size={25} />
 
-                            {wishlistCount?.data?.wishlists.length > 0 ? (
-                                <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
-                                    {wishlistCount?.totalProducts}
-                                </div>
-                            ) : (
-                                ''
-                            )}
-                        </div>
-                    </Link>
                     {userLogin ? (
-                        <Link to="/cart">
-                            <div className="flex items-center">
-                                <AiOutlineShoppingCart size={25} />
-                                {userCartCount?.data?.count > 0 ? (
-                                    <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
-                                        {userCartCount?.data?.count}
-                                    </div>
-                                ) : (
-                                    ''
-                                )}
-                            </div>
-                        </Link>
+                        <>
+                            <Link to={'/users/wishlists'}>
+                                <div className="flex items-center">
+                                    <AiOutlineHeart size={25} />
+
+                                    {wishlistCount?.data?.wishlists.length >
+                                    0 ? (
+                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                            {wishlistCount?.totalProducts}
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </Link>
+                            <Link to="/cart">
+                                <div className="flex items-center">
+                                    <AiOutlineShoppingCart size={25} />
+                                    {userCartCount?.data?.count > 0 ? (
+                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                            {userCartCount?.data?.count}
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </Link>
+                        </>
                     ) : (
-                        <div>
-                            <AiOutlineShoppingCart size={25} />
-                        </div>
+                        ''
                     )}
                 </div>
                 <Modal

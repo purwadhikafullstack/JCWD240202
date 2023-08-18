@@ -28,6 +28,9 @@ export default function ProductDetails() {
     );
     const [quantity, setQuantity] = useState(1);
     const wishlistCheck = useSelector((state) => state.wishlist.wishlistIds);
+    const userLogin = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
 
     const addQuantity = () => {
         if (quantity === proDetails?.data?.findProduct?.total_stock) {
@@ -51,7 +54,6 @@ export default function ProductDetails() {
     }, []);
     return (
         <div className="divide-y mb-16">
-            {console.log(wishlistCheck)}
             <Toaster />
             <div className="flex px-[200px] justify-evenly gap-14 pt-9">
                 <div className="flex-1">
@@ -123,7 +125,78 @@ export default function ProductDetails() {
                                         </div>
                                     </Button>
                                 </div>
-                                {wishlistCheck.includes(
+                                {userLogin ? (
+                                    wishlistCheck.includes(
+                                        proDetails?.data?.findProduct?.id,
+                                    ) ? (
+                                        <div
+                                            onClick={() =>
+                                                dispatch(
+                                                    removeWishlistAsync({
+                                                        product_id:
+                                                            proDetails?.data
+                                                                ?.findProduct
+                                                                ?.id,
+                                                    }),
+                                                )
+                                            }
+                                            className="flex-2"
+                                        >
+                                            <FcLike
+                                                size={60}
+                                                className="rounded-full border p-4 hover:cursor-pointer"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div
+                                            onClick={() =>
+                                                dispatch(
+                                                    addWishlistsAsync({
+                                                        product_id:
+                                                            proDetails?.data
+                                                                ?.findProduct
+                                                                ?.id,
+                                                    }),
+                                                )
+                                            }
+                                            className="flex-2"
+                                        >
+                                            <AiOutlineHeart
+                                                size={60}
+                                                className="rounded-full border p-4 hover:cursor-pointer"
+                                            />
+                                        </div>
+                                    )
+                                ) : (
+                                    <div className="flex-2">
+                                        <AiOutlineHeart
+                                            size={60}
+                                            className="rounded-full border p-4 hover:cursor-pointer"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    ) : (
+                        <div className="mt-9 flex items-center gap-9">
+                            <div className="flex-1">
+                                <Button
+                                    pill
+                                    className="w-full p-4 bg-sky-700 text-yellow-200"
+                                    onClick={() => {
+                                        dispatch(
+                                            userAddToCartAsync({
+                                                product_id: Number(id),
+                                                quantity: quantity,
+                                            }),
+                                        );
+                                    }}
+                                >
+                                    <div className="text-xl">Add to Cart</div>
+                                </Button>
+                            </div>
+                            {userLogin ? (
+                                wishlistCheck.includes(
                                     proDetails?.data?.findProduct?.id,
                                 ) ? (
                                     <div
@@ -161,58 +234,14 @@ export default function ProductDetails() {
                                             className="rounded-full border p-4 hover:cursor-pointer"
                                         />
                                     </div>
-                                )}
-                            </div>
-                        </>
-                    ) : (
-                        <div className="mt-9 flex items-center gap-9">
-                            <div className="flex-1">
-                                <Button
-                                    pill
-                                    className="w-full p-4 bg-sky-700 text-yellow-200"
-                                    onClick={() => {
-                                        dispatch(
-                                            userAddToCartAsync({
-                                                product_id: Number(id),
-                                                quantity: quantity,
-                                            }),
-                                        );
-                                    }}
-                                >
-                                    <div className="text-xl">Add to Cart</div>
-                                </Button>
-                            </div>
-                            {wishlistCheck.includes(
-                                proDetails?.data?.findProduct?.id,
-                            ) ? (
-                                <div
-                                    onClick={() =>
-                                        dispatch(
-                                            removeWishlistAsync({
-                                                product_id:
-                                                    proDetails?.data
-                                                        ?.findProduct?.id,
-                                            }),
-                                        )
-                                    }
-                                    className="flex-2"
-                                >
-                                    <FcLike
-                                        size={60}
-                                        className="rounded-full border p-4 hover:cursor-pointer"
-                                    />
-                                </div>
+                                )
                             ) : (
                                 <div
-                                    onClick={() =>
-                                        dispatch(
-                                            addWishlistsAsync({
-                                                product_id:
-                                                    proDetails?.data
-                                                        ?.findProduct?.id,
-                                            }),
-                                        )
-                                    }
+                                    onClick={() => {
+                                        toast.error(
+                                            'Please Login/Register First',
+                                        );
+                                    }}
                                     className="flex-2"
                                 >
                                     <AiOutlineHeart
