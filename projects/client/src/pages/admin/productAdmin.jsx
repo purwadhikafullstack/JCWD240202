@@ -108,8 +108,8 @@ export default function ProductAdmin() {
                             <div className="flex justify-between items-center w-full mb-4">
                                 <div className="flex gap-2 items-center">
                                 <SearchBar data={{ searchChange }} />
-                                    <FilterButton data={{ categoryChange }} />
-                                    <SortButton data={{ sortChange }} />
+                                    <FilterButton data={{ categoryChange, category }} />
+                                    <SortButton data={{ sortChange, sort }} />
                                 </div>
                                 <button
                                     onClick={() => setOpenModal(true)}
