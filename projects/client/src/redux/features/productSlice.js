@@ -93,7 +93,7 @@ export const addProductAsync = (data, imageProduct) => async (dispatch) => {
         fd.append(
             'data',
             JSON.stringify({
-                name: data.name,
+                name: data.name.toUpperCase(),
                 category_id: data.category_id,
                 color_id: data.color_id,
                 price: data.price,
@@ -179,7 +179,7 @@ export const editProductAsync = ( name, category_id, color_id, price, descriptio
             const result = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL + `/products/${id}`,
                 {
-                    name,
+                    name: name.toUpperCase(),
                     category_id,
                     color_id,
                     price,
@@ -197,7 +197,6 @@ export const editProductAsync = ( name, category_id, color_id, price, descriptio
             );
 
             dispatch(getAllProductsAsync());
-            // dispatch(productDetailsAsync(id));
 
             toast.success(result.data.message, {
                 position: 'top-center',
@@ -333,6 +332,43 @@ export const deleteProductAsync = (id) => async (dispatch) => {
         }
     }
 };
+
+export const thumbnailAsync = (pId, piId) => async (dispatch) => {
+    try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        const result = await axios.patch(
+            process.env.REACT_APP_API_BASE_URL + `/products/thumbnail/${pId}/${piId}`,
+            {},
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        )
+        dispatch(getAllProductsAsync());
+        dispatch(productDetailsAsync(pId))
+        toast.success(result.data.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: { border: '2px solid #000', borderRadius: '10px', background: '#0051BA', color: 'white', },
+        });
+    } catch (error) {
+        if (error.response) {
+            toast.error(error.response?.data?.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',},
+            });
+        } else {
+            toast.error(error.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',
+                },
+            });
+        }
+    }
+}
 
 export const { setProducts, setDetails, setRecommendations, setSuccess } =
     productSlice.actions;

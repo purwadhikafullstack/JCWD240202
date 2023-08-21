@@ -432,7 +432,7 @@ module.exports = {
             const updateStockHistory = await db.stock_histories.bulkCreate(stockHistory, { transaction: t })
             const createStatus = await db.order_statuses.create({ status_id: 4, order_id, is_active: 1, expired: new Date(new Date().setDate(new Date().getDate() + 7)) }, { transaction: t })
             const expired = await sequelize.query(`
-            CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 2 MINUTE
+            CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 5 MINUTE
             DO BEGIN
             DECLARE status_check INT;
             SELECT status_id INTO status_check FROM order_statuses WHERE id = ${order_id} AND is_active = 1 LIMIT 1;
