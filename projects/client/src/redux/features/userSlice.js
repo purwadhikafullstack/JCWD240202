@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const initialState = {
     dataLogin: null,
@@ -29,7 +30,7 @@ export const getDataLogin = () => async (dispatch) => {
 
         dispatch(setDataLogin(dataUser?.data?.data));
     } catch (error) {
-        console.log(error.message);
+        toast.error(error.message);
     }
 };
 

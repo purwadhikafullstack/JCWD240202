@@ -3,13 +3,14 @@ import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Modal } from 'flowbite-react';
+import { Avatar, Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
 import { getUserWishlists } from '../../../redux/features/wishlistSlice';
+import { getDataLogin } from '../../../redux/features/userSlice';
 
 export default function Navbar(props) {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function Navbar(props) {
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const userCartCount = useSelector((state) => state.cart.cart);
     const wishlistCount = useSelector((state) => state.wishlist.wishlists);
+    const loginData = useSelector((state) => state.user.dataLogin);
 
     const logout = () => {
         try {
@@ -40,16 +42,17 @@ export default function Navbar(props) {
             toast.error(error.message);
         }
     };
-    
+
     useEffect(() => {
         if (userLogin) {
             dispatch(getUserCartAsync());
             dispatch(getUserWishlists());
+            dispatch(getDataLogin());
         }
     }, [userLogin]);
-    
+
     const { pathname } = useLocation();
-    
+
     const path = [
         '/admins/dashboard',
         '/admins/products',
@@ -63,12 +66,24 @@ export default function Navbar(props) {
         '/admins/sales-report',
     ];
 
-    if ((path.includes(pathname) && ((props.dataLogin === 2 || props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) || pathname === '/admins/login') {
+    if (
+        (path.includes(pathname) &&
+            (props.dataLogin === 2 ||
+                props.dataLogin === 3 ||
+                props.dataLogin === undefined) &&
+            userLogin) ||
+        pathname === '/admins/login'
+    ) {
         return null;
     }
 
-    if((pathname === '/admins/user-management' || pathname === '/admins/warehouse-management') && ((props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) {
-        return null
+    if (
+        (pathname === '/admins/user-management' ||
+            pathname === '/admins/warehouse-management') &&
+        (props.dataLogin === 3 || props.dataLogin === undefined) &&
+        userLogin
+    ) {
+        return null;
     }
 
     return (
@@ -78,10 +93,7 @@ export default function Navbar(props) {
                 {/* left side => logo */}
                 <div className="w-24">
                     <Link to={'/'}>
-                        <img
-                            src="/logo2.png"
-                            alt="company_logo"
-                        />
+                        <img src="/logo2.png" alt="company_logo" />
                     </Link>
                 </div>
                 {/* middle => pages */}
@@ -104,7 +116,16 @@ export default function Navbar(props) {
                                 tabIndex={0}
                                 className="btn bg-white border-none"
                             >
-                                <MdOutlineAccountCircle size={25} />
+                                <Avatar
+                                    img={
+                                        loginData
+                                            ? process.env
+                                                  .REACT_APP_API_IMAGE_URL +
+                                              `${loginData?.profile_picture}`
+                                            : ''
+                                    }
+                                    rounded
+                                />
                             </label>
                             <ul
                                 tabIndex={0}

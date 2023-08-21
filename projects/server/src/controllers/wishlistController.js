@@ -92,6 +92,33 @@ const getUserWishlist = async (req, res) => {
             distinct: true,
         });
 
+        const productWishlist = await users.findByPk(user_id, {
+            attributes: ['id'],
+            include: [
+                {
+                    model: wishlists,
+                    as: 'wishlists',
+                    include: [
+                        {
+                            model: products,
+                            include: [
+                                {
+                                    model: product_images,
+                                    where: { is_thumbnail: true },
+                                },
+                                {
+                                    model: colors,
+                                },
+                            ],
+                        },
+                    ],
+                    separate: true,
+                },
+            ],
+            order: [],
+            distinct: true,
+        });
+
         const countTotalWishlists = await wishlists.count({
             where: { user_id },
         });
@@ -104,6 +131,7 @@ const getUserWishlist = async (req, res) => {
             data: dataWishlist,
             totalPage,
             totalProducts: countTotalWishlists,
+            allProduct: productWishlist,
         });
     } catch (error) {
         console.log(error);

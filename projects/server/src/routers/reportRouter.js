@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const reportController = require('../controllers/reportController');
-const upload = require('./../middleware/upload');
 const { verifyToken, checkUserRole } = require('./../middleware/token');
 
 router.get('/sales', verifyToken, checkUserRole, reportController.getAllSales);

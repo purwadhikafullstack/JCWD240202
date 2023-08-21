@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { userConfirmOrderAsync } from '../../../redux/features/orderSlice';
+import {
+    setOrder,
+    userConfirmOrderAsync,
+} from '../../../redux/features/orderSlice';
 import ModalConfirmOrder from './modalConfirmOrder';
+import ModalCreateReview from '../review/modalCreateReview';
 
 export default function TransactionHistoryBox(props) {
     const dispatch = useDispatch();
@@ -12,6 +16,8 @@ export default function TransactionHistoryBox(props) {
         props?.data?.value?.order_statuses[0]?.expired,
     );
     const [countdown, setCountdown] = useState(parseExpiredDate - Date.now());
+    const [modalReview, setModalReview] = useState(false);
+    const [orderId, setOrderId] = useState(0);
 
     const handleConfirmOrder = () => {
         dispatch(userConfirmOrderAsync({ order_id: props?.data?.value?.id }));
@@ -27,9 +33,19 @@ export default function TransactionHistoryBox(props) {
     };
 
     useEffect(() => {
-        if (countdown <= 1000) {
+        if (
+            countdown <= 1000 &&
+            props?.data?.value?.order_statuses[
+                props?.data?.value?.order_statuses.length - 1
+            ]?.status_id === 1
+        ) {
             props?.state?.setExpiredTime(false);
-        } else {
+        } else if (
+            countdown > 1000 &&
+            props?.data?.value?.order_statuses[
+                props?.data?.value?.order_statuses.length - 1
+            ]?.status_id === 1
+        ) {
             const interval = setInterval(() => {
                 setCountdown((prevTime) =>
                     prevTime > 1000 ? prevTime - 1000 : 0,
@@ -38,7 +54,7 @@ export default function TransactionHistoryBox(props) {
                 return clearInterval(interval);
             }, 1000);
         }
-    }, [countdown]);
+    }, [countdown, orderId]);
 
     return (
         <>
@@ -227,6 +243,20 @@ export default function TransactionHistoryBox(props) {
                                 Confirm Delivery
                             </Button>
                         </div>
+                    ) : props?.data?.value?.order_statuses[
+                          props?.data?.value?.order_statuses.length - 1
+                      ]?.status_id === 5 ? (
+                        <div>
+                            <Button
+                                onClick={() => {
+                                    setOrderId(props?.data?.value?.id);
+                                    setModalReview(true);
+                                }}
+                                className="px-2 bg-yellow-200 text-sky-700 hover:cursor-pointer hover:bg-sky-700 hover:text-yellow-200"
+                            >
+                                Review Products
+                            </Button>
+                        </div>
                     ) : (
                         ''
                     )}
@@ -235,6 +265,13 @@ export default function TransactionHistoryBox(props) {
             <ModalConfirmOrder
                 state={{ modalConfirm, setModalConfirm }}
                 func={{ handleConfirmOrder }}
+            />
+            <ModalCreateReview
+                state={{ modalReview, setModalReview, setOrderId }}
+                data={{
+                    products: props?.data?.value?.cart?.cart_products,
+                    order_id: orderId,
+                }}
             />
         </>
     );
