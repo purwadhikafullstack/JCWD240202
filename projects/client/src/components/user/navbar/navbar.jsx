@@ -3,13 +3,14 @@ import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Modal } from 'flowbite-react';
+import { Avatar, Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
 import { getUserWishlists } from '../../../redux/features/wishlistSlice';
+import { getDataLogin } from '../../../redux/features/userSlice';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function Navbar() {
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const userCartCount = useSelector((state) => state.cart.cart);
     const wishlistCount = useSelector((state) => state.wishlist.wishlists);
+    const loginData = useSelector((state) => state.user.dataLogin);
 
     const logout = () => {
         try {
@@ -45,6 +47,7 @@ export default function Navbar() {
         if (userLogin) {
             dispatch(getUserCartAsync());
             dispatch(getUserWishlists());
+            dispatch(getDataLogin());
         }
     }, [userLogin]);
 
@@ -103,7 +106,16 @@ export default function Navbar() {
                                 tabIndex={0}
                                 className="btn bg-white border-none"
                             >
-                                <MdOutlineAccountCircle size={25} />
+                                <Avatar
+                                    img={
+                                        loginData
+                                            ? process.env
+                                                  .REACT_APP_API_IMAGE_URL +
+                                              `${loginData?.profile_picture}`
+                                            : ''
+                                    }
+                                    rounded
+                                />
                             </label>
                             <ul
                                 tabIndex={0}

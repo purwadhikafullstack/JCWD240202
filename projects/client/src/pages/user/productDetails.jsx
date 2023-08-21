@@ -6,7 +6,7 @@ import {
     productRecommenadationAsync,
 } from '../../redux/features/productSlice';
 import { Button } from 'flowbite-react';
-import { SlArrowRight } from 'react-icons/sl';
+import { SlArrowRight, SlArrowDown } from 'react-icons/sl';
 import CarouselDetails from '../../components/user/productDetails/carouselDetails';
 import ProductDescription from '../../components/user/productDetails/productDescription';
 import RelatedProducts from '../../components/user/productCard/recommendationCard';
@@ -18,6 +18,8 @@ import {
     addWishlistsAsync,
     removeWishlistAsync,
 } from '../../redux/features/wishlistSlice';
+import { getReviewsAsync } from '../../redux/features/reviewSlice';
+import ReviewLists from '../../components/user/productDetails/reviewLists';
 
 export default function ProductDetails() {
     const { id } = useParams();
@@ -27,7 +29,11 @@ export default function ProductDetails() {
         (state) => state.product.recommendations,
     );
     const [quantity, setQuantity] = useState(1);
+    const [rating, setRating] = useState('');
+    const [reviewSort, setReviewSort] = useState('');
+    const [openReview, setOpenReview] = useState(false);
     const wishlistCheck = useSelector((state) => state.wishlist.wishlistIds);
+    const reviewData = useSelector((state) => state.review.reviews);
     const userLogin = localStorage.getItem('user')
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
@@ -51,9 +57,17 @@ export default function ProductDetails() {
     useEffect(() => {
         dispatch(productDetailsAsync(id));
         dispatch(productRecommenadationAsync(id));
+        dispatch(
+            getReviewsAsync({
+                product_id: id,
+                rating,
+                sort: reviewSort,
+            }),
+        );
     }, []);
     return (
         <div className="divide-y mb-16">
+            {console.log('', reviewData)}
             <Toaster />
             <div className="flex px-[200px] justify-evenly gap-14 pt-9">
                 <div className="flex-1">
@@ -63,12 +77,38 @@ export default function ProductDetails() {
                         />
                     </div>
                     <div className="border-t border-b my-9">
-                        <div className="flex items-center justify-between py-9">
-                            <div className="text-lg font-bold">Reviews</div>
+                        <div
+                            onClick={() => setOpenReview(!openReview)}
+                            className="flex items-center justify-between py-9 hover:cursor-pointer"
+                        >
+                            <div className="text-lg font-bold">{`Reviews (${reviewData?.data?.count})`}</div>
                             <div>
-                                <SlArrowRight />
+                                {openReview === false ? (
+                                    <SlArrowRight />
+                                ) : (
+                                    <SlArrowDown />
+                                )}
                             </div>
                         </div>
+                        {openReview === false
+                            ? ''
+                            : reviewData?.data?.rows?.length === 0
+                            ? ''
+                            : reviewData?.data?.rows?.map((value, index) => {
+                                  return (
+                                      <ReviewLists
+                                          key={index}
+                                          data={{ value }}
+                                      />
+                                  );
+                              })}
+                        {reviewData?.data?.rows?.length <= 5 ? (
+                            ''
+                        ) : (
+                            <div className="py-4 flex justify-center border-t">
+                                <Button color={'light'}>See All Reviews</Button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="flex-2 w-[500px]">
@@ -126,7 +166,7 @@ export default function ProductDetails() {
                                     </Button>
                                 </div>
                                 {userLogin ? (
-                                    wishlistCheck.includes(
+                                    wishlistCheck?.includes(
                                         proDetails?.data?.findProduct?.id,
                                     ) ? (
                                         <div
@@ -196,7 +236,7 @@ export default function ProductDetails() {
                                 </Button>
                             </div>
                             {userLogin ? (
-                                wishlistCheck.includes(
+                                wishlistCheck?.includes(
                                     proDetails?.data?.findProduct?.id,
                                 ) ? (
                                     <div

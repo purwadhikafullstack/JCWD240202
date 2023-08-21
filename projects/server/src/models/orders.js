@@ -17,11 +17,14 @@ module.exports = (sequelize, DataTypes) => {
             });
             orders.hasMany(models.order_statuses, {
                 // as: 'latest_order_status',
-                foreignKey: "order_id",
-            })
+                foreignKey: 'order_id',
+            });
             orders.hasOne(models.stock_histories, {
-                foreignKey: 'order_id'
-            })
+                foreignKey: 'order_id',
+            });
+            orders.hasMany(models.reviews, {
+                foreignKey: 'order_id',
+            });
         }
     }
     orders.init(

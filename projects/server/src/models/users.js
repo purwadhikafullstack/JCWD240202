@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
             users.hasMany(models.wishlists, {
                 foreignKey: 'user_id',
             });
+            users.hasMany(models.reviews, {
+                foreignKey: 'user_id',
+            });
         }
     }
     users.init(

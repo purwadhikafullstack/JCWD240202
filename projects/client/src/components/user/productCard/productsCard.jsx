@@ -53,7 +53,6 @@ export default function ProductsCard(props) {
                 <div
                     onClick={() => {
                         toast.error('Please Login/Register First');
-                        navigate('/login');
                     }}
                     className="absolute left-5 top-5 hover:cursor-pointer"
                 >
@@ -104,7 +103,6 @@ export default function ProductsCard(props) {
                 <div
                     onClick={() => {
                         toast.error('Please Login/Register First');
-                        navigate('/login');
                     }}
                     className="absolute bottom-5 right-5 hover:cursor-pointer hover:border hover: rounded-full hover:p-4 hover:bg-sky-700 hover:text-yellow-200"
                 >
