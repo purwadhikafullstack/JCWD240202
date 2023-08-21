@@ -6,6 +6,7 @@ import { getUserCartAsync } from '../../redux/features/cartSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import ModalUnavailableItems from '../../components/user/cart/modalUnavailableItems';
 import { Button } from 'flowbite-react';
+import { Helmet } from 'react-helmet';
 
 export default function UserCart() {
     const dispatch = useDispatch();
@@ -27,7 +28,11 @@ export default function UserCart() {
     }, []);
     return (
         <>
-            <div className="px-[200px] mb-16">
+            <Helmet>
+                <title>IKEWA | Cart</title>
+                <meta name="description" content="cart" />
+            </Helmet>
+            <div className="px-[200px]">
                 <div className=" py-[50px] font-bold text-3xl border-b">
                     Your Shopping Cart
                 </div>

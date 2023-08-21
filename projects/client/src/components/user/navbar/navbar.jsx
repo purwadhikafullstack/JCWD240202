@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
 import { getUserWishlists } from '../../../redux/features/wishlistSlice';
 
-export default function Navbar() {
+export default function Navbar(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
@@ -51,13 +51,10 @@ export default function Navbar() {
     const { pathname } = useLocation();
     
     const path = [
-        '/admins/login',
         '/admins/dashboard',
         '/admins/products',
         '/admins/products/categories',
         '/admins/products/colors',
-        '/admins/user-management',
-        '/admins/warehouse-management',
         '/admins/stock-management',
         '/admins/mutation-management',
         '/admins/stock-history',
@@ -65,10 +62,14 @@ export default function Navbar() {
         '/admins/transactions',
         '/admins/sales-report',
     ];
-    
-    if (path.includes(pathname)) {
+
+    if ((path.includes(pathname) && ((props.dataLogin === 2 || props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) || pathname === '/admins/login') {
         return null;
-    } 
+    }
+
+    if((pathname === '/admins/user-management' || pathname === '/admins/warehouse-management') && ((props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) {
+        return null
+    }
 
     return (
         <>
@@ -78,7 +79,7 @@ export default function Navbar() {
                 <div className="w-24">
                     <Link to={'/'}>
                         <img
-                            src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
+                            src="/logo2.png"
                             alt="company_logo"
                         />
                     </Link>

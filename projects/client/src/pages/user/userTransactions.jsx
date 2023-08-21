@@ -14,6 +14,7 @@ import ModalCancelOrder from '../../components/user/transactions/modalCancelOrde
 import { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import InvoiceSearch from '../../components/user/transactions/invoiceSearch';
+import { Helmet } from 'react-helmet';
 
 export default function UserTransactions() {
     const dispatch = useDispatch();
@@ -74,6 +75,10 @@ export default function UserTransactions() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Transactions</title>
+                <meta name="description" content="transactions" />
+            </Helmet>
             <div className="flex">
                 <div className="flex-2 py-[80px] ml-[200px]">
                     <UserSidebar />

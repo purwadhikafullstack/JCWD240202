@@ -31,11 +31,18 @@ export default function EditModal({ showModal, selected }) {
     const [open, setOpen] = useState(false);
     const token = JSON.parse(localStorage?.getItem('user'));
 
-    console.log(selected);
-
     useEffect(() => {
         getDataProvinces();
         getDataCities();
+        setInputEditReceiverName(selected?.receiver_name);
+        setInputEditReceiverNumber(selected?.receiver_number);
+        setInputEditFullAddress(selected?.street);
+        setInputEditProvince(selected?.province);
+        setInputEditProvinceId(selected?.province_id);
+        setInputEditCity(selected?.city);
+        setInputEditCityId(selected?.city_id);
+        setInputEditSubDistrict(selected?.subdistrict);
+        setInputEditPostalCode(selected?.postcode);
         documentBodyRef.current = document.body;
     }, []);
 
@@ -78,9 +85,15 @@ export default function EditModal({ showModal, selected }) {
         try {
             setDisabled(true);
             setOpen(true);
-            if (inputEditReceiverNumber.match(/[a-zA-Z]/)) {
+            if (
+                inputEditReceiverNumber.match(/[a-zA-Z]/) ||
+                inputEditReceiverNumber.length < 12
+            ) {
                 throw { message: 'Invalid phone number!' };
-            } else if (inputEditPostalCode.match(/[a-zA-Z]/)) {
+            } else if (
+                inputEditPostalCode.toString().match(/[a-zA-Z]/) ||
+                inputEditPostalCode.toString().length < 5
+            ) {
                 throw { message: 'Invalid postal code!' };
             } else {
                 const editAddress = await axios.patch(
@@ -104,7 +117,7 @@ export default function EditModal({ showModal, selected }) {
                     },
                 );
                 if (editAddress.data.success) {
-                    toast.success('Create new address success!', {
+                    toast.success('Edit address success!', {
                         position: 'top-center',
                         duration: 2000,
                         style: {
@@ -165,7 +178,7 @@ export default function EditModal({ showModal, selected }) {
                             </span>
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
-                                placeholder={selected.receiver_name}
+                                // placeholder={selected.receiver_name}
                                 name="receiver_name"
                                 onChange={(e) => {
                                     setInputEditReceiverName(e.target.value);
@@ -181,10 +194,12 @@ export default function EditModal({ showModal, selected }) {
                             </span>
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
-                                placeholder={selected.receiver_number}
+                                // placeholder={selected.receiver_number}
                                 name="receiver_number"
                                 onChange={(e) => {
-                                    setInputEditReceiverNumber(e.target.value);
+                                    setInputEditReceiverNumber(
+                                        e.target.value.replace(/[^0-9]/g, ''),
+                                    );
                                 }}
                                 value={inputEditReceiverNumber}
                                 type="tel"
@@ -199,7 +214,7 @@ export default function EditModal({ showModal, selected }) {
                             <textarea
                                 maxLength={200}
                                 type="text"
-                                placeholder={selected.street}
+                                // placeholder={selected.street}
                                 className="resize-none border border-gray-400 w-[300px] rounded-md px-2 h-24 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="street"
                                 onChange={(e) => {
@@ -244,7 +259,7 @@ export default function EditModal({ showModal, selected }) {
                                 name="province"
                             >
                                 <option value="" className="w-1/2">
-                                    Select Province
+                                    {selected?.province}
                                 </option>
                                 {dataProvinces.map((value, index) => {
                                     return (
@@ -280,7 +295,7 @@ export default function EditModal({ showModal, selected }) {
                                 }}
                             >
                                 <option value="" className="w-1/2">
-                                    Select City
+                                    {selected?.city}
                                 </option>
                                 {filterCities.map((value, index) => {
                                     return (
@@ -302,7 +317,7 @@ export default function EditModal({ showModal, selected }) {
                             <input
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="subdistrict"
-                                placeholder={selected.subdistrict}
+                                // placeholder={selected.subdistrict}
                                 onChange={(e) =>
                                     setInputEditSubDistrict(e.target.value)
                                 }
@@ -315,11 +330,14 @@ export default function EditModal({ showModal, selected }) {
                                 <span className="text-red-600">*</span>
                             </span>
                             <input
+                                type="tel"
                                 className="border border-gray-400 w-[300px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:cursor-not-allowed w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                 name="postcode"
-                                placeholder={selected.postcode}
+                                // placeholder={selected.postcode}
                                 onChange={(e) =>
-                                    setInputEditPostalCode(e.target.value)
+                                    setInputEditPostalCode(
+                                        e.target.value.replace(/[^0-9]/g, ''),
+                                    )
                                 }
                                 value={inputEditPostalCode}
                                 maxLength="5"

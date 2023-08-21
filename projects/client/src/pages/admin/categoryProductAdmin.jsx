@@ -8,6 +8,7 @@ import ModalAddCategory from '../../components/admin/product/modalAddCategory';
 import ModalEditCategory from '../../components/admin/product/modalEditCategory';
 import ModalDeleteCategory from '../../components/admin/product/modalDeleteCategory';
 import { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function CategoryProductAdmin() {
     const dispatch = useDispatch();
@@ -21,7 +22,11 @@ export default function CategoryProductAdmin() {
     }, []);
     return (
         <>
-            <Toaster/>
+            <Toaster />
+            <Helmet>
+                <title>IKEWA | Admin Category Products</title>
+                <meta name="description" content="admin-category-product" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />

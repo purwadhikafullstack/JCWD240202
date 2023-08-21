@@ -165,7 +165,166 @@ module.exports = {
         const t = await sequelize.transaction();
         try {
             const { warehouse_id } = req.params;
+            const { id } = req.User;
 
+            const findWh = await warehouse.findOne({
+                where: {
+                    id: warehouse_id,
+                },
+            });
+
+            if (!findWh) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Warehouse Not Found!',
+                    data: null,
+                });
+            }
+
+            var product_id = [];
+            var stockDeletedWh = [];
+
+            // Cari stock product wh yang akan didelete
+            const findStock = await db.product_stocks.findAll({
+                where: {
+                    warehouse_id: findWh.id,
+                },
+            });
+
+            // mapping stock dan product_id wh yang akan didelete
+            for (const item of findStock) {
+                product_id.push(item.product_id);
+                stockDeletedWh.push(item.stock);
+            }
+
+            // cari stock Wh jakarta yang akan di tambahkan stock dari wh yang akan dihapus
+            const findStockWhJkt = await db.product_stocks.findAll({
+                where: {
+                    warehouse_id: 3,
+                    product_id: product_id,
+                },
+            });
+
+            // mapping stock wh jakarta untuk update stocknya
+            const stockToUpdate = findStockWhJkt.map((value, index) => {
+                return {
+                    product_id: value.product_id,
+                    stock: value.stock + stockDeletedWh[index],
+                };
+            });
+
+            // update stock wh jakarta
+            for (const item of stockToUpdate) {
+                await db.product_stocks.update(
+                    {
+                        stock: item.stock,
+                    },
+                    {
+                        where: {
+                            warehouse_id: 3,
+                            product_id: item.product_id,
+                        },
+                    },
+                    { transaction: t },
+                );
+            }
+
+            // mapping bulkCreate untuk mutation
+            const bulkCreateMutation = product_id.map((value, index) => {
+                return {
+                    product_id: value,
+                    warehouse_origin_id: 3,
+                    user_id: id,
+                    is_approved: 1,
+                };
+            });
+
+            // bulkCreate mutations
+            let createMutation = await db.mutations.bulkCreate(
+                bulkCreateMutation,
+                { transaction: t },
+            );
+
+            // array untuk mutation_id
+            var mutationId = [];
+
+            // mapping createMutation untuk dapat mutation_id
+            for (const item of createMutation) {
+                mutationId.push(item.id);
+            }
+
+            // mapping bulkCreate untuk mutation detail
+            const bulkCreateMutationDetail = stockDeletedWh.map(
+                (value, index) => {
+                    return {
+                        warehouse_destination_id: findWh.id,
+                        mutation_id: mutationId[index],
+                        quantity: value,
+                    };
+                },
+            );
+
+            // bulkCreate mutation_details
+            let createMutationDetails = await db.mutation_details.bulkCreate(
+                bulkCreateMutationDetail,
+                { transaction: t },
+            );
+
+            // Mapping bulkCreate stock_histories Wh JKT
+            const bulkCreateStockHistoriesWhJkt = product_id.map(
+                (value, index) => {
+                    return {
+                        product_id: value,
+                        quantity: stockDeletedWh[index],
+                        mutation_id: mutationId[index],
+                        user_id: id,
+                        warehouse_id: 3,
+                        type_id: 3,
+                        information_id: 1,
+                    };
+                },
+            );
+
+            // bulkCreate stock_histories Wh JKT
+            let bulkCreateStockHistoriesWhJakarta =
+                await db.stock_histories.bulkCreate(
+                    bulkCreateStockHistoriesWhJkt,
+                    { transaction: t },
+                );
+
+            // Mapping bulkCreate stock_histories Deleted Wh
+            const bulkCreateStockHistoriesDeletedWarehouse = product_id.map(
+                (value, index) => {
+                    return {
+                        product_id: value,
+                        quantity: stockDeletedWh[index],
+                        mutation_id: mutationId[index],
+                        user_id: id,
+                        warehouse_id: findWh.id,
+                        type_id: 3,
+                        information_id: 2,
+                    };
+                },
+            );
+
+            // bulkCreate stock_histories Wh JKT
+            let bulkCreateStockHistoriesDeletedWh =
+                await db.stock_histories.bulkCreate(
+                    bulkCreateStockHistoriesDeletedWarehouse,
+                    { transaction: t },
+                );
+
+            // delete product_stocks
+            let deleteProduct = await db.product_stocks.destroy(
+                {
+                    where: {
+                        warehouse_id: findWh.id,
+                    },
+                },
+                { transaction: t },
+            );
+
+            // delete warehouse
             const deleteWarehouse = await warehouse.update(
                 {
                     user_id: null,

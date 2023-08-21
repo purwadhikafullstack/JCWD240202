@@ -6,6 +6,7 @@ import { reqResetPassword } from '../../redux/features/authSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Helmet } from 'react-helmet';
 
 export default function ForgotPassword() {
     const dispatch = useDispatch();
@@ -60,6 +61,10 @@ export default function ForgotPassword() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Forgot Password</title>
+                <meta name="description" content="forgot-password" />
+            </Helmet>
             <div className="flex flex-col my-20 mx-10 md:mx-20">
                 <div className="flex justify-center">
                     <div>

@@ -1,11 +1,11 @@
 import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getListWhMutation } from '../../redux/features/mutationSlice';
+import { getListWhMutation } from '../../../redux/features/mutationSlice';
 import { FcSearch } from 'react-icons/fc';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { requestMutation } from '../../redux/features/mutationSlice';
+import { requestMutation } from '../../../redux/features/mutationSlice';
 
 export default function RequestMutation({ showModal, dataLogin, params }) {
     const dispatch = useDispatch();

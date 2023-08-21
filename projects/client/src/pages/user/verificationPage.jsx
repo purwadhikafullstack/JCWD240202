@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Navigate, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { expiredLink, verification } from '../../redux/features/authSlice';
+import { Helmet } from 'react-helmet';
 
 export default function VerificationPage() {
     const params = useParams();
@@ -58,6 +59,10 @@ export default function VerificationPage() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Verification</title>
+                <meta name="description" content="verification" />
+            </Helmet>
             <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center">
                     <div>
@@ -127,7 +132,8 @@ export default function VerificationPage() {
                                             <div className="border border-[#ffad00] w-[50px]"></div>
                                         </div>
                                         <div className="text-[11px] text-[#ffad00]">
-                                            password must contain 1 uppercase letter & 1 number
+                                            password must contain 1 uppercase
+                                            letter & 1 number
                                         </div>
                                     </>
                                 ) : (
@@ -216,6 +222,13 @@ export default function VerificationPage() {
                         </Link> */}
                     </div>
                 </div>
+            </div>
+            <div className="w-full flex justify-center items-center mb-[-50px]">
+                <img
+                    src="/images/banner-ikewa.png"
+                    alt="not-found"
+                    className="min-w-[200px]"
+                ></img>
             </div>
         </>
     );

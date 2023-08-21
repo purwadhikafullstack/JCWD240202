@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editDataWarehouseAdmin } from '../../redux/features/adminSlice';
+import { editDataWarehouseAdmin } from '../../../redux/features/adminSlice';
 
 export default function EditDataAdmin({ showModal, selected, params }) {
     // input
@@ -115,7 +115,10 @@ export default function EditDataAdmin({ showModal, selected, params }) {
                                             value={inputPhoneNumber}
                                             onChange={(e) =>
                                                 setInputPhoneNumber(
-                                                    e.target.value,
+                                                    e.target.value.replace(
+                                                        /[^0-9]/g,
+                                                        '',
+                                                    ),
                                                 )
                                             }
                                         />

@@ -9,8 +9,9 @@ import FilterAdmin from '../../components/admin/filterAdmin';
 import FilterCategoryAdmin from '../../components/admin/filterCategoryProductAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import { getDataStock } from '../../redux/features/stockSlice';
-import TableStockManagement from '../../components/admin/tableStockManagement';
+import TableStockManagement from '../../components/admin/stockManagement/tableStockManagement';
 import { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function ProductStockPage() {
     const dispatch = useDispatch();
@@ -24,7 +25,6 @@ export default function ProductStockPage() {
     const [category, setCategory] = useState(
         searchParams.get('category') || '',
     );
-    console.log(category);
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
@@ -76,12 +76,18 @@ export default function ProductStockPage() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Stock</title>
+                <meta name="description" content="stock" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
-                            <h1 className="text-4xl mb-8">STOCK MANAGEMENT</h1>
+                            <h1 className="text-4xl mb-8">
+                                PRODUCT STOCK MANAGEMENT
+                            </h1>
                             {dataLogin?.warehouse?.city ? (
                                 <>
                                     <h1>
@@ -195,12 +201,12 @@ export default function ProductStockPage() {
                                 <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                                     <thead className="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            {/* <th
+                                            <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
                                                 Image
-                                            </th> */}
+                                            </th>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
@@ -213,24 +219,35 @@ export default function ProductStockPage() {
                                             >
                                                 Category
                                             </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Warehouse
-                                            </th>
+                                            {!warehouse &&
+                                            dataLogin?.role_id === 3 ? (
+                                                <></>
+                                            ) : (
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 border-r border-gray-300 text-center"
+                                                >
+                                                    Warehouse
+                                                </th>
+                                            )}
+
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
                                                 Stock
                                             </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-gray-300 text-center"
-                                            >
-                                                Action
-                                            </th>
+                                            {!warehouse &&
+                                            dataLogin?.role_id === 3 ? (
+                                                <></>
+                                            ) : (
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 border-gray-300 text-center"
+                                                >
+                                                    Action
+                                                </th>
+                                            )}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -245,6 +262,7 @@ export default function ProductStockPage() {
                                                     category,
                                                     warehouse,
                                                 }}
+                                                dataLogin={dataLogin}
                                             />
                                         ) : (
                                             <></>
@@ -252,12 +270,19 @@ export default function ProductStockPage() {
                                     </tbody>
                                 </table>
                                 {dataStocks?.data?.rows?.length == 0 ? (
-                                    <div className="w-full flex justify-center items-center">
-                                        <img
-                                            src="/images/not-found-pic.png"
-                                            alt="not-found"
-                                            className="min-w-[200px]"
-                                        ></img>
+                                    <div className="flex items-center justify-center py-8">
+                                        <div>
+                                            <div className="flex justify-center items-center font-bold text-xl">
+                                                <h1>Not Found</h1>
+                                            </div>
+                                            <div className="w-full flex justify-center items-center">
+                                                <img
+                                                    src="/images/not-found-3.png"
+                                                    alt="not-found"
+                                                    className="min-w-[200px] max-w-[400px]"
+                                                ></img>
+                                            </div>
+                                        </div>
                                     </div>
                                 ) : (
                                     <></>

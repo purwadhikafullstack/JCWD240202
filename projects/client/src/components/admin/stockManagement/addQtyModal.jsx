@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { reduceQuantity } from '../../redux/features/stockSlice';
+import { addQuantity } from '../../../redux/features/stockSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function ReduceQuantityModal({ showModal, selected, params }) {
+export default function AddQuantityModal({ showModal, selected, params }) {
     const dispatch = useDispatch();
     const setDisabledButton = useSelector(
         (state) => state.stock.disabledButton,
     );
     const setModal = useSelector((state) => state.stock.modal);
 
-    const [reduceQty, setReduceQty] = useState(0);
+    const [addQty, setAddQty] = useState(0);
     const [confirm, setConfirm] = useState(false);
 
     useEffect(() => {
@@ -31,8 +31,12 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Reduce Quantity of {selected?.product?.name}{' '}
-                                    ({selected?.warehouse?.city} Warehouse)
+                                    Add Quantity of {selected?.name} (
+                                    {
+                                        selected?.product_stocks[0]?.warehouse
+                                            ?.city
+                                    }{' '}
+                                    Warehouse)
                                 </h3>
                                 <button
                                     onClick={() => showModal(false)}
@@ -57,11 +61,9 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                                                 min={0}
                                                 placeholder={0}
                                                 className="border border-gray-400 rounded-md px-2 h-10 w-[65px] focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1 text-black flex justify-center"
-                                                value={reduceQty}
+                                                value={addQty}
                                                 onChange={(e) => {
-                                                    setReduceQty(
-                                                        e.target.value,
-                                                    );
+                                                    setAddQty(e.target.value);
                                                 }}
                                             />
                                         </div>
@@ -72,7 +74,7 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
                                     className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
-                                    disabled={!reduceQty}
+                                    disabled={!addQty}
                                     onClick={() => {
                                         setConfirm(true);
                                     }}
@@ -117,10 +119,15 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                                 <form>
                                     <div className="block mb-2 text-[16px]">
                                         Are you sure you want to update{' '}
-                                        {selected?.product?.name} quantity ?
+                                        {selected?.name} quantity ?
                                     </div>
                                     <div>
-                                        ({selected?.warehouse?.city} Warehouse)
+                                        (
+                                        {
+                                            selected?.product_stocks[0]
+                                                ?.warehouse?.city
+                                        }{' '}
+                                        Warehouse)
                                     </div>
                                 </form>
                             </div>
@@ -131,9 +138,9 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                                     disabled={setDisabledButton}
                                     onClick={() => {
                                         dispatch(
-                                            reduceQuantity(
-                                                selected?.id,
-                                                reduceQty,
+                                            addQuantity(
+                                                selected?.product_stocks[0]?.id,
+                                                addQty,
                                                 params,
                                             ),
                                         );

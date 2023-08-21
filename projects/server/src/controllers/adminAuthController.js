@@ -33,6 +33,14 @@ module.exports = {
                 });
             }
 
+            if (result.role_id === 1) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Unauthorized!',
+                    data: null,
+                });
+            }
+
             const isAdmin = await hashCompare(password, result.password);
             if (!isAdmin) {
                 return res.status(404).send({

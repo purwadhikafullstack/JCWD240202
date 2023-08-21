@@ -6,16 +6,20 @@ import FilterAdmin from '../../components/admin/filterAdmin';
 import DatePicker from 'react-datepicker';
 import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import SortNewestMutation from '../../components/admin/sortNewestMutation';
-import TableStockLog from '../../components/admin/tableStockLog';
+import TableStockLog from '../../components/admin/stockLog/tableStockLog';
 import { getStockLog } from '../../redux/features/stockHistorySlice';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
+import * as XLSX from 'xlsx';
+import PrintStockLog from '../../components/admin/stockLog/printStockLog';
+import { Helmet } from 'react-helmet';
 const moment = require('moment');
 
 export default function StockLogPage() {
     const dispatch = useDispatch();
     const dataLogin = useSelector((state) => state.user.dataLogin);
     const dataStockLog = useSelector((state) => state.stockHistory.stockLog);
+    const dataExport = useSelector((state) => state.stockHistory.export);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
@@ -60,6 +64,13 @@ export default function StockLogPage() {
         setPage(1);
     };
 
+    const handleExportFile = () => {
+        const ws = XLSX.utils.json_to_sheet(dataExport);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Product Stock Log');
+        XLSX.writeFile(wb, 'ProductStockLog.xlsx');
+    };
+
     useEffect(() => {
         let queryParams = {};
         if (page) {
@@ -83,6 +94,10 @@ export default function StockLogPage() {
 
     return (
         <>
+            <Helmet>
+                <title>IKEWA | Stock Log</title>
+                <meta name="description" content="stock-log" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
@@ -230,13 +245,24 @@ export default function StockLogPage() {
                             <div className="mb-4">
                                 <hr className="border border-gray-200"></hr>
                             </div>
-                            <div className="flex gap-3 mb-4">
-                                <SearchBarAdmin
-                                    data={{ searchChange, search }}
-                                />
-                                <SortNewestMutation
-                                    data={{ sortChange, sort }}
-                                />
+                            <div className="flex justify-between gap-3 mb-4">
+                                <div className="flex gap-3">
+                                    <SearchBarAdmin
+                                        data={{ searchChange, search }}
+                                    />
+                                    <SortNewestMutation
+                                        data={{ sortChange, sort }}
+                                    />
+                                </div>
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={handleExportFile}
+                                        className="border border-gray-200 rounded-lg text-xs px-4"
+                                    >
+                                        Export Data
+                                    </button>
+                                    <PrintStockLog data={dataExport} />
+                                </div>
                             </div>
                             <div className="relative overflow-x-auto shadow-md rounded-lg">
                                 <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
@@ -268,19 +294,19 @@ export default function StockLogPage() {
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 border-gray-300 text-center"
+                                                className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
                                                 Warehouse
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 border-gray-300 text-center"
+                                                className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
                                                 Type
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 border-gray-300 text-center"
+                                                className="px-6 py-3 border-r border-gray-300 text-center"
                                             >
                                                 Information
                                             </th>
@@ -298,12 +324,19 @@ export default function StockLogPage() {
                                     </tbody>
                                 </table>
                                 {dataStockLog?.data?.rows?.length == 0 ? (
-                                    <div className="w-full flex justify-center items-center">
-                                        <img
-                                            src="/images/not-found-pic.png"
-                                            alt="not-found"
-                                            className="min-w-[200px]"
-                                        ></img>
+                                    <div className="flex items-center justify-center py-8">
+                                        <div>
+                                            <div className="flex justify-center items-center font-bold text-xl">
+                                                <h1>Not Found</h1>
+                                            </div>
+                                            <div className="w-full flex justify-center items-center">
+                                                <img
+                                                    src="/images/not-found-3.png"
+                                                    alt="not-found"
+                                                    className="min-w-[200px] max-w-[400px]"
+                                                ></img>
+                                            </div>
+                                        </div>
                                     </div>
                                 ) : (
                                     <></>

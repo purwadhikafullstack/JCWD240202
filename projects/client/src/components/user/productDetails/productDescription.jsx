@@ -1,6 +1,12 @@
+import { Helmet } from 'react-helmet';
+
 export default function ProductDescription(props) {
     return (
         <>
+            <Helmet>
+                <title>{`IKEWA | ${props?.data?.proDetails?.findProduct?.name}`}</title>
+                <meta name="description" content="product-details" />
+            </Helmet>
             <div className="text-2xl font-bold">
                 {props?.data?.proDetails?.findProduct?.name}
             </div>

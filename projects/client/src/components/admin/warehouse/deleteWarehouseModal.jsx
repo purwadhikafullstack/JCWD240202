@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteWarehouseAdmin } from '../../redux/features/adminSlice';
-import { deleteWarehouse } from '../../redux/features/warehouseSlice';
+import { deleteWarehouseAdmin } from '../../../redux/features/adminSlice';
+import { deleteWarehouse } from '../../../redux/features/warehouseSlice';
 
 export default function DeleteWarehouseModal({ showModal, selected, page }) {
     const dispatch = useDispatch();

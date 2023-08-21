@@ -6,13 +6,14 @@ import { register } from '../../redux/features/authSlice';
 import { Navigate, useNavigate, Link } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Helmet } from 'react-helmet';
 
 export default function RegisterPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [isAgree, setIsAgree] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const userLogin = JSON.parse(localStorage.getItem('user'));
 
@@ -62,6 +63,10 @@ export default function RegisterPage() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Register</title>
+                <meta name="description" content="register" />
+            </Helmet>
             <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center text-center md:text-start">
                     <div>
@@ -117,7 +122,7 @@ export default function RegisterPage() {
                                     onClick={(e) =>
                                         setIsAgree(e.target.checked)
                                     }
-                                    checked={isAgree? true : false}
+                                    checked={isAgree ? true : false}
                                 />
                                 <span>I have read and agree the</span>
                                 <span className="text-[#f8c729] ml-1 font-bold">
@@ -155,14 +160,21 @@ export default function RegisterPage() {
                 </div>
             </div>
             <Backdrop
-                        sx={{
-                            color: '#fff',
-                            zIndex: (theme) => theme.zIndex.drawer + 1,
-                        }}
-                        open={isLoading}
-                    >
-                        <CircularProgress color="inherit" />
-                    </Backdrop>
+                sx={{
+                    color: '#fff',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={isLoading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            <div className="w-full flex justify-center items-center">
+                <img
+                    src="/images/banner-ikewa.png"
+                    alt="not-found"
+                    className="min-w-[200px]"
+                ></img>
+            </div>
         </>
     );
 }

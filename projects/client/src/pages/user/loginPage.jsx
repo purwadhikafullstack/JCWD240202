@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/features/authSlice';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { Helmet } from 'react-helmet';
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -50,6 +51,10 @@ export default function LoginPage() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Login</title>
+                <meta name="description" content="login" />
+            </Helmet>
             <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center">
                     <div>
@@ -142,6 +147,13 @@ export default function LoginPage() {
                         </Link>
                     </div>
                 </div>
+            </div>
+            <div className="w-full flex justify-center items-center">
+                <img
+                    src="/images/banner-ikewa.png"
+                    alt="not-found"
+                    className="min-w-[200px]"
+                ></img>
             </div>
         </>
     );

@@ -10,6 +10,7 @@ import TotalOrdersReport from '../../components/admin/sales report/totalOrders';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getDataLogin } from '../../redux/features/userSlice';
+import { Helmet } from 'react-helmet';
 
 export default function AdminSalesReport() {
     const dispatch = useDispatch();
@@ -25,6 +26,10 @@ export default function AdminSalesReport() {
 
     return (
         <>
+            <Helmet>
+                <title>IKEWA | Sales Report</title>
+                <meta name="description" content="sales-report" />
+            </Helmet>
             <div className="sm:flex">
                 <SideBarAdmin />
                 <div className="bg-blue-200 py-8 px-14 w-full">

@@ -6,12 +6,12 @@ const { Op } = require('sequelize');
 module.exports = {
     getStock: async (req, res) => {
         try {
-            let where = undefined;
-            let cat = undefined;
-            let order = [[db.products, 'category_id', 'ASC']];
+            let where = { is_deleted: false };
+            let order = undefined;
+            let wh = undefined;
             const { id, role_id } = req.User;
-            console.log(id);
             const { page, warehouse, search, sort, category } = req.query;
+            console.log(warehouse);
 
             const paginationLimit = 15;
             const paginationOffset =
@@ -37,13 +37,13 @@ module.exports = {
             });
 
             if (role_id === 2) {
-                where = {
+                wh = {
                     warehouse_id: checkUserId.warehouse.id,
                 };
             }
 
             if (search) {
-                cat = {
+                where = {
                     name: { [Op.substring]: [search] },
                     is_deleted: false,
                 };
@@ -58,7 +58,7 @@ module.exports = {
 
                 if (search) {
                     if (findCategory) {
-                        cat = {
+                        where = {
                             name: { [Op.substring]: [search] },
                             category_id: findCategory.id,
                             is_deleted: false,
@@ -73,22 +73,22 @@ module.exports = {
                         id: 0,
                     };
                 } else {
-                    cat = {
+                    where = {
                         category_id: findCategory.id,
                     };
                 }
             }
 
             if (warehouse) {
-                const wh = await db.warehouses.findOne({
+                const checkWh = await db.warehouses.findOne({
                     where: {
                         city: warehouse.replace(/%/g, ' '),
                     },
                 });
                 if (role_id === 3) {
-                    if (wh) {
-                        where = {
-                            warehouse_id: wh.id,
+                    if (checkWh) {
+                        wh = {
+                            warehouse_id: checkWh.id,
                         };
                     } else {
                         where = {
@@ -104,9 +104,9 @@ module.exports = {
 
             if (sort) {
                 if (sort === 'name-asc') {
-                    order = [[db.products, 'name', 'ASC']];
+                    order = [['name', 'ASC']];
                 } else if (sort === 'name-desc') {
-                    order = [[db.products, 'name', 'DESC']];
+                    order = [['name', 'DESC']];
                 } else if (sort === 'newest') {
                     order = [['createdAt', 'DESC']];
                 } else if (sort === 'oldest') {
@@ -114,45 +114,44 @@ module.exports = {
                 }
             }
 
-            const dataStock = await stock.findAndCountAll({
-                attributes: {
-                    exclude: ['updatedAt'],
-                },
+            const dataStock = await db.products.findAndCountAll({
+                attributes: [
+                    'id',
+                    'name',
+                    'category_id',
+                    'is_deleted',
+                    'total_stock',
+                    'createdAt',
+                ],
                 where: where,
                 offset: paginationOffset,
                 limit: paginationLimit,
                 order,
                 include: [
                     {
-                        model: db.products,
-                        attributes: [
-                            'id',
-                            'name',
-                            'category_id',
-                            'color_id',
-                            'is_deleted',
-                        ],
-                        where: cat,
+                        model: db.product_stocks,
+                        attributes: {
+                            exclude: ['updatedAt'],
+                        },
+                        where: wh,
                         include: [
-                            // {
-                            //     model: db.product_images,
-                            //     attributes: ['name'],
-                            //     where: { is_thumbnail: 1 },
-                            //     required: false,
-                            // },
                             {
-                                model: db.categories,
-                                attributes: ['name'],
+                                model: db.warehouses,
+                                attributes: ['id', 'city', 'city_id'],
                             },
                         ],
                     },
                     {
-                        model: db.warehouses,
-                        attributes: {
-                            exclude: ['createdAt', 'updatedAt'],
-                        },
+                        model: db.product_images,
+                        attributes: ['name'],
+                        where: { is_thumbnail: true },
+                    },
+                    {
+                        model: db.categories,
+                        attributes: ['name'],
                     },
                 ],
+                distinct: true,
             });
 
             const totalPage = Math.ceil(dataStock.count / paginationLimit);

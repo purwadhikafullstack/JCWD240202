@@ -2,7 +2,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { editWarehouse } from '../../redux/features/warehouseSlice';
+import { editWarehouse } from '../../../redux/features/warehouseSlice';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -45,7 +45,9 @@ export default function EditWareHouseModal({
     useEffect(() => {
         setInputFullAddress(selected?.street);
         setInputProvince(selected?.province);
+        setInputProvinceId(selected?.province_id);
         setInputCity(selected?.city);
+        setInputCityId(selected?.city_id);
         setInputSubDistrict(selected?.subdistrict);
         setInputPostalCode(selected?.postcode.toString());
         if (setModal) {
@@ -55,7 +57,9 @@ export default function EditWareHouseModal({
         setModal,
         selected?.street,
         selected?.province,
+        selected?.province_id,
         selected?.city,
+        selected?.city_id,
         selected?.subdistrict,
         selected?.postcode,
     ]);
@@ -145,7 +149,7 @@ export default function EditWareHouseModal({
                                                 value=""
                                                 className="w-1/2 text-black"
                                             >
-                                                Select Province
+                                                {inputProvince}
                                             </option>
                                             {dataProvince.map(
                                                 (value, index) => {
@@ -191,7 +195,7 @@ export default function EditWareHouseModal({
                                                 value=""
                                                 className="text-black w-1/2"
                                             >
-                                                Select City
+                                                {inputCity}
                                             </option>
                                             {filterCities.map(
                                                 (value, index) => {
@@ -242,7 +246,10 @@ export default function EditWareHouseModal({
                                             placeholder="Postal Code"
                                             onChange={(e) =>
                                                 setInputPostalCode(
-                                                    e.target.value,
+                                                    e.target.value.replace(
+                                                        /[^0-9]/g,
+                                                        '',
+                                                    ),
                                                 )
                                             }
                                             value={inputPostalCode}

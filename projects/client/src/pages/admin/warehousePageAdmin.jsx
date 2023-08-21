@@ -1,6 +1,6 @@
-import AddWareHouseModal from '../../components/admin/addWarehouseModal';
+import AddWareHouseModal from '../../components/admin/warehouse/addWarehouseModal';
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
-import WarehouseTableSetting from '../../components/admin/tableWarehouseSetting';
+import WarehouseTableSetting from '../../components/admin/warehouse/tableWarehouseSetting';
 import { getAllDataWh } from '../../redux/features/warehouseSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import SortAdmin from '../../components/admin/sortAdmin';
 import FilterAdmin from '../../components/admin/filterAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function WarehousePageAdmin() {
     const [showAddWhModal, setShowAddWhModal] = useState(false);
@@ -63,6 +64,10 @@ export default function WarehousePageAdmin() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Warehouse Management</title>
+                <meta name="description" content="warehouse-management" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
@@ -204,12 +209,19 @@ export default function WarehousePageAdmin() {
                                     </tbody>
                                 </table>
                                 {warehouse?.data?.rows?.length == 0 ? (
-                                    <div className="w-full flex justify-center items-center">
-                                        <img
-                                            src="/images/not-found-pic.png"
-                                            alt="not-found"
-                                            className="min-w-[200px]"
-                                        ></img>
+                                    <div className="flex items-center justify-center py-8">
+                                        <div>
+                                            <div className="flex justify-center items-center font-bold text-xl">
+                                                <h1>Not Found</h1>
+                                            </div>
+                                            <div className="w-full flex justify-center items-center">
+                                                <img
+                                                    src="/images/not-found-3.png"
+                                                    alt="not-found"
+                                                    className="min-w-[200px] max-w-[400px]"
+                                                ></img>
+                                            </div>
+                                        </div>
                                     </div>
                                 ) : (
                                     <></>
