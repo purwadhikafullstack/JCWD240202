@@ -4,7 +4,7 @@ export default function CategoryCard(props) {
             <div className="w-[200px] h-[150px]">
                 <div>
                     <img
-                        src={props?.data?.image}
+                        src={props?.data?.image.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.image : props?.data?.image }
                         alt="..."
                         className="w-full h-[150px] rounded-lg"
                     />

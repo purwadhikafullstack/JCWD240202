@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Navigate, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { verification } from '../../redux/features/authSlice';
+import { expiredLink, verification } from '../../redux/features/authSlice';
 
 export default function VerificationPage() {
     const params = useParams();
@@ -22,18 +22,14 @@ export default function VerificationPage() {
     //call redux
     const isVerif = useSelector((state) => state.auth.isVerif);
     const msgError = useSelector((state) => state.auth.auth);
-
+    const isDenied = useSelector((state) => state.auth.isDenied);
     const onChange = (event) => {
         const { value, name } = event.target;
-        // console.log(value);
         setInput({ ...input, [name]: value });
     };
 
     const mediumPassword = input.password.match('^(?=.*[a-z]).{5,}$');
-
-    const strongPassword = input.password.match(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',
-    );
+    const strongPassword = input.password.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',);
 
     const defaultValue = () => {
         if (isVerif) {
@@ -46,15 +42,16 @@ export default function VerificationPage() {
             }, 3000);
         }
     };
-    console.log(token, 'ini tokennnn')
     useEffect(() => {
         defaultValue();
+        if (!isVerif) {
+            dispatch(expiredLink(token))
+        }
     }, [isVerif]);
     
-    // const { pathname } = useLocation();
-    // console.log((pathname.split('/verification/'))[1])
-    
     if (userLogin) {
+        return <Navigate to="/" />;
+    } else if (isDenied) {
         return <Navigate to="/" />;
     }
 

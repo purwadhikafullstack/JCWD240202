@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     verifyToken: (req, res, next) => {
         let token = req.headers.authorization;
-
         if (token === null || !token) {
             return res.status(401).send({
                 success: false,

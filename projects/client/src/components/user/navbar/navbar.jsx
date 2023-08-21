@@ -2,13 +2,14 @@
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
+import { logoutAsync } from '../../../redux/features/authSlice';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -38,13 +39,13 @@ export default function Navbar() {
             toast.error(error.message);
         }
     };
-
+    
     useEffect(() => {
-        dispatch(getUserCartAsync());
+            dispatch(getUserCartAsync());
     }, [userLogin]);
-
+    
     const { pathname } = useLocation();
-
+    
     const path = [
         '/admins/login',
         '/admins/dashboard',
@@ -59,10 +60,10 @@ export default function Navbar() {
         '/admins/stock-log',
         '/admins/transactions'
     ];
-
+    
     if (path.includes(pathname)) {
         return null;
-    }
+    } 
 
     return (
         <>
@@ -155,7 +156,7 @@ export default function Navbar() {
                     onClose={() => setOpenModal(false)}
                 >
                     <Modal.Body>
-                        <div className="text-xl flex justify-center items-center">
+                        <div className="text-lg flex justify-center items-center">
                             Are you sure want to log out?
                         </div>
                     </Modal.Body>

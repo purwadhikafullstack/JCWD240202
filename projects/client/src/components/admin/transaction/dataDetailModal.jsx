@@ -126,7 +126,7 @@ export default function DataDetail(props) {
                                     </div>
                                     <div className="flex">
                                         <div className="w-28 text-slate-500">No Receipt</div>
-                                        <div><span className="mr-4">:</span>{value?.receipt }</div>
+                                        {/* <div><span className="mr-4">:</span>{value?.receipt }</div> */}
                                     </div>
                                     <div className="flex">
                                         <div className="w-28 text-slate-500">Address</div>
