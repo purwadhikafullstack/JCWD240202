@@ -24,6 +24,7 @@ import PaymentMethod from '../../components/user/checkoutCart/paymentMethod';
 import { IoIosArrowBack } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import ModalCancelOrder from '../../components/user/transactions/modalCancelOrder';
+import { Helmet } from 'react-helmet';
 
 export default function OrderDetailsPage() {
     const dispatch = useDispatch();
@@ -95,6 +96,10 @@ export default function OrderDetailsPage() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Transaction Details</title>
+                <meta name="description" content="transaction-details" />
+            </Helmet>
             <div className="flex justify-center">
                 <div className="w-1/2">
                     <div className="px-[100px] py-[50px]">

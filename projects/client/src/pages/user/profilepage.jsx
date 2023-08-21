@@ -7,6 +7,7 @@ import { getDataLogin } from '../../redux/features/userSlice';
 import { useDispatch } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 export default function ProfilePage() {
     const [openModal, setOpenModal] = useState(false);
@@ -115,7 +116,10 @@ export default function ProfilePage() {
             ) {
                 setOpenModal(false);
                 throw { message: "Field can't be empty" };
-            } else if (input.phone_number.match(/[a-zA-Z]/)) {
+            } else if (
+                input.phone_number.match(/[a-zA-Z]/) ||
+                input.phone_number.length < 12
+            ) {
                 setOpenModal(false);
                 throw { message: 'Invalid phone number!' };
             } else {
@@ -214,6 +218,10 @@ export default function ProfilePage() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Profile</title>
+                <meta name="description" content="profile" />
+            </Helmet>
             <div className="mt-[5px] p-[20px]">
                 <div className="w-full flex justify-center">
                     <div className="w-full md:w-[80%] flex justify-center">
@@ -343,8 +351,18 @@ export default function ProfilePage() {
                                                     name="phone_number"
                                                     disabled={disabled}
                                                     value={input?.phone_number}
-                                                    onChange={onChange}
+                                                    onChange={(e) => {
+                                                        setInput({
+                                                            ...input,
+                                                            phone_number:
+                                                                e.target.value.replace(
+                                                                    /[^0-9]/g,
+                                                                    '',
+                                                                ),
+                                                        });
+                                                    }}
                                                     type="tel"
+                                                    pattern="[0-9]{12}"
                                                     maxLength="12"
                                                 />
                                             </label>

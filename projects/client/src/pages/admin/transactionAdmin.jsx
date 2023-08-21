@@ -12,6 +12,7 @@ import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { useSearchParams } from 'react-router-dom';
 import DropdownSort from '../../components/admin/transaction/dropdownSort';
 import ModalTransactionDetail from '../../components/admin/transaction/modalTransactionDetail';
+import { Helmet } from 'react-helmet';
 
 export default function TransactionAdmin() {
     const dispatch = useDispatch();
@@ -30,31 +31,31 @@ export default function TransactionAdmin() {
         searchParams.get('statusId') || null,
     );
     const [sort, setSort] = useState(searchParams.get('sort') || 'Newest');
-    const [detailId, setDetailId] = useState('')
-    const [openDetail, setOpenDetail] = useState(false)
+    const [detailId, setDetailId] = useState('');
+    const [openDetail, setOpenDetail] = useState(false);
 
     const pageChange = (event, value) => {
         setPage(value);
     };
     const warehouseChange = (warehouse) => {
         setWarehouse(warehouse);
-        setPage(1)
+        setPage(1);
     };
     const searchChange = (search) => {
         setSearch(search);
-        setPage(1)
+        setPage(1);
     };
     const handleDateChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
         if (start && end) {
-            setPage(1)
+            setPage(1);
         }
     };
     const handleStatusChange = (statusId) => {
         setStatus(statusId);
-        setPage(1)
+        setPage(1);
     };
     const handleSort = (sort) => {
         setSort(sort);
@@ -79,14 +80,14 @@ export default function TransactionAdmin() {
             queryParams['search'] = search;
         }
         if (startDate && endDate) {
-            queryParams['startDate'] = startDate
-            queryParams['endDate'] = endDate
+            queryParams['startDate'] = startDate;
+            queryParams['endDate'] = endDate;
         }
         if (statusId) {
             queryParams['statusId'] = statusId;
         }
         if (sort) {
-            queryParams['sort'] = sort
+            queryParams['sort'] = sort;
         }
         setSearchParams(queryParams);
         dispatch(
@@ -97,13 +98,17 @@ export default function TransactionAdmin() {
                 startDate,
                 endDate,
                 statusId,
-                sort
+                sort,
             ),
         );
         dispatch(getAllStatus());
     }, [page, warehouse, search, startDate, endDate, statusId, sort]);
     return (
         <>
+            <Helmet>
+                <title>IKEWA | Admin Transaction</title>
+                <meta name="description" content="admin-transaction" />
+            </Helmet>
             <div className="sm:flex">
                 <SideBarAdmin />
                 <div className="p-8 w-full">
@@ -111,14 +116,16 @@ export default function TransactionAdmin() {
                     <div className="my-3 p-2">
                         <div className="flex justify-between">
                             <div className="flex gap-2">
-                                {transaction.roleId === 3 ? <FilterAdmin
-                                    data={{ warehouseChange, warehouse }}
-                                /> : null}
+                                {transaction.roleId === 3 ? (
+                                    <FilterAdmin
+                                        data={{ warehouseChange, warehouse }}
+                                    />
+                                ) : null}
                                 <DateRangePicker
                                     data={{
                                         handleDateChange,
                                         startDate,
-                                        endDate
+                                        endDate,
                                     }}
                                 />
                                 <SearchBarAdmin
@@ -134,7 +141,10 @@ export default function TransactionAdmin() {
                             data={{ handleStatusChange, statusId, reset }}
                         />
                     </div>
-                    <TransactionCard transaction={transaction} detail={{setDetailId, detailId, setOpenDetail}} />
+                    <TransactionCard
+                        transaction={transaction}
+                        detail={{ setDetailId, detailId, setOpenDetail }}
+                    />
                     <div className="w-full flex justify-center mt-3">
                         <PaginationAdmin
                             data={{
@@ -146,7 +156,9 @@ export default function TransactionAdmin() {
                     </div>
                 </div>
             </div>
-            <ModalTransactionDetail data={{setOpenDetail, openDetail, detailId, transaction}} />
+            <ModalTransactionDetail
+                data={{ setOpenDetail, openDetail, detailId, transaction }}
+            />
         </>
     );
 }

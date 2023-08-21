@@ -2,8 +2,8 @@ import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getAllMutation } from '../../redux/features/mutationSlice';
-import RequestMutation from '../../components/admin/requestMutationModal';
-import MutationCard from '../../components/admin/mutationCard';
+import RequestMutation from '../../components/admin/mutationManagement/requestMutationModal';
+import MutationCard from '../../components/admin/mutationManagement/mutationCard';
 import { useSearchParams } from 'react-router-dom';
 import SortStatusMutation from '../../components/admin/sortStatusMutation';
 import { IoCloseCircleSharp } from 'react-icons/io5';
@@ -13,12 +13,12 @@ import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import FilterAdmin from '../../components/admin/filterAdmin';
 import { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function MutationPage() {
     const dispatch = useDispatch();
     const dataMutation = useSelector((state) => state.mutation.allMutation);
     const dataLogin = useSelector((state) => state.user.dataLogin);
-    console.log(dataLogin);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -121,12 +121,18 @@ export default function MutationPage() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Mutation</title>
+                <meta name="description" content="mutation" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
-                            <h1 className='text-4xl mb-8'>Mutation Management</h1>
+                            <h1 className="text-4xl mb-8">
+                                Product Mutation Management
+                            </h1>
                             {dataLogin?.warehouse?.city ? (
                                 <>
                                     <h1>
@@ -350,7 +356,6 @@ export default function MutationPage() {
                                         totalPage: dataMutation?.totalPage,
                                         page,
                                         pageChange,
-                                        // setPage,
                                     }}
                                 />
                             </div>

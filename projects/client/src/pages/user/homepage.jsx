@@ -1,5 +1,6 @@
 import CarouselHome from '../../components/user/homepage/carousel';
 import CategoryCard from '../../components/user/homepage/categoryCard';
+import { Helmet } from 'react-helmet';
 
 //redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,6 +22,10 @@ export default function Homepage() {
     return (
         <div>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Home of Furniture</title>
+                <meta name="description" content="homepage" />
+            </Helmet>
             <div>
                 <CarouselHome />
             </div>

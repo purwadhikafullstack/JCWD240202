@@ -93,7 +93,7 @@ module.exports = {
                 if (sort === 'name-asc') {
                     order = [['name', 'ASC']];
                 } else if (sort === 'name-desc') {
-                    order = [['first_name', 'DESC']];
+                    order = [['name', 'DESC']];
                 } else if (sort === 'newest') {
                     order = [['createdAt', 'DESC']];
                 } else if (sort === 'oldest') {
@@ -326,12 +326,54 @@ module.exports = {
                 ],
             });
 
+            const exportLog = await log.findAll({
+                order: order,
+                where: {
+                    ...where,
+                    createdAt: {
+                        [Op.lt]: moment(dates).add(1, 'month').toDate(),
+                        [Op.gte]: dates,
+                    },
+                },
+                include: [
+                    {
+                        model: db.products,
+                        where: productName,
+                        attributes: { exclude: ['createdAt', 'updatedAt'] },
+                    },
+                    {
+                        model: db.users,
+                        attributes: [
+                            'id',
+                            'first_name',
+                            'last_name',
+                            'is_verified',
+                            'role_id',
+                        ],
+                        include: [{ model: db.roles }],
+                    },
+                    {
+                        model: db.warehouses,
+                        attributes: ['id', 'city', 'city_id'],
+                    },
+                    {
+                        model: db.types,
+                        attributes: { exclude: ['createdAt', 'updatedAt'] },
+                    },
+                    {
+                        model: db.informations,
+                        attributes: { exclude: ['createdAt', 'updatedAt'] },
+                    },
+                ],
+            });
+
             const totalPage = Math.ceil(stockLog.count / paginationLimit);
 
             return res.status(200).send({
                 success: true,
                 message: 'Fetch Success!',
                 data: stockLog,
+                export: exportLog,
                 totalPage: totalPage,
                 dates: dates,
             });

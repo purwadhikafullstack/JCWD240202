@@ -9,6 +9,7 @@ import { getAllProductsAsync } from '../../redux/features/productSlice';
 import PaginationButton from '../../components/user/pagination/paginationButton';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 export default function ProductsCatalog() {
     const dispatch = useDispatch();
@@ -65,6 +66,10 @@ export default function ProductsCatalog() {
     }, [page, category, sort, search]);
     return (
         <div className="p-[100px]">
+            <Helmet>
+                <title>IKEWA | Products</title>
+                <meta name="description" content="products" />
+            </Helmet>
             <div className="font-bold text-4xl">All Products</div>
             <div className="flex justify-between pt-9">
                 <div className="flex flex-1 gap-9 w-full">

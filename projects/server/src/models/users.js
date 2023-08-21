@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'user_id',
             });
             users.hasMany(models.stock_histories, {
-                foreignKey: 'user_id'
-            })
+                foreignKey: 'user_id',
+            });
         }
     }
     users.init(
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
             password: DataTypes.STRING,
             profile_picture: DataTypes.STRING,
             phone_number: DataTypes.STRING,
-            is_verified: DataTypes.BOOLEAN,
+            is_verified: { type: DataTypes.BOOLEAN, defaultValue: false },
             role_id: DataTypes.INTEGER,
             token_verification: DataTypes.STRING,
             token_password: DataTypes.STRING,

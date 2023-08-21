@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getDataAdminUser } from '../../redux/features/adminSlice';
+import { useState } from 'react';
 import { AiFillEdit } from 'react-icons/ai';
 import { MdPassword } from 'react-icons/md';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsHouseAddFill } from 'react-icons/bs';
 import { TbPlayerEjectFilled } from 'react-icons/tb';
-import EditDataAdmin from '../../components/admin/editDataAdminModal';
-import ChangePasswordAdmin from '../../components/admin/changePassAdminModal';
-import DeleteAdmin from '../../components/admin/deleteAdminModal';
-import AssignWarehouseAdmin from '../../components/admin/assignWarehouseAdminModal';
-import UnassignedWhAdmin from '../../components/admin/unassignWarehouseAdmin';
+import EditDataAdmin from './editDataAdminModal';
+import ChangePasswordAdmin from './changePassAdminModal';
+import DeleteAdmin from './deleteAdminModal';
+import AssignWarehouseAdmin from './assignWarehouseAdminModal';
+import UnassignedWhAdmin from './unassignWarehouseAdmin';
 
 export default function UserAdminTable({ data, params, page }) {
     const [showEditAdminModal, setShowEditAdminModal] = useState(false);

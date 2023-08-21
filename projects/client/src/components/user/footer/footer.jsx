@@ -8,32 +8,41 @@ import {
 } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
 
-export default function Footer() {
+export default function Footer(props) {
     const { pathname } = useLocation();
+    const userLogin = JSON.parse(localStorage.getItem('user'));
+
+    const paths = ['/login', '/register', '/admins/login'];
 
     const path = [
-        '/login',
-        '/admins/login',
         '/admins/dashboard',
         '/admins/products',
         '/admins/products/categories',
-        '/admins/user-management',
-        '/admins/warehouse-management',
         '/admins/stock-management',
         '/admins/mutation-management',
         '/admins/stock-history',
         '/admins/stock-log',
+        '/admins/transactions',
+        '/admins/sales-report'
+
     ];
 
-    if (path.includes(pathname)) {
+    if (
+        (path.includes(pathname) && ((props.dataLogin === 2 || props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) || paths.includes(pathname)
+    ) {
         return null;
+    } 
+    
+    if((pathname === '/admins/user-management' || pathname === '/admins/warehouse-management') && ((props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) {
+        return null
     }
+
     return (
         <div className="h-[300px] border-t mt-[50px] bg-black px-[100px] py-[50px] text-white ">
             <div className="flex justify-between items-center">
                 <div className="w-24 ">
                     <img
-                        src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
+                        src="/logo2.png"
                         alt="footer logo"
                     />
                 </div>

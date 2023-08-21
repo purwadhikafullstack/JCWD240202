@@ -248,7 +248,7 @@ export const addWarehouse =
             dispatch(setDisabledButton(true));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
-            if (postcode.match(/[a-zA-Z]/) || postcode.length < 5) {
+            if (postcode.toString().match(/[a-zA-Z]/) || postcode.toString().length < 5) {
                 throw new Error('Invalid Postal Code!');
             }
 
@@ -345,7 +345,7 @@ export const editWarehouse =
                 throw new Error("Field Can't be Empty!");
             }
 
-            if (postcode.match(/[a-zA-Z]/) || postcode.length < 5) {
+            if (postcode.toString().match(/[a-zA-Z]/) || postcode.toString().length < 5) {
                 dispatch(setStatus(null));
                 throw new Error('Invalid Postal Code!');
             }

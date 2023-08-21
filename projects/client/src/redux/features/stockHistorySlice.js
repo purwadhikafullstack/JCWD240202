@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+const moment = require('moment');
 
 const initialState = {
     stockHistories: null,
     stockLog: null,
+    export: [],
 };
 
 export const stockHistorySlice = createSlice({
@@ -15,6 +17,9 @@ export const stockHistorySlice = createSlice({
         },
         setStockLog: (initialState, action) => {
             initialState.stockLog = action.payload;
+        },
+        setExport: (initialState, action) => {
+            initialState.export = action.payload;
         },
     },
 });
@@ -65,11 +70,28 @@ export const getStockLog =
                     },
                 },
             );
-
             dispatch(setStockLog(dataStockLog?.data));
+
+            const exportData = dataStockLog?.data?.export?.map((value) => {
+                return {
+                    date: moment(new Date(value.createdAt)).format(
+                        'DD MMM YYYY',
+                    ),
+                    product_name: value?.product?.name,
+                    user: value?.user?.role?.name.replace(/\b\w/g, (char) =>
+                        char.toUpperCase(),
+                    ),
+                    quantity: value?.quantity,
+                    warehouse: value?.warehouse?.city,
+                    type: value?.type?.name,
+                    information: value?.information?.name,
+                };
+            });
+            dispatch(setExport(exportData));
         } catch (error) {
             console.log(error);
         }
     };
-export const { setStockHistories, setStockLog } = stockHistorySlice.actions;
+export const { setStockHistories, setStockLog, setExport } =
+    stockHistorySlice.actions;
 export default stockHistorySlice.reducer;

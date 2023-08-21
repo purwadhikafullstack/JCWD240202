@@ -14,6 +14,7 @@ import ModalEditProduct from '../../components/admin/product/modalEditProduct';
 import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import { getAllColorAsync } from '../../redux/features/homepageSlice';
 import ModalDeleteProduct from '../../components/admin/product/modalDeleteProduct';
+import { Helmet } from 'react-helmet';
 
 export default function ProductAdmin() {
     const dispatch = useDispatch();
@@ -96,6 +97,10 @@ export default function ProductAdmin() {
 
     return (
         <>
+            <Helmet>
+                <title>IKEWA | Admin Products</title>
+                <meta name="description" content="admin-product" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />

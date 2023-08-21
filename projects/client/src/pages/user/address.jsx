@@ -5,6 +5,7 @@ import EditModal from '../../components/user/profile/modaleditaddress';
 import NewAddress from '../../components/user/profile/addnewaddress';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function Address() {
     const [addresses, setAddresses] = useState([]);
@@ -211,6 +212,10 @@ export default function Address() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Address List</title>
+                <meta name="description" content="address" />
+            </Helmet>
             <div className="mt-[5px] p-[20px]">
                 <div className="w-full flex justify-center">
                     <div className="w-full md:w-[80%] flex justify-center">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { AiOutlineClose } from 'react-icons/ai';
-import { changePasswordWarehouseAdmin } from '../../redux/features/adminSlice';
+import { changePasswordWarehouseAdmin } from '../../../redux/features/adminSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';

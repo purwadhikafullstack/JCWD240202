@@ -77,9 +77,15 @@ export default function NewAddress({ showModal }) {
         try {
             setDisabled(true);
             setOpen(true);
-            if (inputReceiverNumber.match(/[a-zA-Z]/)) {
+            if (
+                inputReceiverNumber.match(/[a-zA-Z]/) ||
+                inputReceiverNumber.length < 12
+            ) {
                 throw { message: 'Invalid phone number!' };
-            } else if (inputPostalCode.match(/[a-zA-Z]/)) {
+            } else if (
+                inputPostalCode.toString().match(/[a-zA-Z]/) ||
+                inputPostalCode.toString().length < 5
+            ) {
                 throw { message: 'Invalid postal code!' };
             } else {
                 const addAddress = await axios.post(
@@ -182,7 +188,9 @@ export default function NewAddress({ showModal }) {
                                 name="receiver_number"
                                 placeholder="Receiver Number"
                                 onChange={(e) => {
-                                    setInputReceiverNumber(e.target.value);
+                                    setInputReceiverNumber(
+                                        e.target.value.replace(/[^0-9]/g, ''),
+                                    );
                                 }}
                                 value={inputReceiverNumber}
                                 type="tel"
@@ -318,7 +326,9 @@ export default function NewAddress({ showModal }) {
                                 name="postcode"
                                 placeholder="Postal Code"
                                 onChange={(e) =>
-                                    setInputPostalCode(e.target.value)
+                                    setInputPostalCode(
+                                        e.target.value.replace(/[^0-9]/g, ''),
+                                    )
                                 }
                                 value={inputPostalCode}
                                 maxLength="5"

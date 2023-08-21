@@ -2,10 +2,15 @@ import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import { Button, Select, Label } from 'flowbite-react';
 import FilterWarehouse from '../../components/admin/sales report/filterWarehouse';
 import FilterMonth from '../../components/admin/sales report/filterMonth';
+import { Helmet } from 'react-helmet';
 
 export default function AdminSalesReport() {
     return (
         <>
+            <Helmet>
+                <title>IKEWA | Sales Report</title>
+                <meta name="description" content="sales-report" />
+            </Helmet>
             <div className="sm:flex">
                 <SideBarAdmin />
                 <div className="bg-blue-200 p-8 w-full">

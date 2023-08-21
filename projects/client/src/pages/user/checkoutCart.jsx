@@ -23,6 +23,7 @@ import {
 } from '../../redux/features/checkoutSlice';
 import { useNavigate } from 'react-router-dom';
 import PaymentMethod from '../../components/user/checkoutCart/paymentMethod';
+import { Helmet } from 'react-helmet';
 
 export default function CheckoutCart() {
     const dispatch = useDispatch();
@@ -123,6 +124,10 @@ export default function CheckoutCart() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Checkout</title>
+                <meta name="description" content="chekout" />
+            </Helmet>
             <div className="flex justify-center gap-2">
                 <div className="w-[1000px] px-9">
                     <div className="py-9 font-bold text-2xl">Checkout</div>

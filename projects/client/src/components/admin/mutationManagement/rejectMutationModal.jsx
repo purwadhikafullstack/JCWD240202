@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
-import { confirmMutation } from '../../redux/features/mutationSlice';
+import { rejectMutation } from '../../../redux/features/mutationSlice';
 
-export default function ConfirmMutation({ showModal, selected, params }) {
+export default function RejectMutation({ showModal, selected, params }) {
     const dispatch = useDispatch();
     const setDisabledButton = useSelector(
         (state) => state.mutation.disabledButton,
@@ -27,7 +27,7 @@ export default function ConfirmMutation({ showModal, selected, params }) {
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Confirm Mutation
+                                    Reject Mutation
                                 </h3>
                                 <button
                                     onClick={() => showModal(false)}
@@ -39,9 +39,8 @@ export default function ConfirmMutation({ showModal, selected, params }) {
                             {/* <!-- Modal body --> */}
                             <div className="p-6 space-y-2 text-black">
                                 <p>
-                                    Are you sure you want to confirm this
-                                    request mutation from{' '}
-                                    {selected?.origin?.city}?
+                                    Are you sure you want to Reject this request
+                                    mutation from {selected?.origin?.city}?
                                 </p>
                                 <p>
                                     Product :{' '}
@@ -61,7 +60,8 @@ export default function ConfirmMutation({ showModal, selected, params }) {
                                         {
                                             selected?.mutation_details[0]
                                                 ?.quantity
-                                        }{' '} Pcs
+                                        }{' '}
+                                        Pcs
                                     </span>
                                 </p>
                             </div>
@@ -72,7 +72,7 @@ export default function ConfirmMutation({ showModal, selected, params }) {
                                     disabled={setDisabledButton}
                                     onClick={() => {
                                         dispatch(
-                                            confirmMutation(
+                                            rejectMutation(
                                                 selected?.id,
                                                 params,
                                             ),
