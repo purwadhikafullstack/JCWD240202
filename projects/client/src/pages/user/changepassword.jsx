@@ -4,6 +4,7 @@ import ProfileTabs from '../../components/user/profile/tabs';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 export default function ChangePasswordUser() {
     // Input
@@ -100,6 +101,10 @@ export default function ChangePasswordUser() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Change Password</title>
+                <meta name="description" content="change-password" />
+            </Helmet>
             <div className="mt-[5px] p-[20px]">
                 <div className="w-full flex justify-center">
                     <div className="w-full md:w-[80%] flex justify-center">

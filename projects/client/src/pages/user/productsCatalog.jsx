@@ -10,6 +10,7 @@ import PaginationButton from '../../components/user/pagination/paginationButton'
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import AfterAddCart from '../../components/user/productsCatalog/afterAddCart';
+import { Helmet } from 'react-helmet';
 
 export default function ProductsCatalog() {
     const dispatch = useDispatch();
@@ -70,6 +71,10 @@ export default function ProductsCatalog() {
     }, [page, category, sort, search, addNewItem]);
     return (
         <div className="relative">
+            <Helmet>
+                <title>IKEWA | Products</title>
+                <meta name="description" content="products" />
+            </Helmet>
             <div
                 className={`p-[100px] z-20 transform  ${
                     addNewItem === true
@@ -80,8 +85,8 @@ export default function ProductsCatalog() {
                 <div className="font-bold text-4xl">All Products</div>
                 <div className="flex justify-between pt-9">
                     <div className="flex flex-1 gap-9 w-full">
-                        <FilterButton data={{ categoryChange, setPage }} />
-                        <SortButton data={{ sortChange }} />
+                        <FilterButton data={{ categoryChange, setPage, category }} />
+                        <SortButton data={{ sortChange, sort }} />
                     </div>
                     <div className="flex-2">
                         <div>

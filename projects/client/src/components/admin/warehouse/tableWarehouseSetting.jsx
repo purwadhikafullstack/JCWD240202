@@ -4,8 +4,8 @@ import { AiFillEdit } from 'react-icons/ai';
 import { AiFillDelete } from 'react-icons/ai';
 import EditWareHouseModal from './editWarehouseModal';
 import DeleteWarehouseModal from './deleteWarehouseModal';
-import { getDataProvincesRo } from '../../redux/features/warehouseSlice';
-import { getDataCitiesRo } from '../../redux/features/warehouseSlice';
+import { getDataProvincesRo } from '../../../redux/features/warehouseSlice';
+import { getDataCitiesRo } from '../../../redux/features/warehouseSlice';
 
 export default function WarehouseTableSetting({ data, params, page }) {
     const [showEditWhModal, setShowEditWhModal] = useState(false);

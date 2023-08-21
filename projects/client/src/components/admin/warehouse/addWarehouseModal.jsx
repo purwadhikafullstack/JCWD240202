@@ -1,9 +1,9 @@
 import { AiOutlineClose } from 'react-icons/ai';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDataProvincesRo } from '../../redux/features/warehouseSlice';
-import { getDataCitiesRo } from '../../redux/features/warehouseSlice';
-import { addWarehouse } from '../../redux/features/warehouseSlice';
+import { getDataProvincesRo } from '../../../redux/features/warehouseSlice';
+import { getDataCitiesRo } from '../../../redux/features/warehouseSlice';
+import { addWarehouse } from '../../../redux/features/warehouseSlice';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -225,7 +225,10 @@ export default function AddWareHouseModal({ showModal, params }) {
                                             placeholder="Postal Code"
                                             onChange={(e) =>
                                                 setInputPostalCode(
-                                                    e.target.value,
+                                                    e.target.value.replace(
+                                                        /[^0-9]/g,
+                                                        '',
+                                                    ),
                                                 )
                                             }
                                             value={inputPostalCode}

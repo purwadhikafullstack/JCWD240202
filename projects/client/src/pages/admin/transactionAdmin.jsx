@@ -12,6 +12,7 @@ import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { useSearchParams } from 'react-router-dom';
 import DropdownSort from '../../components/admin/transaction/dropdownSort';
 import ModalTransactionDetail from '../../components/admin/transaction/modalTransactionDetail';
+import { Helmet } from 'react-helmet';
 
 export default function TransactionAdmin() {
     const dispatch = useDispatch();
@@ -104,6 +105,10 @@ export default function TransactionAdmin() {
     }, [page, warehouse, search, startDate, endDate, statusId, sort]);
     return (
         <>
+            <Helmet>
+                <title>IKEWA | Admin Transaction</title>
+                <meta name="description" content="admin-transaction" />
+            </Helmet>
             <div className="sm:flex">
                 <SideBarAdmin />
                 <div className="p-8 w-full">

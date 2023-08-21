@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminRegister } from '../../redux/features/adminAuthSlice';
+import { adminRegister } from '../../../redux/features/adminAuthSlice';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function RegisterAdmin({ showModal, params }) {
@@ -121,7 +121,10 @@ export default function RegisterAdmin({ showModal, params }) {
                                             value={inputPhoneNumber}
                                             onChange={(e) =>
                                                 setInputPhoneNumber(
-                                                    e.target.value,
+                                                    e.target.value.replace(
+                                                        /[^0-9]/g,
+                                                        '',
+                                                    ),
                                                 )
                                             }
                                         />

@@ -100,7 +100,7 @@ export default function TransactionCard(props) {
                                         <div className="font-bold text-lg">
                                             {
                                                 value?.cart?.cart_products[0]
-                                                    ?.product_name
+                                                    ?.product_name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.cart?.cart_products[0]?.product_name : value?.cart?.cart_products[0]?.product_name
                                             }
                                         </div>
                                         <div className="text-sm my-1 text-slate-500">

@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reqResetPassword } from '../../redux/features/authSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Helmet } from 'react-helmet';
 
 export default function ForgotPassword() {
     const dispatch = useDispatch();
@@ -16,7 +19,7 @@ export default function ForgotPassword() {
     //call data redux
     const msgError = useSelector((state) => state.auth.auth);
     const isReqReset = useSelector((state) => state.auth.isLogin);
-
+    const isLoading = useSelector((state) => state.auth.loading);
 
     const onChange = (event) => {
         const { value } = event.target;
@@ -41,9 +44,9 @@ export default function ForgotPassword() {
                     </div>
                 </div>
             ));
-            setTimeout(() => {
-                navigate('/');
-            }, 3000);
+            navigate('/');
+            // setTimeout(() => {
+            // }, 3000);
         }
     };
 
@@ -58,6 +61,10 @@ export default function ForgotPassword() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Forgot Password</title>
+                <meta name="description" content="forgot-password" />
+            </Helmet>
             <div className="flex flex-col my-20 mx-10 md:mx-20">
                 <div className="flex justify-center">
                     <div>
@@ -111,6 +118,15 @@ export default function ForgotPassword() {
                     </div>
                 </div>
             </div>
+            <Backdrop
+                        sx={{
+                            color: '#fff',
+                            zIndex: (theme) => theme.zIndex.drawer + 1,
+                        }}
+                        open={isLoading}
+                    >
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
         </>
     )
 }

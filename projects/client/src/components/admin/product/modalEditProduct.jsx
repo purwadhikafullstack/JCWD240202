@@ -5,9 +5,10 @@ import { Modal } from 'flowbite-react';
 import { useEffect, useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { editProductAsync, editProductImageAsync } from '../../../redux/features/productSlice';
+import { editProductAsync, editProductImageAsync, thumbnailAsync } from '../../../redux/features/productSlice';
 
 export default function ModalEditProduct(props) {
+    console.log(props)
     const documentBodyRef = useRef(null);
     const dispatch = useDispatch();
     const isSuccess = useSelector((state) => state.product.success);
@@ -130,7 +131,9 @@ export default function ModalEditProduct(props) {
                               })
                             : proDetails.data?.findProduct?.product_images?.map(
                                 (value, index) => {
-                                      return (
+                                    console.log(value)
+                                    return (
+                                        <div key={index} className='flex flex-col items-center'>
                                           <img
                                               src={
                                                   value.name.startsWith('PIMG')
@@ -139,10 +142,11 @@ export default function ModalEditProduct(props) {
                                                         value.name
                                                       : value.name
                                               }
-                                              key={index}
                                               alt="image-product"
                                               className="border object-contain border-slate-400 h-[100px] rounded-md"
-                                          />
+                                            />
+                                            <button disabled={value.is_thumbnail === true ? true : false} onClick={()=>dispatch(thumbnailAsync(props.data?.id, value.id))} className={`${value.is_thumbnail === true ? 'bg-gray-400 cursor-default' : 'bg-[#e65100] drop-shadow-xl hover:bg-gray-400'} rounded-lg text-white px-2 mt-1 text-sm`}>Thumbnail</button>
+                                        </div>
                                       );
                                   },
                               )}

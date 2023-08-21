@@ -429,15 +429,17 @@ module.exports = {
                     information_id: 2
                 }
             })
-            console.log(new Date(new Date().setDate(new Date().getDate() + 7)))
-            console.log(new Date())
             const updateStockHistory = await db.stock_histories.bulkCreate(stockHistory, { transaction: t })
             const createStatus = await db.order_statuses.create({ status_id: 4, order_id, is_active: 1, expired: new Date(new Date().setDate(new Date().getDate() + 7)) }, { transaction: t })
             const expired = await sequelize.query(`
-            CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 2 MINUTE
+            CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 5 MINUTE
             DO BEGIN
+            DECLARE status_check INT;
+            SELECT status_id INTO status_check FROM order_statuses WHERE id = ${order_id} AND is_active = 1 LIMIT 1;
+            IF status_check = 4 THEN
             INSERT INTO order_statuses (status_id, order_id, is_active, createdAt, updatedAt) VALUES (5, "${order_id}", 1, current_timestamp(), current_timestamp());
             UPDATE order_statuses SET is_active = 0 WHERE order_id = "${order_id}" AND status_id = 4;
+            END IF;
             END;`)
             await t.commit();
             await db.order_statuses.update({ is_active: 0 }, { where: { status_id: 3, order_id } }, { transaction: t })

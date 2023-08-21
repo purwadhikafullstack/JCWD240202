@@ -64,9 +64,17 @@ export default function MutationCard({ data, dataLogin, params }) {
                                                 <div className="image max-w-[130px] border border-gray-300 p-2 rounded-lg">
                                                     <img
                                                         src={
-                                                            value?.product
-                                                                ?.product_images[0]
-                                                                ?.name
+                                                            value?.product?.product_images[0]?.name.startsWith(
+                                                                'PIMG',
+                                                            )
+                                                                ? process.env
+                                                                      .REACT_APP_API_IMAGE_URL +
+                                                                  value?.product
+                                                                      ?.product_images[0]
+                                                                      ?.name
+                                                                : value?.product
+                                                                      ?.product_images[0]
+                                                                      ?.name
                                                         }
                                                         alt="product_image"
                                                     />
@@ -96,6 +104,19 @@ export default function MutationCard({ data, dataLogin, params }) {
                                                     <span className="font-bold">
                                                         {value?.origin?.city}
                                                     </span>
+                                                    {value?.origin
+                                                        ?.is_deleted ===
+                                                    true ? (
+                                                        <>
+                                                            <br></br>
+                                                            <span className="text-red-600">
+                                                                (Deleted
+                                                                Warehouse)
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <></>
+                                                    )}
                                                 </div>
                                             ) : dataLogin?.warehouse?.id ===
                                               value?.origin?.id ? (
@@ -109,8 +130,22 @@ export default function MutationCard({ data, dataLogin, params }) {
                                                                 ?.city
                                                         }
                                                     </span>
+                                                    {value?.mutation_details[0]
+                                                        ?.destination
+                                                        ?.is_deleted ===
+                                                    true ? (
+                                                        <>
+                                                            <br></br>
+                                                            <span className="text-red-600">
+                                                                (Deleted
+                                                                Warehouse)
+                                                            </span>
+                                                        </>
+                                                    ) : (
+                                                        <></>
+                                                    )}
                                                 </div>
-                                            ) : dataLogin.role_id === 3 ? (
+                                            ) : dataLogin?.role_id === 3 ? (
                                                 <div className="flex items-center gap-5 text-xs mb-10">
                                                     <div className="request-from">
                                                         Request from : <br></br>
@@ -120,6 +155,19 @@ export default function MutationCard({ data, dataLogin, params }) {
                                                                     ?.city
                                                             }
                                                         </span>
+                                                        {value?.origin
+                                                            ?.is_deleted ===
+                                                        true ? (
+                                                            <>
+                                                                <br></br>
+                                                                <span className="text-red-600">
+                                                                    (Deleted
+                                                                    Warehouse)
+                                                                </span>
+                                                            </>
+                                                        ) : (
+                                                            <></>
+                                                        )}
                                                     </div>
                                                     <FcAdvance />
                                                     <div className="request-to">
@@ -132,6 +180,21 @@ export default function MutationCard({ data, dataLogin, params }) {
                                                                     ?.city
                                                             }
                                                         </span>
+                                                        {value
+                                                            ?.mutation_details[0]
+                                                            ?.destination
+                                                            ?.is_deleted ===
+                                                        true ? (
+                                                            <>
+                                                                <br></br>
+                                                                <span className="text-red-600">
+                                                                    (Deleted
+                                                                    Warehouse)
+                                                                </span>
+                                                            </>
+                                                        ) : (
+                                                            <></>
+                                                        )}
                                                     </div>
                                                 </div>
                                             ) : (
@@ -191,15 +254,20 @@ export default function MutationCard({ data, dataLogin, params }) {
                     })}
                 </>
             ) : (
-                <>
-                    <div className="w-full flex justify-center items-center">
-                        <img
-                            src="/images/not-found-pic.png"
-                            alt="not-found"
-                            className="min-w-[200px]"
-                        ></img>
+                <div className="flex items-center justify-center py-8">
+                    <div>
+                        <div className="flex justify-center items-center font-bold text-xl">
+                            <h1>Not Found</h1>
+                        </div>
+                        <div className="w-full flex justify-center items-center">
+                            <img
+                                src="/images/not-found-3.png"
+                                alt="not-found"
+                                className="min-w-[200px] max-w-[400px]"
+                            ></img>
+                        </div>
                     </div>
-                </>
+                </div>
             )}
 
             {/* Confirm Modal */}

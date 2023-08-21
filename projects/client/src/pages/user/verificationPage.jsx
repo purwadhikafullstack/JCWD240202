@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Navigate, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { verification } from '../../redux/features/authSlice';
+import { expiredLink, verification } from '../../redux/features/authSlice';
+import { Helmet } from 'react-helmet';
 
 export default function VerificationPage() {
     const params = useParams();
@@ -22,18 +23,14 @@ export default function VerificationPage() {
     //call redux
     const isVerif = useSelector((state) => state.auth.isVerif);
     const msgError = useSelector((state) => state.auth.auth);
-
+    const isDenied = useSelector((state) => state.auth.isDenied);
     const onChange = (event) => {
         const { value, name } = event.target;
-        // console.log(value);
         setInput({ ...input, [name]: value });
     };
 
     const mediumPassword = input.password.match('^(?=.*[a-z]).{5,}$');
-
-    const strongPassword = input.password.match(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',
-    );
+    const strongPassword = input.password.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',);
 
     const defaultValue = () => {
         if (isVerif) {
@@ -46,21 +43,26 @@ export default function VerificationPage() {
             }, 3000);
         }
     };
-    console.log(token, 'ini tokennnn')
     useEffect(() => {
         defaultValue();
+        if (!isVerif) {
+            dispatch(expiredLink(token))
+        }
     }, [isVerif]);
     
-    // const { pathname } = useLocation();
-    // console.log((pathname.split('/verification/'))[1])
-    
     if (userLogin) {
+        return <Navigate to="/" />;
+    } else if (isDenied) {
         return <Navigate to="/" />;
     }
 
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Verification</title>
+                <meta name="description" content="verification" />
+            </Helmet>
             <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center">
                     <div>
@@ -130,7 +132,8 @@ export default function VerificationPage() {
                                             <div className="border border-[#ffad00] w-[50px]"></div>
                                         </div>
                                         <div className="text-[11px] text-[#ffad00]">
-                                            password must contain 1 uppercase letter & 1 number
+                                            password must contain 1 uppercase
+                                            letter & 1 number
                                         </div>
                                     </>
                                 ) : (
@@ -219,6 +222,13 @@ export default function VerificationPage() {
                         </Link> */}
                     </div>
                 </div>
+            </div>
+            <div className="w-full flex justify-center items-center mb-[-50px]">
+                <img
+                    src="/images/banner-ikewa.png"
+                    alt="not-found"
+                    className="min-w-[200px]"
+                ></img>
             </div>
         </>
     );

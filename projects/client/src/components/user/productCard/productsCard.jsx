@@ -63,7 +63,7 @@ export default function ProductsCard(props) {
             <Link to={`/products/${props?.data?.value?.id}`}>
                 <div className="flex justify-center">
                     <img
-                        src={props?.data?.value?.product_images[0]?.name}
+                        src={props?.data?.value?.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.value?.product_images[0]?.name : props?.data?.value?.product_images[0]?.name}
                         alt="..."
                         className="h-[300px]"
                     />

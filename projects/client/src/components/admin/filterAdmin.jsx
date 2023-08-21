@@ -6,7 +6,6 @@ import { Dropdown, Label, Radio } from 'flowbite-react';
 import axios from 'axios';
 
 export default function FilterAdmin(props) {
-    console.log(props?.data?.warehouse);
     const dispatch = useDispatch();
     const warehouse = useSelector((state) => state.warehouse.dataWh);
     const dataLogin = JSON.parse(localStorage?.getItem('user'));

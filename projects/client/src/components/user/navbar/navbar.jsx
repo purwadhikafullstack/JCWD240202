@@ -2,7 +2,7 @@
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
@@ -12,7 +12,7 @@ import { getUserCartAsync } from '../../../redux/features/cartSlice';
 import { getUserWishlists } from '../../../redux/features/wishlistSlice';
 import { getDataLogin } from '../../../redux/features/userSlice';
 
-export default function Navbar() {
+export default function Navbar(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [openModal, setOpenModal] = useState(false);
@@ -54,13 +54,10 @@ export default function Navbar() {
     const { pathname } = useLocation();
 
     const path = [
-        '/admins/login',
         '/admins/dashboard',
         '/admins/products',
         '/admins/products/categories',
         '/admins/products/colors',
-        '/admins/user-management',
-        '/admins/warehouse-management',
         '/admins/stock-management',
         '/admins/mutation-management',
         '/admins/stock-history',
@@ -69,7 +66,23 @@ export default function Navbar() {
         '/admins/sales-report',
     ];
 
-    if (path.includes(pathname)) {
+    if (
+        (path.includes(pathname) &&
+            (props.dataLogin === 2 ||
+                props.dataLogin === 3 ||
+                props.dataLogin === undefined) &&
+            userLogin) ||
+        pathname === '/admins/login'
+    ) {
+        return null;
+    }
+
+    if (
+        (pathname === '/admins/user-management' ||
+            pathname === '/admins/warehouse-management') &&
+        (props.dataLogin === 3 || props.dataLogin === undefined) &&
+        userLogin
+    ) {
         return null;
     }
 
@@ -80,10 +93,7 @@ export default function Navbar() {
                 {/* left side => logo */}
                 <div className="w-24">
                     <Link to={'/'}>
-                        <img
-                            src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
-                            alt="company_logo"
-                        />
+                        <img src="/logo2.png" alt="company_logo" />
                     </Link>
                 </div>
                 {/* middle => pages */}
@@ -184,7 +194,7 @@ export default function Navbar() {
                     onClose={() => setOpenModal(false)}
                 >
                     <Modal.Body>
-                        <div className="text-xl flex justify-center items-center">
+                        <div className="text-lg flex justify-center items-center">
                             Are you sure want to log out?
                         </div>
                     </Modal.Body>

@@ -15,6 +15,7 @@ import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import { getAllColorAsync } from '../../redux/features/homepageSlice';
 import ModalDeleteProduct from '../../components/admin/product/modalDeleteProduct';
 import { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function ProductAdmin() {
     const dispatch = useDispatch();
@@ -25,7 +26,9 @@ export default function ProductAdmin() {
     const isSuccess = useSelector((state) => state.product.success);
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(searchParams.get('page') || 1);
-    const [category, setCategory] = useState(searchParams.get('category') || '');
+    const [category, setCategory] = useState(
+        searchParams.get('category') || '',
+    );
     const [sort, setSort] = useState(searchParams.get('sort') || '');
     const [search, setSearch] = useState('');
     const [openModal, setOpenModal] = useState(false);
@@ -45,7 +48,7 @@ export default function ProductAdmin() {
 
     const categoryChange = (category) => {
         setCategory(category);
-        setPage(1)
+        setPage(1);
     };
 
     const sortChange = (sortCat) => {
@@ -54,7 +57,7 @@ export default function ProductAdmin() {
 
     const searchChange = (search) => {
         setSearch(search);
-        setPage(1)
+        setPage(1);
     };
 
     const showProducts = (page, category, sort, search) => {
@@ -95,7 +98,11 @@ export default function ProductAdmin() {
 
     return (
         <>
-            <Toaster/>
+            <Toaster />
+            <Helmet>
+                <title>IKEWA | Admin Products</title>
+                <meta name="description" content="admin-product" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
@@ -107,9 +114,11 @@ export default function ProductAdmin() {
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex justify-between items-center w-full mb-4">
                                 <div className="flex gap-2 items-center">
-                                <SearchBar data={{ searchChange }} />
-                                    <FilterButton data={{ categoryChange }} />
-                                    <SortButton data={{ sortChange }} />
+                                    <SearchBar data={{ searchChange }} />
+                                    <FilterButton
+                                        data={{ categoryChange, category }}
+                                    />
+                                    <SortButton data={{ sortChange, sort }} />
                                 </div>
                                 <button
                                     onClick={() => setOpenModal(true)}

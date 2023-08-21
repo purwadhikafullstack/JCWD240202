@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/scope */
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import { useEffect } from 'react';
-import adminSlice, { getDataAdminUser } from '../../redux/features/adminSlice';
+import { getDataAdminUser } from '../../redux/features/adminSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import RegisterAdmin from '../../components/admin/registerAdminModal';
-import UserAdminTable from './userAdminTable';
+import RegisterAdmin from '../../components/admin/adminSetting/registerAdminModal';
+import UserAdminTable from '../../components/admin/adminSetting/userAdminTable';
 import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import FilterAdmin from '../../components/admin/filterAdmin';
 import SortAdmin from '../../components/admin/sortAdmin';
@@ -13,6 +13,7 @@ import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { useSearchParams } from 'react-router-dom';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function UserAdmin() {
     const [showRegisModal, setShowRegisModal] = useState(false);
@@ -25,7 +26,6 @@ export default function UserAdmin() {
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
-    console.log(warehouse);
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -67,6 +67,10 @@ export default function UserAdmin() {
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | User Management</title>
+                <meta name="description" content="user-management" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
@@ -204,12 +208,19 @@ export default function UserAdmin() {
                                     </tbody>
                                 </table>
                                 {admins?.data?.rows?.length == 0 ? (
-                                    <div className="w-full flex justify-center items-center">
-                                        <img
-                                            src="/images/not-found-pic.png"
-                                            alt="not-found"
-                                            className="min-w-[200px]"
-                                        ></img>
+                                    <div className="flex items-center justify-center py-8">
+                                        <div>
+                                            <div className="flex justify-center items-center font-bold text-xl">
+                                                <h1>Not Found</h1>
+                                            </div>
+                                            <div className="w-full flex justify-center items-center">
+                                                <img
+                                                    src="/images/not-found-3.png"
+                                                    alt="not-found"
+                                                    className="min-w-[200px] max-w-[400px]"
+                                                ></img>
+                                            </div>
+                                        </div>
                                     </div>
                                 ) : (
                                     <></>

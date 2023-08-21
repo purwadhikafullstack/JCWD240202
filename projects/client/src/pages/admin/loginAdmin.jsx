@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from '../../redux/features/adminAuthSlice';
 import { Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function AdminLoginPage() {
     const [showPassword, setShowPassword] = useState(true);
@@ -28,9 +29,13 @@ export default function AdminLoginPage() {
     }
 
     return (
-        <>
+        <div className="h-screen relative">
+            <Helmet>
+                <title>IKEWA | Admin Login</title>
+                <meta name="description" content="admin-login" />
+            </Helmet>
             <Toaster />
-            <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
+            <div className="flex flex-col md:flex-row pt-28 mt-21 px-10 md:px-20 z-50">
                 {/* Login Admin Account */}
                 <div className="flex-1 flex justify-center">
                     <div>
@@ -116,6 +121,13 @@ export default function AdminLoginPage() {
                     </div>
                 </div>
             </div>
-        </>
+            <div className="w-full flex justify-center items-center absolute bottom-0">
+                <img
+                    src="/images/banner-ikewa.png"
+                    alt="not-found"
+                    className="min-w-[200px]"
+                ></img>
+            </div>
+        </div>
     );
 }

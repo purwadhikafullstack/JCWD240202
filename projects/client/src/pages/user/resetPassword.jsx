@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { resetPassword } from '../../redux/features/authSlice';
+import { expiredLink, resetPassword } from '../../redux/features/authSlice';
+import { Helmet } from 'react-helmet';
 
 export default function ResetPassword() {
     const params = useParams();
@@ -22,6 +23,7 @@ export default function ResetPassword() {
     //call redux
     const isVerif = useSelector((state) => state.auth.isVerif);
     const msgError = useSelector((state) => state.auth.auth);
+    const isDenied = useSelector((state) => state.auth.isDenied);
 
     const onChange = (event) => {
         const { value, name } = event.target;
@@ -29,13 +31,8 @@ export default function ResetPassword() {
         setInput({ ...input, [name]: value });
     };
 
-    const mediumPassword = input.password.match(
-        "^(?=.*[a-z]).{5,}$",
-    );
-
-    const strongPassword = input.password.match(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',
-    );
+    const mediumPassword = input.password.match("^(?=.*[a-z]).{5,}$",);
+    const strongPassword = input.password.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',);
 
     const defaultValue = () => {
         if (isVerif) {
@@ -51,15 +48,24 @@ export default function ResetPassword() {
 
     useEffect(() => {
         defaultValue();
+        if (!isVerif) {
+            dispatch(expiredLink(token))
+        }
     }, [isVerif]);
 
     if (userLogin) {
+        return <Navigate to="/" />;
+    } else if (isDenied) {
         return <Navigate to="/" />;
     }
 
     return (
         <>
             <Toaster />
+            <Helmet>
+                <title>IKEWA | Reset Password</title>
+                <meta name="description" content="reset-password" />
+            </Helmet>
             <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center">
                     <div>
@@ -119,7 +125,7 @@ export default function ResetPassword() {
                                             <div className="border border-[#27df81] w-[50px]"></div>
                                         </div>
                                         <div className="text-[11px] text-[#27df81]">
-                                        strong password
+                                            strong password
                                         </div>
                                     </>
                                 ) : mediumPassword ? (
@@ -129,14 +135,15 @@ export default function ResetPassword() {
                                             <div className="border border-[#ffad00] w-[50px]"></div>
                                         </div>
                                         <div className="text-[11px] text-[#ffad00]">
-                                        password must contain 1 uppercase letter & 1 number
+                                            password must contain 1 uppercase
+                                            letter & 1 number
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div className="border border-[#fd5c65] mt-2 w-[50px]"></div>
                                         <div className="text-[11px] text-[#fd5c65]">
-                                        password too short
+                                            password too short
                                         </div>
                                     </>
                                 )

@@ -9,8 +9,9 @@ import SortAdmin from '../../components/admin/sortAdmin';
 import FilterAdmin from '../../components/admin/filterAdmin';
 import DatePicker from 'react-datepicker';
 import SearchBarAdmin from '../../components/admin/searchBarAdmin';
-import TableStockHistory from '../../components/admin/tableStockHistory';
+import TableStockHistory from '../../components/admin/stockHistory/tableStockHistory';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
+import { Helmet } from 'react-helmet';
 const moment = require('moment');
 
 export default function StockHistoryProduct() {
@@ -96,12 +97,16 @@ export default function StockHistoryProduct() {
 
     return (
         <>
+            <Helmet>
+                <title>IKEWA | Stock History</title>
+                <meta name="description" content="stock-history" />
+            </Helmet>
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="mb-6 font-bold text-4xl">
-                            STOCK HISTORY
+                            PRODUCT STOCK HISTORY
                         </div>
                         <div className="font-bold text-2xl">
                             {dataLogin?.warehouse?.city ? (
@@ -342,12 +347,19 @@ export default function StockHistoryProduct() {
                                 </table>
                                 {dataStockHistory?.data?.getProduct?.rows
                                     ?.length == 0 ? (
-                                    <div className="w-full flex justify-center items-center">
-                                        <img
-                                            src="/images/not-found-pic.png"
-                                            alt="not-found"
-                                            className="min-w-[200px]"
-                                        ></img>
+                                    <div className="flex items-center justify-center py-8">
+                                        <div>
+                                            <div className="flex justify-center items-center font-bold text-xl">
+                                                <h1>Not Found</h1>
+                                            </div>
+                                            <div className="w-full flex justify-center items-center">
+                                                <img
+                                                    src="/images/not-found-3.png"
+                                                    alt="not-found"
+                                                    className="min-w-[200px] max-w-[400px]"
+                                                ></img>
+                                            </div>
+                                        </div>
                                     </div>
                                 ) : (
                                     <></>

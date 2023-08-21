@@ -44,11 +44,12 @@ export default function SideBarAdmin() {
                     color: 'white',
                 },
             });
+
             setTimeout(() => {
-                setDisabled(false);
                 navigate('/admins/login');
             }, 200);
         } catch (error) {
+            setDisabled(true);
             toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
@@ -59,6 +60,8 @@ export default function SideBarAdmin() {
                     color: 'white',
                 },
             });
+        } finally {
+            setDisabled(false);
         }
     };
 
@@ -88,19 +91,12 @@ export default function SideBarAdmin() {
                         onClick={() => navigate('/admins/dashboard')}
                     >
                         <img
-                            src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
+                            src="/logo2.png"
                             className={`h-16 cursor-pointer duration-300 ${
                                 !open && 'hidden'
                             }`}
                             alt="logo"
                         />
-                        {/* <span
-                            className={`cursor-pointer origin-center bg-[#0051BA] text-[40px] text-transparent font-extrabold bg-clip-text ${
-                                !open && 'hidden'
-                            }`}
-                        >
-                            IKEA
-                        </span> */}
                     </div>
                     <ul className={`mx-1 ${open === true ? 'mt-6' : 'mt-20'}`}>
                         <li

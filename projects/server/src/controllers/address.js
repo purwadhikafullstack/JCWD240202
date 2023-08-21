@@ -64,9 +64,29 @@ module.exports = {
                 !street ||
                 !postcode
             ) {
-                res.status(400).send({
+                return res.status(400).send({
                     success: false,
                     message: "Field can't be Empty",
+                });
+            }
+
+            if (
+                receiver_number.match(/[a-zA-Z]/) ||
+                receiver_number.length < 12
+            ) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Invalid Phone Number!',
+                });
+            }
+
+            if (
+                postcode.toString().match(/[a-zA-Z]/) ||
+                postcode.toString().length < 5
+            ) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Invalid Postcode!',
                 });
             }
 
@@ -146,7 +166,7 @@ module.exports = {
     editAddress: async (req, res) => {
         const t = await sequelize.transaction();
         try {
-            const { is_verified } = req.User;
+            const { id, is_verified } = req.User;
             const {
                 receiver_name,
                 receiver_number,
@@ -168,6 +188,20 @@ module.exports = {
                 });
             }
 
+            const checkAddress = await db.user_addresses.findOne({
+                where: {
+                    id: address_id,
+                },
+            });
+
+            if (checkAddress.user_id !== id) {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Unauthorized!',
+                    data: null,
+                });
+            }
+
             if (
                 !receiver_name ||
                 !receiver_number ||
@@ -179,10 +213,30 @@ module.exports = {
                 !street ||
                 !postcode
             ) {
-                res.status(400).send({
+                return res.status(400).send({
                     success: false,
                     message: "Field can't be empty",
                     data: null,
+                });
+            }
+
+            if (
+                receiver_number.match(/[a-zA-Z]/) ||
+                receiver_number.length < 12
+            ) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Invalid Phone Number!',
+                });
+            }
+
+            if (
+                postcode.toString().match(/[a-zA-Z]/) ||
+                postcode.toString().length < 5
+            ) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Invalid Postcode!',
                 });
             }
 
@@ -234,10 +288,24 @@ module.exports = {
     deleteAddress: async (req, res) => {
         const t = await sequelize.transaction();
         try {
-            const { is_verified } = req.User;
+            const { id, is_verified } = req.User;
             const { address_id } = req.params;
 
             if (is_verified === false) {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Unauthorized!',
+                    data: null,
+                });
+            }
+
+            const checkAddress = await db.user_addresses.findOne({
+                where: {
+                    id: address_id,
+                },
+            });
+
+            if (checkAddress.user_id !== id) {
                 return res.status(401).send({
                     success: false,
                     message: 'Unauthorized!',
@@ -279,6 +347,20 @@ module.exports = {
             const { address_id } = req.params;
 
             if (is_verified === false) {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Unauthorized!',
+                    data: null,
+                });
+            }
+
+            const checkAddress = await db.user_addresses.findOne({
+                where: {
+                    id: address_id,
+                },
+            });
+
+            if (checkAddress.user_id !== id) {
                 return res.status(401).send({
                     success: false,
                     message: 'Unauthorized!',

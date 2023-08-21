@@ -2,8 +2,8 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getAvailableWh } from '../../redux/features/warehouseSlice';
-import { setWhAdmin } from '../../redux/features/warehouseSlice';
+import { getAvailableWh } from '../../../redux/features/warehouseSlice';
+import { setWhAdmin } from '../../../redux/features/warehouseSlice';
 
 export default function AssignWarehouseAdmin({ showModal, selected, params }) {
     const dispatch = useDispatch();

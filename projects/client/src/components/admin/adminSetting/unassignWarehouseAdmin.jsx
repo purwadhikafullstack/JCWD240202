@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteWarehouseAdmin } from '../../redux/features/adminSlice';
+import { unassignWhAdmin } from '../../../redux/features/warehouseSlice';
 
-export default function DeleteAdmin({ showModal, selected, page }) {
+export default function UnassignedWhAdmin({ showModal, selected, params }) {
     const dispatch = useDispatch();
     const setDisabledButton = useSelector(
-        (state) => state.admin.disabledButton,
+        (state) => state.warehouse.disabledButton,
     );
-    const setModal = useSelector((state) => state.admin.modal);
+    const setModal = useSelector((state) => state.warehouse.modal);
 
     useEffect(() => {
         if (setModal === true) {
@@ -27,7 +27,7 @@ export default function DeleteAdmin({ showModal, selected, page }) {
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Change Password Warehouse Admin
+                                    Unassign Warehouse Admin
                                 </h3>
                                 <button
                                     onClick={() => showModal(false)}
@@ -38,7 +38,7 @@ export default function DeleteAdmin({ showModal, selected, page }) {
                             </div>
                             {/* <!-- Modal body --> */}
                             <div className="p-6 space-y-6 text-black">
-                                Are you sure you want to delete this admin ?
+                                Are you sure you want to unassign this admin ?
                             </div>
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
@@ -47,9 +47,12 @@ export default function DeleteAdmin({ showModal, selected, page }) {
                                     disabled={setDisabledButton}
                                     onClick={() => {
                                         dispatch(
-                                            deleteWarehouseAdmin(selected?.id),
+                                            unassignWhAdmin(
+                                                selected?.warehouse?.id,
+                                                selected?.id,
+                                                params,
+                                            ),
                                         );
-                                        page(1);
                                     }}
                                 >
                                     Confirm
