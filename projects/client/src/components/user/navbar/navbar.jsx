@@ -2,7 +2,7 @@
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
@@ -40,16 +40,16 @@ export default function Navbar() {
             toast.error(error.message);
         }
     };
-
+    
     useEffect(() => {
         if (userLogin) {
             dispatch(getUserCartAsync());
             dispatch(getUserWishlists());
         }
     }, [userLogin]);
-
+    
     const { pathname } = useLocation();
-
+    
     const path = [
         '/admins/login',
         '/admins/dashboard',
@@ -65,10 +65,10 @@ export default function Navbar() {
         '/admins/transactions',
         '/admins/sales-report',
     ];
-
+    
     if (path.includes(pathname)) {
         return null;
-    }
+    } 
 
     return (
         <>
@@ -172,7 +172,7 @@ export default function Navbar() {
                     onClose={() => setOpenModal(false)}
                 >
                     <Modal.Body>
-                        <div className="text-xl flex justify-center items-center">
+                        <div className="text-lg flex justify-center items-center">
                             Are you sure want to log out?
                         </div>
                     </Modal.Body>
