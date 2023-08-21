@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { resetPassword } from '../../redux/features/authSlice';
+import { expiredLink, resetPassword } from '../../redux/features/authSlice';
 import { Helmet } from 'react-helmet';
 
 export default function ResetPassword() {
@@ -23,6 +23,7 @@ export default function ResetPassword() {
     //call redux
     const isVerif = useSelector((state) => state.auth.isVerif);
     const msgError = useSelector((state) => state.auth.auth);
+    const isDenied = useSelector((state) => state.auth.isDenied);
 
     const onChange = (event) => {
         const { value, name } = event.target;
@@ -30,11 +31,8 @@ export default function ResetPassword() {
         setInput({ ...input, [name]: value });
     };
 
-    const mediumPassword = input.password.match('^(?=.*[a-z]).{5,}$');
-
-    const strongPassword = input.password.match(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',
-    );
+    const mediumPassword = input.password.match("^(?=.*[a-z]).{5,}$",);
+    const strongPassword = input.password.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',);
 
     const defaultValue = () => {
         if (isVerif) {
@@ -50,9 +48,14 @@ export default function ResetPassword() {
 
     useEffect(() => {
         defaultValue();
+        if (!isVerif) {
+            dispatch(expiredLink(token))
+        }
     }, [isVerif]);
 
     if (userLogin) {
+        return <Navigate to="/" />;
+    } else if (isDenied) {
         return <Navigate to="/" />;
     }
 

@@ -2,9 +2,9 @@
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link, useParams, Navigate } from 'react-router-dom';
+import { useNavigate, useParams, Navigate, useLocation } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { verification } from '../../redux/features/authSlice';
+import { expiredLink, verification } from '../../redux/features/authSlice';
 import { Helmet } from 'react-helmet';
 
 export default function VerificationPage() {
@@ -23,18 +23,14 @@ export default function VerificationPage() {
     //call redux
     const isVerif = useSelector((state) => state.auth.isVerif);
     const msgError = useSelector((state) => state.auth.auth);
-
+    const isDenied = useSelector((state) => state.auth.isDenied);
     const onChange = (event) => {
         const { value, name } = event.target;
-        // console.log(value);
         setInput({ ...input, [name]: value });
     };
 
     const mediumPassword = input.password.match('^(?=.*[a-z]).{5,}$');
-
-    const strongPassword = input.password.match(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',
-    );
+    const strongPassword = input.password.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$',);
 
     const defaultValue = () => {
         if (isVerif) {
@@ -47,12 +43,16 @@ export default function VerificationPage() {
             }, 3000);
         }
     };
-
     useEffect(() => {
         defaultValue();
+        if (!isVerif) {
+            dispatch(expiredLink(token))
+        }
     }, [isVerif]);
-
+    
     if (userLogin) {
+        return <Navigate to="/" />;
+    } else if (isDenied) {
         return <Navigate to="/" />;
     }
 
@@ -212,14 +212,14 @@ export default function VerificationPage() {
                                 !strongPassword
                             }
                         >
-                            Login
+                            Confirm
                         </button>
-                        <Link
+                        {/* <Link
                             to="/register"
                             className="text-[#0258a3] text-center my-5 text-[15px] hover:text-black cursor-pointer"
                         >
                             Register a new account
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </div>

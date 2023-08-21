@@ -69,7 +69,7 @@ const getAllUserOrder = async (req, res) => {
                     sequelize.fn(
                         'DATE_FORMAT',
                         sequelize.col('orders.createdAt'),
-                        '%d %b %Y',
+                        '%a, %d %b %Y',
                     ),
                     'createdAt',
                 ],
@@ -133,7 +133,7 @@ const getOrderDetails = async (req, res) => {
                             sequelize.fn(
                                 'DATE_FORMAT',
                                 sequelize.col('order_statuses.createdAt'),
-                                '%d-%b-%Y %h:%i %p',
+                                '%a, %d-%b-%Y %h:%i %p',
                             ),
                             'createdAt',
                         ],

@@ -18,14 +18,14 @@ const DateRangePicker = (props) => {
     // console.log(start, end)
     return (
         <DatePicker
-            type='date'
-            className='input input-bordered h-9 w-[220px]'
+            type="date"
+            className="input input-bordered h-9 w-[220px]"
             selected={props.data.startDate}
             onChange={props.data.handleDateChange}
             startDate={props.data.startDate}
             endDate={props.data.endDate}
             selectsRange
-            placeholderText='Search by date range'
+            placeholderText="Search by date range"
         />
     );
 };

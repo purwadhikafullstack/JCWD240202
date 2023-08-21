@@ -32,14 +32,16 @@ export default function LoginPage() {
                 email: '',
                 password: '',
             });
-            setTimeout(() => {
-                navigate('/');
-            }, 3000);
+            navigate('/');
+            // setTimeout(() => {
+            // }, 3000);
         }
     };
 
     useEffect(() => {
-        defaultValue();
+        if (isLogin) {
+            defaultValue();
+        }
     }, [isLogin]);
 
     if (userLogin) {

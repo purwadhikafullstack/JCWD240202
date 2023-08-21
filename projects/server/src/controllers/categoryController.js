@@ -9,6 +9,7 @@ module.exports = {
         try {
             const findCategories = await categories.findAll({
                 attributes: ['id', 'name', 'image'],
+                order : [['name', 'ASC']]
             });
 
             if (findCategories) {
@@ -221,17 +222,16 @@ module.exports = {
         try {
             const { id } = req.params;
 
-            const checkData = await categories.findOne({
+            const checkData = await db.products.findOne({
                 where: {
-                    id,
+                    category_id: id, is_deleted: false
                 },
             });
 
-            if (!checkData)
+            if (checkData)
                 return res.status(406).send({
                     success: false,
-                    message: 'Data not found!',
-                    data: null,
+                    message: 'This category is currently being used!',
                 });
 
             const result = await categories.destroy(

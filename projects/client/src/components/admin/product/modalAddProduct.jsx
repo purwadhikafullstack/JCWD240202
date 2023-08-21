@@ -142,7 +142,7 @@ export default function ModalAddProduct(props) {
                             })
                         ) : (
                             <img
-                                src="https://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Tkm2I2eZS-dnuXspUUvm8WiB07J0XE8f4A&usqp=CAU"
                                 alt="image-preview"
                                 className="border object-contain border-slate-400 h-[100px] rounded-md"
                             />
@@ -218,8 +218,9 @@ export default function ModalAddProduct(props) {
                             setColor(e.target.value);
                         }}
                         className="border border-gray-400 rounded-md ml-3"
+                        value={color}
                     >
-                        <option value="none" selected disabled hidden>
+                        <option value="none" hidden>
                             Base Color
                         </option>
                         {props.color?.data?.map((value, index) => {
@@ -243,6 +244,7 @@ export default function ModalAddProduct(props) {
                             value={price}
                             type="number"
                             name="receiver_name"
+                            min={0}
                         />
                     </div>
                     <div className="flex gap-3">
@@ -258,6 +260,7 @@ export default function ModalAddProduct(props) {
                                     setLength(e.target.value);
                                 }}
                                 value={length}
+                                min={0}
                             ></input>
                         </div>
                         <div>
@@ -272,6 +275,7 @@ export default function ModalAddProduct(props) {
                                     setWidth(e.target.value);
                                 }}
                                 value={width}
+                                min={0}
                             ></input>
                         </div>
                         <div>
@@ -286,6 +290,7 @@ export default function ModalAddProduct(props) {
                                     setHeight(e.target.value);
                                 }}
                                 value={height}
+                                min={0}
                             ></input>
                         </div>
                         <div>
@@ -300,6 +305,7 @@ export default function ModalAddProduct(props) {
                                     setWeight(e.target.value);
                                 }}
                                 value={weight}
+                                min={0}
                             ></input>
                         </div>
                     </div>

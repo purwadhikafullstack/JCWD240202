@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import ModalAddCategory from '../../components/admin/product/modalAddCategory';
 import ModalEditCategory from '../../components/admin/product/modalEditCategory';
 import ModalDeleteCategory from '../../components/admin/product/modalDeleteCategory';
+import { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 
 export default function CategoryProductAdmin() {
@@ -21,6 +22,7 @@ export default function CategoryProductAdmin() {
     }, []);
     return (
         <>
+            <Toaster />
             <Helmet>
                 <title>IKEWA | Admin Category Products</title>
                 <meta name="description" content="admin-category-product" />
@@ -29,10 +31,10 @@ export default function CategoryProductAdmin() {
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="p-8 w-full">
-                        <ProductTabs />
                         <div className="font-bold text-2xl mt-2">
                             <h1>CATEGORY PRODUCTS</h1>
                         </div>
+                        <ProductTabs />
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex justify-between items-center w-full mb-4">
                                 <div className="flex">

@@ -5,7 +5,7 @@ export default function ModalSubmitProof(props) {
         <Modal show={props?.state?.modalSubmitProof}>
             <Modal.Body>
                 <div className="text-xl font-bold flex justify-center items-center">
-                    Remove Image?
+                    Submit Payment Proof?
                 </div>
             </Modal.Body>
             <Modal.Footer>

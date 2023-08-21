@@ -5,11 +5,14 @@ import { getAllCategoriesAsync } from '../../../redux/features/homepageSlice';
 import { Dropdown, Label, Radio } from 'flowbite-react';
 
 export default function FilterButton(props) {
+    console.log(props.data.category)
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.homepage.category);
     const [name, setName] = useState('');
+    console.log(name)
 
     const handleCategory = (category) => {
+        console.log(category, 'lalalalalalla')
         props?.data?.categoryChange(category);
         setName(category);
     };
@@ -18,7 +21,7 @@ export default function FilterButton(props) {
         dispatch(getAllCategoriesAsync());
     }, []);
     return (
-        <Dropdown label="Filter by Categories" className="px-5" color="light">
+        <Dropdown label={props.data?.category === '' ? 'Filter by Categories' : props.data?.category} className="px-5" color="light">
             <div className="flex flex-col gap-2 mt-2">
                 <div className="flex gap-3 items-center mb-4">
                     <Radio
@@ -26,7 +29,7 @@ export default function FilterButton(props) {
                         name="category"
                         onClick={() => handleCategory('')}
                         value={''}
-                        checked={name === '' ? true : false}
+                        defaultChecked={props.data?.category === '' ? true : false}
                     />
                     <Label>ALL CATEGORIES</Label>
                 </div>
@@ -42,8 +45,8 @@ export default function FilterButton(props) {
                                       name="category"
                                       onClick={() => handleCategory(value.name)}
                                       value={value.name}
-                                      checked={
-                                          value.name === name ? true : false
+                                      defaultChecked={
+                                        props.data?.category === value.name ? true : false
                                       }
                                   />
                                   <Label>{value.name}</Label>

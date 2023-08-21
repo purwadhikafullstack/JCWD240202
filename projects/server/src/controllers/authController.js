@@ -37,6 +37,7 @@ module.exports = {
             } else {
                 const result = await user.create({
                     email,
+                    role_id: 1
                 });
 
                 const data = await fs.readFileSync(
@@ -51,6 +52,7 @@ module.exports = {
                     id: result.id,
                     email: result.email,
                     is_verified: false,
+                    link: 'verification'
                 };
                 const token = jwt.sign(payload, 'coding-its-easy');
                 await user.update(
@@ -229,14 +231,18 @@ module.exports = {
                 });
 
             const data = await fs.readFileSync(
-                './email_template/resetPassword.html',
-                'utf-8',
+                path.resolve(
+                    '../server/src/email_template',
+                    'resetPassword.html',
+                ),
+                { encoding: 'utf-8' },
             );
 
             let payload = {
                 id: result.id,
                 email: result.email,
                 is_verified: result.is_verified,
+                link: 'resetpassword'
             };
             const token = jwt.sign(payload, 'coding-its-easy');
             await user.update(
@@ -278,7 +284,6 @@ module.exports = {
         try {
             const { password, confirmPassword } = req.body;
             const uid = req.User.id;
-            console.log(uid);
 
             if (!password || !confirmPassword)
                 return res.status(400).send({
@@ -310,7 +315,6 @@ module.exports = {
                     token_password: '0',
                 },
             });
-            console.log(checkRequest);
             if (checkRequest)
                 return res.status(401).send({
                     success: false,
@@ -344,4 +348,42 @@ module.exports = {
             });
         }
     },
+    expiredLink: async (req, res) => {
+        try {
+            const uid = req.User.id;
+            const verified = req.User.is_verified
+            const link = req.User.link
+            console.log('inii linkkkkk', link)
+            const userCheck = await user.findOne({
+                where: {
+                    id: uid
+                }
+            })
+            if (link === 'verification') {
+                if (userCheck.is_verified !== verified) {
+                    return res.status(401).send({
+                        success: false,
+                        message: 'access denied!'
+                    })
+                }
+            } else if (link === 'resetpassword') {
+                if (userCheck.token_password === '0') {
+                    return res.status(401).send({
+                        success: false,
+                        message: 'access denied!'
+                    })
+                }
+            }
+            return res.status(200).send({
+                success: true,
+                message: 'access accepted!'
+            })
+        } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    }
 };

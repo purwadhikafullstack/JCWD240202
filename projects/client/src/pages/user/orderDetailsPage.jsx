@@ -76,8 +76,8 @@ export default function OrderDetailsPage() {
     const uploadProof = (data) => {
         dispatch(
             postUserPaymentProofAsync({
-                order_id: data.order_id,
-                images: data.images,
+                order_id: data?.order_id,
+                images: data?.images,
             }),
         );
     };
@@ -122,7 +122,7 @@ export default function OrderDetailsPage() {
                                 <div>
                                     <Button
                                         onClick={() => setCancelOrder(true)}
-                                        color={'failure'}
+                                        color={'light'}
                                     >
                                         Cancel Order
                                     </Button>
@@ -216,8 +216,9 @@ export default function OrderDetailsPage() {
                                     ''
                                 )}
                             </div>
-                        ) : userOrderDetails?.data?.order_statuses[0]
-                              ?.status_id === 6 ? (
+                        ) : userOrderDetails?.data?.order_statuses[
+                              userOrderDetails?.data?.order_statuses.length - 1
+                          ]?.status_id === 6 ? (
                             ''
                         ) : (
                             <>
@@ -226,28 +227,25 @@ export default function OrderDetailsPage() {
                                         Payment Proof
                                     </div>
                                     <div className="flex-wrap py-4 flex items-center justify-center w-full h-[300px]">
-                                        <img
-                                            onClick={() => {
-                                                setImageProofView(
-                                                    `http://localhost:8000/${userOrderDetails?.data?.payment_proof}`,
-                                                );
-                                                setModalImageProof(true);
-                                            }}
-                                            src={`http://localhost:8000/${userOrderDetails?.data?.payment_proof}`}
-                                            alt="image_proof"
-                                            className="w-full h-[250px] hover:cursor-pointer"
-                                        />
+                                        {userOrderDetails?.data
+                                            ?.payment_proof ? (
+                                            <img
+                                                onClick={() => {
+                                                    setImageProofView(
+                                                        `http://localhost:8000/${userOrderDetails?.data?.payment_proof}`,
+                                                    );
+                                                    setModalImageProof(true);
+                                                }}
+                                                src={`http://localhost:8000/${userOrderDetails?.data?.payment_proof}`}
+                                                alt="image_proof"
+                                                className="w-full h-[250px] hover:cursor-pointer"
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
                                     </div>
                                 </div>
                             </>
-                        )}
-                        {/* Payment Method */}
-                        {userOrderDetails?.data?.order_statuses[
-                            userOrderDetails?.data?.order_statuses.length - 1
-                        ].status_id === 1 ? (
-                            <PaymentMethod />
-                        ) : (
-                            ''
                         )}
                         {/* Receiver Address */}
                         <div className="border px-4 mt-9">

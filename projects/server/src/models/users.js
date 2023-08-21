@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'user_id',
             });
             users.hasMany(models.stock_histories, {
+                foreignKey: 'user_id'
+            })
+            users.hasMany(models.wishlists, {
                 foreignKey: 'user_id',
             });
         }

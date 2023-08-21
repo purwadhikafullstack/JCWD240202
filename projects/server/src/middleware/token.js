@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     verifyToken: (req, res, next) => {
         let token = req.headers.authorization;
-
         if (token === null || !token) {
             return res.status(401).send({
                 success: false,
@@ -28,7 +27,10 @@ module.exports = {
         } catch (error) {
             return res.status(500).send({
                 success: false,
-                message: error.message === "jwt expired"? "Expired, you must re-login!" : error.message,
+                message:
+                    error.message === 'jwt expired'
+                        ? 'Expired, you must re-login!'
+                        : error.message,
                 data: null,
             });
         }

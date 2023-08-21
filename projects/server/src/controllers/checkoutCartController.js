@@ -182,10 +182,16 @@ const createUserOrder = async (req, res) => {
 
                     const eventScheduler =
                         await sequelize.query(`CREATE EVENT payment_expired_${createStatus.id} ON SCHEDULE AT NOW() + INTERVAL 24 HOUR
-                        DO BEGIN
-                        INSERT INTO order_statuses (status_id, order_id, createdAt, updatedAt, is_active, is_rejected) VALUES (6, "${createStatus.order_id}", current_timestamp(), current_timestamp(), 1, 0);
-                        UPDATE order_statuses SET is_active = 0 WHERE id = "${createStatus.id}" AND status_id = 1;
-                        END;`);
+                            DO BEGIN
+                            DECLARE status_check INT;
+                            DECLARE is_active_check INT;
+                            SELECT status_id INTO status_check FROM order_statuses WHERE id = ${createStatus.id} LIMIT 1;
+                            SELECT is_active INTO is_active_check FROM order_statuses WHERE id = ${createStatus.id} LIMIT 1;
+                            IF status_check = 1 AND is_active_check = 1 THEN
+                            INSERT INTO order_statuses (status_id, order_id, createdAt, updatedAt, is_active, is_rejected) VALUES (6, "${createStatus.order_id}", current_timestamp(), current_timestamp(), 1, 0);
+                            UPDATE order_statuses SET is_active = 0 WHERE id = "${createStatus.id}" AND status_id = 1;
+                            END IF;
+                            END;`);
 
                     res.status(200).send({
                         success: true,

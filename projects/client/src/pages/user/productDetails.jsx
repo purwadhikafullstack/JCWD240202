@@ -13,6 +13,11 @@ import RelatedProducts from '../../components/user/productCard/recommendationCar
 import { userAddToCartAsync } from '../../redux/features/cartSlice';
 import { AiOutlineHeart } from 'react-icons/ai';
 import toast, { Toaster } from 'react-hot-toast';
+import { FcLike } from 'react-icons/fc';
+import {
+    addWishlistsAsync,
+    removeWishlistAsync,
+} from '../../redux/features/wishlistSlice';
 
 export default function ProductDetails() {
     const { id } = useParams();
@@ -22,13 +27,33 @@ export default function ProductDetails() {
         (state) => state.product.recommendations,
     );
     const [quantity, setQuantity] = useState(1);
+    const wishlistCheck = useSelector((state) => state.wishlist.wishlistIds);
+    const userLogin = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+
+    const addQuantity = () => {
+        if (quantity === proDetails?.data?.findProduct?.total_stock) {
+            toast.error('Not enough stock available');
+        } else {
+            setQuantity(quantity + 1);
+        }
+    };
+
+    const decreaseQuantity = () => {
+        if (quantity <= 1) {
+            return null;
+        } else {
+            setQuantity(quantity - 1);
+        }
+    };
 
     useEffect(() => {
         dispatch(productDetailsAsync(id));
         dispatch(productRecommenadationAsync(id));
     }, []);
     return (
-        <div className="divide-y">
+        <div className="divide-y mb-16">
             <Toaster />
             <div className="flex px-[200px] justify-evenly gap-14 pt-9">
                 <div className="flex-1">
@@ -57,26 +82,14 @@ export default function ProductDetails() {
                             <div>Quantity</div>
                             <div className="flex gap-2 items-center border rounded-lg">
                                 <div
-                                    onClick={
-                                        quantity <= 1
-                                            ? ''
-                                            : () => setQuantity(quantity - 1)
-                                    }
+                                    onClick={decreaseQuantity}
                                     className="p-2 hover:cursor-pointer"
                                 >
                                     -
                                 </div>
                                 <div className="px-9">{quantity}</div>
                                 <div
-                                    onClick={() => {
-                                        quantity ===
-                                        proDetails?.data?.findProduct
-                                            ?.total_stock
-                                            ? toast.error(
-                                                  'Not enough stock available',
-                                              )
-                                            : setQuantity(quantity + 1);
-                                    }}
+                                    onClick={addQuantity}
                                     className="p-2 hover:cursor-pointer"
                                 >
                                     +
@@ -112,12 +125,56 @@ export default function ProductDetails() {
                                         </div>
                                     </Button>
                                 </div>
-                                <div className="flex-2">
-                                    <AiOutlineHeart
-                                        size={60}
-                                        className="rounded-full border p-4 hover:bg-red-700 hover:text-yellow-200"
-                                    />
-                                </div>
+                                {userLogin ? (
+                                    wishlistCheck.includes(
+                                        proDetails?.data?.findProduct?.id,
+                                    ) ? (
+                                        <div
+                                            onClick={() =>
+                                                dispatch(
+                                                    removeWishlistAsync({
+                                                        product_id:
+                                                            proDetails?.data
+                                                                ?.findProduct
+                                                                ?.id,
+                                                    }),
+                                                )
+                                            }
+                                            className="flex-2"
+                                        >
+                                            <FcLike
+                                                size={60}
+                                                className="rounded-full border p-4 hover:cursor-pointer"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div
+                                            onClick={() =>
+                                                dispatch(
+                                                    addWishlistsAsync({
+                                                        product_id:
+                                                            proDetails?.data
+                                                                ?.findProduct
+                                                                ?.id,
+                                                    }),
+                                                )
+                                            }
+                                            className="flex-2"
+                                        >
+                                            <AiOutlineHeart
+                                                size={60}
+                                                className="rounded-full border p-4 hover:cursor-pointer"
+                                            />
+                                        </div>
+                                    )
+                                ) : (
+                                    <div className="flex-2">
+                                        <AiOutlineHeart
+                                            size={60}
+                                            className="rounded-full border p-4 hover:cursor-pointer"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </>
                     ) : (
@@ -126,24 +183,73 @@ export default function ProductDetails() {
                                 <Button
                                     pill
                                     className="w-full p-4 bg-sky-700 text-yellow-200"
-                                    onClick={() =>
+                                    onClick={() => {
                                         dispatch(
                                             userAddToCartAsync({
                                                 product_id: Number(id),
                                                 quantity: quantity,
                                             }),
-                                        )
-                                    }
+                                        );
+                                    }}
                                 >
                                     <div className="text-xl">Add to Cart</div>
                                 </Button>
                             </div>
-                            <div className="flex-2">
-                                <AiOutlineHeart
-                                    size={60}
-                                    className="rounded-full border p-4 hover:bg-red-700 hover:text-yellow-200"
-                                />
-                            </div>
+                            {userLogin ? (
+                                wishlistCheck.includes(
+                                    proDetails?.data?.findProduct?.id,
+                                ) ? (
+                                    <div
+                                        onClick={() =>
+                                            dispatch(
+                                                removeWishlistAsync({
+                                                    product_id:
+                                                        proDetails?.data
+                                                            ?.findProduct?.id,
+                                                }),
+                                            )
+                                        }
+                                        className="flex-2"
+                                    >
+                                        <FcLike
+                                            size={60}
+                                            className="rounded-full border p-4 hover:cursor-pointer"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div
+                                        onClick={() =>
+                                            dispatch(
+                                                addWishlistsAsync({
+                                                    product_id:
+                                                        proDetails?.data
+                                                            ?.findProduct?.id,
+                                                }),
+                                            )
+                                        }
+                                        className="flex-2"
+                                    >
+                                        <AiOutlineHeart
+                                            size={60}
+                                            className="rounded-full border p-4 hover:cursor-pointer"
+                                        />
+                                    </div>
+                                )
+                            ) : (
+                                <div
+                                    onClick={() => {
+                                        toast.error(
+                                            'Please Login/Register First',
+                                        );
+                                    }}
+                                    className="flex-2"
+                                >
+                                    <AiOutlineHeart
+                                        size={60}
+                                        className="rounded-full border p-4 hover:cursor-pointer"
+                                    />
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>

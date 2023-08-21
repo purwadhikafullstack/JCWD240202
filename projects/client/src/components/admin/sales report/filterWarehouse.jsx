@@ -1,25 +1,39 @@
 import { Select, Label } from 'flowbite-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getAvailableWh } from '../../../redux/features/warehouseSlice';
+import { getAllWarehousesAsync } from '../../../redux/features/warehouseSlice';
 
-export default function FilterWarehouse() {
+export default function FilterWarehouse(props) {
     const dispatch = useDispatch();
-    const warehouses = useSelector((state) => state.warehouse.availableWh);
+    const warehouses = useSelector((state) => state.warehouse.allWarehouse);
+
+    const handleWarehouseChange = (e) => {
+        const getId = e.target.value.split(',')[0];
+        const getName = e.target.value.split(',')[1];
+        props?.state?.setWarehouseId(getId);
+        props?.state?.setWarehouseName(getName);
+        console.log(getName);
+    };
 
     useEffect(() => {
-        dispatch(getAvailableWh());
+        dispatch(getAllWarehousesAsync());
     }, []);
 
     return (
         <>
             <div>
-                {' '}
-                <Label>Warehouse : </Label>
-                <Select>
-                    <option>Choose Warehouse</option>
-                    {warehouses?.map((value, index) => {
-                        return <option>{value.province}</option>;
+                <Label>Choose Warehouse : </Label>
+                <Select onChange={handleWarehouseChange}>
+                    <option value={''}>All Warehouses</option>
+                    {warehouses?.data?.map((value, index) => {
+                        return (
+                            <option
+                                key={index}
+                                value={`${value?.id},${value.province}`}
+                            >
+                                {value.province}
+                            </option>
+                        );
                     })}
                 </Select>
             </div>

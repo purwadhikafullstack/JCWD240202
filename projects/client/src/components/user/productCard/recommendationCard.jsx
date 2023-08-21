@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
     productDetailsAsync,
     productRecommenadationAsync,
@@ -7,11 +7,15 @@ import {
 
 export default function RelatedProducts(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     return (
         <>
             {props?.data?.recommendation?.data?.map((value, index) => {
                 return (
-                    <div className="w-[300px] h-[450px] flex flex-col rounded shadow-2xl">
+                    <div
+                        key={index}
+                        className="w-[300px] h-[450px] flex flex-col rounded shadow-2xl"
+                    >
                         <div className="flex-1 relative">
                             <img
                                 src={value.product_images[0]?.name}
@@ -26,19 +30,19 @@ export default function RelatedProducts(props) {
                             <div className="flex-1 px-2">
                                 Rp {value.price.toLocaleString('id')}
                             </div>
-                            <Link
+
+                            <div
                                 onClick={() => {
                                     dispatch(productDetailsAsync(value.id));
                                     dispatch(
                                         productRecommenadationAsync(value.id),
                                     );
+                                    navigate(`/products/${value.id}`);
                                 }}
-                                to={`/products/${value.id}`}
+                                className="border-t flex justify-center py-2 bg-yellow-300 text-sky-700 hover:cursor-pointer hover:bg-yellow-400"
                             >
-                                <div className="border-t flex justify-center py-2 bg-yellow-300 text-sky-700 hover:cursor-pointer hover:bg-yellow-400">
-                                    Details
-                                </div>
-                            </Link>
+                                Details
+                            </div>
                         </div>
                     </div>
                 );

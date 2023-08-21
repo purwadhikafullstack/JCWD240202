@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/features/authSlice';
 import { Navigate, useNavigate, Link } from 'react-router-dom';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Helmet } from 'react-helmet';
 
 export default function RegisterPage() {
@@ -11,12 +13,14 @@ export default function RegisterPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [isAgree, setIsAgree] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const userLogin = JSON.parse(localStorage.getItem('user'));
 
     //call data redux
     const msgError = useSelector((state) => state.auth.auth);
     const isRegister = useSelector((state) => state.auth.isLogin);
+    const isLoading = useSelector((state) => state.auth.loading);
 
     const onChange = (event) => {
         const { value } = event.target;
@@ -42,9 +46,9 @@ export default function RegisterPage() {
                     </div>
                 </div>
             ));
-            setTimeout(() => {
-                navigate('/');
-            }, 3000);
+            navigate('/');
+            // setTimeout(() => {
+            // },1000);
         }
     };
 
@@ -70,7 +74,7 @@ export default function RegisterPage() {
                             Create personal account
                         </div>
                         <div className="font-semibold">
-                            Join to IKEA Family Account
+                            Join to IKEWA Family Account
                         </div>
                     </div>
                 </div>
@@ -110,7 +114,7 @@ export default function RegisterPage() {
                             <span className="text-xs font-Public w-auto">
                                 <input
                                     className="focus:ring-0 mb-1 mr-2"
-                                    required="true"
+                                    required={true}
                                     type="checkbox"
                                     name="isAgree"
                                     id="isAgree"
@@ -155,6 +159,15 @@ export default function RegisterPage() {
                     </div>
                 </div>
             </div>
+            <Backdrop
+                sx={{
+                    color: '#fff',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={isLoading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <div className="w-full flex justify-center items-center">
                 <img
                     src="/images/banner-ikewa.png"

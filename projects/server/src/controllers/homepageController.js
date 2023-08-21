@@ -2,6 +2,11 @@ const db = require('../models');
 const categories = db.categories;
 const products = db.products;
 const product_images = db.product_images;
+const orders = db.orders;
+const order_statuses = db.order_statuses;
+const carts = db.carts;
+const cart_products = db.cart_products;
+const { sequelize } = require('../models');
 
 const getAllCategories = async (req, res) => {
     try {
@@ -34,14 +39,14 @@ const getAllCategories = async (req, res) => {
 const getNewArrivals = async (req, res) => {
     try {
         const newArrivals = await products.findAll({
-            order: [['id', 'DESC']],
-            limit: 12,
+            limit: 10,
             include: [
                 {
                     model: product_images,
                     where: { is_thumbnail: true },
                 },
             ],
+            order: [['id', 'DESC']],
         });
 
         if (newArrivals) {
@@ -69,29 +74,38 @@ const getNewArrivals = async (req, res) => {
 const getBestSeller = async (req, res) => {
     try {
         const bestSeller = await products.findAll({
-            order: [['id', 'ASC']],
-            limit: 5,
+            attributes: [
+                'id',
+                'name',
+                'price',
+                [
+                    sequelize.literal(`(
+                        SELECT SUM(cart_products.quantity)
+                        FROM cart_products
+                        INNER JOIN carts ON cart_products.cart_id = carts.id
+                        INNER JOIN orders ON orders.cart_id = carts.id
+                        INNER JOIN order_statuses ON order_statuses.order_id = orders.id
+                        WHERE order_statuses.status_id = 5 AND order_statuses.is_active = true AND cart_products.product_id = products.id                           
+                    )`),
+                    'totalQuantity',
+                ],
+            ],
             include: [
                 {
                     model: product_images,
+                    attributes: ['name'],
                     where: { is_thumbnail: true },
                 },
             ],
+            order: [[sequelize.literal('totalQuantity'), 'DESC']],
+            limit: 5,
         });
 
-        if (bestSeller) {
-            res.status(200).send({
-                success: true,
-                message: 'get new products success',
-                data: bestSeller,
-            });
-        } else {
-            res.status(404).send({
-                success: false,
-                message: 'no new products found',
-                data: null,
-            });
-        }
+        res.status(200).send({
+            success: true,
+            message: 'get best seller success',
+            data: bestSeller,
+        });
     } catch (error) {
         res.status(500).send({
             success: false,

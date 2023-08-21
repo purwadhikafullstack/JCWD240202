@@ -70,7 +70,7 @@ export default function CheckoutCart() {
             } else if (courier === '' || shippingMethod === '') {
                 toast.error('Please choose preffered delivery method');
             } else {
-                let userAddress = `${userChosenAddress.data.street}, ${userChosenAddress.data.subdistrict}, ${userChosenAddress.data.city}, ${userChosenAddress.data.province} ${userChosenAddress.data.postcode}`;
+                let userAddress = `${userChosenAddress?.data?.street}, ${userChosenAddress?.data?.subdistrict}, ${userChosenAddress?.data?.city}, ${userChosenAddress?.data?.province} ${userChosenAddress?.data?.postcode}`;
 
                 const newOrder = dispatch(
                     createNewOrderAsync({
@@ -101,9 +101,9 @@ export default function CheckoutCart() {
         if (courier === 'jne' || courier === 'tiki' || courier === 'pos') {
             const getShippingPrice = dispatch(
                 getShippingListAsync({
-                    origin_id: closestWH.data.warehouseData.city_id,
-                    destination_id: userChosenAddress.data.city_id,
-                    weight: userCart.totalWeight,
+                    origin_id: closestWH?.data?.warehouseData?.city_id,
+                    destination_id: userChosenAddress?.data?.city_id,
+                    weight: userCart?.totalWeight,
                     courier: courier,
                 }),
             );
@@ -265,16 +265,14 @@ export default function CheckoutCart() {
                     ) : (
                         ''
                     )}
-                    {/* Payment Method */}
-                    <PaymentMethod />
                     {/* cart items */}
-                    <div>
+                    <div className="pt-9">
                         <div className="pt-9 font-bold text-lg pb-4">
                             Your Items
                         </div>
                         {userCart?.data?.rows?.map((value, index) => {
                             return (
-                                <>
+                                <div key={index}>
                                     {value?.product?.total_stock !== 0 ? (
                                         <div className="border-y">
                                             <CartLists data={{ value }} />
@@ -284,23 +282,25 @@ export default function CheckoutCart() {
                                             id: value?.product?.id,
                                         })
                                     )}
-                                </>
+                                </div>
                             );
                         })}
                     </div>
                 </div>
                 {/* right total box */}
-                <OrderSummary
-                    data={{
-                        closestWH,
-                        weight: userCart.totalWeight,
-                        price: userCart.totalPrice,
-                        shippingFee: shippingFee,
-                        courier: courier,
-                        shippingMethod: shippingMethod,
-                        createOrder,
-                    }}
-                />
+                <div>
+                    <OrderSummary
+                        data={{
+                            closestWH,
+                            weight: userCart.totalWeight,
+                            price: userCart.totalPrice,
+                            shippingFee: shippingFee,
+                            courier: courier,
+                            shippingMethod: shippingMethod,
+                            createOrder,
+                        }}
+                    />
+                </div>
             </div>
             <ModalChangeAddress
                 data={{

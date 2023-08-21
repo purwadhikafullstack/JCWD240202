@@ -17,6 +17,8 @@ const checkoutCartRouter = require('./checkoutCartRouter');
 const mutationRouter = require('./mutationRouter');
 const orderRouter = require('./orderRouter');
 const stockHistoryRouter = require('./stockHistoryRouter');
+const reportRouter = require('./reportRouter');
+const wishlistRouter = require('./wishlistRouter');
 
 module.exports = {
     rajaOngkirRouter,
@@ -38,4 +40,6 @@ module.exports = {
     mutationRouter,
     orderRouter,
     stockHistoryRouter,
+    reportRouter,
+    wishlistRouter,
 };

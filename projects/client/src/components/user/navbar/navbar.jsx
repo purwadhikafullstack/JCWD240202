@@ -2,13 +2,14 @@
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
+import { getUserWishlists } from '../../../redux/features/wishlistSlice';
 
 export default function Navbar(props) {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function Navbar(props) {
     const [openModal, setOpenModal] = useState(false);
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const userCartCount = useSelector((state) => state.cart.cart);
+    const wishlistCount = useSelector((state) => state.wishlist.wishlists);
 
     const logout = () => {
         try {
@@ -38,17 +40,21 @@ export default function Navbar(props) {
             toast.error(error.message);
         }
     };
-
+    
     useEffect(() => {
-        dispatch(getUserCartAsync());
+        if (userLogin) {
+            dispatch(getUserCartAsync());
+            dispatch(getUserWishlists());
+        }
     }, [userLogin]);
-
+    
     const { pathname } = useLocation();
-
+    
     const path = [
         '/admins/dashboard',
         '/admins/products',
         '/admins/products/categories',
+        '/admins/products/colors',
         '/admins/stock-management',
         '/admins/mutation-management',
         '/admins/stock-history',
@@ -57,9 +63,7 @@ export default function Navbar(props) {
         '/admins/sales-report',
     ];
 
-    if (
-        (path.includes(pathname) && ((props.dataLogin === 2 || props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) || pathname === '/admins/login'
-    ) {
+    if ((path.includes(pathname) && ((props.dataLogin === 2 || props.dataLogin === 3 || props.dataLogin === undefined) && userLogin)) || pathname === '/admins/login') {
         return null;
     }
 
@@ -70,7 +74,7 @@ export default function Navbar(props) {
     return (
         <>
             <Toaster />
-            <div className="flex justify-between items-center border-b py-6 px-12 bg-white">
+            <div className="flex justify-between items-center border-b py-6 px-12 bg-white h-[100px]">
                 {/* left side => logo */}
                 <div className="w-24">
                     <Link to={'/'}>
@@ -129,26 +133,37 @@ export default function Navbar(props) {
                         </Link>
                     )}
 
-                    <div>
-                        <AiOutlineHeart size={25} />
-                    </div>
                     {userLogin ? (
-                        <Link to="/cart">
-                            <div className="flex items-center">
-                                <AiOutlineShoppingCart size={25} />
-                                {userCartCount?.data?.count > 0 ? (
-                                    <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
-                                        {userCartCount?.data?.count}
-                                    </div>
-                                ) : (
-                                    ''
-                                )}
-                            </div>
-                        </Link>
+                        <>
+                            <Link to={'/users/wishlists'}>
+                                <div className="flex items-center">
+                                    <AiOutlineHeart size={25} />
+
+                                    {wishlistCount?.data?.wishlists.length >
+                                    0 ? (
+                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                            {wishlistCount?.totalProducts}
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </Link>
+                            <Link to="/cart">
+                                <div className="flex items-center">
+                                    <AiOutlineShoppingCart size={25} />
+                                    {userCartCount?.data?.count > 0 ? (
+                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                            {userCartCount?.data?.count}
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </Link>
+                        </>
                     ) : (
-                        <div>
-                            <AiOutlineShoppingCart size={25} />
-                        </div>
+                        ''
                     )}
                 </div>
                 <Modal
@@ -158,7 +173,7 @@ export default function Navbar(props) {
                     onClose={() => setOpenModal(false)}
                 >
                     <Modal.Body>
-                        <div className="text-xl flex justify-center items-center">
+                        <div className="text-lg flex justify-center items-center">
                             Are you sure want to log out?
                         </div>
                     </Modal.Body>

@@ -28,6 +28,7 @@ export default function UserTransactions() {
     const [orderId, setOrderId] = useState(0);
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
+    const [expiredTime, setExpiredTime] = useState(false);
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -35,7 +36,6 @@ export default function UserTransactions() {
 
     const handleCancelOrder = async () => {
         await dispatch(userCancelOrderAsync({ order_id: orderId }));
-        // navigate(`/orders/${orderId}`);
         await dispatch(
             getAllUserOrderAsync({
                 sort: sortTransaction,
@@ -71,21 +71,21 @@ export default function UserTransactions() {
                 search,
             }),
         );
-    }, [page, sortTransaction, status_id, search]);
+    }, [page, sortTransaction, status_id, search, expiredTime]);
     return (
         <>
             <Toaster />
             <Helmet>
                 <title>IKEWA | Transactions</title>
-                <meta name="description" content="profile" />
+                <meta name="description" content="transactions" />
             </Helmet>
-            <div className="flex justify-center gap-2">
-                <div className="py-[80px]">
+            <div className="flex">
+                <div className="flex-2 py-[80px] ml-[200px]">
                     <UserSidebar />
                 </div>
-                <div className="p-[80px] flex flex-col items-center">
+                <div className="flex-1 p-[80px] flex flex-col items-center mr-[100px]">
                     <div className="w-full">
-                        <div className="font-bold text-2xl">
+                        <div className="font-bold text-3xl">
                             Transaction History
                         </div>
                     </div>
@@ -121,11 +121,13 @@ export default function UserTransactions() {
                                 (value, index) => {
                                     return (
                                         <TransactionHistoryBox
+                                            key={index}
                                             data={{ value }}
                                             state={{
                                                 setCancelOrder,
                                                 setOrderId,
                                                 setStatusId,
+                                                setExpiredTime,
                                             }}
                                         />
                                     );

@@ -9,6 +9,7 @@ import { getAllProductsAsync } from '../../redux/features/productSlice';
 import PaginationButton from '../../components/user/pagination/paginationButton';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import AfterAddCart from '../../components/user/productsCatalog/afterAddCart';
 import { Helmet } from 'react-helmet';
 
 export default function ProductsCatalog() {
@@ -18,6 +19,7 @@ export default function ProductsCatalog() {
     const [sort, setSort] = useState('');
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
+    const [addNewItem, setAddNewItem] = useState(false);
     const productLists = useSelector((state) => state.product.products);
 
     const pageChange = (event, value) => {
@@ -48,6 +50,9 @@ export default function ProductsCatalog() {
     };
 
     useEffect(() => {
+        if (addNewItem === true) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         let queryParams = {};
         if (page) {
             queryParams['page'] = page;
@@ -63,47 +68,62 @@ export default function ProductsCatalog() {
         }
         setSearchParams(queryParams);
         showProducts(page, category, sort, search);
-    }, [page, category, sort, search]);
+    }, [page, category, sort, search, addNewItem]);
     return (
-        <div className="p-[100px]">
+        <div className="relative">
             <Helmet>
                 <title>IKEWA | Products</title>
                 <meta name="description" content="products" />
             </Helmet>
-            <div className="font-bold text-4xl">All Products</div>
-            <div className="flex justify-between pt-9">
-                <div className="flex flex-1 gap-9 w-full">
-                    <FilterButton data={{ categoryChange, setPage }} />
-                    <SortButton data={{ sortChange }} />
-                </div>
-                <div className="flex-2">
-                    <div>
-                        <SearchBar data={{ searchChange }} />
+            <div
+                className={`p-[100px] z-20 transform  ${
+                    addNewItem === true
+                        ? 'inset-0 opacity-50 pointer-events-none'
+                        : ''
+                }`}
+            >
+                <div className="font-bold text-4xl">All Products</div>
+                <div className="flex justify-between pt-9">
+                    <div className="flex flex-1 gap-9 w-full">
+                        <FilterButton data={{ categoryChange, setPage, category }} />
+                        <SortButton data={{ sortChange, sort }} />
+                    </div>
+                    <div className="flex-2">
+                        <div>
+                            <SearchBar data={{ searchChange }} />
+                        </div>
                     </div>
                 </div>
-            </div>
-            {productLists?.data?.rows?.length !== 0 ? (
-                <div className=" flex gap-6 flex-wrap pt-12">
-                    {productLists?.data?.rows?.map((value, index) => {
-                        return <ProductsCard key={index} data={{ value }} />;
-                    })}
-                </div>
-            ) : (
-                <div className="flex justify-center py-24 font-bold tex-2xl">
-                    No Product Found
-                </div>
-            )}
+                {productLists?.data?.rows?.length !== 0 ? (
+                    <div className=" flex gap-6 flex-wrap pt-12">
+                        {productLists?.data?.rows?.map((value, index) => {
+                            return (
+                                <ProductsCard
+                                    key={index}
+                                    data={{ value }}
+                                    state={{ setAddNewItem }}
+                                />
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <div className="flex justify-center py-24 font-bold tex-2xl">
+                        No Product Found
+                    </div>
+                )}
 
-            <div className="pt-9 flex justify-center">
-                {/* pagination component here */}
-                <PaginationButton
-                    data={{
-                        totalPage: productLists?.totalPage,
-                        page,
-                        pageChange,
-                    }}
-                />
+                <div className="pt-9 flex justify-center">
+                    {/* pagination component here */}
+                    <PaginationButton
+                        data={{
+                            totalPage: productLists?.totalPage,
+                            page,
+                            pageChange,
+                        }}
+                    />
+                </div>
             </div>
+            <AfterAddCart state={{ setAddNewItem, addNewItem }} />
         </div>
     );
 }

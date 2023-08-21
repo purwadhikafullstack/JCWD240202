@@ -8,7 +8,7 @@ import {
     FcVoicePresentation,
 } from 'react-icons/fc';
 import { useDispatch } from "react-redux";
-import { sendUserOrder } from '../../../redux/features/transactionSlice';
+import { cancelShipping, sendUserOrder } from '../../../redux/features/transactionSlice';
 
 export default function TransactionCard(props) {
     const dispatch = useDispatch()
@@ -100,7 +100,7 @@ export default function TransactionCard(props) {
                                         <div className="font-bold text-lg">
                                             {
                                                 value?.cart?.cart_products[0]
-                                                    ?.product_name
+                                                    ?.product_name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.cart?.cart_products[0]?.product_name : value?.cart?.cart_products[0]?.product_name
                                             }
                                         </div>
                                         <div className="text-sm my-1 text-slate-500">
@@ -184,7 +184,7 @@ export default function TransactionCard(props) {
                                         >
                                             Ready To Ship
                                         </button>
-                                        <button className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
+                                        <button onClick={()=> dispatch(cancelShipping(value.id))} className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
                                             Cancel
                                         </button>
                                     </div>

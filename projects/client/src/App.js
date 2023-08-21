@@ -29,6 +29,8 @@ import MutationPage from './pages/admin/mutationPage';
 import AdminSalesReport from './pages/admin/adminSalesReport';
 import StockHistoryProduct from './pages/admin/stockHistoryPage';
 import StockLogPage from './pages/admin/logStockPage';
+import ColorProductAdmin from './pages/admin/colorProductAdmin';
+import Wishlist from './pages/user/wishlist';
 import NotFoundPage from './pages/general/notFoundPage';
 import AdminRoute from './components/admin/protectedRoute/adminRoute';
 import AdminProtectedRoute from './components/admin/protectedRoute/adminProtectedPage';
@@ -183,6 +185,7 @@ function App() {
                         />
                     }
                 />
+                <Route path="/users/wishlists" element={<Wishlist />} />
 
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
@@ -222,6 +225,10 @@ function App() {
                             dataLogin={dataLogin}
                         />
                     }
+                />
+                <Route
+                    path="/admins/products/colors"
+                    element={<ColorProductAdmin />}
                 />
                 <Route
                     path="/admins/warehouse-management"

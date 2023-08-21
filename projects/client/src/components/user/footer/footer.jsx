@@ -18,13 +18,13 @@ export default function Footer(props) {
         '/admins/dashboard',
         '/admins/products',
         '/admins/products/categories',
+        '/admins/products/colors',
         '/admins/stock-management',
         '/admins/mutation-management',
         '/admins/stock-history',
         '/admins/stock-log',
         '/admins/transactions',
         '/admins/sales-report'
-
     ];
 
     if (
@@ -38,7 +38,7 @@ export default function Footer(props) {
     }
 
     return (
-        <div className="h-[300px] border-t mt-[50px] bg-black px-[100px] py-[50px] text-white ">
+        <div className="h-[300px] border-t bg-black px-[100px] py-[50px] text-white ">
             <div className="flex justify-between items-center">
                 <div className="w-24 ">
                     <img
