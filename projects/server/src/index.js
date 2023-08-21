@@ -25,6 +25,7 @@ const {
     orderRouter,
     stockHistoryRouter,
     reportRouter,
+    wishlistRouter,
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -56,6 +57,7 @@ app.use('/api/colors', colorRouter);
 app.use('/api/transactions', transactionRouter);
 app.use('/api/status', statusRouter);
 app.use('/api/orders', orderRouter);
+app.use('/api/wishlists', wishlistRouter);
 
 app.use('/api/stocks', stockRouter);
 app.use('/api/checkout', checkoutCartRouter);

@@ -13,6 +13,11 @@ import RelatedProducts from '../../components/user/productCard/recommendationCar
 import { userAddToCartAsync } from '../../redux/features/cartSlice';
 import { AiOutlineHeart } from 'react-icons/ai';
 import toast, { Toaster } from 'react-hot-toast';
+import { FcLike } from 'react-icons/fc';
+import {
+    addWishlistsAsync,
+    removeWishlistAsync,
+} from '../../redux/features/wishlistSlice';
 
 export default function ProductDetails() {
     const { id } = useParams();
@@ -22,6 +27,10 @@ export default function ProductDetails() {
         (state) => state.product.recommendations,
     );
     const [quantity, setQuantity] = useState(1);
+    const wishlistCheck = useSelector((state) => state.wishlist.wishlistIds);
+    const userLogin = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
 
     const addQuantity = () => {
         if (quantity === proDetails?.data?.findProduct?.total_stock) {
@@ -116,12 +125,56 @@ export default function ProductDetails() {
                                         </div>
                                     </Button>
                                 </div>
-                                <div className="flex-2">
-                                    <AiOutlineHeart
-                                        size={60}
-                                        className="rounded-full border p-4 hover:bg-red-700 hover:text-yellow-200"
-                                    />
-                                </div>
+                                {userLogin ? (
+                                    wishlistCheck.includes(
+                                        proDetails?.data?.findProduct?.id,
+                                    ) ? (
+                                        <div
+                                            onClick={() =>
+                                                dispatch(
+                                                    removeWishlistAsync({
+                                                        product_id:
+                                                            proDetails?.data
+                                                                ?.findProduct
+                                                                ?.id,
+                                                    }),
+                                                )
+                                            }
+                                            className="flex-2"
+                                        >
+                                            <FcLike
+                                                size={60}
+                                                className="rounded-full border p-4 hover:cursor-pointer"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div
+                                            onClick={() =>
+                                                dispatch(
+                                                    addWishlistsAsync({
+                                                        product_id:
+                                                            proDetails?.data
+                                                                ?.findProduct
+                                                                ?.id,
+                                                    }),
+                                                )
+                                            }
+                                            className="flex-2"
+                                        >
+                                            <AiOutlineHeart
+                                                size={60}
+                                                className="rounded-full border p-4 hover:cursor-pointer"
+                                            />
+                                        </div>
+                                    )
+                                ) : (
+                                    <div className="flex-2">
+                                        <AiOutlineHeart
+                                            size={60}
+                                            className="rounded-full border p-4 hover:cursor-pointer"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </>
                     ) : (
@@ -142,12 +195,61 @@ export default function ProductDetails() {
                                     <div className="text-xl">Add to Cart</div>
                                 </Button>
                             </div>
-                            <div className="flex-2">
-                                <AiOutlineHeart
-                                    size={60}
-                                    className="rounded-full border p-4 hover:bg-red-700 hover:text-yellow-200"
-                                />
-                            </div>
+                            {userLogin ? (
+                                wishlistCheck.includes(
+                                    proDetails?.data?.findProduct?.id,
+                                ) ? (
+                                    <div
+                                        onClick={() =>
+                                            dispatch(
+                                                removeWishlistAsync({
+                                                    product_id:
+                                                        proDetails?.data
+                                                            ?.findProduct?.id,
+                                                }),
+                                            )
+                                        }
+                                        className="flex-2"
+                                    >
+                                        <FcLike
+                                            size={60}
+                                            className="rounded-full border p-4 hover:cursor-pointer"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div
+                                        onClick={() =>
+                                            dispatch(
+                                                addWishlistsAsync({
+                                                    product_id:
+                                                        proDetails?.data
+                                                            ?.findProduct?.id,
+                                                }),
+                                            )
+                                        }
+                                        className="flex-2"
+                                    >
+                                        <AiOutlineHeart
+                                            size={60}
+                                            className="rounded-full border p-4 hover:cursor-pointer"
+                                        />
+                                    </div>
+                                )
+                            ) : (
+                                <div
+                                    onClick={() => {
+                                        toast.error(
+                                            'Please Login/Register First',
+                                        );
+                                    }}
+                                    className="flex-2"
+                                >
+                                    <AiOutlineHeart
+                                        size={60}
+                                        className="rounded-full border p-4 hover:cursor-pointer"
+                                    />
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>

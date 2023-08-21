@@ -25,6 +25,7 @@ export default function Footer() {
         '/admins/stock-history',
         '/admins/stock-log',
         '/admins/transactions',
+        '/admins/sales-report',
     ];
 
     if (path.includes(pathname)) {

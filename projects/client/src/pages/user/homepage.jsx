@@ -5,7 +5,10 @@ import CategoryCard from '../../components/user/homepage/categoryCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import NewArrivalsCard from '../../components/user/productCard/newArrivalsCard';
-import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
+import {
+    getAllCategoriesAsync,
+    getBestSellerAsync,
+} from '../../redux/features/homepageSlice';
 import ServicesBox from '../../components/user/homepage/services';
 import BestSellerCard from '../../components/user/productCard/bestSellerCard';
 import { Toaster } from 'react-hot-toast';
@@ -13,9 +16,11 @@ import { Toaster } from 'react-hot-toast';
 export default function Homepage() {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.homepage.category);
+    const bestSeller = useSelector((state) => state.homepage.bestSeller);
 
     useEffect(() => {
         dispatch(getAllCategoriesAsync());
+        dispatch(getBestSellerAsync());
     }, []);
 
     return (
@@ -51,7 +56,9 @@ export default function Homepage() {
                     Best Seller
                 </div>
                 <div className="flex justify-center flex-wrap gap-24 px-[100px]">
-                    <BestSellerCard />
+                    {bestSeller?.data?.map((value, index) => {
+                        return <BestSellerCard key={index} data={{ value }} />;
+                    })}
                 </div>
             </div>
             <div className="pt-9">

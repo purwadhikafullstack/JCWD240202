@@ -9,7 +9,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
-import { logoutAsync } from '../../../redux/features/authSlice';
+import { getUserWishlists } from '../../../redux/features/wishlistSlice';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -17,6 +17,7 @@ export default function Navbar() {
     const [openModal, setOpenModal] = useState(false);
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const userCartCount = useSelector((state) => state.cart.cart);
+    const wishlistCount = useSelector((state) => state.wishlist.wishlists);
 
     const logout = () => {
         try {
@@ -41,7 +42,10 @@ export default function Navbar() {
     };
     
     useEffect(() => {
+        if (userLogin) {
             dispatch(getUserCartAsync());
+            dispatch(getUserWishlists());
+        }
     }, [userLogin]);
     
     const { pathname } = useLocation();
@@ -58,7 +62,8 @@ export default function Navbar() {
         '/admins/mutation-management',
         '/admins/stock-history',
         '/admins/stock-log',
-        '/admins/transactions'
+        '/admins/transactions',
+        '/admins/sales-report',
     ];
     
     if (path.includes(pathname)) {
@@ -127,26 +132,37 @@ export default function Navbar() {
                         </Link>
                     )}
 
-                    <div>
-                        <AiOutlineHeart size={25} />
-                    </div>
                     {userLogin ? (
-                        <Link to="/cart">
-                            <div className="flex items-center">
-                                <AiOutlineShoppingCart size={25} />
-                                {userCartCount?.data?.count > 0 ? (
-                                    <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
-                                        {userCartCount?.data?.count}
-                                    </div>
-                                ) : (
-                                    ''
-                                )}
-                            </div>
-                        </Link>
+                        <>
+                            <Link to={'/users/wishlists'}>
+                                <div className="flex items-center">
+                                    <AiOutlineHeart size={25} />
+
+                                    {wishlistCount?.data?.wishlists.length >
+                                    0 ? (
+                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                            {wishlistCount?.totalProducts}
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </Link>
+                            <Link to="/cart">
+                                <div className="flex items-center">
+                                    <AiOutlineShoppingCart size={25} />
+                                    {userCartCount?.data?.count > 0 ? (
+                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                            {userCartCount?.data?.count}
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
+                            </Link>
+                        </>
                     ) : (
-                        <div>
-                            <AiOutlineShoppingCart size={25} />
-                        </div>
+                        ''
                     )}
                 </div>
                 <Modal
