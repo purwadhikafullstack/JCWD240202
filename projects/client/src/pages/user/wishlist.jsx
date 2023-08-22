@@ -25,7 +25,6 @@ export default function Wishlist() {
 
     return (
         <>
-            {console.log(wishlistData)}
             <Toaster />
             <div className="flex ">
                 <div className="flex-2 py-[80px] ml-[200px]">

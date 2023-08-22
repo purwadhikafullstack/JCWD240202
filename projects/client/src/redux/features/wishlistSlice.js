@@ -37,9 +37,11 @@ export const getUserWishlists = (data) => async (dispatch) => {
             },
         );
         dispatch(setWishlists(getWishlists.data));
-        const getIds = getWishlists?.data?.data?.wishlists?.map((value) => {
-            return value?.product_id;
-        });
+        const getIds = getWishlists?.data?.allProduct?.wishlists?.map(
+            (value) => {
+                return value?.product_id;
+            },
+        );
         dispatch(setWishlistIds(getIds));
     } catch (error) {
         toast.error(error.message);
