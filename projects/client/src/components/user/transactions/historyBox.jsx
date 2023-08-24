@@ -8,6 +8,8 @@ import {
 } from '../../../redux/features/orderSlice';
 import ModalConfirmOrder from './modalConfirmOrder';
 import ModalCreateReview from '../review/modalCreateReview';
+import CurrentStatus from './currentStatus';
+import GenerateInvoice from './generateInvoice';
 
 export default function TransactionHistoryBox(props) {
     const dispatch = useDispatch();
@@ -54,7 +56,13 @@ export default function TransactionHistoryBox(props) {
                 return clearInterval(interval);
             }, 1000);
         }
-    }, [countdown, orderId]);
+    }, [
+        countdown,
+        orderId,
+        props?.data?.value?.order_statuses[
+            props?.data?.value?.order_statuses.length - 1
+        ]?.status_id,
+    ]);
 
     return (
         <>
@@ -62,63 +70,11 @@ export default function TransactionHistoryBox(props) {
                 <div className="flex justify-between gap-9 items-center border-b py-2 px-7 py-2">
                     <div className="flex gap-9 items-center">
                         <div>{props?.data?.value?.createdAt}</div>
-                        <div
-                            className={`border px-4 py-1 rounded-full ${
-                                props?.data?.value?.order_statuses[
-                                    props?.data?.value?.order_statuses.length -
-                                        1
-                                ]?.status_id === 1
-                                    ? 'bg-[#F9E79F] text-[#D6A500] border-[#F8C471]'
-                                    : ''
-                            }
-                                ${
-                                    props?.data?.value?.order_statuses[
-                                        props?.data?.value?.order_statuses
-                                            .length - 1
-                                    ]?.status_id === 2
-                                        ? 'bg-[#F5CBA7] text-[#E67E22] border-[#F5B041]'
-                                        : ''
-                                }
-                                ${
-                                    props?.data?.value?.order_statuses[
-                                        props?.data?.value?.order_statuses
-                                            .length - 1
-                                    ]?.status_id === 3
-                                        ? 'bg-[#D2B4DE] text-[#8E44AD] border-[#AF7AC5]'
-                                        : ''
-                                }
-                                ${
-                                    props?.data?.value?.order_statuses[
-                                        props?.data?.value?.order_statuses
-                                            .length - 1
-                                    ]?.status_id === 4
-                                        ? 'bg-[#AED6F1] text-[#2471A3] border-[#7FB3D5]'
-                                        : ''
-                                }
-                                ${
-                                    props?.data?.value?.order_statuses[
-                                        props?.data?.value?.order_statuses
-                                            .length - 1
-                                    ]?.status_id === 5
-                                        ? 'bg-[#A9DFBF] text-[#28B463] border-[#7DCEA0]'
-                                        : ''
-                                }
-                                ${
-                                    props?.data?.value?.order_statuses[
-                                        props?.data?.value?.order_statuses
-                                            .length - 1
-                                    ]?.status_id === 6
-                                        ? 'bg-[#F1948A] text-[#EE0303] border-[#FC4A4A]'
-                                        : ''
-                                }`}
-                        >
-                            {
-                                props?.data?.value?.order_statuses[
-                                    props?.data?.value?.order_statuses.length -
-                                        1
-                                ]?.status?.name
-                            }
-                        </div>
+                        <CurrentStatus
+                            data={{
+                                status: props?.data?.value?.order_statuses,
+                            }}
+                        />
                         <div className="font-bold">
                             {props?.data?.value?.invoice_number}
                         </div>
@@ -202,9 +158,9 @@ export default function TransactionHistoryBox(props) {
                         props?.data?.value?.order_statuses[
                             props?.data?.value?.order_statuses.length - 1
                         ]?.status_id !== 6 ? (
-                            <Button className="px-2 bg-sky-700 text-yellow-200 hover:cursor-pointer hover:bg-sky-900">
-                                Generate Invoice
-                            </Button>
+                            <GenerateInvoice
+                                data={{ order: props?.data?.value }}
+                            />
                         ) : (
                             ''
                         )}
