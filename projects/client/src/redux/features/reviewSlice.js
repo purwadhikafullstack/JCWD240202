@@ -28,7 +28,7 @@ export const getReviewsAsync = (data) => async (dispatch) => {
     try {
         const reviewData = await axios.get(
             process.env.REACT_APP_API_BASE_URL +
-                `/reviews/products/${data?.product_id}?rating=${data?.rating}&sort=${data?.sort}`,
+                `/reviews/products/${data?.product_id}?rating=${data?.rating}&sort=${data?.sort}&page=${data?.page}`,
         );
         dispatch(setReviews(reviewData.data));
     } catch (error) {

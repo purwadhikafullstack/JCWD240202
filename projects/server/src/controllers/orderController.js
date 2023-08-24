@@ -19,7 +19,10 @@ const getAllUserOrder = async (req, res) => {
         const { page, status_id, sort, search } = req.query;
 
         let where = {};
-        let order = [['id', 'DESC']];
+        let order = [
+            ['id', 'DESC'],
+            [order_statuses, 'id', 'ASC'],
+        ];
         let searchInvoice = '';
 
         const paginationLimit = 5;
@@ -35,9 +38,15 @@ const getAllUserOrder = async (req, res) => {
         }
         if (sort) {
             if (sort === 'newest') {
-                order = [['id', 'DESC']];
+                order = [
+                    ['id', 'DESC'],
+                    [order_statuses, 'id', 'ASC'],
+                ];
             } else if (sort === 'oldest') {
-                order = [['id', 'ASC']];
+                order = [
+                    ['id', 'ASC'],
+                    [order_statuses, 'id', 'ASC'],
+                ];
             }
         }
         if (search) {
@@ -86,8 +95,8 @@ const getAllUserOrder = async (req, res) => {
                     include: [{ model: cart_products }],
                 },
             ],
-            distinct: true,
             order,
+            distinct: true,
         });
 
         if (getOrder.rows.length === 0) {

@@ -10,15 +10,14 @@ const product_stocks = db.product_stocks;
 
 const getAllProducts = async (req, res) => {
     try {
-        const { page, category, sort, search } = req.query;
+        const { page, category, sort, search, color_id } = req.query;
 
         const paginationLimit = 12;
         const paginationOffset =
             (Number(page ? page : 1) - 1) * paginationLimit;
 
-        if (category && sort) {
-            const catQuery = category.replaceAll('%', ' ');
-            let order = [];
+        let order = [['id', 'ASC']];
+        if (sort) {
             if (sort === 'name-asc') {
                 order = [['name', 'ASC']];
             } else if (sort === 'name-desc') {
@@ -32,57 +31,11 @@ const getAllProducts = async (req, res) => {
             } else if (sort === 'oldest') {
                 order = [['id', 'ASC']];
             }
+        }
 
-            const findCategory = await categories.findOne({
-                where: {
-                    name: catQuery,
-                },
-            });
-
-            if (findCategory) {
-                const result = await products.findAndCountAll({
-                    where: {
-                        category_id: findCategory.id,
-                        name: { [Op.substring]: [search] },
-                        is_deleted: false
-                    },
-                    offset: paginationOffset,
-                    limit: paginationLimit,
-                    include: [
-                        { model: categories },
-                        { model: colors },
-                        {
-                            model: product_images,
-                            where: { is_thumbnail: true },
-                        },
-                    ],
-                    order: order,
-                });
-
-                const totalPage = Math.ceil(result.count / paginationLimit);
-
-                if (result) {
-                    res.status(200).send({
-                        success: true,
-                        message: 'get all data success',
-                        data: result,
-                        totalPage: totalPage,
-                    });
-                } else {
-                    res.status(400).send({
-                        success: false,
-                        message: 'get data failed',
-                        data: {},
-                    });
-                }
-            } else {
-                res.status(400).send({
-                    success: false,
-                    message: 'get data failed',
-                    data: {},
-                });
-            }
-        } else if (category) {
+        let whereColor = {};
+        let whereCat = {};
+        if (category) {
             const catQuery = category.replaceAll('%', ' ');
 
             const findCategory = await categories.findOne({
@@ -90,116 +43,41 @@ const getAllProducts = async (req, res) => {
                     name: catQuery,
                 },
             });
+            whereCat = { id: findCategory.id };
+        }
+        if (color_id) {
+            whereColor = { id: color_id };
+        }
 
-            if (findCategory) {
-                const result = await products.findAndCountAll({
-                    where: {
-                        category_id: findCategory.id,
-                        name: { [Op.substring]: [search] },
-                        is_deleted: false
-                    },
-                    offset: paginationOffset,
-                    limit: paginationLimit,
-                    include: [
-                        { model: categories },
-                        { model: colors },
-                        {
-                            model: product_images,
-                            where: { is_thumbnail: true },
-                        },
-                    ],
-                });
+        const result = await products.findAndCountAll({
+            where: {
+                name: { [Op.substring]: [search] },
+                is_deleted: false,
+            },
+            offset: paginationOffset,
+            limit: paginationLimit,
+            include: [
+                { model: categories, where: whereCat },
+                { model: colors, where: whereColor },
+                { model: product_images, where: { is_thumbnail: true } },
+            ],
+            order: order,
+        });
 
-                const totalPage = Math.ceil(result.count / paginationLimit);
-
-                res.status(200).send({
-                    success: true,
-                    message: `get all products in ${catQuery} categories success`,
-                    data: result,
-                    totalPage: totalPage,
-                });
-            } else {
-                res.status(404).send({
-                    success: false,
-                    message: 'no products found',
-                    data: null,
-                });
-            }
-        } else if (sort) {
-            let order = [];
-
-            if (sort) {
-                if (sort === 'name-asc') {
-                    order = [['name', 'ASC']];
-                } else if (sort === 'name-desc') {
-                    order = [['name', 'DESC']];
-                } else if (sort === 'price-asc') {
-                    order = [['price', 'ASC']];
-                } else if (sort === 'price-desc') {
-                    order = [['price', 'DESC']];
-                } else if (sort === 'newest') {
-                    order = [['id', 'DESC']];
-                } else if (sort === 'oldest') {
-                    order = [['id', 'ASC']];
-                }
-            }
-
-            const result = await products.findAndCountAll({
-                where: { name: { [Op.substring]: [search] }, is_deleted: false },
-                offset: paginationOffset,
-                limit: paginationLimit,
-                include: [
-                    { model: categories },
-                    { model: colors },
-                    { model: product_images, where: { is_thumbnail: true } },
-                ],
-                order: order,
-            });
-
+        if (result) {
             const totalPage = Math.ceil(result.count / paginationLimit);
-
-            if (result) {
-                res.status(200).send({
-                    success: true,
-                    message: 'get all data success',
-                    data: result,
-                    totalPage: totalPage,
-                });
-            } else {
-                res.status(400).send({
-                    success: false,
-                    message: 'get all data failed',
-                    data: {},
-                });
-            }
-        } else {
-            const result = await products.findAndCountAll({
-                where: { name: { [Op.substring]: [search] }, is_deleted: false },
-                offset: paginationOffset,
-                limit: paginationLimit,
-                include: [
-                    { model: categories },
-                    { model: colors },
-                    { model: product_images, where: { is_thumbnail: true } },
-                ],
-                order: [['id', 'ASC']],
+            res.status(200).send({
+                success: true,
+                message: 'get data success',
+                data: result,
+                totalPage,
             });
-
-            if (result) {
-                const totalPage = Math.ceil(result.count / paginationLimit);
-                res.status(200).send({
-                    success: true,
-                    message: 'get data success',
-                    data: result,
-                    totalPage,
-                });
-            } else {
-                res.status(404).send({
-                    success: false,
-                    message: 'no data found',
-                    data: null,
-                });
-            }
+        } else {
+            res.status(404).send({
+                success: false,
+                message: 'no data found',
+                data: null,
+            });
         }
     } catch (error) {
         console.log(error);
@@ -250,7 +128,7 @@ const addNewProduct = async (req, res) => {
     const t = await sequelize.transaction();
     try {
         const data = JSON.parse(req.body.data);
-        const findWarehouse = await db.warehouses.findAll()
+        const findWarehouse = await db.warehouses.findAll();
 
         if (
             !data.name ||
@@ -281,23 +159,25 @@ const addNewProduct = async (req, res) => {
                 message: 'Products name already used!',
                 data: null,
             });
-        
-        
+
         const postProduct = await products.create(
-                { ...data },
-                { transaction: t },
-            );
-            const productStock = await findWarehouse.map((value) => {
-                return {
-                    product_id: postProduct.id,
-                    warehouse_id: value.id,
-                    stock: 0
-                }
-            })
-            const createProductStock = await product_stocks.bulkCreate(productStock, {
-                transaction: t
-            })
-            
+            { ...data },
+            { transaction: t },
+        );
+        const productStock = await findWarehouse.map((value) => {
+            return {
+                product_id: postProduct.id,
+                warehouse_id: value.id,
+                stock: 0,
+            };
+        });
+        const createProductStock = await product_stocks.bulkCreate(
+            productStock,
+            {
+                transaction: t,
+            },
+        );
+
         const images = await req.files.images.map((value) => {
             return {
                 name: value.filename,
@@ -519,7 +399,7 @@ const deleteProduct = async (req, res) => {
 
         const result = await products.update(
             {
-                is_deleted: true
+                is_deleted: true,
             },
             {
                 where: { id },

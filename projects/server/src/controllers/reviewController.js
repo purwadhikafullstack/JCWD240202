@@ -130,10 +130,13 @@ const getProductReviews = async (req, res) => {
                 distinct: true,
             });
 
+            const totalPage = Math.ceil(findReviews.count / limit);
+
             res.status(200).send({
                 success: true,
                 message: 'get product reviews success',
                 data: findReviews,
+                totalPage,
             });
         } else {
             res.status(404).send({
