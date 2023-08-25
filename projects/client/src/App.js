@@ -50,7 +50,7 @@ function App() {
         if (userLogin) {
             dispatch(getDataLogin());
         }
-    }, [pathname]);
+    }, [pathname, userLogin]);
 
     return (
         <>
