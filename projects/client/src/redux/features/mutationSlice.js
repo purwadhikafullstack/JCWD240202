@@ -7,6 +7,7 @@ const initialState = {
     disabledButton: false,
     modal: false,
     allMutation: null,
+    loading: false,
 };
 
 export const mutationSlice = createSlice({
@@ -25,6 +26,9 @@ export const mutationSlice = createSlice({
         setAllMutation: (initialState, action) => {
             initialState.allMutation = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -147,8 +151,13 @@ export const getAllMutation =
                 },
             );
 
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)));
             dispatch(setAllMutation(dataAllMutation?.data));
         } catch (error) {
+            dispatch(setLoading(false));
             console.log(error);
         }
     };
@@ -276,5 +285,6 @@ export const {
     setDisabledButton,
     setModal,
     setAllMutation,
+    setLoading
 } = mutationSlice.actions;
 export default mutationSlice.reducer;

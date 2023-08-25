@@ -18,9 +18,8 @@ export default function TransactionAdmin() {
     const dispatch = useDispatch();
     const status = useSelector((state) => state.status.status);
     const transaction = useSelector((state) => state.transaction.data);
-    // console.log(transaction)
     const [searchParams, setSearchParams] = useSearchParams();
-    const [page, setPage] = useState(searchParams.get('page') || 1);
+    const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
@@ -33,6 +32,7 @@ export default function TransactionAdmin() {
     const [sort, setSort] = useState(searchParams.get('sort') || 'Newest');
     const [detailId, setDetailId] = useState('');
     const [openDetail, setOpenDetail] = useState(false);
+    const loading = useSelector((state) => state.transaction.loading)
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -144,6 +144,7 @@ export default function TransactionAdmin() {
                     <TransactionCard
                         transaction={transaction}
                         detail={{ setDetailId, detailId, setOpenDetail }}
+                        loading={loading}
                     />
                     <div className="w-full flex justify-center mt-3">
                         <PaginationAdmin

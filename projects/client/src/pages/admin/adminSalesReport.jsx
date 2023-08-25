@@ -19,9 +19,14 @@ export default function AdminSalesReport() {
     const [warehouseId, setWarehouseId] = useState('');
     const [warehouseName, setWarehouseName] = useState('');
     const loginData = useSelector((state) => state.user.dataLogin);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         dispatch(getDataLogin());
+        setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+        clearTimeout(setLoading(false))
     }, []);
 
     return (
@@ -32,7 +37,7 @@ export default function AdminSalesReport() {
             </Helmet>
             <div className="sm:flex">
                 <SideBarAdmin />
-                <div className="bg-blue-200 py-8 px-14 w-full">
+                <div className="bg-blue-200 py-8 w-full px-14">
                     <div className="flex gap-2 items-end">
                         <div className="font-bold text-3xl">Sales Report</div>
                         <div className="">
@@ -43,7 +48,7 @@ export default function AdminSalesReport() {
                                 : `(${loginData?.warehouse?.province})`}
                         </div>
                     </div>
-                    <div className="flex justify-start items-center gap-9 px-9 pt-4">
+                    <div className="sm:flex justify-start items-center gap-9 pt-4">
                         {loginData?.role?.id === 3 ? (
                             <FilterWarehouse
                                 state={{ setWarehouseId, setWarehouseName }}
@@ -54,18 +59,20 @@ export default function AdminSalesReport() {
 
                         <FilterMonth state={{ setMonth, setYear }} />
                     </div>
-                    <div className="flex justify-between pt-9 gap-4">
+                    <div className="flex flex-col sm:flex-row justify-between pt-9 gap-4">
                         <TotalSalesMonthly
-                            data={{ month, year, warehouseId }}
+                            data={{ month, year, warehouseId, loading }}
                         />
                         <TotalOrdersReport
-                            data={{ month, year, warehouseId }}
+                            data={{ month, year, warehouseId, loading }}
                         />
-                        <SalesPerCategory data={{ month, year, warehouseId }} />
+                        <SalesPerCategory data={{ month, year, warehouseId, loading }} />
                     </div>
                     <div className="flex justify-evenly pt-9 gap-4">
-                        <ChartSales data={{ warehouseId }} />
-                        <SalesPerProducts data={{ month, year, warehouseId }} />
+                        <ChartSales data={{ warehouseId, loading }} />
+                    </div>
+                    <div className="flex justify-evenly pt-9 gap-4">
+                        <SalesPerProducts data={{ month, year, warehouseId, loading }} />
                     </div>
                 </div>
             </div>

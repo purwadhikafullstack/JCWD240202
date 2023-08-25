@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editProductAsync, editProductImageAsync, thumbnailAsync } from '../../../redux/features/productSlice';
 
 export default function ModalEditProduct(props) {
-    console.log(props)
     const documentBodyRef = useRef(null);
     const dispatch = useDispatch();
     const isSuccess = useSelector((state) => state.product.success);

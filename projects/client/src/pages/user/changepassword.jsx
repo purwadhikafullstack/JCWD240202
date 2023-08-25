@@ -108,10 +108,11 @@ export default function ChangePasswordUser() {
             <div className="mt-[5px] p-[20px]">
                 <div className="w-full flex justify-center">
                     <div className="w-full md:w-[80%] flex justify-center">
-                        <div className="py-[10px] px-[30px] border-2 border-gray-200 rounded-lg pb-[30px] shadow w-full">
+                        <div className="pt-[10px] px-[30px] border-2 border-gray-200 rounded-lg pb-[30px] shadow w-full">
                             <ProfileTabs />
-                            <div className="w-full md:flex justify-center mt-8">
+                            <div className="w-full md:flex justify-center items-center mt-8">
                                 <div>
+                                    <h1 className='font-bold text-2xl mb-8'>CHANGE PASSWORD</h1>
                                     <form>
                                         <label className="block mb-3 w-full md:w-[500px]">
                                             <span className="block text-sm font-medium text-slate-700 mb-1">
@@ -250,7 +251,7 @@ export default function ChangePasswordUser() {
                                         Save
                                     </button>
                                     <button
-                                        className="bg-rose-600 hover:bg-gray-400 rounded-lg text-white px-4 py-2 mt-2 text-sm ml-2"
+                                        className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-4 py-2 mt-2 text-sm ml-2"
                                         onClick={() => {
                                             setPrevPassword('');
                                             setNewPassword('');

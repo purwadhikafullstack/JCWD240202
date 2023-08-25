@@ -5,14 +5,11 @@ import { getAllCategoriesAsync } from '../../../redux/features/homepageSlice';
 import { Dropdown, Label, Radio } from 'flowbite-react';
 
 export default function FilterButton(props) {
-    console.log(props.data.category)
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.homepage.category);
     const [name, setName] = useState('');
-    console.log(name)
 
     const handleCategory = (category) => {
-        console.log(category, 'lalalalalalla')
         props?.data?.categoryChange(category);
         setName(category);
     };

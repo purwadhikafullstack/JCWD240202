@@ -16,9 +16,14 @@ export default function CategoryProductAdmin() {
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [dataDetail, setDataDetail] = useState();
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         dispatch(getAllCategoriesAsync());
+        setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+        clearTimeout(setLoading(false))
     }, []);
     return (
         <>
@@ -76,6 +81,7 @@ export default function CategoryProductAdmin() {
                                             funcShow={setOpenModalEdit}
                                             funcData={setDataDetail}
                                             modalDelete={setOpenModalDelete}
+                                            loading={loading}
                                         />
                                     </tbody>
                                 </table>

@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 
 const initialState = {
     data: {},
+    loading: false,
 };
 
 export const transactionSlice = createSlice({
@@ -13,6 +14,9 @@ export const transactionSlice = createSlice({
         setData: (initialState, action) => {
             initialState.data = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -38,8 +42,14 @@ export const allTransactionAsync =
                     },
                 },
             );
+
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)))
             dispatch(setData(result.data));
         } catch (error) {
+            dispatch(setLoading(false))
             console.log(error.message);
         }
     };
@@ -192,5 +202,5 @@ export const cancelShipping = (order_id) => async (dispatch) => {
     }
 }
 
-export const { setData } = transactionSlice.actions;
+export const { setData, setLoading } = transactionSlice.actions;
 export default transactionSlice.reducer;

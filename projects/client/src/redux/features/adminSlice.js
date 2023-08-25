@@ -6,6 +6,7 @@ const initialState = {
     dataAdmin: null,
     disabledButton: false,
     modal: false,
+    loading: false,
 };
 
 export const adminSlice = createSlice({
@@ -20,6 +21,9 @@ export const adminSlice = createSlice({
         },
         setModal: (initialState, action) => {
             initialState.modal = action.payload;
+        },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
         },
     },
 });
@@ -44,8 +48,13 @@ export const getDataAdminUser =
                 },
             );
 
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)))
             dispatch(setDataAdmin(admins?.data));
         } catch (error) {
+            dispatch(setLoading(false))
             console.log(error);
         }
     };
@@ -275,5 +284,5 @@ export const deleteWarehouseAdmin = (id) => async (dispatch) => {
     }
 };
 
-export const { setDataAdmin, setDisabledButton, setModal } = adminSlice.actions;
+export const { setDataAdmin, setDisabledButton, setModal, setLoading } = adminSlice.actions;
 export default adminSlice.reducer;

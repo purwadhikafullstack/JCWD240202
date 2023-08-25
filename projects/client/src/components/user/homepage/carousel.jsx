@@ -18,25 +18,25 @@ export default function CarouselHome() {
             >
                 <SwiperSlide>
                     <img
-                        src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/combo-in.jpeg"
+                        src="/images/banner-4.png"
                         alt="..."
                     />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img
-                        src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1683106020290__5.jpeg"
+                        src="/images/banner-1.png"
                         alt="..."
                     />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img
-                        src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1689500719448__1.webp"
+                        src="/images/banner-2.png"
                         alt="..."
                     />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img
-                        src="https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/pageImages/page__en_us_1686277985451__1.jpeg"
+                        src="/images/banner-3.png"
                         alt="..."
                     />
                 </SwiperSlide>

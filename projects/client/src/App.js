@@ -44,14 +44,17 @@ function App() {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const dataLogin = useSelector((state) => state.user.dataLogin);
+    const userLogin = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
-        dispatch(getDataLogin());
-    }, [pathname]);
+        if (userLogin) {
+            dispatch(getDataLogin());
+        }
+    }, [pathname, userLogin]);
 
     return (
         <>
-            <Navbar dataLogin={dataLogin?.role_id} />
+            <Navbar dataLogin={dataLogin} />
             <Routes>
                 {/* User */}
                 <Route path="/login" element={<LoginPage />} />
@@ -296,7 +299,7 @@ function App() {
                 <Route path="/*" element={<NotFoundPage />} />
             </Routes>
 
-            <Footer dataLogin={dataLogin?.role_id} />
+            <Footer dataLogin={dataLogin} />
         </>
     );
 }
