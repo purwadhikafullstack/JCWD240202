@@ -8,6 +8,7 @@ router.post('/confirmation-payment', verifyToken, transactionController.confirma
 router.patch('/cancel-payment', verifyToken, transactionController.cancelConfirmPayment)
 router.post('/confirmation-shipping', verifyToken, transactionController.sendUserOrders);
 router.post('/cancel-shipping', verifyToken, transactionController.cancelReadyShipping);
+router.get('/history/:order_id', transactionController.transactionHistory)
 
 
 module.exports = router;

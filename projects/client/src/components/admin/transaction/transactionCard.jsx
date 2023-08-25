@@ -12,6 +12,9 @@ import { cancelShipping, sendUserOrder } from '../../../redux/features/transacti
 
 export default function TransactionCard(props) {
     const dispatch = useDispatch()
+    const handleConfirm = (val) => {
+        dispatch(cancelShipping(val))
+    }
     return (
         <>
             {props?.transaction?.data?.rows?.length !== 0 ? (
@@ -179,12 +182,16 @@ export default function TransactionCard(props) {
                                 {value?.order_statuses[0]?.status_id === 3 ? (
                                     <div className="flex-1 flex justify-end gap-5 mr-5">
                                         <button
-                                            onClick={()=> dispatch(sendUserOrder(value.id))}
+                                            // onClick={()=> dispatch(sendUserOrder(value.id))}
+                                            onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(3); props.confirm?.setValueConfirm(value.id)}}
                                             className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36`}
                                         >
                                             Ready To Ship
                                         </button>
-                                        <button onClick={()=> dispatch(cancelShipping(value.id))} className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
+                                        <button
+                                            // onClick={() => dispatch(cancelShipping(value.id))}
+                                            onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(4); props.confirm?.setValueConfirm(value.id)}}
+                                            className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
                                             Cancel
                                         </button>
                                     </div>

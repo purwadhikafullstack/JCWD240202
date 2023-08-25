@@ -310,7 +310,7 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
     }
 };
 
-export const deleteProductAsync = (id) => async (dispatch) => {
+export const deleteProductAsync = (id, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -323,17 +323,12 @@ export const deleteProductAsync = (id) => async (dispatch) => {
             },
         );
 
-        dispatch(getAllProductsAsync());
-        toast.success(result.data.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#0051BA',
-                color: 'white',
-            },
-        });
+            dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: { border: '2px solid #000', borderRadius: '10px', background: '#0051BA', color: 'white', },
+            });
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
@@ -361,7 +356,7 @@ export const deleteProductAsync = (id) => async (dispatch) => {
     }
 };
 
-export const thumbnailAsync = (pId, piId) => async (dispatch) => {
+export const thumbnailAsync = (pId, piId, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -373,9 +368,9 @@ export const thumbnailAsync = (pId, piId) => async (dispatch) => {
                     authorization: `Bearer ${dataLogin}`,
                 },
             },
-        );
-        dispatch(getAllProductsAsync());
-        dispatch(productDetailsAsync(pId));
+        )
+        dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
+        dispatch(productDetailsAsync(pId))
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,

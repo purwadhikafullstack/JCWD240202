@@ -234,13 +234,7 @@ export default function ProfilePage() {
                                             {dataLogin?.profile_picture ||
                                             imagePreview ? (
                                                 <img
-                                                    src={
-                                                        imagePreview
-                                                            ? imagePreview
-                                                            : process.env
-                                                                  .REACT_APP_API_IMAGE_URL +
-                                                              dataLogin?.profile_picture
-                                                    }
+                                                    src={imagePreview ? imagePreview : dataLogin?.profile_picture.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + dataLogin?.profile_picture : dataLogin?.profile_picture}
                                                     alt="profile_picture"
                                                     // width={'250px'}
                                                     className="object-contain"

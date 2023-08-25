@@ -17,7 +17,7 @@ export default function ForgotPassword() {
 
 
     //call data redux
-    const msgError = useSelector((state) => state.auth.auth);
+    const msgError = useSelector((state) => state.auth.msg);
     const isReqReset = useSelector((state) => state.auth.isLogin);
     const isLoading = useSelector((state) => state.auth.loading);
 
@@ -89,7 +89,7 @@ export default function ForgotPassword() {
                                 name="email"
                                 id="email"
                                 type="email"
-                                placeholder="ikea@example.com"
+                                placeholder="ikewa@example.com"
                                 className="bg-white border shadow-sm border-gray-300 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:ring-blue-600 block w-full rounded-md sm:text-sm focus:ring-1 invalid:text-red-500 invalid:border-red-500 invalid:ring-red-500 invalid:focus:border-red-500 invalid:focus:ring-red-500 peer"
                             />
 

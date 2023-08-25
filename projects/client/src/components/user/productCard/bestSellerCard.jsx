@@ -6,7 +6,7 @@ export default function BestSellerCard(props) {
             <div className="w-[200px] h-[350px] flex flex-col">
                 <div className="flex-1 relative">
                     <img
-                        src={props?.data?.value?.product_images[0]?.name}
+                        src={props?.data?.value?.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.value?.product_images[0]?.name : props?.data?.value?.product_images[0]?.name}
                         alt="best seller products"
                     />
                 </div>
