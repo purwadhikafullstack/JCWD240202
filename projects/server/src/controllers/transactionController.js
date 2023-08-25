@@ -389,9 +389,19 @@ module.exports = {
                     success: false,
                     message: "Data not found"
                 })
-                await db.order_statuses.update({is_active: 1}, { where: { status_id: 1, order_id } }, { transaction: t })
+                await db.order_statuses.update({is_active: 1, expired: currentTime.getTime() + 24 * 60 * 60 * 1000,}, { where: { status_id: 1, order_id } }, { transaction: t })
                 const changeStatus = await db.order_statuses.destroy({ where: { status_id: 2, order_id } }, { transaction: t })
                 deleteSingleFile(`src/public/images/${dataOrder?.payment_proof}`);
+                const eventScheduler =
+                        await sequelize.query(`CREATE EVENT payment_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 24 HOUR
+                            DO BEGIN
+                            DECLARE status_check INT;
+                            SELECT status_id INTO status_check FROM order_statuses WHERE id = ${order_id} AND is_active = 1 LIMIT 1;
+                            IF status_check = 1 THEN
+                            INSERT INTO order_statuses (status_id, order_id, createdAt, updatedAt, is_active) VALUES (6, "${order_id}", current_timestamp(), current_timestamp(), 1);
+                            UPDATE order_statuses SET is_active = 0 WHERE id = "${order_id}" AND status_id = 1;
+                            END IF;
+                            END;`);
                 await t.commit();
             return res.status(200).send({
                 success: true,
@@ -432,7 +442,7 @@ module.exports = {
             const updateStockHistory = await db.stock_histories.bulkCreate(stockHistory, { transaction: t })
             const createStatus = await db.order_statuses.create({ status_id: 4, order_id, is_active: 1, expired: new Date(new Date().setDate(new Date().getDate() + 7)) }, { transaction: t })
             const expired = await sequelize.query(`
-            CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 5 MINUTE
+            CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 7 DAY
             DO BEGIN
             DECLARE status_check INT;
             SELECT status_id INTO status_check FROM order_statuses WHERE id = ${order_id} AND is_active = 1 LIMIT 1;
@@ -569,6 +579,33 @@ module.exports = {
         } catch (error) {
             await t.rollback();
             return res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    transactionHistory: async (req, res) => {
+        try {
+            const { order_id } = req.params
+            const result = await db.order_statuses.findAll({
+                where: { order_id },
+                include: [{ model: orders }, { model: db.statuses }],
+                order: [['status_id', 'DESC']]
+            })
+            if (!result) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'data not found!'
+                })
+            }
+            res.status(200).send({
+                success: true,
+                message: 'get transaction history success',
+                data: result,
+            });
+        } catch (error) {
+            res.status(500).send({
                 success: false,
                 message: error.message,
                 data: null,

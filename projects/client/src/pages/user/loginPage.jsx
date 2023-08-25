@@ -2,9 +2,10 @@
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/features/authSlice';
+import { login, loginGoogleAsync } from '../../redux/features/authSlice';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import {FcGoogle} from 'react-icons/fc'
 import { Helmet } from 'react-helmet';
 
 export default function LoginPage() {
@@ -32,9 +33,9 @@ export default function LoginPage() {
                 email: '',
                 password: '',
             });
-            navigate('/');
-            // setTimeout(() => {
-            // }, 3000);
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         }
     };
 
@@ -120,7 +121,7 @@ export default function LoginPage() {
                         </form>
                         <Link
                             to="/forgot-password"
-                            className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1"
+                            className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1 w-fit"
                         >
                             forgot your password?
                         </Link>
@@ -139,12 +140,21 @@ export default function LoginPage() {
                         >
                             Login
                         </button>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xs my-2 text-slate-500'>OR</div>
+                            <div onClick={()=>dispatch(loginGoogleAsync())} className='flex flex-row items-center border rounded-full p-2 cursor-pointer hover:bg-[#d7d9db]'>
+                                <FcGoogle size={24} className=''/>
+                                {/* <div className='text-xs ml-2'>Google</div> */}
+                            </div>
+                        </div>
+                        <div className='flex justify-center'>
                         <Link
                             to="/register"
-                            className="text-[#0258a3] text-center my-5 text-[13px] hover:text-black cursor-pointer"
+                            className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"
                         >
-                            Register a new account
+                            Don't have an account? Register here
                         </Link>
+                        </div>
                     </div>
                 </div>
             </div>

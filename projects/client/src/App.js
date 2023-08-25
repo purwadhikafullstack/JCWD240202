@@ -43,10 +43,13 @@ import { useDispatch, useSelector } from 'react-redux';
 function App() {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
+    const userLogin = JSON.parse(localStorage.getItem('user'));
     const dataLogin = useSelector((state) => state.user.dataLogin);
 
     useEffect(() => {
-        dispatch(getDataLogin());
+        if (userLogin) {
+            dispatch(getDataLogin());
+        }
     }, [pathname]);
 
     return (
@@ -111,17 +114,17 @@ function App() {
                         />
                     }
                 />
-
-                {/* User Login */}
                 <Route
                     path="/verification/:token"
                     element={
-                        <UserRoute
+                        <NotLoginRoute
                             component={<VerificationPage />}
                             dataLogin={dataLogin}
                         />
                     }
                 />
+
+                {/* User Login */}
                 <Route
                     path="/users/profile"
                     element={

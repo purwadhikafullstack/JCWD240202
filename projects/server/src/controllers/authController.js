@@ -1,3 +1,4 @@
+const { sequelize } = require('../models');
 const jwt = require('jsonwebtoken');
 const handlebars = require('handlebars');
 const fs = require('fs');
@@ -220,6 +221,7 @@ module.exports = {
             const result = await user.findOne({
                 where: {
                     email: email,
+                    googleSignIn: false
                 },
             });
 
@@ -379,6 +381,63 @@ module.exports = {
                 message: 'access accepted!'
             })
         } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    loginGoogle: async (req, res) => {
+    const t = await sequelize.transaction();
+        try {
+            const {data} = req.body
+            console.log('data', data.email)
+            const checkUser = await user.findOne({
+                where: {email: data.email, googleSignIn: true}
+            })
+            console.log('checkUser', checkUser)
+            if (!checkUser) {
+                const createUser = await user.create({
+                    email: data.email,
+                    profile_picture: data.photoURL ? data.photoURL : null,
+                    phone_number: data.phoneNumber ? data.phoneNumber : null,
+                    is_verified: true,
+                    role_id: 1,
+                    googleSignIn: true
+                }, { transaction: t })
+                console.log('createUser', createUser)
+                let payload = {
+                    id: createUser.id,
+                    email: createUser.email,
+                    is_verified: createUser.is_verified,
+                };
+                const token = jwt.sign(payload, 'coding-its-easy', {
+                    expiresIn: '1d',
+                });
+                await t.commit();
+                return res.status(200).send({
+                    success: true,
+                    message: 'Login Success!',
+                    data: { token },
+                });
+            }
+            let payload = {
+                id: checkUser.id,
+                email: checkUser.email,
+                is_verified: checkUser.is_verified,
+            };
+            const token = jwt.sign(payload, 'coding-its-easy', {
+                expiresIn: '1d',
+            });
+            await t.commit();
+            return res.status(200).send({
+                success: true,
+                message: 'Login Success!',
+                data: { token },
+            });
+        } catch (error) {
+            await t.rollback();
             return res.status(500).send({
                 success: false,
                 message: error.message,

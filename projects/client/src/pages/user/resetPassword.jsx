@@ -56,7 +56,7 @@ export default function ResetPassword() {
     if (userLogin) {
         return <Navigate to="/" />;
     } else if (isDenied) {
-        return <Navigate to="/" />;
+        return <Navigate to="/*" />;
     }
 
     return (
@@ -135,8 +135,7 @@ export default function ResetPassword() {
                                             <div className="border border-[#ffad00] w-[50px]"></div>
                                         </div>
                                         <div className="text-[11px] text-[#ffad00]">
-                                            password must contain 1 uppercase
-                                            letter & 1 number
+                                        password must contain 1 uppercase letter, 1 number & 8 characters
                                         </div>
                                     </>
                                 ) : (

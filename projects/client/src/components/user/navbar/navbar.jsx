@@ -37,7 +37,7 @@ export default function Navbar(props) {
             setOpenModal(false);
             setTimeout(() => {
                 navigate('/');
-            }, 3000);
+            }, 1000);
         } catch (error) {
             toast.error(error.message);
         }
@@ -117,13 +117,7 @@ export default function Navbar(props) {
                                 className="btn bg-white border-none"
                             >
                                 <Avatar
-                                    img={
-                                        loginData
-                                            ? process.env
-                                                  .REACT_APP_API_IMAGE_URL +
-                                              `${loginData?.profile_picture}`
-                                            : ''
-                                    }
+                                    img={loginData?.profile_picture && loginData?.profile_picture.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + loginData?.profile_picture : loginData?.profile_picture ? loginData?.profile_picture : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'}
                                     rounded
                                 />
                             </label>

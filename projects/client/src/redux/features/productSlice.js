@@ -296,7 +296,7 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
     }
 };
 
-export const deleteProductAsync = (id) => async (dispatch) => {
+export const deleteProductAsync = (id, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -309,7 +309,7 @@ export const deleteProductAsync = (id) => async (dispatch) => {
             },
         );
 
-            dispatch(getAllProductsAsync());
+            dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
             toast.success(result.data.message, {
                 position: 'top-center',
                 duration: 2000,
@@ -333,7 +333,7 @@ export const deleteProductAsync = (id) => async (dispatch) => {
     }
 };
 
-export const thumbnailAsync = (pId, piId) => async (dispatch) => {
+export const thumbnailAsync = (pId, piId, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -345,7 +345,7 @@ export const thumbnailAsync = (pId, piId) => async (dispatch) => {
                 },
             },
         )
-        dispatch(getAllProductsAsync());
+        dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
         dispatch(productDetailsAsync(pId))
         toast.success(result.data.message, {
             position: 'top-center',
