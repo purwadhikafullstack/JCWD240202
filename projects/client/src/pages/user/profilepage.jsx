@@ -36,12 +36,7 @@ export default function ProfilePage() {
             phone_number: dataLogin?.phone_number,
             birth_date: dataLogin?.birth_date?.split('T')[0],
         });
-    }, [
-        dataLogin?.first_name,
-        dataLogin?.last_name,
-        dataLogin?.phone_number,
-        dataLogin?.birth_date,
-    ]);
+    }, [dataLogin?.first_name, dataLogin?.last_name, dataLogin?.phone_number, dataLogin?.birth_date]);
 
     const onChange = (e) => {
         const { value, name } = e.target;
@@ -50,12 +45,7 @@ export default function ProfilePage() {
 
     const onChangeProfilePic = (e) => {
         try {
-            if (
-                e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpg' &&
-                e.target.files[0]?.type.split('/')[1].toLowerCase() !==
-                    'jpeg' &&
-                e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'png'
-            ) {
+            if (e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpeg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'png') {
                 // setImagePreview(null);
                 throw { message: 'Format file must jpg, jpeg, or png' };
             }
@@ -67,7 +57,6 @@ export default function ProfilePage() {
 
             const reader = new FileReader();
             const selectedFile = e.target.files[0];
-            console.log(e.target.files[0]);
 
             if (selectedFile) {
                 reader.readAsDataURL(selectedFile);
@@ -108,18 +97,10 @@ export default function ProfilePage() {
     const onEditProfile = async (req, res) => {
         try {
             setDisabledPhoto(true);
-            if (
-                input.first_name === '' ||
-                input.last_name === '' ||
-                input.phone_number === '' ||
-                input.birth_date === ''
-            ) {
+            if (input.first_name === '' || input.last_name === '' || input.phone_number === '' || input.birth_date === '') {
                 setOpenModal(false);
                 throw { message: "Field can't be empty" };
-            } else if (
-                input.phone_number.match(/[a-zA-Z]/) ||
-                input.phone_number.length < 12
-            ) {
+            } else if (input.phone_number.match(/[a-zA-Z]/) || input.phone_number.length < 12) {
                 setOpenModal(false);
                 throw { message: 'Invalid phone number!' };
             } else {
@@ -231,8 +212,7 @@ export default function ProfilePage() {
                                 <div className="w-full md:w-[400px]">
                                     <div className="p-[10px] border-2 border-gray-200 rounded-lg">
                                         <div className="flex justify-center">
-                                            {dataLogin?.profile_picture ||
-                                            imagePreview ? (
+                                            {dataLogin?.profile_picture || imagePreview ? (
                                                 <img
                                                     src={imagePreview ? imagePreview : dataLogin?.profile_picture.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + dataLogin?.profile_picture : dataLogin?.profile_picture}
                                                     alt="profile_picture"
@@ -240,11 +220,7 @@ export default function ProfilePage() {
                                                     className="object-contain"
                                                 />
                                             ) : (
-                                                <img
-                                                    src="https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
-                                                    alt="profile_picture"
-                                                    width={'250px'}
-                                                />
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png" alt="profile_picture" width={'250px'}/>
                                             )}
                                         </div>
                                         <div className="mt-[10px] flex justify-center">
@@ -331,7 +307,7 @@ export default function ProfilePage() {
                                                 <input
                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="email"
-                                                    disabled="true"
+                                                    disabled={disabled}
                                                     value={input?.email}
                                                     onChange={onChange}
                                                 />

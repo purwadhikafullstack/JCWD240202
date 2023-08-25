@@ -45,6 +45,7 @@ function App() {
     const { pathname } = useLocation();
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const dataLogin = useSelector((state) => state.user.dataLogin);
+    const userLogin = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
         if (userLogin) {
@@ -54,7 +55,7 @@ function App() {
 
     return (
         <>
-            <Navbar dataLogin={dataLogin?.role_id} />
+            <Navbar dataLogin={dataLogin} />
             <Routes>
                 {/* User */}
                 <Route path="/login" element={<LoginPage />} />
@@ -299,7 +300,7 @@ function App() {
                 <Route path="/*" element={<NotFoundPage />} />
             </Routes>
 
-            <Footer dataLogin={dataLogin?.role_id} />
+            <Footer dataLogin={dataLogin} />
         </>
     );
 }

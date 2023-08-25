@@ -17,17 +17,14 @@ export default function ProductStockPage() {
     const dispatch = useDispatch();
     const dataStocks = useSelector((state) => state.stock.stocks);
     const dataLogin = useSelector((state) => state.user.dataLogin);
+    const loading = useSelector((state) => state.stock.loading)
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [search, setSearch] = useState(searchParams.get('search') || '');
     const [sort, setSort] = useState(searchParams.get('sort') || '');
-    const [category, setCategory] = useState(
-        searchParams.get('category') || '',
-    );
-    const [warehouse, setWarehouse] = useState(
-        searchParams.get('warehouse') || '',
-    );
+    const [category, setCategory] = useState(searchParams.get('category') || '');
+    const [warehouse, setWarehouse] = useState(searchParams.get('warehouse') || '');
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -73,6 +70,7 @@ export default function ProductStockPage() {
         setSearchParams(queryParams);
         dispatch(getDataStock(page, search, sort, category, warehouse));
     }, [page, search, sort, category, warehouse]);
+    
     return (
         <>
             <Toaster />
@@ -85,18 +83,11 @@ export default function ProductStockPage() {
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
                         <div className="font-bold text-2xl">
-                            <h1 className="text-4xl mb-8">
-                                PRODUCT STOCK MANAGEMENT
-                            </h1>
+                            <h1 className="text-4xl mb-8">PRODUCT STOCK MANAGEMENT</h1>
                             {dataLogin?.warehouse?.city ? (
                                 <>
-                                    <h1>
-                                        Welcome, {dataLogin?.first_name}{' '}
-                                        {dataLogin?.last_name}!
-                                    </h1>
-                                    <h1>
-                                        {dataLogin?.warehouse?.city} Warehouse
-                                    </h1>
+                                    <h1>Welcome, {dataLogin?.first_name}{' '}{dataLogin?.last_name}!</h1>
+                                    <h1>{dataLogin?.warehouse?.city} Warehouse</h1>
                                 </>
                             ) : (
                                 <h1>Welcome, Admin!</h1>
@@ -105,21 +96,11 @@ export default function ProductStockPage() {
                         <div className="mt-5 p-3 bg-white shadow-md rounded-lg">
                             <div className="sm:flex sm:justify-between w-full mb-2">
                                 <div className="sm:flex sm:justify-start sm:items-center sm:gap-2 w-full">
-                                    <SearchBarAdmin
-                                        data={{ searchChange, search }}
-                                    />
+                                    <SearchBarAdmin data={{ searchChange, search }}/>
                                     <SortAdmin data={{ sortChange, sort }} />
-
-                                    <FilterCategoryAdmin
-                                        data={{ categoryChange, category }}
-                                    />
+                                    <FilterCategoryAdmin data={{ categoryChange, category }}/>
                                     {dataLogin?.role_id === 3 ? (
-                                        <FilterAdmin
-                                            data={{
-                                                warehouseChange,
-                                                warehouse,
-                                            }}
-                                        />
+                                        <FilterAdmin data={{warehouseChange, warehouse}}/>
                                     ) : (
                                         <></>
                                     )}
@@ -127,71 +108,35 @@ export default function ProductStockPage() {
                             </div>
                             <div className="w-full flex justify-start mb-3">
                                 {search ? (
-                                    <button
-                                        onClick={() => {
-                                            setSearch('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setSearch(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {search}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{search}</div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {sort ? (
-                                    <button
-                                        onClick={() => {
-                                            setSort('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setSort(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
-
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {sort === 'name-asc'
-                                                ? 'A-Z'
-                                                : sort === 'name-desc'
-                                                ? 'Z-A'
-                                                : sort === 'newest'
-                                                ? 'Newest'
-                                                : 'Oldest'}
+                                            {sort === 'name-asc' ? 'A-Z' : sort === 'name-desc' ? 'Z-A' : sort === 'newest' ? 'Newest' : 'Oldest'}
                                         </div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {category ? (
-                                    <button
-                                        onClick={() => {
-                                            setCategory('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setCategory(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {category.replace(/%/g, ' ')}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{category.replace(/%/g, ' ')}</div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {warehouse ? (
-                                    <button
-                                        onClick={() => {
-                                            setWarehouse('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setWarehouse(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {warehouse.replace(/%/g, ' ')}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{warehouse.replace(/%/g, ' ')}</div>
                                     </button>
                                 ) : (
                                     <></>
@@ -201,75 +146,20 @@ export default function ProductStockPage() {
                                 <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                                     <thead className="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Image
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Product Name
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Category
-                                            </th>
-                                            {!warehouse &&
-                                            dataLogin?.role_id === 3 ? (
-                                                <></>
-                                            ) : (
-                                                <th
-                                                    scope="col"
-                                                    className="px-6 py-3 border-r border-gray-300 text-center"
-                                                >
-                                                    Warehouse
-                                                </th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Image</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Product Name</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Category</th>
+                                            {!warehouse && dataLogin?.role_id === 3 ? (<></>) : (<th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Warehouse</th>
                                             )}
-
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Stock
-                                            </th>
-                                            {!warehouse &&
-                                            dataLogin?.role_id === 3 ? (
-                                                <></>
-                                            ) : (
-                                                <th
-                                                    scope="col"
-                                                    className="px-6 py-3 border-gray-300 text-center"
-                                                >
-                                                    Action
-                                                </th>
-                                            )}
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Stock</th>
+                                            {!warehouse && dataLogin?.role_id === 3 ? (<></>) : (<th scope="col" className="px-6 py-3 border-gray-300 text-center">Action</th>)}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {dataStocks?.data?.rows?.length !==
-                                        0 ? (
-                                            <TableStockManagement
-                                                data={dataStocks?.data?.rows}
-                                                params={{
-                                                    page,
-                                                    search,
-                                                    sort,
-                                                    category,
-                                                    warehouse,
-                                                }}
-                                                dataLogin={dataLogin}
-                                            />
-                                        ) : (
-                                            <></>
-                                        )}
+                                        {(dataStocks?.data?.rows?.length > 0 || dataStocks === null) && <TableStockManagement data={dataStocks?.data?.rows} params={{page, search, sort, category, warehouse}} dataLogin={dataLogin} loading={loading}/>}
                                     </tbody>
                                 </table>
-                                {dataStocks?.data?.rows?.length == 0 ? (
+                                {dataStocks?.data?.rows?.length === 0 && (
                                     <div className="flex items-center justify-center py-8">
                                         <div>
                                             <div className="flex justify-center items-center font-bold text-xl">
@@ -284,8 +174,6 @@ export default function ProductStockPage() {
                                             </div>
                                         </div>
                                     </div>
-                                ) : (
-                                    <></>
                                 )}
                             </div>
                             <div className="w-full flex justify-center mt-3">

@@ -6,6 +6,7 @@ const initialState = {
     stocks: null,
     disabledButton: false,
     modal: false,
+    loading: false,
 };
 
 export const stockSlice = createSlice({
@@ -21,6 +22,9 @@ export const stockSlice = createSlice({
         setModal: (initialState, action) => {
             initialState.modal = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -42,11 +46,16 @@ export const getDataStock =
                         authorization: `Bearer ${token}`,
                     },
                 },
-            );
-
+                );
+                
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)))
             dispatch(setStocks(dataStock?.data));
         } catch (error) {
-            console.log(error);
+            dispatch(setLoading(false))
+            console.log(error)
         }
     };
 
@@ -166,5 +175,5 @@ export const reduceQuantity =
         }
     };
 
-export const { setStocks, setDisabledButton, setModal } = stockSlice.actions;
+export const { setStocks, setDisabledButton, setModal, setLoading } = stockSlice.actions;
 export default stockSlice.reducer;

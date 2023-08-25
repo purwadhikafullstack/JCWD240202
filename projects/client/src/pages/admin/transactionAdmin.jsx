@@ -20,9 +20,8 @@ export default function TransactionAdmin() {
     const dispatch = useDispatch();
     const status = useSelector((state) => state.status.status);
     const transaction = useSelector((state) => state.transaction.data);
-    // console.log(transaction)
     const [searchParams, setSearchParams] = useSearchParams();
-    const [page, setPage] = useState(searchParams.get('page') || 1);
+    const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
@@ -38,6 +37,7 @@ export default function TransactionAdmin() {
     const [showConfirm, setShowConfirm] = useState(false)
     const [funcConfirm, setFuncConfirm] = useState('')
     const [valueConfirm, setValueConfirm] = useState('')
+    const loading = useSelector((state) => state.transaction.loading)
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -162,6 +162,7 @@ export default function TransactionAdmin() {
                         transaction={transaction}
                         detail={{ setDetailId, detailId, setOpenDetail }}
                         confirm={{setShowConfirm, setFuncConfirm, setValueConfirm}}
+                        loading={loading}
                     />
                     <div className="w-full flex justify-center mt-3">
                         <PaginationAdmin

@@ -7,6 +7,7 @@ const initialState = {
     details: {},
     recommendations: null,
     success: false,
+    loading: false,
 };
 
 export const productSlice = createSlice({
@@ -25,6 +26,9 @@ export const productSlice = createSlice({
         setSuccess: (initialState, action) => {
             initialState.success = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -43,8 +47,13 @@ export const getAllProductsAsync = (data) => async (dispatch) => {
             },
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true))
+        }, 1000);
+        clearTimeout(dispatch(setLoading(false)))
         dispatch(setProducts(allProducts.data));
     } catch (error) {
+        dispatch(setLoading(false))
         console.log(error.message);
     }
 };
@@ -408,6 +417,6 @@ export const thumbnailAsync = (pId, piId, filter) => async (dispatch) => {
     }
 };
 
-export const { setProducts, setDetails, setRecommendations, setSuccess } =
+export const { setProducts, setDetails, setRecommendations, setSuccess, setLoading } =
     productSlice.actions;
 export default productSlice.reducer;

@@ -11,7 +11,7 @@ export default function CategoryTabs(props) {
         dispatch(getAllCategoriesAsync());
     }, []);
     return (
-        <div className="pt-4 flex justify-evenly items-center gap-2">
+        <div className="pt-4 sm:flex justify-evenly items-center gap-2">
             <div
                 onClick={() => {
                     props?.state?.setCategory('');
