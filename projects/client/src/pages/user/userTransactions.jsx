@@ -15,6 +15,7 @@ import { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import InvoiceSearch from '../../components/user/transactions/invoiceSearch';
 import { Helmet } from 'react-helmet';
+import GenerateInvoice from '../../components/user/transactions/generateInvoice';
 
 export default function UserTransactions() {
     const dispatch = useDispatch();
@@ -159,6 +160,7 @@ export default function UserTransactions() {
                 }}
                 func={{ handleCancelOrder }}
             />
+            <GenerateInvoice />
         </>
     );
 }

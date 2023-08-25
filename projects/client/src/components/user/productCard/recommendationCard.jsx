@@ -4,6 +4,7 @@ import {
     productDetailsAsync,
     productRecommenadationAsync,
 } from '../../../redux/features/productSlice';
+import { getReviewsAsync } from '../../../redux/features/reviewSlice';
 
 export default function RelatedProducts(props) {
     const dispatch = useDispatch();
@@ -36,6 +37,13 @@ export default function RelatedProducts(props) {
                                     dispatch(productDetailsAsync(value.id));
                                     dispatch(
                                         productRecommenadationAsync(value.id),
+                                    );
+                                    dispatch(
+                                        getReviewsAsync({
+                                            product_id: value.id,
+                                            rating: '',
+                                            sort: '',
+                                        }),
                                     );
                                     navigate(`/products/${value.id}`);
                                 }}

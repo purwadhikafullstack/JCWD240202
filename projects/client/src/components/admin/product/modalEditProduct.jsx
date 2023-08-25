@@ -130,7 +130,6 @@ export default function ModalEditProduct(props) {
                               })
                             : proDetails.data?.findProduct?.product_images?.map(
                                 (value, index) => {
-                                    console.log(value)
                                     return (
                                         <div key={index} className='flex flex-col items-center'>
                                           <img
@@ -144,7 +143,7 @@ export default function ModalEditProduct(props) {
                                               alt="image-product"
                                               className="border object-contain border-slate-400 h-[100px] rounded-md"
                                             />
-                                            <button disabled={value.is_thumbnail === true ? true : false} onClick={()=>dispatch(thumbnailAsync(props.data?.id, value.id))} className={`${value.is_thumbnail === true ? 'bg-gray-400 cursor-default' : 'bg-[#e65100] drop-shadow-xl hover:bg-gray-400'} rounded-lg text-white px-2 mt-1 text-sm`}>Thumbnail</button>
+                                            <button disabled={value.is_thumbnail === true ? true : false} onClick={()=>dispatch(thumbnailAsync(props.data?.id, value.id, props.filter))} className={`${value.is_thumbnail === true ? 'bg-gray-400 cursor-default' : 'bg-[#e65100] drop-shadow-xl hover:bg-gray-400'} rounded-lg text-white px-2 mt-1 text-sm`}>Thumbnail</button>
                                         </div>
                                       );
                                   },

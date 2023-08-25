@@ -2,12 +2,20 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+//firebase
+import { auth } from '../../firebase/firebase';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+const provider = new GoogleAuthProvider();
+
+
+
 const initialState = {
     auth: null,
     isLogin: false,
     isVerif: false,
     isDenied: false,
-    loading: false
+    loading: false,
+    msg: null
 };
 
 export const authSlice = createSlice({
@@ -28,6 +36,9 @@ export const authSlice = createSlice({
         },
         setLoading: (initialState, action) => {
             initialState.loading = action.payload;
+        },
+        setMsg: (initialState, action) => {
+            initialState.msg = action.payload;
         },
     },
 });
@@ -127,7 +138,7 @@ export const reqResetPassword = (email) => async (dispatch) => {
             dispatch(setIsLogin(true));
         }
     } catch (error) {
-        dispatch(setAuth(error.response.data.message));
+        dispatch(setMsg(error.response.data.message));
         dispatch(setLoading(false))
         if (error.response) {
             toast.error(error.response.data.message);
@@ -173,7 +184,6 @@ export const resetPassword = (password, confirmPassword, token) => async (dispat
 
 export const expiredLink = (token) => async (dispatch) => {
     try {
-        console.log(token, 'token slice')
         const result = await axios.get(process.env.REACT_APP_API_BASE_URL + '/auth/check-link-expired',
             {
                 headers: {
@@ -192,21 +202,27 @@ export const expiredLink = (token) => async (dispatch) => {
     }
 }
 
-// export const logoutAsync = () => async (dispatch) => {
-//     try {
-//         dispatch(setIsLogin(true))
-//         localStorage.removeItem('user');
-//         toast.success('Logout success!', {
-//             position: 'top-center',
-//             duration: 2000,
-//             style: { border: '2px solid #000', borderRadius: '10px', background: '#0051BA', color: 'white',},
-//         });
-//     } catch (error) {
-//         console.log(error.message)
-//     } finally {
-//         dispatch(setIsLogin(false))
-//     }
-// }
+export const loginGoogleAsync = () => async (dispatch) => {
+    try {
+		const response = await signInWithPopup(auth, provider);
+        console.log(response.user.providerData[0])
+        const result = await axios.post(process.env.REACT_APP_API_BASE_URL + '/auth/login-google', {
+            data: response.user.providerData[0]
+        })
+        console.log('resulllttttttt', result)
+        dispatch(setIsLogin(result.data.success));
+        localStorage.setItem('user', JSON.stringify(result.data.data.token));
+        toast.success(result.data.message);
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data.message);
+        } else {
+            console.log(error.message);
+        }
+    } finally {
+        dispatch(setIsLogin(false))
+    }
+}
 
-export const { setAuth, setIsLogin, setIsVerif, setIsDenied, setLoading} = authSlice.actions;
+export const { setAuth, setIsLogin, setIsVerif, setIsDenied, setLoading, setMsg} = authSlice.actions;
 export default authSlice.reducer;

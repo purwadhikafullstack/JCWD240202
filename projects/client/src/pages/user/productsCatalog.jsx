@@ -11,6 +11,10 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import AfterAddCart from '../../components/user/productsCatalog/afterAddCart';
 import { Helmet } from 'react-helmet';
+import { Button } from 'flowbite-react';
+import { MdFilterAlt } from 'react-icons/md';
+import { MdFilterAltOff } from 'react-icons/md';
+import ColorFilter from '../../components/user/button/colorFilter';
 
 export default function ProductsCatalog() {
     const dispatch = useDispatch();
@@ -18,9 +22,12 @@ export default function ProductsCatalog() {
     const [category, setCategory] = useState('');
     const [sort, setSort] = useState('');
     const [search, setSearch] = useState('');
+    const [colorId, setColorId] = useState(null);
+    const [colorName, setColorName] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [addNewItem, setAddNewItem] = useState(false);
     const productLists = useSelector((state) => state.product.products);
+    const [showFilter, setShowFilter] = useState(false);
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -38,6 +45,18 @@ export default function ProductsCatalog() {
         setSearch(search);
     };
 
+    const colorChange = (color) => {
+        setColorId(color);
+    };
+
+    const resetFilter = () => {
+        setColorName('');
+        setColorId(null);
+        setCategory('');
+        setPage(1);
+        setShowFilter(!showFilter);
+    };
+
     const showProducts = (page, category, sort, search) => {
         dispatch(
             getAllProductsAsync({
@@ -45,6 +64,7 @@ export default function ProductsCatalog() {
                 category: category,
                 sort: sort,
                 search: search,
+                color_id: colorId,
             }),
         );
     };
@@ -66,9 +86,12 @@ export default function ProductsCatalog() {
         if (search) {
             queryParams['search'] = search;
         }
+        if (colorName) {
+            queryParams['color'] = colorName;
+        }
         setSearchParams(queryParams);
         showProducts(page, category, sort, search);
-    }, [page, category, sort, search, addNewItem]);
+    }, [page, category, sort, search, addNewItem, colorId, colorName]);
     return (
         <div className="relative">
             <Helmet>
@@ -85,7 +108,27 @@ export default function ProductsCatalog() {
                 <div className="font-bold text-4xl">All Products</div>
                 <div className="flex justify-between pt-9">
                     <div className="flex flex-1 gap-9 w-full">
-                        <FilterButton data={{ categoryChange, setPage, category }} />
+                        <Button
+                            onClick={() => {
+                                showFilter === false
+                                    ? setShowFilter(!showFilter)
+                                    : resetFilter();
+                            }}
+                            color={'light'}
+                        >
+                            <div className="flex gap-2 items-center">
+                                {showFilter === false ? (
+                                    <>
+                                        <MdFilterAlt size={20} /> Filter{' '}
+                                    </>
+                                ) : (
+                                    <>
+                                        <MdFilterAltOff size={20} />
+                                        Reset Filter
+                                    </>
+                                )}
+                            </div>
+                        </Button>
                         <SortButton data={{ sortChange, sort }} />
                     </div>
                     <div className="flex-2">
@@ -93,6 +136,23 @@ export default function ProductsCatalog() {
                             <SearchBar data={{ searchChange }} />
                         </div>
                     </div>
+                </div>
+                <div
+                    className={`${
+                        showFilter === false ? 'hidden' : ''
+                    } flex gap-4 mt-4 p-4 border`}
+                >
+                    <FilterButton
+                        data={{ categoryChange, setPage, category }}
+                    />
+                    <ColorFilter
+                        state={{
+                            setColorName,
+                            colorName,
+                            colorChange,
+                            setPage,
+                        }}
+                    />
                 </div>
                 {productLists?.data?.rows?.length !== 0 ? (
                     <div className=" flex gap-6 flex-wrap pt-12">

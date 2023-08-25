@@ -235,11 +235,13 @@ export default function ProductAdmin() {
                         data={dataDetail}
                         category={categories}
                         color={color}
+                        filter={{page, category, sort, search}}
                     />
                     <ModalDeleteProduct
                         show={openModalDelete}
                         funcShow={setOpenModalDelete}
                         data={dataDetail}
+                        filter={{page, category, sort, search}}
                     />
                 </div>
             </div>

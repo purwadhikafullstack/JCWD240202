@@ -39,7 +39,7 @@ export default function Navbar(props) {
             setOpenModal(false);
             setTimeout(() => {
                 navigate('/');
-            }, 3000);
+            }, 1000);
         } catch (error) {
             toast.error(error.message);
         }

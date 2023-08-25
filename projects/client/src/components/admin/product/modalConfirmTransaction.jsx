@@ -1,35 +1,40 @@
 import { Modal } from 'flowbite-react';
+import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProductAsync } from '../../../redux/features/productSlice';
 
 
-export default function ModalDeleteProduct(props) {
+export default function ModalConfirmTransaction(props) {
+    // console.log(()=> props.confirm?.funcConfirm)
     const dispatch = useDispatch()
+    // const handleConfirm = () => {
+    //     props.confirm?.funcConfirm()
+    // }
     return (
         <>
+            <Toaster />
             <Modal
                 dismissible
-                show={props.show}
-                onClose={() => props.funcShow(false)}
+                show={props.data?.showConfirm}
+                onClose={() => props.data?.setShowConfirm(false)}
             >
-                <Modal.Header>
-                    <div className="text-xl">Delete Product</div>
-                </Modal.Header>
+                {/* <Modal.Header>
+                    <div className="text-xl"></div>
+                </Modal.Header> */}
                 <Modal.Body>
                     <div>
-                        Are you sure want to delete this product? 
+                        Are you sure? 
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <button
                         className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
-                        onClick={() => { dispatch(deleteProductAsync(props.data?.id, props.filter)); props.funcShow(false) }}
+                        onClick={() => { props.handleConfirm(); props.data?.setShowConfirm(false)}}
                     >
                         Continue
                     </button>
                     <button
                         className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                        onClick={() => props.funcShow(false)}
+                        onClick={() => props.data?.setShowConfirm(false)}
                     >
                         Cancel
                     </button>

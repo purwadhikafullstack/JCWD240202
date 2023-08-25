@@ -42,6 +42,7 @@ export const getAllProductsAsync = (data) => async (dispatch) => {
                     category: data?.category,
                     sort: data?.sort,
                     search: data?.search,
+                    color_id: data?.color_id,
                 },
             },
         );
@@ -169,7 +170,20 @@ export const addProductAsync = (data, imageProduct) => async (dispatch) => {
     }
 };
 
-export const editProductAsync = ( name, category_id, color_id, price, description, length, width, height, weight, id, ) => async (dispatch) => {
+export const editProductAsync =
+    (
+        name,
+        category_id,
+        color_id,
+        price,
+        description,
+        length,
+        width,
+        height,
+        weight,
+        id,
+    ) =>
+    async (dispatch) => {
         try {
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
             if (
@@ -305,7 +319,7 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
     }
 };
 
-export const deleteProductAsync = (id) => async (dispatch) => {
+export const deleteProductAsync = (id, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -318,7 +332,7 @@ export const deleteProductAsync = (id) => async (dispatch) => {
             },
         );
 
-            dispatch(getAllProductsAsync());
+            dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
             toast.success(result.data.message, {
                 position: 'top-center',
                 duration: 2000,
@@ -329,24 +343,34 @@ export const deleteProductAsync = (id) => async (dispatch) => {
             toast.error(error.response?.data?.message, {
                 position: 'top-center',
                 duration: 2000,
-                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',},
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
             });
         } else {
             toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
-                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
                 },
             });
         }
     }
 };
 
-export const thumbnailAsync = (pId, piId) => async (dispatch) => {
+export const thumbnailAsync = (pId, piId, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
-            process.env.REACT_APP_API_BASE_URL + `/products/thumbnail/${pId}/${piId}`,
+            process.env.REACT_APP_API_BASE_URL +
+                `/products/thumbnail/${pId}/${piId}`,
             {},
             {
                 headers: {
@@ -354,30 +378,44 @@ export const thumbnailAsync = (pId, piId) => async (dispatch) => {
                 },
             },
         )
-        dispatch(getAllProductsAsync());
+        dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
         dispatch(productDetailsAsync(pId))
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
-            style: { border: '2px solid #000', borderRadius: '10px', background: '#0051BA', color: 'white', },
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#0051BA',
+                color: 'white',
+            },
         });
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
                 position: 'top-center',
                 duration: 2000,
-                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',},
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
             });
         } else {
             toast.error(error.message, {
                 position: 'top-center',
                 duration: 2000,
-                style: { border: '2px solid #000', borderRadius: '10px', background: '#DC2626', color: 'white',
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
                 },
             });
         }
     }
-}
+};
 
 export const { setProducts, setDetails, setRecommendations, setSuccess, setLoading } =
     productSlice.actions;

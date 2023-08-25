@@ -9,5 +9,6 @@ router.post('/login', authController.login);
 router.post('/req-forgot-password', authController.reqForgotPassword);
 router.patch('/forgot-password', verifyToken, authController.forgotPassword);
 router.get('/check-link-expired', verifyToken, authController.expiredLink);
+router.post('/login-google', authController.loginGoogle)
 
 module.exports = router;

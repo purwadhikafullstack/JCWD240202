@@ -1,3 +1,4 @@
+import React from 'react';
 import { AiOutlineCaretDown } from 'react-icons/ai';
 import { AiOutlineCaretUp } from 'react-icons/ai';
 
@@ -83,7 +84,7 @@ export default function OrderStatus(props) {
                 props?.data?.userOrderDetails?.data?.order_statuses.map(
                     (value, index) => {
                         return (
-                            <>
+                            <React.Fragment key={index}>
                                 <div
                                     className={`flex justify-evenly items-center py-4 rounded-2xl mt-4 ${
                                         value?.status_id === 1
@@ -115,12 +116,11 @@ export default function OrderStatus(props) {
                 ? 'bg-[#F1948A] text-[#EE0303] border-[#FC4A4A]'
                 : ''
         }`}
-                                    key={index}
                                 >
                                     {value?.status?.name}
                                 </div>
                                 <div>{value?.createdAt}</div>
-                            </>
+                            </React.Fragment>
                         );
                     },
                 )

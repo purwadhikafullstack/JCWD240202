@@ -6,11 +6,12 @@ import {
     AiOutlineYoutube,
     AiOutlineSearch,
 } from 'react-icons/ai';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Footer(props) {
     const { pathname } = useLocation();
     const userLogin = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
 
     const paths = ['/login', '/register', '/admins/login'];
 
@@ -24,6 +25,7 @@ export default function Footer(props) {
         '/admins/stock-history',
         '/admins/stock-log',
         '/admins/transactions',
+        '/admins/sales-report',
         '/admins/sales-report',
     ];
 
