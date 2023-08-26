@@ -496,6 +496,7 @@ module.exports = {
         const t = await sequelize.transaction();
         try {
             const { order_id } = req.body;
+            const currentTime = new Date();
             const dataOrder = await orders.findByPk(order_id);
             const findData = await db.order_statuses.findOne({
                 where: {
@@ -509,13 +510,23 @@ module.exports = {
                     success: false,
                     message: 'Data not found',
                 });
-            await db.order_statuses.update(
-                { is_active: 1 },
-                { where: { status_id: 1, order_id } },
+            await db.order_statuses.create(
+                {
+                    status_id: 1,
+                    order_id,
+                    is_active: 1,
+                    expired: currentTime.getTime() + 24 * 60 * 60 * 1000,
+                },
                 { transaction: t },
             );
-            const changeStatus = await db.order_statuses.destroy(
-                { where: { status_id: 2, order_id } },
+            const changeStatus = await db.order_statuses.update(
+                { is_active: 0, is_rejected: 1 },
+                { where: { id: findData.id } },
+                { transaction: t },
+            );
+            const removeImage = await orders.update(
+                { payment_proof: null },
+                { where: { id: order_id } },
                 { transaction: t },
             );
             deleteSingleFile(`src/public/images/${dataOrder?.payment_proof}`);

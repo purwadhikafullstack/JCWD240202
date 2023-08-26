@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { MdOutlineAccountCircle } from 'react-icons/md';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineBell } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Modal } from 'flowbite-react';
@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux';
 import { getUserCartAsync } from '../../../redux/features/cartSlice';
 import { getUserWishlists } from '../../../redux/features/wishlistSlice';
 import { getDataLogin } from '../../../redux/features/userSlice';
+import Notification from './notification';
+import { getUserNotificationAsync } from '../../../redux/features/notificationSlice';
 
 export default function Navbar(props) {
     const navigate = useNavigate();
@@ -20,6 +22,10 @@ export default function Navbar(props) {
     const userCartCount = useSelector((state) => state.cart.cart);
     const wishlistCount = useSelector((state) => state.wishlist.wishlists);
     const loginData = useSelector((state) => state.user.dataLogin);
+    const notificationData = useSelector(
+        (state) => state.notification.notifications,
+    );
+    const [notification, setNotification] = useState(false);
 
     const logout = () => {
         try {
@@ -48,6 +54,7 @@ export default function Navbar(props) {
             dispatch(getUserCartAsync());
             dispatch(getUserWishlists());
             dispatch(getDataLogin());
+            dispatch(getUserNotificationAsync());
         }
     }, [userLogin]);
 
@@ -156,6 +163,10 @@ export default function Navbar(props) {
 
                     {userLogin ? (
                         <>
+                            <Notification
+                                state={{ notification, setNotification }}
+                                data={{ notification: notificationData?.data }}
+                            />
                             <Link to={'/users/wishlists'}>
                                 <div className="flex items-center">
                                     <AiOutlineHeart size={25} />
