@@ -12,6 +12,7 @@ const initialState = {
     disabledButton: false,
     modal: false,
     allWarehouse: null,
+    loading: false,
 };
 
 export const warehouseSlice = createSlice({
@@ -42,6 +43,9 @@ export const warehouseSlice = createSlice({
         setAllWarehouse: (initialState, action) => {
             initialState.allWarehouse = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -206,8 +210,13 @@ export const getAllDataWh =
                 },
             );
 
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)));
             dispatch(setDataWh(result?.data));
         } catch (error) {
+            dispatch(setLoading(false));
             console.log(error);
         }
     };
@@ -526,5 +535,6 @@ export const {
     setDisabledButton,
     setModal,
     setAllWarehouse,
+    setLoading
 } = warehouseSlice.actions;
 export default warehouseSlice.reducer;

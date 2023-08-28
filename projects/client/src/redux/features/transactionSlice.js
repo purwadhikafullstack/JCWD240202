@@ -4,6 +4,8 @@ import { toast } from 'react-hot-toast';
 
 const initialState = {
     data: {},
+    history: {},
+    loading: false,
 };
 
 export const transactionSlice = createSlice({
@@ -12,6 +14,12 @@ export const transactionSlice = createSlice({
     reducers: {
         setData: (initialState, action) => {
             initialState.data = action.payload;
+        },
+        sethistory: (initialState, action) => {
+            initialState.history = action.payload;
+        },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
         },
     },
 });
@@ -38,8 +46,14 @@ export const allTransactionAsync =
                     },
                 },
             );
+
+            setTimeout(() => {
+                dispatch(setLoading(true));
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)));
             dispatch(setData(result.data));
         } catch (error) {
+            dispatch(setLoading(false));
             console.log(error.message);
         }
     };
@@ -48,7 +62,8 @@ export const confirmPaymentAsync = (cartId) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(
-            process.env.REACT_APP_API_BASE_URL + '/transactions/confirmation-payment',
+            process.env.REACT_APP_API_BASE_URL +
+                '/transactions/confirmation-payment',
             {
                 cart_id: cartId,
             },
@@ -123,24 +138,28 @@ export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
         });
     } catch (error) {
         if (error.response) {
-            console.log(error.response?.data?.message)
+            console.log(error.response?.data?.message);
         } else {
             console.log(error.message);
         }
     }
-}
+};
 
 export const sendUserOrder = (order_id) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
-        const result = await axios.post(process.env.REACT_APP_API_BASE_URL + '/transactions/confirmation-shipping',
-        {
-            order_id,
-        },{
-            headers: {
-                authorization: `Bearer ${dataLogin}`,
+        const result = await axios.post(
+            process.env.REACT_APP_API_BASE_URL +
+                '/transactions/confirmation-shipping',
+            {
+                order_id,
             },
-        },)
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        );
         dispatch(allTransactionAsync());
         toast.success(result.data.message, {
             position: 'top-center',
@@ -154,24 +173,28 @@ export const sendUserOrder = (order_id) => async (dispatch) => {
         });
     } catch (error) {
         if (error.response) {
-            console.log(error.response?.data?.message)
+            console.log(error.response?.data?.message);
         } else {
             console.log(error.message);
         }
     }
-}
+};
 
 export const cancelShipping = (order_id) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
-        const result = await axios.post(process.env.REACT_APP_API_BASE_URL + '/transactions/cancel-shipping',
-        {
-            order_id
-        },{
-            headers: {
-                authorization: `Bearer ${dataLogin}`,
+        const result = await axios.post(
+            process.env.REACT_APP_API_BASE_URL +
+                '/transactions/cancel-shipping',
+            {
+                order_id,
             },
-        },)
+            {
+                headers: {
+                    authorization: `Bearer ${dataLogin}`,
+                },
+            },
+        );
         dispatch(allTransactionAsync());
         toast.success(result.data.message, {
             position: 'top-center',
@@ -185,12 +208,29 @@ export const cancelShipping = (order_id) => async (dispatch) => {
         });
     } catch (error) {
         if (error.response) {
-            console.log(error.response?.data?.message)
+            console.log(error.response?.data?.message);
         } else {
             console.log(error.message);
         }
     }
-}
+};
 
-export const { setData } = transactionSlice.actions;
+export const transactionHistory = (order_id) => async (dispatch) => {
+    try {
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        const result = await axios.get(
+            process.env.REACT_APP_API_BASE_URL +
+                `/transactions/history/${order_id}`,
+        );
+        dispatch(sethistory(result.data.data));
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response?.data?.message);
+        } else {
+            console.log(error.message);
+        }
+    }
+};
+
+export const { setData, sethistory, setLoading } = transactionSlice.actions;
 export default transactionSlice.reducer;

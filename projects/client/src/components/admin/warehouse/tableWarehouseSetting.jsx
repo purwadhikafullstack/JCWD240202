@@ -6,8 +6,9 @@ import EditWareHouseModal from './editWarehouseModal';
 import DeleteWarehouseModal from './deleteWarehouseModal';
 import { getDataProvincesRo } from '../../../redux/features/warehouseSlice';
 import { getDataCitiesRo } from '../../../redux/features/warehouseSlice';
+import SkeletonWarehouseManagement from './skeletonWarehouseManagement';
 
-export default function WarehouseTableSetting({ data, params, page }) {
+export default function WarehouseTableSetting({ data, params, page, loading }) {
     const [showEditWhModal, setShowEditWhModal] = useState(false);
     const [showDeleteWhModal, setShowDeleteWhModal] = useState(false);
     const [selectedEdit, setSelectedEdit] = useState({});
@@ -26,65 +27,68 @@ export default function WarehouseTableSetting({ data, params, page }) {
     return (
         <>
             {data?.map((value, index) => {
-                return (
-                    <tr
-                        key={index}
-                        scope="row"
-                        className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
-                    >
-                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-r">
-                            <div>{value.city}</div> <div>{value.province}</div>
-                        </td>
-                        <td className="px-6 py-4 border-r text-center">
-                            {value?.subdistrict}
-                        </td>
-                        <td className="px-6 py-4 border-r text-center">
-                            {value?.street}
-                        </td>
-                        <td className="px-6 py-4 border-r text-center">
-                            {value?.postcode}
-                        </td>
-                        <td className="px-6 py-4 border-r text-center">
-                            {value?.user !== null ? (
-                                <>
-                                    <div className="font-bold">
-                                        {value?.user?.first_name}
-                                        <br />
-                                        {value?.user?.last_name}
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <div className="text-red-600 font-semibold">
-                                        ADMIN <br /> NOT <br /> ASSIGNED
-                                    </div>
-                                </>
-                            )}
-                        </td>
-                        <td className="pl-3 py-4 text-center">
-                            <button
-                                className="font-medium text-center text-blue-600 mr-3"
-                                onClick={() => {
-                                    setShowEditWhModal(true);
-                                    setSelectedEdit(value);
-                                }}
+                    if(loading) {
+                        return (
+                            <tr
+                                key={index}
+                                scope="row"
+                                className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
                             >
-                                <AiFillEdit size={18} />
-                            </button>
-                            <button
-                                className="font-medium text-center text-red-600 mr-3"
-                                onClick={() => {
-                                    setShowDeleteWhModal(true);
-                                    setSelectedEdit(value);
-                                }}
-                            >
-                                <AiFillDelete size={18} />
-                            </button>
-                        </td>
-                    </tr>
-                );
+                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-r">
+                                    <div>{value.city}</div> <div>{value.province}</div>
+                                </td>
+                                <td className="px-6 py-4 border-r text-center">
+                                    {value?.subdistrict}
+                                </td>
+                                <td className="px-6 py-4 border-r text-center">
+                                    {value?.street}
+                                </td>
+                                <td className="px-6 py-4 border-r text-center">
+                                    {value?.postcode}
+                                </td>
+                                <td className="px-6 py-4 border-r text-center">
+                                    {value?.user !== null ? (
+                                        <>
+                                            <div className="font-bold">
+                                                {value?.user?.first_name}
+                                                <br />
+                                                {value?.user?.last_name}
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="text-red-600 font-semibold">
+                                                ADMIN <br /> NOT <br /> ASSIGNED
+                                            </div>
+                                        </>
+                                    )}
+                                </td>
+                                <td className="pl-3 py-4 text-center">
+                                    <button
+                                        className="font-medium text-center text-blue-600 mr-3"
+                                        onClick={() => {
+                                            setShowEditWhModal(true);
+                                            setSelectedEdit(value);
+                                        }}
+                                    >
+                                        <AiFillEdit size={18} />
+                                    </button>
+                                    <button
+                                        className="font-medium text-center text-red-600 mr-3"
+                                        onClick={() => {
+                                            setShowDeleteWhModal(true);
+                                            setSelectedEdit(value);
+                                        }}
+                                    >
+                                        <AiFillDelete size={18} />
+                                    </button>
+                                </td>
+                            </tr>
+                        )
+                    } else {
+                        return <SkeletonWarehouseManagement key={index}/>
+                    }               
             })}
-
             <tr>
                 <td>
                     {/* Edit Warehouse Modal */}

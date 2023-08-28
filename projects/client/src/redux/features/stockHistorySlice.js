@@ -6,6 +6,7 @@ const initialState = {
     stockHistories: null,
     stockLog: null,
     export: [],
+    loading: false,
 };
 
 export const stockHistorySlice = createSlice({
@@ -21,6 +22,9 @@ export const stockHistorySlice = createSlice({
         setExport: (initialState, action) => {
             initialState.export = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -45,8 +49,13 @@ export const getStockHistory =
                 },
             );
 
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)))
             dispatch(setStockHistories(dataStockHistory?.data));
         } catch (error) {
+            dispatch(setLoading(false))
             console.log(error);
         }
     };
@@ -70,6 +79,10 @@ export const getStockLog =
                     },
                 },
             );
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)))
             dispatch(setStockLog(dataStockLog?.data));
 
             const exportData = dataStockLog?.data?.export?.map((value) => {
@@ -89,9 +102,10 @@ export const getStockLog =
             });
             dispatch(setExport(exportData));
         } catch (error) {
+            dispatch(setLoading(false))
             console.log(error);
         }
     };
-export const { setStockHistories, setStockLog, setExport } =
+export const { setStockHistories, setStockLog, setExport, setLoading } =
     stockHistorySlice.actions;
 export default stockHistorySlice.reducer;

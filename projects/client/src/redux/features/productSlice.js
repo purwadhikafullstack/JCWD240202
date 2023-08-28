@@ -7,6 +7,7 @@ const initialState = {
     details: {},
     recommendations: null,
     success: false,
+    loading: false,
 };
 
 export const productSlice = createSlice({
@@ -25,6 +26,9 @@ export const productSlice = createSlice({
         setSuccess: (initialState, action) => {
             initialState.success = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -43,8 +47,13 @@ export const getAllProductsAsync = (data) => async (dispatch) => {
             },
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true))
+        }, 1000);
+        clearTimeout(dispatch(setLoading(false)))
         dispatch(setProducts(allProducts.data));
     } catch (error) {
+        dispatch(setLoading(false))
         console.log(error.message);
     }
 };
@@ -310,7 +319,7 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
     }
 };
 
-export const deleteProductAsync = (id) => async (dispatch) => {
+export const deleteProductAsync = (id, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -323,17 +332,12 @@ export const deleteProductAsync = (id) => async (dispatch) => {
             },
         );
 
-        dispatch(getAllProductsAsync());
-        toast.success(result.data.message, {
-            position: 'top-center',
-            duration: 2000,
-            style: {
-                border: '2px solid #000',
-                borderRadius: '10px',
-                background: '#0051BA',
-                color: 'white',
-            },
-        });
+            dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
+            toast.success(result.data.message, {
+                position: 'top-center',
+                duration: 2000,
+                style: { border: '2px solid #000', borderRadius: '10px', background: '#0051BA', color: 'white', },
+            });
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
@@ -361,7 +365,7 @@ export const deleteProductAsync = (id) => async (dispatch) => {
     }
 };
 
-export const thumbnailAsync = (pId, piId) => async (dispatch) => {
+export const thumbnailAsync = (pId, piId, filter) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -373,9 +377,9 @@ export const thumbnailAsync = (pId, piId) => async (dispatch) => {
                     authorization: `Bearer ${dataLogin}`,
                 },
             },
-        );
-        dispatch(getAllProductsAsync());
-        dispatch(productDetailsAsync(pId));
+        )
+        dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
+        dispatch(productDetailsAsync(pId))
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -413,6 +417,6 @@ export const thumbnailAsync = (pId, piId) => async (dispatch) => {
     }
 };
 
-export const { setProducts, setDetails, setRecommendations, setSuccess } =
+export const { setProducts, setDetails, setRecommendations, setSuccess, setLoading } =
     productSlice.actions;
 export default productSlice.reducer;

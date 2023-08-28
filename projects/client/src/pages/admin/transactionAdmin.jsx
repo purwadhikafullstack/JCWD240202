@@ -5,7 +5,13 @@ import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import StatusBar from '../../components/admin/transaction/statusBarTransaction';
 import TransactionCard from '../../components/admin/transaction/transactionCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { allTransactionAsync } from '../../redux/features/transactionSlice';
+import {
+    allTransactionAsync,
+    cancelConfirmPaymentAsync,
+    cancelShipping,
+    confirmPaymentAsync,
+    sendUserOrder,
+} from '../../redux/features/transactionSlice';
 import { getAllStatus } from '../../redux/features/statusSlice';
 import DateRangePicker from '../../components/admin/transaction/dateRangePicker';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
@@ -13,14 +19,17 @@ import { useSearchParams } from 'react-router-dom';
 import DropdownSort from '../../components/admin/transaction/dropdownSort';
 import ModalTransactionDetail from '../../components/admin/transaction/modalTransactionDetail';
 import { Helmet } from 'react-helmet';
+import ModalConfirmTransaction from '../../components/admin/product/modalConfirmTransaction';
+import { Toaster } from 'react-hot-toast';
+import ModalNotificationMessage from '../../components/admin/transaction/modalNotificationMessage';
+import { createNotificationAsync } from '../../redux/features/notificationSlice';
 
 export default function TransactionAdmin() {
     const dispatch = useDispatch();
     const status = useSelector((state) => state.status.status);
     const transaction = useSelector((state) => state.transaction.data);
-    // console.log(transaction)
     const [searchParams, setSearchParams] = useSearchParams();
-    const [page, setPage] = useState(searchParams.get('page') || 1);
+    const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [warehouse, setWarehouse] = useState(
         searchParams.get('warehouse') || '',
     );
@@ -33,6 +42,13 @@ export default function TransactionAdmin() {
     const [sort, setSort] = useState(searchParams.get('sort') || 'Newest');
     const [detailId, setDetailId] = useState('');
     const [openDetail, setOpenDetail] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [funcConfirm, setFuncConfirm] = useState('');
+    const [valueConfirm, setValueConfirm] = useState('');
+    const loading = useSelector((state) => state.transaction.loading);
+    const [modalNotification, setModalNotification] = useState(false);
+    const [title, setTitle] = useState('')
+    const [message, setMessage] = useState('')
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -67,6 +83,18 @@ export default function TransactionAdmin() {
         setStartDate('');
         setEndDate('');
         setStatus('');
+    };
+    const handleConfirm = () => {
+        if (funcConfirm === 4) {
+            dispatch(cancelShipping(valueConfirm));            
+        } else if (funcConfirm === 3) {
+            dispatch(sendUserOrder(valueConfirm));
+        } else if (funcConfirm === 2) {
+            dispatch(cancelConfirmPaymentAsync(valueConfirm));
+            dispatch(createNotificationAsync({order_id : valueConfirm, title, message}))
+        } else if (funcConfirm === 1) {
+            dispatch(confirmPaymentAsync(valueConfirm));
+        }
     };
     useEffect(() => {
         let queryParams = {};
@@ -105,6 +133,7 @@ export default function TransactionAdmin() {
     }, [page, warehouse, search, startDate, endDate, statusId, sort]);
     return (
         <>
+            <Toaster />
             <Helmet>
                 <title>IKEWA | Admin Transaction</title>
                 <meta name="description" content="admin-transaction" />
@@ -144,6 +173,12 @@ export default function TransactionAdmin() {
                     <TransactionCard
                         transaction={transaction}
                         detail={{ setDetailId, detailId, setOpenDetail }}
+                        confirm={{
+                            setShowConfirm,
+                            setFuncConfirm,
+                            setValueConfirm,
+                        }}
+                        loading={loading}
                     />
                     <div className="w-full flex justify-center mt-3">
                         <PaginationAdmin
@@ -158,6 +193,14 @@ export default function TransactionAdmin() {
             </div>
             <ModalTransactionDetail
                 data={{ setOpenDetail, openDetail, detailId, transaction }}
+                confirm={{ setShowConfirm, setFuncConfirm, setValueConfirm, setModalNotification }}
+            />
+            <ModalConfirmTransaction
+                data={{ showConfirm, setShowConfirm, funcConfirm }}
+                handleConfirm={handleConfirm}
+            />
+            <ModalNotificationMessage
+                state={{ modalNotification, setModalNotification, setShowConfirm, setTitle, setMessage }}
             />
         </>
     );

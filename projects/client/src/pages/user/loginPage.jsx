@@ -2,9 +2,10 @@
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../redux/features/authSlice';
+import { login, loginGoogleAsync } from '../../redux/features/authSlice';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import {FcGoogle} from 'react-icons/fc'
 import { Helmet } from 'react-helmet';
 
 export default function LoginPage() {
@@ -32,9 +33,9 @@ export default function LoginPage() {
                 email: '',
                 password: '',
             });
-            navigate('/');
-            // setTimeout(() => {
-            // }, 3000);
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         }
     };
 
@@ -55,7 +56,7 @@ export default function LoginPage() {
                 <title>IKEWA | Login</title>
                 <meta name="description" content="login" />
             </Helmet>
-            <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
+            <div className="flex flex-col md:flex-row my-10 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center">
                     <div>
                         <div className="text-4xl text-center font-bold mb-10 w-72">
@@ -120,7 +121,7 @@ export default function LoginPage() {
                         </form>
                         <Link
                             to="/forgot-password"
-                            className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1"
+                            className="text-[11px] underline hover:no-underline text-slate-600 cursor-pointer mt-1 w-fit"
                         >
                             forgot your password?
                         </Link>
@@ -139,16 +140,25 @@ export default function LoginPage() {
                         >
                             Login
                         </button>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xs my-2 text-slate-500'>OR</div>
+                            <div onClick={()=>dispatch(loginGoogleAsync())} className='flex flex-row items-center border rounded-full p-2 cursor-pointer hover:bg-[#d7d9db]'>
+                                <FcGoogle size={24} className=''/>
+                                {/* <div className='text-xs ml-2'>Google</div> */}
+                            </div>
+                        </div>
+                        <div className='flex justify-center'>
                         <Link
                             to="/register"
-                            className="text-[#0258a3] text-center my-5 text-[13px] hover:text-black cursor-pointer"
+                            className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"
                         >
-                            Register a new account
+                            Don't have an account? Register here
                         </Link>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex justify-center items-center fixed bottom-0">
                 <img
                     src="/images/banner-ikewa.png"
                     alt="not-found"

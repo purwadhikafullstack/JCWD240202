@@ -39,6 +39,7 @@ import NotLoginRoute from './components/admin/protectedRoute/notLoginRoute';
 import { useEffect } from 'react';
 import { getDataLogin } from './redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import UserNotifications from './pages/user/notificationsPage';
 
 function App() {
     const dispatch = useDispatch();
@@ -54,7 +55,7 @@ function App() {
 
     return (
         <>
-            <Navbar dataLogin={dataLogin?.role_id} />
+            <Navbar dataLogin={dataLogin} />
             <Routes>
                 {/* User */}
                 <Route path="/login" element={<LoginPage />} />
@@ -114,17 +115,17 @@ function App() {
                         />
                     }
                 />
-
-                {/* User Login */}
                 <Route
                     path="/verification/:token"
                     element={
-                        <UserRoute
+                        <NotLoginRoute
                             component={<VerificationPage />}
                             dataLogin={dataLogin}
                         />
                     }
                 />
+
+                {/* User Login */}
                 <Route
                     path="/users/profile"
                     element={
@@ -189,6 +190,7 @@ function App() {
                     }
                 />
                 <Route path="/users/wishlists" element={<Wishlist />} />
+                <Route path='/users/notifications' element={<UserNotifications />} />
 
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
@@ -299,7 +301,7 @@ function App() {
                 <Route path="/*" element={<NotFoundPage />} />
             </Routes>
 
-            <Footer dataLogin={dataLogin?.role_id} />
+            <Footer dataLogin={dataLogin} />
         </>
     );
 }

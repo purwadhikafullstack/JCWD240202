@@ -13,7 +13,7 @@ export default function RegisterPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [isAgree, setIsAgree] = useState(false);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
 
     const userLogin = JSON.parse(localStorage.getItem('user'));
 
@@ -91,7 +91,7 @@ export default function RegisterPage() {
                                 name="email"
                                 id="email"
                                 type="email"
-                                placeholder="ikea@example.com"
+                                placeholder="ikewa@example.com"
                                 className="bg-white border shadow-sm border-gray-300 placeholder-gray-400 focus:outline-none focus:border-blue-600 focus:ring-blue-600 block w-full rounded-md sm:text-sm focus:ring-1 invalid:text-red-500 invalid:border-red-500 invalid:ring-red-500 invalid:focus:border-red-500 invalid:focus:ring-red-500 peer"
                             />
                             {msgError ? (
@@ -113,7 +113,7 @@ export default function RegisterPage() {
                         <div className="my-2 ml-2">
                             <span className="text-xs font-Public w-auto">
                                 <input
-                                    className="focus:ring-0 mb-1 mr-2"
+                                    className="focus:ring-0 mb-1 mr-2 cursor-pointer"
                                     required={true}
                                     type="checkbox"
                                     name="isAgree"
@@ -150,12 +150,15 @@ export default function RegisterPage() {
                         >
                             Create account
                         </button>
+                        <div className='flex justify-center'>
                         <Link
                             to="/login"
-                            className="text-[#0258a3] text-center my-5 text-[13px] hover:text-black cursor-pointer"
+                            className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"
+                            
                         >
-                            Have an account? login here
+                            Have an account? Login here
                         </Link>
+                        </div>
                     </div>
                 </div>
             </div>

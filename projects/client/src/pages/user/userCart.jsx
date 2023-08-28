@@ -32,12 +32,12 @@ export default function UserCart() {
                 <title>IKEWA | Cart</title>
                 <meta name="description" content="cart" />
             </Helmet>
-            <div className="px-[200px]">
+            <div className="px-[200px] mb-24">
                 <div className=" py-[50px] font-bold text-3xl border-b">
                     Your Shopping Cart
                 </div>
                 {userCart?.data === null ? (
-                    <div className="pt-9 flex justify-center font-bold">
+                    <div className="py-28 flex justify-center font-bold">
                         <div className="flex flex-col items-center gap-4">
                             <div>Cart is Empty</div>
                             <Button

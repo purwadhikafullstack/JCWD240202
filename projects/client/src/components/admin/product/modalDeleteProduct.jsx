@@ -23,7 +23,7 @@ export default function ModalDeleteProduct(props) {
                 <Modal.Footer>
                     <button
                         className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
-                        onClick={() => { dispatch(deleteProductAsync(props.data?.id)); props.funcShow(false) }}
+                        onClick={() => { dispatch(deleteProductAsync(props.data?.id, props.filter)); props.funcShow(false) }}
                     >
                         Continue
                     </button>

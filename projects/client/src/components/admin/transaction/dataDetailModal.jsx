@@ -5,7 +5,9 @@ import { useDispatch } from 'react-redux';
 import {
     cancelConfirmPaymentAsync,
     confirmPaymentAsync,
+    transactionHistory,
 } from '../../../redux/features/transactionSlice';
+import History from './history';
 
 export default function DataDetail(props) {
     const dispatch = useDispatch();
@@ -16,7 +18,6 @@ export default function DataDetail(props) {
         <>
             {props?.data?.data?.rows?.map((value, index) => {
                 if (value?.cart_id === props?.detailId) {
-                    // console.log(value)
                     return (
                         <div key={index} className="flex-auto w-full">
                             <div className="flex justify-center mb-3">
@@ -57,6 +58,14 @@ export default function DataDetail(props) {
                                     {value?.order_statuses[0]?.status.name}
                                 </div>
                             </div>
+                            <div className='flex justify-between'>
+                                <div className="text-slate-500">History</div>
+                                <div onClick={() => { dispatch(transactionHistory(value.id)); props.history?.setShow(!props.history?.show) }} className='flex items-center mb-3 cursor-pointer w-fit text-sm text-[#2296f3]'>
+                                    {props.history?.show? <> Hide <IoIosArrowUp className="text-[20px] ml-2" /> </> : <> See Details <IoIosArrowDown className="text-[20px] ml-2" /> </>}
+                                    
+                                </div>
+                            </div>
+                            {props.history?.show ? <History /> : null}
                             <hr />
                             <div className="flex justify-between mt-3">
                                 <div className="text-slate-500">
@@ -119,28 +128,28 @@ export default function DataDetail(props) {
                                     2 ? (
                                         <div className="flex justify-center mt-3">
                                             <button
-                                                onClick={() =>
-                                                    dispatch(
-                                                        confirmPaymentAsync(
-                                                            value.cart_id,
-                                                        ),
-                                                    )
-                                                }
-                                                // onClick={()=> console.log(value.cart_id)}
+                                                // onClick={() =>
+                                                //     dispatch(
+                                                //         confirmPaymentAsync(
+                                                //             value.cart_id,
+                                                //         ),
+                                                //     )
+                                                // }
+                                                onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(1); props.confirm?.setValueConfirm(value.cart_id)}}
                                                 className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
                                             >
                                                 Confirm
                                             </button>
                                             <button
-                                                onClick={() =>
-                                                    dispatch(
-                                                        cancelConfirmPaymentAsync(
-                                                            value.id,
-                                                        ),
-                                                    )
-                                                }
-                                                // onClick={()=> console.log(value.id)}
-
+                                                // onClick={() =>
+                                                //     dispatch(
+                                                //         cancelConfirmPaymentAsync(
+                                                //             value.id,
+                                                //         ),
+                                                //     )
+                                                // }
+                                                // onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
+                                                onClick={() => {props?.notification?.showNotificationModal(); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
                                                 className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 ml-2"
                                             >
                                                 Reject
@@ -208,7 +217,7 @@ export default function DataDetail(props) {
                                         {value?.shipping_method}
                                     </div>
                                 </div>
-                                <div className="flex">
+                                {/* <div className="flex">
                                     <div className="w-28 text-slate-500">
                                         No Receipt
                                     </div>
@@ -216,7 +225,7 @@ export default function DataDetail(props) {
                                         <span className="mr-4">:</span>
                                         {value?.receipt}
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="flex">
                                     <div className="w-28 text-slate-500">
                                         Address

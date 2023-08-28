@@ -1,10 +1,15 @@
 import React from 'react';
 import { AiOutlineBell } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userReadNotificationAsync } from '../../../redux/features/notificationSlice';
+import { getOrderDetailsAsync } from '../../../redux/features/orderSlice';
 
 export default function Notification(props) {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     return (
         <>
-            {console.log('', props)}
             <div
                 onMouseEnter={() => props?.state?.setNotification(true)}
                 className={`flex items-center w-12 h-12 justify-center relative hover:cursor-pointer ${
@@ -31,9 +36,30 @@ export default function Notification(props) {
                                 <>
                                     {props?.data?.notification?.notifications?.rows?.map(
                                         (value, index) => {
-                                            return (
+                                            return index < 3 ? (
                                                 <div
                                                     key={index}
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            userReadNotificationAsync(
+                                                                {
+                                                                    notification_id:
+                                                                        value.id,
+                                                                },
+                                                            ),
+                                                        );
+                                                        dispatch(
+                                                            getOrderDetailsAsync(
+                                                                {
+                                                                    order_id:
+                                                                        value.order_id,
+                                                                },
+                                                            ),
+                                                        );
+                                                        navigate(
+                                                            `/orders/${value.order_id}`,
+                                                        );
+                                                    }}
                                                     className={`p-4 border-b  relative hover:bg-gray-300 ${
                                                         index === 0
                                                             ? 'rounded-t-xl'
@@ -55,10 +81,17 @@ export default function Notification(props) {
                                                         ''
                                                     )}
                                                 </div>
+                                            ) : (
+                                                ''
                                             );
                                         },
                                     )}
-                                    <div className="flex justify-center items-center py-2">
+                                    <div
+                                        onClick={() =>
+                                            navigate('/users/notifications')
+                                        }
+                                        className="flex justify-center items-center py-2"
+                                    >
                                         See All
                                     </div>
                                 </>

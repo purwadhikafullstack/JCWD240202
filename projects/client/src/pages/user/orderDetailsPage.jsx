@@ -146,13 +146,16 @@ export default function OrderDetailsPage() {
                             userOrderDetails?.data?.order_statuses.length - 1
                         ]?.status_id === 1 ? (
                             <div className="border px-4 mt-9">
-                                <div className="text-lg border-b py-4 font-bold flex items-center">
-                                    Payment Proof
+                                <div className="text-lg border-b py-4 font-bold flex items-center justify-between">
+                                    <div>Payment Proof</div>
+                                    <Button className="bg-yellow-300 text-sky-700 hover:text-yellow-300">
+                                        How to pay?
+                                    </Button>
                                 </div>
                                 <div className="flex justify-evenly items-center h-[200px]">
                                     <div className="flex-1">
                                         <div className="flex-1 flex justify-center">
-                                            <label className="border p-2 rounded-xl bg-sky-700 text-yellow-200 hover:bg-sky-900 hover:cursor-pointer">
+                                            <label className="border p-2 rounded-xl bg-sky-700 text-yellow-300 hover:bg-sky-900 hover:cursor-pointer">
                                                 <input
                                                     type="file"
                                                     className="hidden"

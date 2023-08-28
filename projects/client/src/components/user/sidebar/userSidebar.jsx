@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { FaRegAddressBook } from 'react-icons/fa';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineBell } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
 
 export default function UserSidebar() {
@@ -31,6 +31,12 @@ export default function UserSidebar() {
                     <div className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold flex items-center gap-1">
                         <AiOutlineHeart size={20} />
                         Wishlists
+                    </div>
+                </Link>
+                <Link to={'/users/notifications'}>
+                    <div className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold flex items-center gap-1">
+                        <AiOutlineBell />
+                        Notifications
                     </div>
                 </Link>
             </div>

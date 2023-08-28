@@ -25,25 +25,11 @@ export default function StockLogPage() {
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [date, setDate] = useState(searchParams.get('date') || null);
     const [search, setSearch] = useState(searchParams.get('search') || '');
-    const [warehouse, setWarehouse] = useState(
-        searchParams.get('warehouse') || '',
-    );
+    const [warehouse, setWarehouse] = useState(searchParams.get('warehouse') || '');
     const [sort, setSort] = useState(searchParams.get('status') || '');
+    const [loading, setLoading] = useState(false);
 
-    const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -89,6 +75,10 @@ export default function StockLogPage() {
             queryParams['sort'] = sort;
         }
         setSearchParams(queryParams);
+        setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+        clearTimeout(setLoading(false))
         dispatch(getStockLog(page, date, search, warehouse, sort));
     }, [page, date, search, warehouse, sort]);
 
@@ -106,13 +96,8 @@ export default function StockLogPage() {
                         <div className="font-bold text-2xl">
                             {dataLogin?.warehouse?.city ? (
                                 <>
-                                    <h1>
-                                        Welcome, {dataLogin?.first_name}{' '}
-                                        {dataLogin?.last_name}!
-                                    </h1>
-                                    <h1>
-                                        {dataLogin?.warehouse?.city} Warehouse
-                                    </h1>
+                                    <h1>Welcome, {dataLogin?.first_name}{' '}{dataLogin?.last_name}!</h1>
+                                    <h1>{dataLogin?.warehouse?.city} Warehouse</h1>
                                 </>
                             ) : (
                                 <h1>Welcome, Admin!</h1>
@@ -122,21 +107,13 @@ export default function StockLogPage() {
                             <div className="flex justify-between items-end">
                                 {dataLogin?.role_id === 3 ? (
                                     <div className="mr-3 w-2/6">
-                                        <FilterAdmin
-                                            data={{
-                                                warehouseChange,
-                                                warehouse,
-                                            }}
-                                        />
+                                        <FilterAdmin data={{warehouseChange, warehouse}}/>
                                     </div>
                                 ) : (
                                     <></>
                                 )}
                                 <div className="flex justify-end items-center w-full gap-2 ml-5">
-                                    <label
-                                        className="hidden md:block text-xs text-gray-700"
-                                        htmlFor="A"
-                                    >
+                                    <label className="hidden md:block text-xs text-gray-700" htmlFor="A">
                                         Choose month :
                                     </label>
                                     <DatePicker
@@ -145,98 +122,53 @@ export default function StockLogPage() {
                                         showMonthYearPicker
                                         placeholderText="Select month"
                                         className="bg-white border w-fit border-gray-300 text-gray-900 text-xs rounded-md"
-                                        selected={
-                                            dataStockLog?.dates
-                                                ? new Date(dataStockLog?.dates)
-                                                : new Date()
-                                        }
-                                        onChange={(date) => {
-                                            setDate(
-                                                moment(new Date(date)).format(
-                                                    'MM/01/YYYY',
-                                                ),
-                                            );
-                                            setPage(1);
-                                        }}
+                                        selected={dataStockLog?.dates ? new Date(dataStockLog?.dates) : new Date()}
+                                        onChange={(date) => {setDate(moment(new Date(date)).format('MM/01/YYYY')); setPage(1)}}
                                     />
                                 </div>
                             </div>
-                            <div
-                                className={`w-full flex items-center ${
-                                    search || date || warehouse || sort
-                                        ? 'mt-4'
-                                        : ''
-                                } mb-4`}
-                            >
+                            <div className={`w-full flex items-center ${search || date || warehouse || sort ? 'mt-4' : ''} mb-4`}>
                                 {search || date || warehouse || sort ? (
-                                    <div className="mr-2 text-xs">
-                                        Reset Filter :
-                                    </div>
+                                    <div className="mr-2 text-xs">Reset Filter :</div>
                                 ) : (
                                     <></>
                                 )}
                                 {search ? (
-                                    <button
-                                        onClick={() => {
-                                            setSearch('');
-                                        }}
+                                    <button onClick={() => {setSearch(''); setPage(1)}}
                                         className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
                                     >
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {search}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{search}</div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {date ? (
-                                    <button
-                                        onClick={() => {
-                                            setDate('');
-                                        }}
+                                    <button onClick={() => {setDate(''); setPage(1)}}
                                         className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
                                     >
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {months[new Date(date).getMonth()]}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{months[new Date(date).getMonth()]}</div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {warehouse ? (
-                                    <button
-                                        onClick={() => {
-                                            setWarehouse('');
-                                        }}
+                                    <button onClick={() => {setWarehouse(''); setPage(1)}}
                                         className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
                                     >
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {warehouse.replace(/%/g, ' ')}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{warehouse.replace(/%/g, ' ')}</div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {sort ? (
-                                    <button
-                                        onClick={() => {
-                                            setSort('');
-                                        }}
+                                    <button onClick={() => {setSort(''); setPage(1)}}
                                         className="flex items-center gap-1 mr-2"
                                     >
                                         <IoCloseCircleSharp size={12} />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {sort === 'newest'
-                                                ? 'Newest'
-                                                : 'Oldest'}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{sort === 'newest' ? 'Newest' : 'Oldest'}</div>
                                     </button>
                                 ) : (
                                     <></>
@@ -247,18 +179,11 @@ export default function StockLogPage() {
                             </div>
                             <div className="flex justify-between gap-3 mb-4">
                                 <div className="flex gap-3">
-                                    <SearchBarAdmin
-                                        data={{ searchChange, search }}
-                                    />
-                                    <SortNewestMutation
-                                        data={{ sortChange, sort }}
-                                    />
+                                    <SearchBarAdmin data={{ searchChange, search }}/>
+                                    <SortNewestMutation data={{ sortChange, sort }}/>
                                 </div>
                                 <div className="flex gap-3">
-                                    <button
-                                        onClick={handleExportFile}
-                                        className="border border-gray-200 rounded-lg text-xs px-4"
-                                    >
+                                    <button onClick={handleExportFile} className="border border-gray-200 rounded-lg text-xs px-4">
                                         Export Data
                                     </button>
                                     <PrintStockLog data={dataExport} />
@@ -268,62 +193,20 @@ export default function StockLogPage() {
                                 <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                                     <thead className="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Date
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Product Name
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                User
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Quantity
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Warehouse
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Type
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Information
-                                            </th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Date</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Product Name</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">User</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Quantity</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Warehouse</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Type</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Information</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {dataStockLog?.data?.rows?.length !==
-                                        0 ? (
-                                            <TableStockLog
-                                                data={dataStockLog?.data}
-                                            />
-                                        ) : (
-                                            <></>
-                                        )}
+                                        {(dataStockLog?.data?.rows?.length > 0 || dataStockLog === null) && (<TableStockLog data={dataStockLog?.data} loading={loading}/>)}
                                     </tbody>
                                 </table>
-                                {dataStockLog?.data?.rows?.length == 0 ? (
+                                {dataStockLog?.data?.rows?.length === 0 && (
                                     <div className="flex items-center justify-center py-8">
                                         <div>
                                             <div className="flex justify-center items-center font-bold text-xl">
@@ -338,18 +221,10 @@ export default function StockLogPage() {
                                             </div>
                                         </div>
                                     </div>
-                                ) : (
-                                    <></>
                                 )}
                             </div>
                             <div className="w-full flex justify-center mt-3">
-                                <PaginationAdmin
-                                    data={{
-                                        totalPage: dataStockLog?.totalPage,
-                                        page,
-                                        pageChange,
-                                    }}
-                                />
+                                <PaginationAdmin data={{totalPage: dataStockLog?.totalPage, page, pageChange}}/>
                             </div>
                         </div>
                     </div>

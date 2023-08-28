@@ -58,11 +58,14 @@ const createNotification = async (req, res) => {
 const getUserNotification = async (req, res) => {
     try {
         const user_id = req.User.id;
+        const { page } = req.query;
 
-        const limit = 3;
+        const limit = 5;
+        const paginationOffset = (Number(page ? page : 1) - 1) * limit;
 
         const getNotification = await notifications.findAndCountAll({
             attributes: [
+                'id',
                 'user_id',
                 'order_id',
                 'title',
@@ -80,6 +83,7 @@ const getUserNotification = async (req, res) => {
             where: { user_id },
             order: [['id', 'DESC']],
             limit,
+            offset: paginationOffset
         });
 
         const countUnReadNotif = await notifications.findAndCountAll({
@@ -87,12 +91,15 @@ const getUserNotification = async (req, res) => {
         });
 
         if (getNotification) {
+            const totalPage = Math.ceil(getNotification.count / limit);
             res.status(200).send({
+                success: true,
                 message: 'get notification success',
                 data: {
                     notifications: getNotification,
                     unReadCount: countUnReadNotif.count,
                 },
+                totalPage
             });
         } else {
             res.status(400).send({

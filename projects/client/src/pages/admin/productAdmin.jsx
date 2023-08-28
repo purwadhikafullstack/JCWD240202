@@ -35,6 +35,7 @@ export default function ProductAdmin() {
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [dataDetail, setDataDetail] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const defaultValue = () => {
         if (isSuccess) {
@@ -86,6 +87,10 @@ export default function ProductAdmin() {
             queryParams['search'] = search;
         }
         setSearchParams(queryParams);
+        setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+        clearTimeout(setLoading(false))
         showProducts(page, category, sort, search);
         dispatch(getAllCategoriesAsync());
         dispatch(getAllColorAsync());
@@ -180,19 +185,37 @@ export default function ProductAdmin() {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {products?.data?.rows?.length > 0 &&
                                         <ComListProduct
                                             funcShow={setOpenModalEdit}
                                             funcData={setDataDetail}
                                             modalDelete={setOpenModalDelete}
                                             product={products}
-                                        />
+                                            loading={loading}
+                                        />}   
                                     </tbody>
                                 </table>
+                                {products?.data?.rows?.length === 0 && (
+                                    <div className="flex items-center justify-center py-8">
+                                        <div>
+                                            <div className="flex justify-center items-center font-bold text-xl">
+                                                <h1>Not Found</h1>
+                                            </div>
+                                            <div className="w-full flex justify-center items-center">
+                                                <img
+                                                    src="/images/not-found-3.png"
+                                                    alt="not-found"
+                                                    className="min-w-[200px] max-w-[400px]"
+                                                ></img>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                                 <div className="pt-9 flex justify-center">
                                     <PaginationButton
                                         data={{
                                             totalPage: products?.totalPage,
-                                            page,
+                                            page: Number(page),
                                             pageChange,
                                         }}
                                     />
@@ -212,11 +235,13 @@ export default function ProductAdmin() {
                         data={dataDetail}
                         category={categories}
                         color={color}
+                        filter={{page, category, sort, search}}
                     />
                     <ModalDeleteProduct
                         show={openModalDelete}
                         funcShow={setOpenModalDelete}
                         data={dataDetail}
+                        filter={{page, category, sort, search}}
                     />
                 </div>
             </div>
