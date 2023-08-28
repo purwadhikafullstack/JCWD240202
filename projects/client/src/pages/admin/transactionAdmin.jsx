@@ -128,11 +128,11 @@ export default function TransactionAdmin() {
             </Helmet>
             <div className="sm:flex">
                 <SideBarAdmin />
-                <div className="p-8 w-full">
+                <div className="p-2 md:p-8 w-full">
                     <div className="font-bold text-2xl mt-2">Transaction</div>
                     <div className="my-3 p-2">
                         <div className="flex justify-between">
-                            <div className="flex gap-2">
+                            <div className="flex flex-wrap gap-2">
                                 {transaction.roleId === 3 ? (
                                     <FilterAdmin
                                         data={{ warehouseChange, warehouse }}
@@ -167,7 +167,7 @@ export default function TransactionAdmin() {
                         <PaginationAdmin
                             data={{
                                 totalPage: transaction?.totalPage,
-                                page,
+                                page: Number(page),
                                 pageChange,
                             }}
                         />

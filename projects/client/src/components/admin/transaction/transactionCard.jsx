@@ -12,9 +12,6 @@ import { cancelShipping, sendUserOrder } from '../../../redux/features/transacti
 
 export default function TransactionCard(props) {
     const dispatch = useDispatch()
-    const handleConfirm = (val) => {
-        dispatch(cancelShipping(val))
-    }
     return (
         <>
             {props?.transaction?.data?.rows?.length !== 0 ? (
@@ -25,10 +22,10 @@ export default function TransactionCard(props) {
                             className="border p-2 rounded-lg shadow-lg mt-3"
                         >
                             {/* {()=>setStatus(value?.order_statuses[0]?.status_id)} */}
-                            <div className="flex justify- border-b py-2">
-                                <div className="w-72">
+                            <div className="flex flex-col gap-2 md:flex-row md:justify-between md:gap-0 border-b py-2">
+                                <div className="md:w-72 flex justify-center md:justify-start">
                                     <div
-                                        className={`border truncate w-fit rounded-full px-3 
+                                        className={`border truncate w-fit rounded-full px-3 flex items-center
                                     ${
                                         value?.order_statuses[0]?.status_id ===
                                         1
@@ -70,13 +67,13 @@ export default function TransactionCard(props) {
                                         {value?.order_statuses[0]?.status?.name}
                                     </div>
                                 </div>
-                                <div className="flex-1 flex justify-center items-center">
+                                <div className="flex-1 flex md:justify-center items-center">
                                     <FcViewDetails className="text-[22px]" />
                                     <div className="w-auto px-1 text-[#34498d]">
                                         {value?.invoice_number}
                                     </div>
                                 </div>
-                                <div className="flex-1 flex justify-end items-center">
+                                <div className="flex-1 flex md:justify-end items-center">
                                     <FcCalendar className="text-[22px]" />
                                     <div className="w-auto px-1">
                                         {[
@@ -89,9 +86,9 @@ export default function TransactionCard(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex mt-3 px-1">
-                                <div className="flex-auto w-64 flex">
-                                    <div className="bg-red-200 w-[120px] h-[120px]">
+                            <div className="flex flex-col md:flex-row mt-3">
+                                <div className="flex justify-between md:justify-start md:w-96">
+                                    <div className="w-[120px] h-[120px]">
                                         <img
                                             src={
                                                 value?.cart?.cart_products[0]
@@ -99,12 +96,9 @@ export default function TransactionCard(props) {
                                             }
                                         />
                                     </div>
-                                    <div className="m-3">
-                                        <div className="font-bold text-lg">
-                                            {
-                                                value?.cart?.cart_products[0]
-                                                    ?.product_name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.cart?.cart_products[0]?.product_name : value?.cart?.cart_products[0]?.product_name
-                                            }
+                                    <div className="m-3 flex flex-col items-end md:items-start">
+                                        <div className="font-bold text-lg text-end md:text-start">
+                                            {value?.cart?.cart_products[0]?.product_name}
                                         </div>
                                         <div className="text-sm my-1 text-slate-500">
                                             {
@@ -127,16 +121,16 @@ export default function TransactionCard(props) {
                                         ) : null}
                                     </div>
                                 </div>
-                                <div className="flex-auto w-10 mx-5 pl-3">
+                                <div className="flex-auto md:w-10 mx-5 md:pl-3">
                                     <div>
-                                        <div className="italic">
+                                        <div className="italic text-center">
                                             Deliver from :
                                             <span className="text-lg font-semibold">
                                                 {' '}
                                                 WH - {value?.warehouse?.city}
                                             </span>
                                         </div>
-                                        <div className="border-l flex  flex-col gap-3 pl-2 mt-5">
+                                        <div className="md:border-l flex flex-col gap-3 pl-2 mt-5">
                                             <div className="text-center">
                                                 Total Price :
                                             </div>
@@ -150,8 +144,8 @@ export default function TransactionCard(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex mt-3">
-                                <div className="flex-1 flex gap-5">
+                            <div className="flex flex-col-reverse md:flex-row mt-3">
+                                <div className="flex-1 flex justify-between md:justify-start gap-5 mt-3 border-t md:border-none">
                                     <div className="flex items-center cursor-pointer">
                                         <FcVoicePresentation className="text-[22px]" />
                                         <div className="text-[#2296f3]">

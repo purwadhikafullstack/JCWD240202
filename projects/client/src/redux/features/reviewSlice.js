@@ -25,6 +25,7 @@ export const reviewSlice = createSlice({
 });
 
 export const getReviewsAsync = (data) => async (dispatch) => {
+    console.log(data)
     try {
         const reviewData = await axios.get(
             process.env.REACT_APP_API_BASE_URL +

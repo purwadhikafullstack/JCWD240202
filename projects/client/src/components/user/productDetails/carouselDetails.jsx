@@ -8,7 +8,7 @@ export default function CarouselDetails(props) {
                     return (
                         <img
                             key={index}
-                            src={value.name}
+                            src={value.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value.name : value.name}
                             alt="images"
                             className="object-fit h-[700px]"
                         />

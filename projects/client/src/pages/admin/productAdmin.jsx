@@ -112,8 +112,8 @@ export default function ProductAdmin() {
                         </div>
                         <ProductTabs />
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
-                            <div className="flex justify-between items-center w-full mb-4">
-                                <div className="flex gap-2 items-center">
+                            <div className="flex flex-col md:flex-row justify-between md:items-center w-full mb-4">
+                                <div className="flex flex-col md:flex-row gap-2 md:items-center">
                                     <SearchBar data={{ searchChange }} />
                                     <FilterButton
                                         data={{ categoryChange, category }}
@@ -122,7 +122,7 @@ export default function ProductAdmin() {
                                 </div>
                                 <button
                                     onClick={() => setOpenModal(true)}
-                                    className="text-white text-[10px] border p-2 rounded-lg bg-[#0051BA] hover:bg-gray-400 font-bold focus:ring-2 focus:ring-main-500 w-22 md:mt-0"
+                                    className="mt-2 md:mt-0 text-white text-[10px] border p-2 rounded-lg bg-[#0051BA] hover:bg-gray-400 font-bold focus:ring-2 focus:ring-main-500 w-22 md:mt-0"
                                 >
                                     + ADD NEW PRODUCT
                                 </button>
@@ -188,16 +188,16 @@ export default function ProductAdmin() {
                                         />
                                     </tbody>
                                 </table>
+                            </div>
                                 <div className="pt-9 flex justify-center">
                                     <PaginationButton
                                         data={{
                                             totalPage: products?.totalPage,
-                                            page,
+                                            page: Number(page),
                                             pageChange,
                                         }}
                                     />
                                 </div>
-                            </div>
                         </div>
                     </div>
                     <ModalAddProduct

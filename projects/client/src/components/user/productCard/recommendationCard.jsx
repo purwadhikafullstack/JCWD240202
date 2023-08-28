@@ -19,7 +19,7 @@ export default function RelatedProducts(props) {
                     >
                         <div className="flex-1 relative">
                             <img
-                                src={value.product_images[0]?.name}
+                                src={value.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value.product_images[0]?.name : value.product_images[0]?.name}
                                 alt="best seller products"
                                 className="w-[300px] h-[300px]"
                             />
