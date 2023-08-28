@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fc';
 import { useDispatch } from "react-redux";
 import { cancelShipping, sendUserOrder } from '../../../redux/features/transactionSlice';
+import SkeletonTransactionAdmin from './skeletonTransactionAdmin';
 
 export default function TransactionCard(props) {
     const dispatch = useDispatch()
@@ -16,6 +17,7 @@ export default function TransactionCard(props) {
         <>
             {props?.transaction?.data?.rows?.length !== 0 ? (
                 props?.transaction?.data?.rows?.map((value, index) => {
+                    if(props.loading) {
                     return (
                         <div
                             key={index}
@@ -178,25 +180,39 @@ export default function TransactionCard(props) {
                                         <button
                                             // onClick={()=> dispatch(sendUserOrder(value.id))}
                                             onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(3); props.confirm?.setValueConfirm(value.id)}}
-                                            className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36`}
-                                        >
-                                            Ready To Ship
-                                        </button>
-                                        <button
+                                                className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36`}
+                                            >
+                                                Ready To Ship
+                                            </button>
+                                            <button
                                             // onClick={() => dispatch(cancelShipping(value.id))}
                                             onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(4); props.confirm?.setValueConfirm(value.id)}}
                                             className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
-                                            Cancel
-                                        </button>
-                                    </div>
-                                ) : null}
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    ) : null}
+                                </div>
                             </div>
-                        </div>
-                    );
+                        );
+                    } else {
+                        return <SkeletonTransactionAdmin key={index}/>
+                    }
                 })
             ) : (
-                <div className="flex justify-center py-24 font-bold tex-2xl">
-                    No Transaction Found ...
+                <div className="flex items-center justify-center py-8">
+                    <div>
+                        <div className="flex justify-center items-center font-bold text-xl">
+                            <h1>Not Found</h1>
+                        </div>
+                        <div className="w-full flex justify-center items-center">
+                            <img
+                                src="/images/not-found-3.png"
+                                alt="not-found"
+                                className="min-w-[200px] max-w-[400px]"
+                            ></img>
+                        </div>
+                    </div>
                 </div>
             )}
         </>

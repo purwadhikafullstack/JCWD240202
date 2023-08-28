@@ -6,9 +6,10 @@ import NewAddress from '../../components/user/profile/addnewaddress';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
+import LoadingProgress from '../../components/general/loading';
 
 export default function Address() {
-    const [addresses, setAddresses] = useState([]);
+    const [addresses, setAddresses] = useState(null);
     const [showAddModal, setShowAddModal] = useState('');
     const [showEditModal, setShowEditModal] = useState('');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -34,111 +35,146 @@ export default function Address() {
     };
 
     useEffect(() => {
-        getAddress();
+        setTimeout(() => {
+            getAddress();
+        }, 1000);
     }, [showAddModal, showEditModal]);
 
     const listAddress = () => {
         return (
             <div>
-                {addresses.map((value, index) => {
-                    return (
-                        <div
-                            key={index}
-                            className={
-                                value.is_primary === true
-                                    ? 'shadow-lg border-2 rounded-lg bg-blue-200 border-[#0051BA] my-2 p-3 md:flex'
-                                    : 'shadow-lg border-2 rounded-lg bg-white border-[#0051BA] my-2 p-3 md:flex'
-                            }
-                        >
-                            <div className="w-full">
-                                <p className="capitalize font-bold">
-                                    {value.receiver_name}
-                                </p>
-                                <p>{value.receiver_number}</p>
-                                <p>{value.street}</p>
-                                <p>
-                                    Kecamatan {value.subdistrict}, {value.city}
-                                </p>
-                                <p>
-                                    {value.province}, {value.postcode}
-                                </p>
-                                <div className="flex justify-start gap-5 items-center mt-5">
-                                    <button
-                                        className="text-[#0051BA] text-sm hover:underline focus:underline"
-                                        onClick={() => {
-                                            setShowEditModal('show');
-                                            setSelectedEdit(value);
-                                        }}
-                                    >
-                                        Edit Address
-                                    </button>
-                                    {value.is_primary === true ? (
-                                        <div></div>
-                                    ) : (
-                                        <>
-                                            <div className="border-r border-black h-4"></div>
+                {addresses?.length > 0 ? (
+                    <>
+                        {addresses.map((value, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={
+                                        value.is_primary === true
+                                            ? 'shadow-lg border-2 rounded-lg bg-blue-200 border-[#0051BA] my-2 p-3 md:flex'
+                                            : 'shadow-lg border-2 rounded-lg bg-white border-[#0051BA] my-2 p-3 md:flex'
+                                    }
+                                >
+                                    <div className="w-full">
+                                        <p className="capitalize font-bold">
+                                            {value.receiver_name}
+                                        </p>
+                                        <p>{value.receiver_number}</p>
+                                        <p>{value.street}</p>
+                                        <p>
+                                            Kecamatan {value.subdistrict},{' '}
+                                            {value.city}
+                                        </p>
+                                        <p>
+                                            {value.province}, {value.postcode}
+                                        </p>
+                                        <div className="flex justify-start gap-5 items-center mt-5">
                                             <button
                                                 className="text-[#0051BA] text-sm hover:underline focus:underline"
-                                                onClick={() =>
-                                                    setShowDeleteModal(true)
-                                                }
+                                                onClick={() => {
+                                                    setShowEditModal('show');
+                                                    setSelectedEdit(value);
+                                                }}
                                             >
-                                                Delete Address
+                                                Edit Address
                                             </button>
-                                        </>
-                                    )}
+                                            {value.is_primary === true ? (
+                                                <div></div>
+                                            ) : (
+                                                <>
+                                                    <div className="border-r border-black h-4"></div>
+                                                    <button
+                                                        className="text-[#0051BA] text-sm hover:underline focus:underline"
+                                                        onClick={() =>
+                                                            setShowDeleteModal(
+                                                                true,
+                                                            )
+                                                        }
+                                                    >
+                                                        Delete Address
+                                                    </button>
+                                                </>
+                                            )}
 
-                                    <Modal
-                                        dismissible
-                                        show={showDeleteModal}
-                                        onClose={() =>
-                                            setShowDeleteModal(false)
-                                        }
-                                    >
-                                        <Modal.Header>
-                                            Delete Address
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            Are you sure you want to delete this
-                                            address ?
-                                        </Modal.Body>
-                                        <div className="flex justify-start gap-3 m-5">
-                                            <button
-                                                className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed"
-                                                onClick={() =>
-                                                    onDeleteAddress(value.id)
-                                                }
-                                                disabled={disabled}
-                                            >
-                                                Delete Address
-                                            </button>
-                                            <button
-                                                className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3"
-                                                onClick={() =>
+                                            <Modal
+                                                dismissible
+                                                show={showDeleteModal}
+                                                onClose={() =>
                                                     setShowDeleteModal(false)
                                                 }
                                             >
-                                                Cancel
-                                            </button>
+                                                <Modal.Header>
+                                                    Delete Address
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    Are you sure you want to
+                                                    delete this address ?
+                                                </Modal.Body>
+                                                <div className="flex justify-start gap-3 m-5">
+                                                    <button
+                                                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed"
+                                                        onClick={() =>
+                                                            onDeleteAddress(
+                                                                value.id,
+                                                            )
+                                                        }
+                                                        disabled={disabled}
+                                                    >
+                                                        Delete Address
+                                                    </button>
+                                                    <button
+                                                        className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 mt-2 text-sm p-3"
+                                                        onClick={() =>
+                                                            setShowDeleteModal(
+                                                                false,
+                                                            )
+                                                        }
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </Modal>
                                         </div>
-                                    </Modal>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <button
+                                            onClick={() =>
+                                                selectPrimary(value.id)
+                                            }
+                                            className={
+                                                value.is_primary === false
+                                                    ? 'text-white text-xs border p-3 rounded-lg bg-[#0051BA] hover:bg-gray-400 font-bold focus:ring-2 focus:ring-main-500 w-[150px] mt-5 md:mt-0 md:mr-3'
+                                                    : 'hidden'
+                                            }
+                                        >
+                                            Set as Primary
+                                        </button>
+                                    </div>
                                 </div>
+                            );
+                        })}
+                    </>
+                ) : addresses?.length === 0 ? (
+                    <div className="flex items-center justify-center py-8">
+                        <div>
+                            <div className="flex justify-center items-center font-semibold text-xl mb-4">
+                                <h1>
+                                    Oops you don't have any address yet, please
+                                    create new address
+                                </h1>
                             </div>
-                            <div className="flex items-center">
-                                <button
-                                    onClick={() => selectPrimary(value.id)}
-                                    className={
-                                        value.is_primary === false
-                                            ? 'text-white text-xs border p-3 rounded-lg bg-[#0051BA] hover:bg-gray-400 font-bold focus:ring-2 focus:ring-main-500 w-[150px] mt-5 md:mt-0 md:mr-3'
-                                            : 'hidden'
-                                    }
-                                >
-                                    Set as Primary
-                                </button>
+                            <div className="w-full flex justify-center items-center">
+                                <img
+                                    src="/images/not-found-3.png"
+                                    alt="not-found"
+                                    className="min-w-[200px] max-w-[400px]"
+                                ></img>
                             </div>
                         </div>
-                    );
-                })}
+                    </div>
+                ) : (
+                    <LoadingProgress  />
+                )}
             </div>
         );
     };
@@ -221,7 +257,7 @@ export default function Address() {
                     <div className="w-full md:w-[80%] flex justify-center">
                         <div className="py-[10px] px-[30px] border-2 border-gray-200 rounded-lg pb-[30px] shadow w-full">
                             <ProfileTabs />
-                            <div className="flex justify-center text-xl mb-4">
+                            <div className="flex justify-center text-2xl mb-4 ">
                                 <h1 className="mt-4 font-bold">ADDRESS</h1>
                             </div>
                             <div className="flex justify-end w-full mb-4">

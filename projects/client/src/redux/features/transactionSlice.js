@@ -4,7 +4,8 @@ import { toast } from 'react-hot-toast';
 
 const initialState = {
     data: {},
-    history: {}
+    history: {},
+    loading: false,
 };
 
 export const transactionSlice = createSlice({
@@ -17,6 +18,9 @@ export const transactionSlice = createSlice({
         sethistory: (initialState, action) => {
             initialState.history = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -41,8 +45,14 @@ export const allTransactionAsync = (page, warehouse, search, startDate, endDate,
                     },
                 },
             );
+
+            setTimeout(() => {
+                dispatch(setLoading(true))
+            }, 1000);
+            clearTimeout(dispatch(setLoading(false)))
             dispatch(setData(result.data));
         } catch (error) {
+            dispatch(setLoading(false))
             console.log(error.message);
         }
     };
@@ -209,5 +219,5 @@ export const transactionHistory = (order_id) => async (dispatch) => {
     }
 }
 
-export const { setData, sethistory } = transactionSlice.actions;
+export const { setData, sethistory, setLoading } = transactionSlice.actions;
 export default transactionSlice.reducer;

@@ -66,7 +66,7 @@ export default function LoginPage() {
                 <title>IKEWA | Login</title>
                 <meta name="description" content="login" />
             </Helmet>
-            <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
+            <div className="flex flex-col md:flex-row my-10 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center">
                     <div>
                         <div className="text-4xl text-center font-bold mb-10 w-72">
@@ -168,7 +168,7 @@ export default function LoginPage() {
                     </div>
                 </div>
             </div>
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex justify-center items-center fixed bottom-0">
                 <img
                     src="/images/banner-ikewa.png"
                     alt="not-found"

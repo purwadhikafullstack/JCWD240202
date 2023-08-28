@@ -91,7 +91,7 @@ export default function SideBarAdmin() {
                         onClick={() => navigate('/admins/dashboard')}
                     >
                         <img
-                            src="/logo2.png"
+                            src="https://64.media.tumblr.com/22d27700f3eda4e98a4f3dc3afec2cbf/e20133d87d137a53-46/s2048x3072/4261a63cdcb7805a99d16f57642b3ccf70800f1e.pnj"
                             className={`h-16 cursor-pointer duration-300 ${
                                 !open && 'hidden'
                             }`}
@@ -368,11 +368,7 @@ export default function SideBarAdmin() {
                         </li>
                         <li>
                             <button
-                                className={`${
-                                    pathname === '/admins/dashboard'
-                                        ? 'underline'
-                                        : 'no-underline'
-                                } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7 disabled:cursor-not-allowed ${
+                                className={`font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7 disabled:cursor-not-allowed ${
                                     dataLogin?.role?.name === 'warehouse admin'
                                         ? 'mt-[41px]'
                                         : ''

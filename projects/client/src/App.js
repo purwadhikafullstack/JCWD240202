@@ -54,7 +54,7 @@ function App() {
 
     return (
         <>
-            <Navbar dataLogin={dataLogin?.role_id} />
+            <Navbar dataLogin={dataLogin} />
             <Routes>
                 {/* User */}
                 <Route path="/login" element={<LoginPage />} />
@@ -299,7 +299,7 @@ function App() {
                 <Route path="/*" element={<NotFoundPage />} />
             </Routes>
 
-            <Footer dataLogin={dataLogin?.role_id} />
+            <Footer dataLogin={dataLogin} />
         </>
     );
 }

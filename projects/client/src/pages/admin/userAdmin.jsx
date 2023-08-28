@@ -23,9 +23,8 @@ export default function UserAdmin() {
     const [page, setPage] = useState(Number(searchParams.get('page')) || 1);
     const [sort, setSort] = useState(searchParams.get('sort') || '');
     const [search, setSearch] = useState(searchParams.get('search') || '');
-    const [warehouse, setWarehouse] = useState(
-        searchParams.get('warehouse') || '',
-    );
+    const [warehouse, setWarehouse] = useState(searchParams.get('warehouse') || '');
+    const loading = useSelector((state) => state.admin.loading)
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -81,74 +80,37 @@ export default function UserAdmin() {
                         <div className="mt-5 p-3 bg-white shadow-md rounded-lg">
                             <div className="sm:flex sm:justify-between w-full mb-2">
                                 <div className="sm:flex sm:justify-start sm:items-center sm:gap-2 w-full">
-                                    <SearchBarAdmin
-                                        data={{ searchChange, search }}
-                                    />
+                                    <SearchBarAdmin data={{ searchChange, search }}/>
                                     <SortAdmin data={{ sortChange, sort }} />
-                                    <FilterAdmin
-                                        data={{ warehouseChange, warehouse }}
-                                    />
+                                    <FilterAdmin data={{ warehouseChange, warehouse }}/>
                                 </div>
                                 <div>
-                                    <button
-                                        onClick={() => setShowRegisModal(true)}
-                                        className="text-white text-[10px] font-bold border p-1 rounded-lg bg-[#0051BA] hover:bg-gray-400 focus:ring-2 focus:ring-main-500 w-28 p-3 mt-5 md:mt-0"
-                                    >
-                                        + Register Admin
-                                    </button>
+                                    <button onClick={() => setShowRegisModal(true)} className="text-white text-[10px] font-bold border p-1 rounded-lg bg-[#0051BA] hover:bg-gray-400 focus:ring-2 focus:ring-main-500 w-28 p-3 mt-5 md:mt-0">+ Register Admin</button>
                                 </div>
                             </div>
                             <div className="w-full sm:flex sm:justify-start mb-3">
                                 {search ? (
-                                    <button
-                                        onClick={() => {
-                                            setSearch('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setSearch(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {search}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{search}</div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {sort ? (
-                                    <button
-                                        onClick={() => {
-                                            setSort('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setSort(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
-
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {sort === 'name-asc'
-                                                ? 'A-Z'
-                                                : sort === 'name-desc'
-                                                ? 'Z-A'
-                                                : sort === 'newest'
-                                                ? 'Newest'
-                                                : 'Oldest'}
+                                            {sort === 'name-asc' ? 'A-Z' : sort === 'name-desc' ? 'Z-A' : sort === 'newest' ? 'Newest' : 'Oldest'}
                                         </div>
                                     </button>
                                 ) : (
                                     <></>
                                 )}
                                 {warehouse ? (
-                                    <button
-                                        onClick={() => {
-                                            setWarehouse('');
-                                        }}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setWarehouse(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
-
-                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">
-                                            {warehouse.replace(/%/g, ' ')}
-                                        </div>
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{warehouse.replace(/%/g, ' ')}</div>
                                     </button>
                                 ) : (
                                     <></>
@@ -158,56 +120,18 @@ export default function UserAdmin() {
                                 <table className="w-full text-sm text-left text-gray-600 dark:text-gray-400">
                                     <thead className="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Admin Name
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Email
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Phone Number
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-r border-gray-300 text-center"
-                                            >
-                                                Warehouse
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 border-gray-300 text-center"
-                                            >
-                                                Action
-                                            </th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Admin Name</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Email</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Phone Number</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Warehouse</th>
+                                            <th scope="col" className="px-6 py-3 border-gray-300 text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {admins?.data?.rows?.length !== 0 ? (
-                                            <UserAdminTable
-                                                data={admins?.data?.rows}
-                                                params={{
-                                                    page,
-                                                    search,
-                                                    sort,
-                                                    warehouse,
-                                                }}
-                                                page={setPage}
-                                            />
-                                        ) : (
-                                            <></>
-                                        )}
+                                        {(admins?.data?.rows?.length > 0 || admins === null) && (<UserAdminTable data={admins?.data?.rows} params={{page, search, sort, warehouse}} page={setPage} loading={loading}/>)}
                                     </tbody>
                                 </table>
-                                {admins?.data?.rows?.length == 0 ? (
+                                {admins?.data?.rows?.length === 0 && (
                                     <div className="flex items-center justify-center py-8">
                                         <div>
                                             <div className="flex justify-center items-center font-bold text-xl">
@@ -222,8 +146,6 @@ export default function UserAdmin() {
                                             </div>
                                         </div>
                                     </div>
-                                ) : (
-                                    <></>
                                 )}
                             </div>
                             <div className="w-full flex justify-center mt-3">

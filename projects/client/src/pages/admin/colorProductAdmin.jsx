@@ -15,9 +15,14 @@ export default function ColorProductAdmin() {
     const [openModalAdd, setOpenModalAdd] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [dataDetail, setDataDetail] = useState();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         dispatch(getAllColorAsync())
+        setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+        clearTimeout(setLoading(false))
     }, []);
 
     return (
@@ -74,7 +79,8 @@ export default function ColorProductAdmin() {
                                     <tbody>
                                         <ComListColor
                                         funcData={setDataDetail}
-                                        modalDelete={setOpenModalDelete}/>
+                                        modalDelete={setOpenModalDelete}
+                                        loading={loading}/>
                                     </tbody>
                                 </table>
                                 <div className="pt-9 flex justify-center">
