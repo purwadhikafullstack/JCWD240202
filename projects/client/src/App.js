@@ -45,7 +45,6 @@ function App() {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const dataLogin = useSelector((state) => state.user.dataLogin);
-    const userLogin = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
         if (userLogin) {
