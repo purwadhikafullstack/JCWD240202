@@ -243,7 +243,7 @@ export default function ModalEditProduct(props) {
                         onChange={(e) => {
                             setColor(e.target.value);
                         }}
-                        className="border border-gray-400 rounded-md ml-3"
+                        className="border border-gray-400 rounded-md ml-1 md:ml-3"
                         value={color}
                     >
                         <option value='' disabled>Base Color</option>
@@ -270,7 +270,7 @@ export default function ModalEditProduct(props) {
                             min={0}
                         />
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex flex-wrap gap-3">
                         <div>
                             <div className="text-sm font-medium text-slate-700 mb-1">
                                 Length :
