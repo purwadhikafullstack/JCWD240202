@@ -79,7 +79,7 @@ export default function DataDetail(props) {
                                 <div className="text-slate-500">
                                     Purchase Date
                                 </div>
-                                <div>
+                                <div className='text-end'>
                                     {[
                                         new Date(value.createdAt)
                                             .toString()
@@ -119,7 +119,7 @@ export default function DataDetail(props) {
                                             }
                                             className={`cursor-pointer w-[125px] h-[125px] rounded-md ${
                                                 isZoomed && idZoom === value.id
-                                                    ? 'scale-[4] transition duration-500'
+                                                    ? 'md:scale-[4] scale-[3] transition duration-500'
                                                     : ''
                                             }`}
                                         />
@@ -206,7 +206,7 @@ export default function DataDetail(props) {
                                     Shipping Info
                                 </div>
                                 <div className="flex mt-3">
-                                    <div className="w-28 text-slate-500">
+                                    <div className="md:w-28 text-slate-500">
                                         Courier
                                     </div>
                                     <div>

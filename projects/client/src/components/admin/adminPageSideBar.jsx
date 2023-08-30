@@ -383,7 +383,7 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={() => navigate('/admins/dashboard')}
+                            onClick={() => navigate('/admins/transactions')}
                         >
                             <FcInTransit size={25} />
                         </li>

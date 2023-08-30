@@ -33,9 +33,9 @@ export default function LoginPage() {
                 email: '',
                 password: '',
             });
-            setTimeout(() => {
-                navigate('/');
-            }, 2000);
+            // setTimeout(() => {
+            //     window.history.back()
+            // }, 1000);
         }
     };
 
@@ -46,12 +46,22 @@ export default function LoginPage() {
     }, [isLogin]);
 
     if (userLogin) {
-        return <Navigate to="/" />;
+        if (!isLogin) {
+            return <Navigate to="/" />;
+        } else {
+            if (window.history.length <= 2) {
+                return <Navigate to="/" />;
+            } else {
+                window.history.back() 
+            }
+        }
     }
+
+    console.log(window.history.length, 'testttttt')
 
     return (
         <>
-            <Toaster />
+            {/* <Toaster /> */}
             <Helmet>
                 <title>IKEWA | Login</title>
                 <meta name="description" content="login" />
