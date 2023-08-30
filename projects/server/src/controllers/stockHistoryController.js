@@ -118,7 +118,7 @@ module.exports = {
                     where: {
                         product_id: item.id,
                         type_id:
-                            role_id === 2
+                            wh
                                 ? { [Op.in]: [1, 3, 4] }
                                 : { [Op.in]: [1, 4] },
                         ...wh,
@@ -135,7 +135,7 @@ module.exports = {
                     where: {
                         product_id: item.id,
                         type_id:
-                            role_id === 2
+                            wh 
                                 ? { [Op.in]: [1, 2, 3] }
                                 : { [Op.in]: [1, 2] },
                         ...wh,

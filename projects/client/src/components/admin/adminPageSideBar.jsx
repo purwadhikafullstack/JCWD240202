@@ -16,9 +16,9 @@ import {
     FcViewDetails,
     FcProcess,
 } from 'react-icons/fc';
-import toast from 'react-hot-toast';
 import { getDataLogin } from '../../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import ModalLogoutAdmin from './modalLogoutAdmin';
 
 export default function SideBarAdmin() {
     const navigate = useNavigate();
@@ -29,41 +29,7 @@ export default function SideBarAdmin() {
     const [disabled, setDisabled] = useState(false);
     const dispatch = useDispatch();
     const dataLogin = useSelector((state) => state.user.dataLogin);
-
-    const onLogout = () => {
-        try {
-            setDisabled(true);
-            localStorage.removeItem('user');
-            toast.success('Logout success!', {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
-
-            setTimeout(() => {
-                navigate('/admins/login');
-            }, 200);
-        } catch (error) {
-            setDisabled(true);
-            toast.error(error.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#DC2626',
-                    color: 'white',
-                },
-            });
-        } finally {
-            setDisabled(false);
-        }
-    };
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         dispatch(getDataLogin());
@@ -280,7 +246,7 @@ export default function SideBarAdmin() {
                                 pathname === '/admins/sales_report'
                                     ? 'underline'
                                     : 'no-underline'
-                            } font-semibold text-xl flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-10`}
+                            } font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7`}
                             onClick={() => navigate('/admins/sales-report')}
                         >
                             <FcSalesPerformance
@@ -368,18 +334,9 @@ export default function SideBarAdmin() {
                         </li>
                         <li>
                             <button
-                                className={`font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7 disabled:cursor-not-allowed ${
-                                    dataLogin?.role?.name === 'warehouse admin'
-                                        ? 'mt-[41px]'
-                                        : ''
-                                }${open === false ? 'mt-[39px]' : ''} ${
-                                    open === false &&
-                                    dataLogin?.role?.name === 'warehouse admin'
-                                        ? 'mt-[41px]'
-                                        : ''
-                                }`}
+                                className={`font-semibold text-lg flex items-center gap-x-4 cursor-pointer hover:bg-grey-400 rounded-md mt-7 disabled:cursor-not-allowed fixed bottom-5`}
                                 disabled={disabled}
-                                onClick={onLogout}
+                                onClick={() => setShowModal(true)}
                             >
                                 <FcUndo
                                     size={30}
@@ -397,11 +354,6 @@ export default function SideBarAdmin() {
             </div>
             <div className="w-10 sm:hidden w-full flex items-center justify-center pb-6">
                 <div className="flex flex-col justify-center items-center">
-                    {/* <img
-                        src="https://preview.redd.it/uhiuxnz5ber21.jpg?auto=webp&s=76182965b43ea456c3525a050ba0f16f12b44c98"
-                        className="h-10 cursor-pointer"
-                        alt="logo"
-                    /> */}
                     <ul className="flex items-center justify-center gap-4">
                         <li
                             className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
@@ -459,7 +411,7 @@ export default function SideBarAdmin() {
                         </li>
                         <li
                             className="font-semibold text-lg flex items-center justify-center gap-x-4 cursor-pointer hover:bg-gray-300 rounded-md mt-5"
-                            onClick={onLogout}
+                            onClick={() => setShowModal(true)}
                         >
                             <FcUndo size={25} />
                         </li>
@@ -532,6 +484,8 @@ export default function SideBarAdmin() {
                     </div>
                 </div>
             </div>
+
+            {showModal ? <ModalLogoutAdmin showModal={setShowModal} disabled={setDisabled} disable={disabled}/> : <></>}
         </>
     );
 }

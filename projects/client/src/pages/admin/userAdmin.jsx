@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/scope */
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import { useEffect } from 'react';
-import { getDataAdminUser } from '../../redux/features/adminSlice';
+import { getDataAdminUser, setLoading } from '../../redux/features/adminSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import RegisterAdmin from '../../components/admin/adminSetting/registerAdminModal';
@@ -61,6 +61,7 @@ export default function UserAdmin() {
         }
         setSearchParams(queryParams);
         dispatch(getDataAdminUser(page, sort, search, warehouse));
+        return () => dispatch(setLoading(false))
     }, [page, sort, search, warehouse]);
 
     return (

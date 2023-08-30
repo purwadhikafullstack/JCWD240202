@@ -317,7 +317,6 @@ const editProduct = async (req, res) => {
 const editProductImages = async (req, res) => {
     const t = await sequelize.transaction();
     try {
-        console.log(req.files.images);
         const { id } = req.params;
         const recentImage = await product_images.findAll({
             where: {
@@ -325,7 +324,6 @@ const editProductImages = async (req, res) => {
                 // is_thumbnail: 0,
             },
         });
-        console.log(recentImage, 'ini diaaaaaaa');
 
         const images = await req.files.images.map((value) => {
             return {
@@ -333,7 +331,6 @@ const editProductImages = async (req, res) => {
                 product_id: id,
             };
         });
-        console.log(images.length, 'iniiii <<<<<<<<<<<');
 
         const updateProductImages = await product_images.bulkCreate(images, {
             transaction: t,
@@ -445,7 +442,6 @@ const changeThumbnail = async (req, res) => {
     const t = await sequelize.transaction();
     try {
         const id = req.params;
-        console.log(id);
 
         const setNotThumbnail = await product_images.update(
             {

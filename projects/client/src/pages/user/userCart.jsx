@@ -2,11 +2,12 @@ import { useDispatch } from 'react-redux';
 import CartTable from '../../components/user/cart/cartTable';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getUserCartAsync } from '../../redux/features/cartSlice';
+import { getUserCartAsync, setLoading } from '../../redux/features/cartSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import ModalUnavailableItems from '../../components/user/cart/modalUnavailableItems';
 import { Button } from 'flowbite-react';
 import { Helmet } from 'react-helmet';
+import SkeletonCart from '../../components/user/checkoutCart/skeletonCart';
 
 export default function UserCart() {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function UserCart() {
     const userCart = useSelector((state) => state.cart.cart);
     const [unavailableProduct, setUnavailableProduct] = useState(false);
     const [modalUnavailable, setModalUnavailable] = useState(false);
+    const loading = useSelector((state) => state.cart.loading);
 
     const handleCheckout = () => {
         if (unavailableProduct === true) {
@@ -25,6 +27,7 @@ export default function UserCart() {
 
     useEffect(() => {
         dispatch(getUserCartAsync());
+        return () => dispatch(setLoading(false))
     }, []);
     return (
         <>
@@ -39,7 +42,22 @@ export default function UserCart() {
                 {userCart?.data === null ? (
                     <div className="pt-9 flex justify-center font-bold">
                         <div className="flex flex-col items-center gap-4">
-                            <div>Cart is Empty</div>
+                            <div className="flex items-center justify-center py-8">
+                                <div>
+                                    <div className="flex justify-center items-center font-semibold text-xl mb-6">
+                                        <h1 className="font-semibold text-2xl">
+                                            Cart is Empty
+                                        </h1>
+                                    </div>
+                                    <div className="w-full flex justify-center items-center">
+                                        <img
+                                            src="/images/not-found-user.png"
+                                            alt="not-found"
+                                            className="min-w-[200px] max-w-[400px]"
+                                        ></img>
+                                    </div>
+                                </div>
+                            </div>
                             <Button
                                 onClick={() => navigate('/products')}
                                 color={'light'}
@@ -51,16 +69,20 @@ export default function UserCart() {
                 ) : (
                     <div>
                         {userCart?.data?.rows?.map((value, index) => {
-                            return (
-                                <div key={index}>
-                                    <CartTable
-                                        data={{
-                                            value,
-                                            setUnavailableProduct,
-                                        }}
-                                    />
-                                </div>
-                            );
+                            if (loading) {
+                                return (
+                                    <div key={index}>
+                                        <CartTable
+                                            data={{
+                                                value,
+                                                setUnavailableProduct,
+                                            }}
+                                        />
+                                    </div>
+                                );
+                            } else {
+                                return <SkeletonCart key={index} />;
+                            }
                         })}
                     </div>
                 )}

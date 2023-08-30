@@ -98,9 +98,17 @@ export default function Navbar(props) {
             <div className="flex justify-between items-center border-b py-6 px-12 bg-white h-[100px]">
                 {/* left side => logo */}
                 <button
-                    className={`sm:hidden ${props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3 ? 'cursor-not-allowed' : ''}`}
+                    className={`sm:hidden ${
+                        props.dataLogin?.role_id === 2 ||
+                        props.dataLogin?.role_id === 3
+                            ? 'cursor-not-allowed'
+                            : ''
+                    }`}
                     onClick={() => setShowBurger(!showBurger)}
-                    disabled={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3}
+                    disabled={
+                        props.dataLogin?.role_id === 2 ||
+                        props.dataLogin?.role_id === 3
+                    }
                 >
                     {showBurger ? (
                         <GrClose size={25} />
@@ -108,16 +116,52 @@ export default function Navbar(props) {
                         <GiHamburgerMenu size={25} />
                     )}
                 </button>
-                <button className={`w-16 sm:w-24 ${props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3 ? 'cursor-not-allowed' : ''}`} onClick={() => navigate('/')} disabled={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3}>
+                <button
+                    className={`w-16 sm:w-24 ${
+                        props.dataLogin?.role_id === 2 ||
+                        props.dataLogin?.role_id === 3
+                            ? 'cursor-not-allowed'
+                            : ''
+                    }`}
+                    onClick={() => navigate('/')}
+                    disabled={
+                        props.dataLogin?.role_id === 2 ||
+                        props.dataLogin?.role_id === 3
+                    }
+                >
                     <img src="/logo2.png" alt="company_logo" />
                 </button>
                 {/* middle => pages */}
                 <div className="hidden md:block md:flex gap-9 items-center text-xl">
-                    <button className={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3 ? 'cursor-not-allowed' : ''} onClick={() => navigate('/')} disabled={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3}>
+                    <button
+                        className={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                                ? 'cursor-not-allowed'
+                                : ''
+                        }
+                        onClick={() => navigate('/')}
+                        disabled={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                        }
+                    >
                         <div>Home</div>
                     </button>
                     <div>Offers</div>
-                    <button className={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3 ? 'cursor-not-allowed' : ''} onClick={() => navigate('/products')} disabled={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3}>
+                    <button
+                        className={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                                ? 'cursor-not-allowed'
+                                : ''
+                        }
+                        onClick={() => navigate('/products')}
+                        disabled={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                        }
+                    >
                         <div>Products</div>
                     </button>
                     <div>Categories</div>
@@ -132,8 +176,20 @@ export default function Navbar(props) {
                                 className="btn bg-white border-none"
                             >
                                 <Avatar
-                                    img={props.dataLogin?.profile_picture && props.dataLogin?.profile_picture.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props.dataLogin?.profile_picture : props.dataLogin?.profile_picture ? props.dataLogin?.profile_picture : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'}
+                                    img={
+                                        props.dataLogin?.profile_picture &&
+                                        props.dataLogin?.profile_picture.startsWith(
+                                            'PIMG',
+                                        )
+                                            ? process.env
+                                                  .REACT_APP_API_IMAGE_URL +
+                                              props.dataLogin?.profile_picture
+                                            : props.dataLogin?.profile_picture
+                                            ? props.dataLogin?.profile_picture
+                                            : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'
+                                    }
                                     rounded
+                                    className='object-fill'
                                 />
                             </label>
                             <ul
@@ -141,21 +197,35 @@ export default function Navbar(props) {
                                 className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-44"
                             >
                                 <li>
-                                    <Link to="/users/profile" onClick={() => setShowBurger(false)}>Profile</Link>
+                                    <Link
+                                        to="/users/profile"
+                                        onClick={() => setShowBurger(false)}
+                                    >
+                                        Profile
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/users/transactions" onClick={() => setShowBurger(false)}>
+                                    <Link
+                                        to="/users/transactions"
+                                        onClick={() => setShowBurger(false)}
+                                    >
                                         Transactions
                                     </Link>
                                 </li>
                                 <li className="border-t">
-                                    <button onClick={() => {setOpenModal(true); setShowBurger(false)}}>
+                                    <button
+                                        onClick={() => {
+                                            setOpenModal(true);
+                                            setShowBurger(false);
+                                        }}
+                                    >
                                         Log Out
                                     </button>
                                 </li>
                             </ul>
                         </div>
-                    ) : props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3 ? (
+                    ) : props.dataLogin?.role_id === 2 ||
+                      props.dataLogin?.role_id === 3 ? (
                         <Link to={'/admins/dashboard'}>
                             <div className="btn bg-white border-none mr-2">
                                 <MdOutlineAccountCircle size={25} />
@@ -171,7 +241,19 @@ export default function Navbar(props) {
 
                     {userLogin ? (
                         <>
-                            <button onClick={() => navigate('/users/wishlists')} className={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3 ? 'cursor-not-allowed' : ''} disabled={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3}>
+                            <button
+                                onClick={() => navigate('/users/wishlists')}
+                                className={
+                                    props.dataLogin?.role_id === 2 ||
+                                    props.dataLogin?.role_id === 3
+                                        ? 'cursor-not-allowed'
+                                        : ''
+                                }
+                                disabled={
+                                    props.dataLogin?.role_id === 2 ||
+                                    props.dataLogin?.role_id === 3
+                                }
+                            >
                                 <div className="flex items-center mr-6">
                                     <AiOutlineHeart size={25} />
 
@@ -185,7 +267,19 @@ export default function Navbar(props) {
                                     )}
                                 </div>
                             </button>
-                            <button onClick={() => navigate('/cart')} className={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3 ? 'cursor-not-allowed' : ''} disabled={props.dataLogin?.role_id === 2 || props.dataLogin?.role_id === 3}>
+                            <button
+                                onClick={() => navigate('/cart')}
+                                className={
+                                    props.dataLogin?.role_id === 2 ||
+                                    props.dataLogin?.role_id === 3
+                                        ? 'cursor-not-allowed'
+                                        : ''
+                                }
+                                disabled={
+                                    props.dataLogin?.role_id === 2 ||
+                                    props.dataLogin?.role_id === 3
+                                }
+                            >
                                 <div className="flex items-center">
                                     <AiOutlineShoppingCart size={25} />
                                     {userCartCount?.data?.count > 0 ? (
@@ -236,12 +330,26 @@ export default function Navbar(props) {
                     showBurger ? 'block h-screen z-[998]' : 'hidden'
                 }`}
             >
-                <button className='text-left'>
-                    <div onClick={() => {setShowBurger(!showBurger); navigate('/')}}>Home</div>
+                <button className="text-left">
+                    <div
+                        onClick={() => {
+                            setShowBurger(!showBurger);
+                            navigate('/');
+                        }}
+                    >
+                        Home
+                    </div>
                 </button>
                 <div>Offers</div>
-                <button className='text-left'>
-                    <div onClick={() => {setShowBurger(!showBurger); navigate('/products')}}>Products</div>
+                <button className="text-left">
+                    <div
+                        onClick={() => {
+                            setShowBurger(!showBurger);
+                            navigate('/products');
+                        }}
+                    >
+                        Products
+                    </div>
                 </button>
                 <div>Categories</div>
                 <div>About</div>

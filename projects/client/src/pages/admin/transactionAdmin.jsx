@@ -5,7 +5,7 @@ import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import StatusBar from '../../components/admin/transaction/statusBarTransaction';
 import TransactionCard from '../../components/admin/transaction/transactionCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { allTransactionAsync, cancelConfirmPaymentAsync, cancelShipping, confirmPaymentAsync, sendUserOrder } from '../../redux/features/transactionSlice';
+import { allTransactionAsync, cancelConfirmPaymentAsync, cancelShipping, confirmPaymentAsync, sendUserOrder, setLoading } from '../../redux/features/transactionSlice';
 import { getAllStatus } from '../../redux/features/statusSlice';
 import DateRangePicker from '../../components/admin/transaction/dateRangePicker';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
@@ -118,6 +118,7 @@ export default function TransactionAdmin() {
             ),
         );
         dispatch(getAllStatus());
+        return () => dispatch(setLoading(false))
     }, [page, warehouse, search, startDate, endDate, statusId, sort]);
     return (
         <>

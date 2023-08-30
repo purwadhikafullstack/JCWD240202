@@ -3,11 +3,12 @@ import { Modal } from 'flowbite-react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ProfileTabs from '../../components/user/profile/tabs';
-import { getDataLogin } from '../../redux/features/userSlice';
+import { getDataLogin, setLoading } from '../../redux/features/userSlice';
 import { useDispatch } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+import SkeletonProfile from '../../components/user/profile/skeletonProfile';
 
 export default function ProfilePage() {
     const [openModal, setOpenModal] = useState(false);
@@ -26,16 +27,22 @@ export default function ProfilePage() {
     const dispatch = useDispatch();
     const dataLogin = useSelector((state) => state.user.dataLogin);
     const token = JSON.parse(localStorage?.getItem('user'));
+    const loading = useSelector((state) => state.user.loading);
+    const [loadings, setLoadings] = useState(false)
 
     useEffect(() => {
         dispatch(getDataLogin());
         setInput({
-            first_name: dataLogin?.first_name,
-            last_name: dataLogin?.last_name,
+            first_name: dataLogin?.first_name ? dataLogin?.first_name : '',
+            last_name: dataLogin?.last_name ? dataLogin?.last_name : '',
             email: dataLogin?.email,
-            phone_number: dataLogin?.phone_number,
-            birth_date: dataLogin?.birth_date?.split('T')[0],
+            phone_number: dataLogin?.phone_number ? dataLogin?.phone_number : '',
+            birth_date: dataLogin?.birth_date ? dataLogin?.birth_date?.split('T')[0] : '',
         });
+        setTimeout(() => {
+           setLoadings(true) 
+        }, 500);
+        return () => dispatch(setLoading(false))
     }, [dataLogin?.first_name, dataLogin?.last_name, dataLogin?.phone_number, dataLogin?.birth_date]);
 
     const onChange = (e) => {
@@ -46,12 +53,12 @@ export default function ProfilePage() {
     const onChangeProfilePic = (e) => {
         try {
             if (e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpeg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'png') {
-                // setImagePreview(null);
+                setImagePreview(null);
                 throw { message: 'Format file must jpg, jpeg, or png' };
             }
 
             if (e.target.files[0]?.size >= 1000000) {
-                // setImagePreview(null);
+                setImagePreview(null);
                 throw { message: 'File size max 1 Mb!' };
             }
 
@@ -208,19 +215,18 @@ export default function ProfilePage() {
                     <div className="w-full md:w-[80%] flex justify-center">
                         <div className="lg:w-full py-[10px] px-[30px] border-2 border-gray-200 rounded-lg pb-[30px] shadow">
                             <ProfileTabs />
-                            <div className="lg:flex lg:justify-center lg:items-center mt-6 lg:ml-6">
+                            {loading && loadings ? <div className="lg:flex lg:justify-center lg:items-center mt-6 lg:ml-6">
                                 <div className="w-full md:w-[400px]">
                                     <div className="p-[10px] border-2 border-gray-200 rounded-lg">
-                                        <div className="flex justify-center">
+                                        <div className="flex justify-center max-h-[250px]">
                                             {dataLogin?.profile_picture || imagePreview ? (
                                                 <img
                                                     src={imagePreview ? imagePreview : dataLogin?.profile_picture.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + dataLogin?.profile_picture : dataLogin?.profile_picture}
                                                     alt="profile_picture"
-                                                    // width={'250px'}
-                                                    className="object-contain"
+                                                    className="object-cover rounded-lg"
                                                 />
                                             ) : (
-                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png" alt="profile_picture" width={'250px'}/>
+                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png" alt="profile_picture" className="object-cover rounded-lg"/>
                                             )}
                                         </div>
                                         <div className="mt-[10px] flex justify-center">
@@ -307,7 +313,7 @@ export default function ProfilePage() {
                                                 <input
                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                     name="email"
-                                                    disabled={disabled}
+                                                    disabled={true}
                                                     value={input?.email}
                                                     onChange={onChange}
                                                 />
@@ -380,16 +386,10 @@ export default function ProfilePage() {
                                                     onClick={() => {
                                                         setDisabled(true);
                                                         setInput({
-                                                            first_name:
-                                                                dataLogin?.first_name,
-                                                            last_name:
-                                                                dataLogin?.last_name,
-                                                            phone_number:
-                                                                dataLogin?.phone_number,
-                                                            birth_date:
-                                                                dataLogin?.birth_date.split(
-                                                                    'T',
-                                                                )[0],
+                                                            first_name: dataLogin?.first_name ? dataLogin?.first_name : '',
+                                                            last_name: dataLogin?.last_name ? dataLogin?.last_name : '',
+                                                            phone_number: dataLogin?.phone_number ? dataLogin?.phone_number : '',
+                                                            birth_date: dataLogin?.birth_date ? dataLogin?.birth_date.split('T')[0] : '',
                                                         });
                                                     }}
                                                 >
@@ -397,62 +397,55 @@ export default function ProfilePage() {
                                                 </button>
                                             </>
                                         )}
-
-                                        <Modal
-                                            dismissible
-                                            show={openModal}
-                                            onClose={() => setOpenModal(false)}
-                                        >
-                                            <Modal.Header>
-                                                Edit Profile
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                Are you sure, you want to edit
-                                                your profile ?
-                                            </Modal.Body>
-                                            <div className="flex gap-2 ml-5 mb-6">
-                                                <button
-                                                    className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white text-sm disabled:cursor-not-allowed disabled:bg-black rounded-lg py-2 mt-2 p-3"
-                                                    onClick={onEditProfile}
-                                                    disabled={
-                                                        !input.first_name ||
-                                                        !input.last_name ||
-                                                        !input.phone_number ||
-                                                        !input.birth_date ||
-                                                        disabled
-                                                    }
-                                                >
-                                                    Save
-                                                </button>
-                                                <button
-                                                    className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm"
-                                                    onClick={() => {
-                                                        setOpenModal(false);
-                                                        setInput({
-                                                            first_name:
-                                                                dataLogin?.first_name,
-                                                            last_name:
-                                                                dataLogin?.last_name,
-                                                            phone_number:
-                                                                dataLogin?.phone_number,
-                                                            birth_date:
-                                                                dataLogin?.birth_date.split(
-                                                                    'T',
-                                                                )[0],
-                                                        });
-                                                    }}
-                                                >
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </Modal>
                                     </div>
                                 </div>
-                            </div>
+                            </div> : <SkeletonProfile/>}
                         </div>
                     </div>
                 </div>
             </div>
+            <Modal
+                dismissible
+                show={openModal}
+                onClose={() => setOpenModal(false)}
+            >
+                <Modal.Header>
+                    Edit Profile
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure, you want to edit
+                    your profile ?
+                </Modal.Body>
+                <div className="flex gap-2 ml-5 mb-6">
+                    <button
+                        className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white text-sm disabled:cursor-not-allowed disabled:bg-black rounded-lg py-2 mt-2 p-3"
+                        onClick={onEditProfile}
+                        disabled={
+                            !input.first_name ||
+                            !input.last_name ||
+                            !input.phone_number ||
+                            !input.birth_date ||
+                            disabled
+                        }
+                    >
+                        Save
+                    </button>
+                    <button
+                        className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm"
+                        onClick={() => {
+                            setOpenModal(false);
+                            setInput({
+                                first_name: dataLogin?.first_name ? dataLogin?.first_name : '',
+                                last_name: dataLogin?.last_name ? dataLogin?.last_name : '',
+                                phone_number: dataLogin?.phone_number ? dataLogin?.phone_number : '',
+                                birth_date: dataLogin?.birth_date ? dataLogin?.birth_date.split('T')[0] : '',
+                            });
+                        }}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </Modal>
         </>
     );
 }

@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import SortNewestMutation from '../../components/admin/sortNewestMutation';
 import TableStockLog from '../../components/admin/stockLog/tableStockLog';
-import { getStockLog } from '../../redux/features/stockHistorySlice';
+import { getStockLog, setLoading } from '../../redux/features/stockHistorySlice';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import * as XLSX from 'xlsx';
@@ -27,7 +27,7 @@ export default function StockLogPage() {
     const [search, setSearch] = useState(searchParams.get('search') || '');
     const [warehouse, setWarehouse] = useState(searchParams.get('warehouse') || '');
     const [sort, setSort] = useState(searchParams.get('status') || '');
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector((state) => state.stockHistory.loading);
 
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -75,11 +75,8 @@ export default function StockLogPage() {
             queryParams['sort'] = sort;
         }
         setSearchParams(queryParams);
-        setTimeout(() => {
-            setLoading(true);
-        }, 1000);
-        clearTimeout(setLoading(false))
         dispatch(getStockLog(page, date, search, warehouse, sort));
+        return () => dispatch(setLoading(false))
     }, [page, date, search, warehouse, sort]);
 
     return (

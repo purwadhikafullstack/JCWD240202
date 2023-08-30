@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 const initialState = {
     wishlists: null,
     wishlistIds: null,
+    loading: false,
 };
 
 export const wishlistSlice = createSlice({
@@ -17,6 +18,9 @@ export const wishlistSlice = createSlice({
         setWishlistIds: (initialState, action) => {
             initialState.wishlistIds = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        },
     },
 });
 
@@ -25,6 +29,7 @@ export const getUserWishlists = (data) => async (dispatch) => {
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
     try {
+        dispatch(setLoading(false))
         const getWishlists = await axios.get(
             process.env.REACT_APP_API_BASE_URL +
                 `/wishlists?sort=${data?.sort ? data?.sort : ''}&page=${
@@ -36,6 +41,9 @@ export const getUserWishlists = (data) => async (dispatch) => {
                 },
             },
         );
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1500);
         dispatch(setWishlists(getWishlists.data));
         const getIds = getWishlists?.data?.allProduct?.wishlists?.map(
             (value) => {
@@ -44,6 +52,7 @@ export const getUserWishlists = (data) => async (dispatch) => {
         );
         dispatch(setWishlistIds(getIds));
     } catch (error) {
+        dispatch(setLoading(false));
         toast.error(error.message);
     }
 };
@@ -96,5 +105,6 @@ export const addWishlistsAsync = (data) => async (dispatch) => {
     }
 };
 
-export const { setWishlists, setWishlistIds } = wishlistSlice.actions;
+export const { setWishlists, setWishlistIds, setLoading } =
+    wishlistSlice.actions;
 export default wishlistSlice.reducer;

@@ -87,6 +87,7 @@ export const adminRegister =
         password,
         confirm_password,
         params,
+        tokenRecaptcha
     ) =>
     async (dispatch) => {
         try {
@@ -121,6 +122,7 @@ export const adminRegister =
                     phone_number,
                     password,
                     confirm_password,
+                    tokenRecaptcha
                 },
                 {
                     headers: {

@@ -13,7 +13,6 @@ export default function GenerateInvoice({ data }) {
 
     return (
         <>
-            {console.log('', data)}
             <div>
                 <Button
                     onClick={handleInvoice}

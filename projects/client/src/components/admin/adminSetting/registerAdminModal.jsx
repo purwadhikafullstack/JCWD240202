@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineClose } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminRegister } from '../../../redux/features/adminAuthSlice';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRef } from 'react';
 
 export default function RegisterAdmin({ showModal, params }) {
     const setDisabledButton = useSelector(
@@ -20,6 +22,20 @@ export default function RegisterAdmin({ showModal, params }) {
     const [inputPhoneNumber, setInputPhoneNumber] = useState('');
     const [inputPassword, setInputPassword] = useState('');
     const [inputConfirmPassword, setInputConfirmPassword] = useState('');
+
+    const reRef = useRef(null)
+    const [isVerifiedRecaptcha, setIsVerifiedRecaptcha] = useState(false)
+    const [tokenRecaptcha, setTokenRecaptcha] = useState('')
+    const onHandleRecaptcha = (value) => {
+        setIsVerifiedRecaptcha(true)
+        setTokenRecaptcha(value)
+    }
+
+    const resetRecaptcha = () => {
+        reRef.current.reset()
+        setIsVerifiedRecaptcha(false)
+        setTokenRecaptcha('')
+    }
 
     useEffect(() => {
         if (setModal === true) {
@@ -218,6 +234,15 @@ export default function RegisterAdmin({ showModal, params }) {
                                         </div>
                                     </div>
                                 </form>
+                                <div className={`${!inputFirstName || !inputLastName || !inputEmail || !inputPhoneNumber || !inputPassword || !inputConfirmPassword || setDisabledButton ? "hidden" : ""}`}>
+                                    <ReCAPTCHA
+                                        sitekey={
+                                            process.env.REACT_APP_API_RECAPTCHA_SITE_KEY
+                                        }
+                                        onChange={onHandleRecaptcha}
+                                        ref={reRef}
+                                    />
+                                </div>
                             </div>
                             {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
@@ -230,7 +255,8 @@ export default function RegisterAdmin({ showModal, params }) {
                                         !inputPhoneNumber ||
                                         !inputPassword ||
                                         !inputConfirmPassword ||
-                                        setDisabledButton
+                                        setDisabledButton ||
+                                        !isVerifiedRecaptcha
                                     }
                                     onClick={() => {
                                         dispatch(
@@ -242,8 +268,10 @@ export default function RegisterAdmin({ showModal, params }) {
                                                 inputPassword,
                                                 inputConfirmPassword,
                                                 params,
+                                                tokenRecaptcha
                                             ),
                                         );
+                                        resetRecaptcha()
                                     }}
                                 >
                                     Confirm

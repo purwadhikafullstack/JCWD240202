@@ -7,6 +7,8 @@ import { Navigate, useNavigate, Link } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Helmet } from 'react-helmet';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRef } from 'react';
 
 export default function RegisterPage() {
     const dispatch = useDispatch();
@@ -26,6 +28,20 @@ export default function RegisterPage() {
         const { value } = event.target;
         setEmail(value);
     };
+
+    const reRef = useRef(null)
+    const [isVerifiedRecaptcha, setIsVerifiedRecaptcha] = useState(false)
+    const [tokenRecaptcha, setTokenRecaptcha] = useState('')
+    const onHandleRecaptcha = (value) => {
+        setIsVerifiedRecaptcha(true)
+        setTokenRecaptcha(value)
+    }
+
+    const resetRecaptcha = () => {
+        reRef.current.reset()
+        setIsVerifiedRecaptcha(false)
+        setTokenRecaptcha('')
+    }
 
     const defaultValue = () => {
         if (isRegister) {
@@ -137,27 +153,36 @@ export default function RegisterPage() {
                                 </span>
                             </span>
                         </div>
+                        <div className={`my-2 ml-2 ${!email || !email.includes('@') || !email.includes('.co') || !isAgree || isLoading ? "hidden" : ""}`}>
+                            <ReCAPTCHA
+                                sitekey={
+                                    process.env.REACT_APP_API_RECAPTCHA_SITE_KEY
+                                }
+                                onChange={onHandleRecaptcha}
+                                ref={reRef}
+                            />
+                        </div>
                         <button
-                            onClick={() => dispatch(register(email))}
+                            onClick={() => {dispatch(register(email, tokenRecaptcha)); resetRecaptcha()}}
                             type="submit"
                             className="bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
                             disabled={
                                 !email ||
                                 !email.includes('@') ||
                                 !email.includes('.co') ||
-                                !isAgree
+                                !isAgree ||
+                                !isVerifiedRecaptcha
                             }
                         >
                             Create account
                         </button>
-                        <div className='flex justify-center'>
-                        <Link
-                            to="/login"
-                            className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"
-                            
-                        >
-                            Have an account? Login here
-                        </Link>
+                        <div className="flex justify-center">
+                            <Link
+                                to="/login"
+                                className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"
+                            >
+                                Have an account? Login here
+                            </Link>
                         </div>
                     </div>
                 </div>

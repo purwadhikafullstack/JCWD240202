@@ -11,7 +11,6 @@ module.exports = {
             let wh = undefined;
             const { id, role_id } = req.User;
             const { page, warehouse, search, sort, category } = req.query;
-            console.log(warehouse);
 
             const paginationLimit = 15;
             const paginationOffset =

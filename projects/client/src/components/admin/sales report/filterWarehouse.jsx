@@ -12,7 +12,6 @@ export default function FilterWarehouse(props) {
         const getName = e.target.value.split(',')[1];
         props?.state?.setWarehouseId(getId);
         props?.state?.setWarehouseName(getName);
-        console.log(getName);
     };
 
     useEffect(() => {

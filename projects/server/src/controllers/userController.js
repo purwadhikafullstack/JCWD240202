@@ -111,15 +111,12 @@ module.exports = {
         const t = await sequelize.transaction();
         try {
             const { id } = req.User;
-            console.log(req.files);
-            console.log(req.files.images[0].path);
 
             const result = await user.findOne({
                 where: {
                     id,
                 },
             });
-            console.log(result.profile_picture);
 
             const updateImage = await user.update(
                 {
