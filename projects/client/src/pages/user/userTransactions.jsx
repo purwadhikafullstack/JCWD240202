@@ -3,6 +3,7 @@ import TransactionTabs from '../../components/user/transactions/transactionTabs'
 import { useEffect, useState } from 'react';
 import {
     getAllUserOrderAsync,
+    setLoading,
     userCancelOrderAsync,
 } from '../../redux/features/orderSlice';
 import { useSelector } from 'react-redux';
@@ -15,7 +16,7 @@ import { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import InvoiceSearch from '../../components/user/transactions/invoiceSearch';
 import { Helmet } from 'react-helmet';
-import GenerateInvoice from '../../components/user/transactions/generateInvoice';
+import SkeletonTransactionCard from '../../components/user/transactions/skeletonTransaction';
 
 export default function UserTransactions() {
     const dispatch = useDispatch();
@@ -30,7 +31,8 @@ export default function UserTransactions() {
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [expiredTime, setExpiredTime] = useState(false);
-
+    const loading = useSelector((state) => state.order.loading)
+ 
     const pageChange = (event, value) => {
         setPage(value);
     };
@@ -72,6 +74,7 @@ export default function UserTransactions() {
                 search,
             }),
         );
+        return () => dispatch(setLoading(false))
     }, [page, sortTransaction, status_id, search, expiredTime]);
     return (
         <>
@@ -80,11 +83,11 @@ export default function UserTransactions() {
                 <title>IKEWA | Transactions</title>
                 <meta name="description" content="transactions" />
             </Helmet>
-            <div className="flex">
-                <div className="flex-2 py-[80px] ml-[200px]">
+            <div className="flex justify-center">
+                <div className="py-[80px] pl-[80px]">
                     <UserSidebar />
                 </div>
-                <div className="flex-1 p-[80px] flex flex-col items-center mr-[100px]">
+                <div className="p-[80px] flex flex-col items-center">
                     <div className="w-full">
                         <div className="font-bold text-3xl">
                             Transaction History
@@ -114,28 +117,50 @@ export default function UserTransactions() {
                     </div>
                     <div className=" p-9 flex flex-col gap-7 w-full">
                         {!orderLists?.data?.data?.rows ? (
-                            <div className="flex justify-center">
-                                No Transaction Found
+                            <div className="flex items-center justify-center py-8">
+                                <div>
+                                    <div className="flex justify-center items-center font-semibold text-xl mb-6">
+                                        <h1 className="font-semibold text-2xl">
+                                            No Transaction Found
+                                        </h1>
+                                    </div>
+                                    <div className="w-full flex justify-center items-center">
+                                        <img
+                                            src="/images/not-found-user.png"
+                                            alt="not-found"
+                                            className="min-w-[200px] max-w-[400px]"
+                                        ></img>
+                                    </div>
+                                </div>
                             </div>
                         ) : (
                             orderLists?.data?.data?.rows?.map(
                                 (value, index) => {
-                                    return (
-                                        <TransactionHistoryBox
-                                            key={index}
-                                            data={{ value }}
-                                            state={{
-                                                setCancelOrder,
-                                                setOrderId,
-                                                setStatusId,
-                                                setExpiredTime,
-                                            }}
-                                        />
-                                    );
+                                    if (loading) {
+                                        return (
+                                            <TransactionHistoryBox
+                                                key={index}
+                                                data={{ value }}
+                                                state={{
+                                                    setCancelOrder,
+                                                    setOrderId,
+                                                    setStatusId,
+                                                    setExpiredTime,
+                                                }}
+                                            />
+                                        );
+                                    } else {
+                                        return (
+                                            <SkeletonTransactionCard
+                                                key={index}
+                                            />
+                                        );
+                                    }
                                 },
                             )
                         )}
                     </div>
+
                     {orderLists?.data?.data?.rows ? (
                         <div>
                             <PaginationButton
@@ -160,7 +185,6 @@ export default function UserTransactions() {
                 }}
                 func={{ handleCancelOrder }}
             />
-            <GenerateInvoice />
         </>
     );
 }

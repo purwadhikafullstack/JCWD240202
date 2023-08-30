@@ -32,10 +32,6 @@ module.exports = (sequelize, DataTypes) => {
             cart_id: DataTypes.INTEGER,
             shipping_address: DataTypes.STRING,
             payment_proof: DataTypes.STRING,
-            is_payment_success: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
-            },
             courier: DataTypes.STRING,
             shipping_method: DataTypes.STRING,
             shipping_fee: DataTypes.INTEGER,

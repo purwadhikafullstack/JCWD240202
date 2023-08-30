@@ -8,7 +8,8 @@ const initialState = {
     bestSeller: {},
     color: {},
     success: false,
-    message: false
+    message: false,
+    loading: false,
 };
 
 export const homepageSlice = createSlice({
@@ -33,41 +34,59 @@ export const homepageSlice = createSlice({
         setMessage: (initialState, action) => {
             initialState.message = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
 export const getNewArrivalsAsync = () => async (dispatch) => {
     try {
+        dispatch(setLoading(false))
         const getNewArrivals = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/home/newArrivals`,
         );
-
+        
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setNewArrivals(getNewArrivals.data));
     } catch (error) {
+        dispatch(setLoading(false))
         console.log(error.message);
     }
 };
 
 export const getAllCategoriesAsync = () => async (dispatch) => {
     try {
+        dispatch(setLoading(false))
         const getCategories = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/categories`,
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setCategory(getCategories.data));
     } catch (error) {
+        dispatch(setLoading(false))
         console.log(error.message);
     }
 };
 
 export const getBestSellerAsync = () => async (dispatch) => {
     try {
+        dispatch(setLoading(false))
         const getBestSeller = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/home/bestSeller`,
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setBestSeller(getBestSeller.data));
     } catch (error) {
+        dispatch(setLoading(false))
         console.log(error.message);
     }
 };
@@ -157,6 +176,6 @@ export const deleteColorAsync = (id) => async (dispatch) => {
     }
 }
 
-export const { setNewArrivals, setCategory, setBestSeller, setColor, setSuccess, setMessage } =
+export const { setNewArrivals, setCategory, setBestSeller, setColor, setSuccess, setMessage, setLoading } =
     homepageSlice.actions;
 export default homepageSlice.reducer;

@@ -31,6 +31,7 @@ export const stockSlice = createSlice({
 export const getDataStock =
     (page, search, sort, category, warehouse) => async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const token = JSON.parse(localStorage?.getItem('user'));
             const dataStock = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/stocks',
@@ -51,7 +52,6 @@ export const getDataStock =
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)))
             dispatch(setStocks(dataStock?.data));
         } catch (error) {
             dispatch(setLoading(false))

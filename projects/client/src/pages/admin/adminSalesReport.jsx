@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getDataLogin } from '../../redux/features/userSlice';
 import { Helmet } from 'react-helmet';
+import { setLoading } from '../../redux/features/reportSlice';
 
 export default function AdminSalesReport() {
     const dispatch = useDispatch();
@@ -19,14 +20,11 @@ export default function AdminSalesReport() {
     const [warehouseId, setWarehouseId] = useState('');
     const [warehouseName, setWarehouseName] = useState('');
     const loginData = useSelector((state) => state.user.dataLogin);
-    const [loading, setLoading] = useState(false)
+    const loading = useSelector((state) => state.report.loading)
 
     useEffect(() => {
         dispatch(getDataLogin());
-        setTimeout(() => {
-            setLoading(true);
-        }, 1000);
-        clearTimeout(setLoading(false))
+        return () => dispatch(setLoading(false))
     }, []);
 
     return (

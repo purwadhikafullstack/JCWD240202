@@ -55,7 +55,6 @@ module.exports = (sequelize, DataTypes) => {
             role_id: DataTypes.INTEGER,
             token_verification: DataTypes.STRING,
             token_password: DataTypes.STRING,
-            token_edit_email: DataTypes.STRING,
             googleSignIn: { type: DataTypes.BOOLEAN, defaultValue: false },
         },
         {

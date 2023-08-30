@@ -18,6 +18,12 @@ export default function CarouselHome() {
             >
                 <SwiperSlide>
                     <img
+                        src="/images/banner-pwd.png"
+                        alt="..."
+                    />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img
                         src="/images/banner-4.png"
                         alt="..."
                     />
@@ -25,12 +31,6 @@ export default function CarouselHome() {
                 <SwiperSlide>
                     <img
                         src="/images/banner-1.png"
-                        alt="..."
-                    />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img
-                        src="/images/banner-2.png"
                         alt="..."
                     />
                 </SwiperSlide>

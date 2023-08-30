@@ -27,7 +27,6 @@ export default function ResetPassword() {
 
     const onChange = (event) => {
         const { value, name } = event.target;
-        // console.log(value);
         setInput({ ...input, [name]: value });
     };
 

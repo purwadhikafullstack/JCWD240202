@@ -150,8 +150,6 @@ export const editImageCategoryAsync =
 
             // let fd = new FormData();
             // fd.append('images', imageCategory);
-            // console.log(fd, 'masukkkk sini fd');
-            console.log(imageCategory, id);
 
             const result = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL + `/categories/images/${id}`,

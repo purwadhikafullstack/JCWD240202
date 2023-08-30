@@ -1,7 +1,7 @@
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllMutation } from '../../redux/features/mutationSlice';
+import { getAllMutation, setLoading } from '../../redux/features/mutationSlice';
 import RequestMutation from '../../components/admin/mutationManagement/requestMutationModal';
 import MutationCard from '../../components/admin/mutationManagement/mutationCard';
 import { useSearchParams } from 'react-router-dom';
@@ -98,6 +98,7 @@ export default function MutationPage() {
         }
         setSearchParams(queryParams);
         dispatch(getAllMutation(page, response, request, status, warehouse, sort, startDate, endDate));
+        return () => dispatch(setLoading(false))
     }, [page, response, request, status, warehouse, sort, startDate, endDate]);
 
     return (

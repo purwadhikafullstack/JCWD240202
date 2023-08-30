@@ -156,7 +156,7 @@ export default function Address() {
                     </>
                 ) : addresses?.length === 0 ? (
                     <div className="flex items-center justify-center py-8">
-                        <div>
+                        <div className='w-full'> 
                             <div className="flex justify-center items-center font-semibold text-xl mb-4">
                                 <h1>
                                     Oops you don't have any address yet, please

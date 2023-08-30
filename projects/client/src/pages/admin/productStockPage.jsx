@@ -8,7 +8,7 @@ import SortAdmin from '../../components/admin/sortAdmin';
 import FilterAdmin from '../../components/admin/filterAdmin';
 import FilterCategoryAdmin from '../../components/admin/filterCategoryProductAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
-import { getDataStock } from '../../redux/features/stockSlice';
+import { getDataStock, setLoading } from '../../redux/features/stockSlice';
 import TableStockManagement from '../../components/admin/stockManagement/tableStockManagement';
 import { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
@@ -69,6 +69,7 @@ export default function ProductStockPage() {
         }
         setSearchParams(queryParams);
         dispatch(getDataStock(page, search, sort, category, warehouse));
+        return () => dispatch(setLoading(false))
     }, [page, search, sort, category, warehouse]);
     
     return (

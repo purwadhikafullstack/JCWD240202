@@ -193,6 +193,7 @@ export const unassignWhAdmin =
 export const getAllDataWh =
     (page, search, sort, warehouses) => async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
             const result = await axios.get(
@@ -213,7 +214,6 @@ export const getAllDataWh =
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)));
             dispatch(setDataWh(result?.data));
         } catch (error) {
             dispatch(setLoading(false));

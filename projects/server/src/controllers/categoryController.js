@@ -39,8 +39,6 @@ module.exports = {
             const data = JSON.parse(req.body.data)
             const image = req.files?.images[0]?.filename;
 
-            console.log(data.name)
-
             if (!data.name || !image)
                 return res.status(406).send({
                     success: false,
@@ -92,9 +90,6 @@ module.exports = {
             const { id } = req.params;
             const { name } = req.body;
             // const image = req.files?.images[0]?.filename;
-            // console.log(Number(id));
-            // console.log(name);
-            // console.log(image);
 
             if (!name) {
                 // deleteSingleFile(req.files?.images[0]?.path);

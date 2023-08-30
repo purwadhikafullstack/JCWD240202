@@ -51,7 +51,7 @@ export default function Footer(props) {
 
     return (
         <>
-            <div className="border-t bg-black px-[30px] py-[30px] sm:px-[80px] sm:py-[40px] text-white">
+            <div className="border-t bg-black px-[30px] py-[30px] sm:px-[80px] sm:py-[40px] text-white mt-10">
                 <div className="md:flex justify-between items-center">
                     <div className="w-24 mb-6 sm:mb-0">
                         <img src="/logo2.png" alt="footer logo" />

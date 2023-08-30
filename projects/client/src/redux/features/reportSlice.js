@@ -8,6 +8,7 @@ const initialState = {
     productSales: null,
     chartData: null,
     totalOrder: null,
+    loading: false,
 };
 
 export const reportSlice = createSlice({
@@ -29,6 +30,9 @@ export const reportSlice = createSlice({
         setTotalOrder: (initialState, action) => {
             initialState.totalOrder = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        }
     },
 });
 
@@ -46,8 +50,12 @@ export const getTotalMonthlySalesAsync = (data) => async (dispatch) => {
                 },
             },
         );
+        setTimeout(() => {
+            dispatch(setLoading(true))
+        }, 1000);
         dispatch(setTotalSales(dataSales.data));
     } catch (error) {
+        dispatch(setLoading(false))
         toast.error(error.message);
     }
 };
@@ -66,8 +74,12 @@ export const getSalesPerCategoryAsync = (data) => async (dispatch) => {
                 },
             },
         );
+        setTimeout(() => {
+            dispatch(setLoading(true))
+        }, 1000);
         dispatch(setCategorySales(categorySales.data));
     } catch (error) {
+        dispatch(setLoading(false))
         toast.error(error.message);
     }
 };
@@ -86,8 +98,12 @@ export const getSalesPerProducts = (data) => async (dispatch) => {
                 },
             },
         );
+        setTimeout(() => {
+            dispatch(setLoading(true))
+        }, 1000);
         dispatch(setProductSales(productSales.data));
     } catch (error) {
+        dispatch(setLoading(false))
         toast.error(error.message);
     }
 };
@@ -106,8 +122,12 @@ export const getChartDataAsync = (data) => async (dispatch) => {
                 },
             },
         );
+        setTimeout(() => {
+            dispatch(setLoading(true))
+        }, 1000);
         dispatch(setChartData(getData.data));
     } catch (error) {
+        dispatch(setLoading(false))
         toast.error(error.message);
     }
 };
@@ -126,8 +146,12 @@ export const getTotalOrderAsync = (data) => async (dispatch) => {
                 },
             },
         );
+        setTimeout(() => {
+            dispatch(setLoading(true))
+        }, 1000);
         dispatch(setTotalOrder(getData.data));
     } catch (error) {
+        dispatch(setLoading(false))
         toast.error(error.message);
     }
 };
@@ -138,5 +162,6 @@ export const {
     setProductSales,
     setChartData,
     setTotalOrder,
+    setLoading
 } = reportSlice.actions;
 export default reportSlice.reducer;
