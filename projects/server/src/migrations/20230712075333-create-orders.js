@@ -19,6 +19,9 @@ module.exports = {
             payment_proof: {
                 type: Sequelize.STRING,
             },
+            is_payment_success: {
+                type: Sequelize.BOOLEAN,
+            },
             courier: {
                 type: Sequelize.STRING,
             },
