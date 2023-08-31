@@ -11,7 +11,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export default function Footer(props) {
     const { pathname } = useLocation();
     const userLogin = JSON.parse(localStorage.getItem('user'));
-    const navigate = useNavigate();
 
     const paths = ['/login', '/register', '/admins/login'];
 

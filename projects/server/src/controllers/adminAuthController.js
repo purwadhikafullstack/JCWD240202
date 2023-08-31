@@ -3,7 +3,7 @@ const db = require('../models');
 const user = db.users;
 const { sequelize } = require('./../models');
 const { hashCompare, hashPassword } = require('../lib/hashBcrypt');
-const { googleRecaptcha } = require('./../helper/recaptcha')
+const { googleRecaptcha } = require('./../helper/recaptcha');
 
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -24,6 +24,18 @@ module.exports = {
                 where: {
                     email,
                 },
+                include: [
+                    {
+                        model: db.warehouses,
+                        attributes: [
+                            'id',
+                            'user_id',
+                            'city',
+                            'city_id',
+                            'is_deleted',
+                        ],
+                    },
+                ],
             });
 
             if (!result) {
@@ -35,6 +47,14 @@ module.exports = {
             }
 
             if (result.role_id === 1) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Unauthorized!',
+                    data: null,
+                });
+            }
+
+            if (result.role_id === 2 && result.warehouse === null) {
                 return res.status(404).send({
                     success: false,
                     message: 'Unauthorized!',
@@ -98,6 +118,20 @@ module.exports = {
                 return res.status(400).send({
                     sucess: false,
                     message: "Field can't be Empty",
+                    data: null,
+                });
+            }
+
+            const checkEmail = await db.users.findOne({
+                where: {
+                    email,
+                },
+            });
+
+            if (checkEmail) {
+                return res.status(406).send({
+                    success: false,
+                    message: "Email is Already Used!",
                     data: null,
                 });
             }

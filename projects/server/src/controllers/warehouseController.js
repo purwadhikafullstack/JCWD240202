@@ -314,8 +314,8 @@ module.exports = {
                         mutation_id: mutationId[index],
                         user_id: id,
                         warehouse_id: 3,
-                        type_id: 3,
-                        information_id: 1,
+                        type_id: 1,
+                        information_id: 3,
                     };
                 },
             );
@@ -336,8 +336,8 @@ module.exports = {
                         mutation_id: mutationId[index],
                         user_id: id,
                         warehouse_id: findWh.id,
-                        type_id: 3,
-                        information_id: 2,
+                        type_id: 2,
+                        information_id: 3,
                     };
                 },
             );

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
