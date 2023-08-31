@@ -195,8 +195,8 @@ export default function StockLogPage() {
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">User</th>
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Quantity</th>
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Warehouse</th>
-                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Type</th>
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Information</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>

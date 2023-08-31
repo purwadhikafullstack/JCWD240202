@@ -144,6 +144,7 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                                                 selected?.product_stocks[0]?.id,
                                                 reduceQty,
                                                 params,
+                                                selected?.product_stocks[0]?.stock
                                             ),
                                         );
                                     }}
