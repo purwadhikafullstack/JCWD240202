@@ -127,10 +127,10 @@ export const modifyQuantityAsync = (data) => async (dispatch) => {
 };
 
 export const getNewItemsAsync = () => async (dispatch) => {
-    const getUser = localStorage.getItem('user')
-        ? JSON.parse(localStorage?.getItem('user'))
-        : null;
     try {
+        const getUser = localStorage.getItem('user')
+            ? JSON.parse(localStorage?.getItem('user'))
+            : null;
         const newItem = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/carts/newest`,
             {
