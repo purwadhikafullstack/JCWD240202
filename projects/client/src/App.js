@@ -39,6 +39,7 @@ import NotLoginRoute from './components/admin/protectedRoute/notLoginRoute';
 import { useEffect } from 'react';
 import { getDataLogin } from './redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import AboutUs from './pages/user/aboutUs';
 
 function App() {
     const dispatch = useDispatch();
@@ -123,6 +124,7 @@ function App() {
                         />
                     }
                 />
+                <Route path="/about" element={<NotLoginRoute component={<AboutUs/>} dataLogin={dataLogin}/>}/>
 
                 {/* User Login */}
                 <Route

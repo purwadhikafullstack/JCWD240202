@@ -165,7 +165,21 @@ export default function Navbar(props) {
                         <div>Products</div>
                     </button>
                     <div>Categories</div>
-                    <div>About</div>
+                    <button
+                        className={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                                ? 'cursor-not-allowed'
+                                : ''
+                        }
+                        onClick={() => navigate('/about')}
+                        disabled={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                        }
+                    >
+                        <div>About</div>
+                    </button>
                 </div>
                 {/* right side => account, cart, wishlist */}
                 <div className="flex items-center z-[999]">
@@ -189,7 +203,7 @@ export default function Navbar(props) {
                                             : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'
                                     }
                                     rounded
-                                    className='object-fill'
+                                    className="object-fill"
                                 />
                             </label>
                             <ul
@@ -352,7 +366,16 @@ export default function Navbar(props) {
                     </div>
                 </button>
                 <div>Categories</div>
-                <div>About</div>
+                <button className="text-left">
+                    <div
+                        onClick={() => {
+                            setShowBurger(!showBurger);
+                            navigate('/about');
+                        }}
+                    >
+                        About
+                    </div>
+                </button>
             </div>
         </div>
     );

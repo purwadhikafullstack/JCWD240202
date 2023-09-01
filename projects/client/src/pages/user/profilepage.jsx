@@ -53,18 +53,18 @@ export default function ProfilePage() {
     const onChangeProfilePic = (e) => {
         try {
             if (e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpeg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'png') {
-                setImagePreview(null);
+                setImagePreview('');
                 throw { message: 'Format file must jpg, jpeg, or png' };
             }
 
             if (e.target.files[0]?.size >= 1000000) {
-                setImagePreview(null);
+                setImagePreview('');
                 throw { message: 'File size max 1 Mb!' };
             }
 
             const reader = new FileReader();
             const selectedFile = e.target.files[0];
-
+            
             if (selectedFile) {
                 reader.readAsDataURL(selectedFile);
             }
@@ -72,7 +72,7 @@ export default function ProfilePage() {
             reader.onload = (readerEvent) => {
                 setImagePreview(readerEvent.target.result);
             };
-
+            
             return setUpdateProfilePic(e.target.files[0]);
         } catch (error) {
             if (error.response) {
@@ -223,7 +223,7 @@ export default function ProfilePage() {
                                                 <img
                                                     src={imagePreview ? imagePreview : dataLogin?.profile_picture.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + dataLogin?.profile_picture : dataLogin?.profile_picture}
                                                     alt="profile_picture"
-                                                    className="object-cover rounded-lg"
+                                                    className="object-cover max-w-[275px] rounded-lg"
                                                 />
                                             ) : (
                                                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png" alt="profile_picture" className="object-cover rounded-lg"/>
@@ -235,9 +235,8 @@ export default function ProfilePage() {
                                                     <input
                                                         type="file"
                                                         className="hidden"
-                                                        onChange={
-                                                            onChangeProfilePic
-                                                        }
+                                                        value=''
+                                                        onChange={onChangeProfilePic}
                                                     />
                                                     <p>Edit Photo</p>
                                                 </label>
@@ -255,10 +254,7 @@ export default function ProfilePage() {
                                                             Save
                                                         </button>
                                                         <button
-                                                            onClick={() =>
-                                                                setImagePreview(
-                                                                    '',
-                                                                )
+                                                            onClick={() => {setImagePreview(''); setUpdateProfilePic('')}
                                                             }
                                                             className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm w-full"
                                                         >

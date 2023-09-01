@@ -64,6 +64,7 @@ export const addQuantity =
         try {
             const token = JSON.parse(localStorage?.getItem('user'));
             dispatch(setDisabledButton(true));
+            
             const addStock = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL +
                     `/stocks/add/${product_stock_id}`,
