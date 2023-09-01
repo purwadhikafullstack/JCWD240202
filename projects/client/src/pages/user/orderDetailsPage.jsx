@@ -56,7 +56,7 @@ export default function OrderDetailsPage() {
             });
 
             targetFiles.map((value) => {
-                if (value.size > 100000000)
+                if (value.size > 1000000)
                     throw {
                         message: `Image is Too Large`,
                     };

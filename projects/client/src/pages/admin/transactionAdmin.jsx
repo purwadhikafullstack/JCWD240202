@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import FilterAdmin from '../../components/admin/filterAdmin';
-import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import StatusBar from '../../components/admin/transaction/statusBarTransaction';
 import TransactionCard from '../../components/admin/transaction/transactionCard';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +14,7 @@ import ModalTransactionDetail from '../../components/admin/transaction/modalTran
 import { Helmet } from 'react-helmet';
 import ModalConfirmTransaction from '../../components/admin/product/modalConfirmTransaction';
 import { Toaster } from 'react-hot-toast';
+import SearchTransaction from '../../components/admin/transaction/searchTransaction';
 
 export default function TransactionAdmin() {
     const dispatch = useDispatch();
@@ -26,8 +26,8 @@ export default function TransactionAdmin() {
         searchParams.get('warehouse') || '',
     );
     const [search, setSearch] = useState(searchParams.get('search') || '');
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
     const [statusId, setStatus] = useState(
         searchParams.get('statusId') || null,
     );
@@ -75,13 +75,13 @@ export default function TransactionAdmin() {
     };
     const handleConfirm = () => {
         if (funcConfirm === 4) {
-            dispatch(cancelShipping(valueConfirm))
+            dispatch(cancelShipping(valueConfirm, page, warehouse, search, startDate, endDate, statusId, sort))
         } else if (funcConfirm === 3) {
-            dispatch(sendUserOrder(valueConfirm))
+            dispatch(sendUserOrder(valueConfirm, page, warehouse, search, startDate, endDate, statusId, sort))
         } else if (funcConfirm === 2) {
-            dispatch(cancelConfirmPaymentAsync(valueConfirm))
+            dispatch(cancelConfirmPaymentAsync(valueConfirm, page, warehouse, search, startDate, endDate, statusId, sort))
         } else if (funcConfirm === 1) {
-            dispatch(confirmPaymentAsync(valueConfirm))
+            dispatch(confirmPaymentAsync(valueConfirm, page, warehouse, search, startDate, endDate, statusId, sort))
         }
     }
     useEffect(() => {
@@ -132,7 +132,7 @@ export default function TransactionAdmin() {
                     <div className="font-bold text-2xl mt-2">Transaction</div>
                     <div className="my-3 p-2">
                         <div className="flex justify-between">
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex items-center flex-wrap gap-2">
                                 {transaction.roleId === 3 ? (
                                     <FilterAdmin
                                         data={{ warehouseChange, warehouse }}
@@ -145,9 +145,10 @@ export default function TransactionAdmin() {
                                         endDate,
                                     }}
                                 />
-                                <SearchBarAdmin
+                                <SearchTransaction
                                     data={{ searchChange, search }}
                                 />
+                                <button onClick={reset} className='hover:underline text-xs text-[#2296f3]'>Reset Filter</button>
                             </div>
                             <div className="">
                                 <DropdownSort data={{ handleSort, sort }} />

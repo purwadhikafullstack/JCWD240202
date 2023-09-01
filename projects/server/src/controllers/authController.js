@@ -175,6 +175,7 @@ module.exports = {
             const result = await user.findOne({
                 where: {
                     email,
+                    role_id: 1,
                 },
             });
             if (!result)
@@ -355,7 +356,6 @@ module.exports = {
             const uid = req.User.id;
             const verified = req.User.is_verified
             const link = req.User.link
-            console.log('inii linkkkkk', link)
             const userCheck = await user.findOne({
                 where: {
                     id: uid
@@ -392,11 +392,9 @@ module.exports = {
     const t = await sequelize.transaction();
         try {
             const {data} = req.body
-            console.log('data', data.email)
             const checkUser = await user.findOne({
                 where: {email: data.email, googleSignIn: true}
             })
-            console.log('checkUser', checkUser)
             if (!checkUser) {
                 const createUser = await user.create({
                     email: data.email,
@@ -406,7 +404,6 @@ module.exports = {
                     role_id: 1,
                     googleSignIn: true
                 }, { transaction: t })
-                console.log('createUser', createUser)
                 let payload = {
                     id: createUser.id,
                     email: createUser.email,

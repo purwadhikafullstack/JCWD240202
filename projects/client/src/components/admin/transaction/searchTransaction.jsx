@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useEffect, useRef } from 'react';
 
-export default function SearchBar(props) {
+export default function SearchTransaction(props) {
     const _search = useRef();
+
     const handleSearch = () => {
-        const search = _search.current.value;
-        props?.data?.searchChange(search);
+        props?.data?.searchChange(_search.current.value);
     };
 
     useEffect(() => {
@@ -13,20 +13,20 @@ export default function SearchBar(props) {
     }, [props.data?.search]);
 
     return (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center sm:mb-0 mb-2">
             <div>
                 <input
                     type="text"
-                    placeholder="Search"
-                    className="input input-bordered w-full max-w-xs h-[45px]"
+                    placeholder="Search invoice"
+                    className="input input-bordered w-full max-w-[150px] h-9"
                     ref={_search}
                 />
             </div>
             <div
                 onClick={handleSearch}
-                className="border p-2 rounded-lg bg-sky-700 text-yellow-300 hover:cursor-pointer"
+                className="border p-2 rounded-lg bg-[#0051BA] text-yellow-300 hover:cursor-pointer"
             >
-                <AiOutlineSearch size={25} />
+                <AiOutlineSearch size={18} />
             </div>
         </div>
     );

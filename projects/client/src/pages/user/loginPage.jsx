@@ -3,13 +3,12 @@ import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, loginGoogleAsync } from '../../redux/features/authSlice';
-import { useNavigate, Link, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import {FcGoogle} from 'react-icons/fc'
 import { Helmet } from 'react-helmet';
 
 export default function LoginPage() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(true);
     const [input, setInput] = useState({
@@ -33,9 +32,6 @@ export default function LoginPage() {
                 email: '',
                 password: '',
             });
-            // setTimeout(() => {
-            //     window.history.back()
-            // }, 1000);
         }
     };
 
@@ -56,8 +52,6 @@ export default function LoginPage() {
             }
         }
     }
-
-    console.log(window.history.length, 'testttttt')
 
     return (
         <>
@@ -140,7 +134,7 @@ export default function LoginPage() {
                                 dispatch(login(input.email, input.password))
                             }
                             type="submit"
-                            className="mt-4 bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
+                            className="mt-4 bg-[#0051BA] border border-[#0051BA] hover:bg-[#d7d9db] rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
                             disabled={
                                 !input.email ||
                                 !input.password ||
@@ -152,9 +146,11 @@ export default function LoginPage() {
                         </button>
                         <div className='flex flex-col items-center'>
                             <div className='text-xs my-2 text-slate-500'>OR</div>
-                            <div onClick={()=>dispatch(loginGoogleAsync())} className='flex flex-row items-center border rounded-full p-2 cursor-pointer hover:bg-[#d7d9db]'>
-                                <FcGoogle size={24} className=''/>
-                                {/* <div className='text-xs ml-2'>Google</div> */}
+                            <div onClick={()=>dispatch(loginGoogleAsync())} className=' w-full flex justify-center border border-[#0051BA] bg-[#0051BA] rounded-full p-1 cursor-pointer hover:bg-[#d7d9db]'>
+                                <FcGoogle size={26} className='' />
+                                <div className='flex items-center'>
+                                <div className='text-xs ml-2 text-white'>Google</div>
+                                </div>
                             </div>
                         </div>
                         <div className='flex justify-center'>

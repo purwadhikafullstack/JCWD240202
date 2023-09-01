@@ -7,8 +7,6 @@ import { auth } from '../../firebase/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 const provider = new GoogleAuthProvider();
 
-
-
 const initialState = {
     auth: null,
     isLogin: false,
@@ -156,7 +154,6 @@ export const resetPassword = (password, confirmPassword, token) => async (dispat
                 dispatch(setAuth("Password doesn't match"));
                 throw new Error("Password doesn't match");
             }
-            console.log('masukkkkkkkk');
             const result = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL + '/auth/forgot-password',
                 {
@@ -205,11 +202,9 @@ export const expiredLink = (token) => async (dispatch) => {
 export const loginGoogleAsync = () => async (dispatch) => {
     try {
 		const response = await signInWithPopup(auth, provider);
-        console.log(response.user.providerData[0])
         const result = await axios.post(process.env.REACT_APP_API_BASE_URL + '/auth/login-google', {
             data: response.user.providerData[0]
         })
-        console.log('resulllttttttt', result)
         dispatch(setIsLogin(result.data.success));
         localStorage.setItem('user', JSON.stringify(result.data.data.token));
         toast.success(result.data.message);

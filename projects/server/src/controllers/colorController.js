@@ -64,7 +64,6 @@ module.exports = {
         }
     },
     deleteColor: async (req, res) => {
-        // const t = await sequelize.transaction();
         try {
             const { id } = req.params;
             const colorCheck = await db.products.findOne({
@@ -79,14 +78,12 @@ module.exports = {
             const result = await color.destroy({
                 where: { id },
             });
-            // await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Delete color success!',
                 data: result,
             });
         } catch (error) {
-            // await t.rollback();
             return res.status(500).send({
                 success: false,
                 message: error.message,

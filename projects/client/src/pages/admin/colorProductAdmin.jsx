@@ -39,8 +39,6 @@ export default function ColorProductAdmin() {
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex justify-between items-center w-full mb-4">
                                 <div className="flex">
-                                    {/* <FilterButton data={{ categoryChange }} />
-                                    <SortButton data={{ sortChange }} /> */}
                                 </div>
                                 <button
                                     onClick={() => setOpenModalAdd(true)}
@@ -48,7 +46,6 @@ export default function ColorProductAdmin() {
                                 >
                                     + ADD NEW COLOR
                                 </button>
-                                {/* <SearchBar data={{ searchChange }} /> */}
                             </div>
                             <div className="relative overflow-x-auto shadow-m rounded-lg">
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -84,13 +81,6 @@ export default function ColorProductAdmin() {
                                     </tbody>
                                 </table>
                                 <div className="pt-9 flex justify-center">
-                                    {/* <PaginationButton
-                                        data={{
-                                            totalPage: products?.totalPage,
-                                            page,
-                                            pageChange,
-                                        }}
-                                    /> */}
                                 </div>
                             </div>
                         </div>

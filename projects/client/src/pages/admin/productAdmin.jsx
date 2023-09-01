@@ -72,6 +72,12 @@ export default function ProductAdmin() {
         );
     };
 
+    const reset = () => {
+        setSearch('')
+        setPage('')
+        setCategory('')
+    }
+
     useEffect(() => {
         let queryParams = {};
         if (page) {
@@ -119,11 +125,12 @@ export default function ProductAdmin() {
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex flex-col md:flex-row justify-between md:items-center w-full mb-4">
                                 <div className="flex flex-col md:flex-row gap-2 md:items-center">
-                                    <SearchBar data={{ searchChange }} />
+                                    <SearchBar data={{ searchChange, search }} />
                                     <FilterButton
                                         data={{ categoryChange, category }}
                                     />
                                     <SortButton data={{ sortChange, sort }} />
+                                <button onClick={reset} className='hover:underline text-xs text-[#2296f3]'>Reset Filter</button>
                                 </div>
                                 <button
                                     onClick={() => setOpenModal(true)}
@@ -160,12 +167,6 @@ export default function ProductAdmin() {
                                             >
                                                 Category
                                             </th>
-                                            {/* <th
-                                            scope="col"
-                                            className="px- py-3 border-r text-center"
-                                        >
-                                            color
-                                        </th> */}
                                             <th
                                                 scope="col"
                                                 className="px- py-3 border-r text-center"

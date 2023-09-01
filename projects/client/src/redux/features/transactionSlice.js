@@ -45,7 +45,6 @@ export const allTransactionAsync = (page, warehouse, search, startDate, endDate,
                     },
                 },
             );
-
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
@@ -57,7 +56,7 @@ export const allTransactionAsync = (page, warehouse, search, startDate, endDate,
         }
     };
 
-export const confirmPaymentAsync = (cartId) => async (dispatch) => {
+export const confirmPaymentAsync = (cartId, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(
@@ -71,7 +70,7 @@ export const confirmPaymentAsync = (cartId) => async (dispatch) => {
                 },
             },
         );
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -109,7 +108,7 @@ export const confirmPaymentAsync = (cartId) => async (dispatch) => {
     }
 };
 
-export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
+export const cancelConfirmPaymentAsync = (order_id, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -123,7 +122,7 @@ export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
                 },
             },
         );
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -143,7 +142,7 @@ export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
     }
 }
 
-export const sendUserOrder = (order_id) => async (dispatch) => {
+export const sendUserOrder = (order_id, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(process.env.REACT_APP_API_BASE_URL + '/transactions/confirmation-shipping',
@@ -154,7 +153,7 @@ export const sendUserOrder = (order_id) => async (dispatch) => {
                 authorization: `Bearer ${dataLogin}`,
             },
         },)
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -174,7 +173,7 @@ export const sendUserOrder = (order_id) => async (dispatch) => {
     }
 }
 
-export const cancelShipping = (order_id) => async (dispatch) => {
+export const cancelShipping = (order_id, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(process.env.REACT_APP_API_BASE_URL + '/transactions/cancel-shipping',
@@ -185,7 +184,7 @@ export const cancelShipping = (order_id) => async (dispatch) => {
                 authorization: `Bearer ${dataLogin}`,
             },
         },)
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,

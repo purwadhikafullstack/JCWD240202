@@ -24,8 +24,6 @@ export default function ModalTransactionDetail(props) {
                         confirm={props?.confirm}
                     />
                 </Modal.Body>
-                {/* <Modal.Footer>
-                </Modal.Footer> */}
             </Modal>
         </>
     );

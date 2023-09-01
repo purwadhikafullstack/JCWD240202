@@ -2,7 +2,7 @@
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams, Navigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { expiredLink, verification } from '../../redux/features/authSlice';
 import { Helmet } from 'react-helmet';
@@ -214,12 +214,6 @@ export default function VerificationPage() {
                         >
                             Confirm
                         </button>
-                        {/* <Link
-                            to="/register"
-                            className="text-[#0258a3] text-center my-5 text-[15px] hover:text-black cursor-pointer"
-                        >
-                            Register a new account
-                        </Link> */}
                     </div>
                 </div>
             </div>

@@ -13,7 +13,6 @@ export default function RegisterPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [isAgree, setIsAgree] = useState(false);
-    // const [loading, setLoading] = useState(false);
 
     const userLogin = JSON.parse(localStorage.getItem('user'));
 
@@ -47,8 +46,6 @@ export default function RegisterPage() {
                 </div>
             ));
             navigate('/');
-            // setTimeout(() => {
-            // },1000);
         }
     };
 
@@ -140,7 +137,7 @@ export default function RegisterPage() {
                         <button
                             onClick={() => dispatch(register(email))}
                             type="submit"
-                            className="bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
+                            className="bg-[#0051BA] border border-[#0051BA] hover:bg-[#d7d9db] rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
                             disabled={
                                 !email ||
                                 !email.includes('@') ||
@@ -153,8 +150,7 @@ export default function RegisterPage() {
                         <div className='flex justify-center'>
                         <Link
                             to="/login"
-                            className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"
-                            
+                            className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"                         
                         >
                             Have an account? Login here
                         </Link>

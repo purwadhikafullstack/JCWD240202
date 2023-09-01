@@ -2,11 +2,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import CardDetail from './cardTransactionDetail';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-    cancelConfirmPaymentAsync,
-    confirmPaymentAsync,
-    transactionHistory,
-} from '../../../redux/features/transactionSlice';
+import { transactionHistory } from '../../../redux/features/transactionSlice';
 import History from './history';
 
 export default function DataDetail(props) {
@@ -128,26 +124,12 @@ export default function DataDetail(props) {
                                     2 ? (
                                         <div className="flex justify-center mt-3">
                                             <button
-                                                // onClick={() =>
-                                                //     dispatch(
-                                                //         confirmPaymentAsync(
-                                                //             value.cart_id,
-                                                //         ),
-                                                //     )
-                                                // }
                                                 onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(1); props.confirm?.setValueConfirm(value.cart_id)}}
                                                 className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
                                             >
                                                 Confirm
                                             </button>
                                             <button
-                                                // onClick={() =>
-                                                //     dispatch(
-                                                //         cancelConfirmPaymentAsync(
-                                                //             value.id,
-                                                //         ),
-                                                //     )
-                                                // }
                                                 onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
                                                 className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 ml-2"
                                             >
@@ -216,15 +198,6 @@ export default function DataDetail(props) {
                                         {value?.shipping_method}
                                     </div>
                                 </div>
-                                {/* <div className="flex">
-                                    <div className="w-28 text-slate-500">
-                                        No Receipt
-                                    </div>
-                                    <div>
-                                        <span className="mr-4">:</span>
-                                        {value?.receipt}
-                                    </div>
-                                </div> */}
                                 <div className="flex">
                                     <div className="w-28 text-slate-500">
                                         Address
@@ -288,8 +261,6 @@ export default function DataDetail(props) {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* <div className="border flex-auto">kanan</div> */}
                         </div>
                     );
                 }

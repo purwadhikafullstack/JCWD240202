@@ -1,16 +1,15 @@
 import { useSelector } from 'react-redux';
-import { FaLocationDot } from 'react-icons/fa6';
+import { TbPointFilled } from 'react-icons/tb';
 
 export default function History() {
     const data = useSelector((state) => state.transaction.history);
     return (
         <>
             <div className="border rounded-md mb-3 p-2">
-                {/* <div className="border-l border-dotted border-[#8d96aa] h-4/5 mt-3 left-[238px] absolute"></div> */}
                 {data.length >= 1
                     ? data?.map((value, index) => {
                           return (
-                              <div key={index} className="flex mt-1">
+                              <div key={index} className="flex">
                                   <div className="w-[219px] text-slate-600">
                                       {[
                                           new Date(value?.createdAt)
@@ -21,24 +20,27 @@ export default function History() {
                                       ]}
                                   </div>
                                   <div className="flex items">
-                                      <div>
-                                          <FaLocationDot
-                                              className={`ml-1 mt-1 ${
-                                                  value.is_active
-                                                      ? 'text-black'
-                                                      : 'text-[#8d96aa]'
-                                              }`}
-                                          />
+                                      <div className='flex relative z-0'>
+                                          <div>
+                                              <TbPointFilled 
+                                                  className={`ml-1 mt-1 ${
+                                                      value.is_active
+                                                          ? 'text-black'
+                                                          : 'text-[#8d96aa]'
+                                                  }`}
+                                              />
+                                          </div>
+                                          <div className="-z-10 border border-dashed border-[#8d96aa] absolute h-full left-[11px]"></div>
                                       </div>
                                       <div className="ml-2">
                                           <div className="font-semibold ">
                                               {value?.status?.label}
                                           </div>
-                                          <div className="w-[300px] text-slate-500 text-sm">
+                                          <div className="w-[150px] md:w-[300px] text-slate-500 text-sm">
                                               {value.status_id === 1
                                                   ? 'Customer checkout the order'
                                                   : value.status_id === 2
-                                                  ? 'Customer has made a payment '
+                                                  ? 'Customer has made a payment and waiting confirmation by admin'
                                                   : value.status_id === 3
                                                   ? 'Payment has been confirmed by admin and the order is being processed'
                                                   : value.status_id === 4
@@ -47,7 +49,8 @@ export default function History() {
                                                   ? 'Order has been received by customer'
                                                   : value.status_id === 6
                                                   ? 'Order has been canceled'
-                                                  : ''}
+                                                  : value.status_id === 2 && value.is_rejected === true
+                                                  ? 'Order has been canceled by admin due to payment error' : ''}
                                           </div>
                                       </div>
                                   </div>

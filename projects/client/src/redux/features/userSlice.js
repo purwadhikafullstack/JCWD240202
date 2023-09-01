@@ -30,7 +30,11 @@ export const getDataLogin = () => async (dispatch) => {
 
         dispatch(setDataLogin(dataUser?.data?.data));
     } catch (error) {
-        toast.error(error.message);
+        if (error.response) {
+            toast.error(error.response.data.message)
+            localStorage.removeItem('user');
+        }
+        console.log(error.message);
     }
 };
 

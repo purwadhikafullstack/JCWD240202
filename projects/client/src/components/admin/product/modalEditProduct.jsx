@@ -160,6 +160,7 @@ export default function ModalEditProduct(props) {
                                 onChange={onChangeProductImg}
                                 type="file"
                                 multiple="multiple"
+                                value=''
                                 className="my-1 rounded-md hidden"
                             ></input>
                             <p>Upload Images</p>

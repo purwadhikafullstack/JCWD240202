@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { GrCatalog } from 'react-icons/gr';
 import { BiCategory } from 'react-icons/bi';
 import { VscSymbolColor } from 'react-icons/vsc';
 import {MdOutlineCategory} from 'react-icons/md'

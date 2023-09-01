@@ -117,7 +117,6 @@ export const addProductAsync = (data, imageProduct) => async (dispatch) => {
         imageProduct.forEach((value) => {
             fd.append('images', value);
         });
-        console.log(fd);
 
         const result = await axios.post(
             process.env.REACT_APP_API_BASE_URL + '/products',
