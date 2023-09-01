@@ -20,6 +20,8 @@ const stockHistoryRouter = require('./stockHistoryRouter');
 const reportRouter = require('./reportRouter');
 const wishlistRouter = require('./wishlistRouter');
 const reviewRouter = require('./reviewRouter');
+const notificationRouter = require('./notificationRouter');
+const dashboardRouter = require('./dashboardRouter')
 
 module.exports = {
     rajaOngkirRouter,
@@ -44,4 +46,6 @@ module.exports = {
     reportRouter,
     wishlistRouter,
     reviewRouter,
+    notificationRouter,
+    dashboardRouter
 };

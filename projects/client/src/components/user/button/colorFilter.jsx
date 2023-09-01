@@ -52,6 +52,11 @@ export default function ColorFilter(props) {
                                         handleColor(`${value.id},${value.name}`)
                                     }
                                     value={`${value.id},${value.name}`}
+                                    defaultChecked={
+                                        value?.name === props?.state?.colorName
+                                            ? true
+                                            : false
+                                    }
                                 />
                                 <Label>
                                     <div className="flex gap-2 items-center">

@@ -12,7 +12,7 @@ export default function AboutUs() {
     return (
         <>
             {loading ? (
-                <div className="w-full">
+                <div className="w-full mb-8">
                     <div className="relative flex justify-center items-center mb-8">
                         <div className="w-full bg-black">
                             <img
@@ -30,7 +30,7 @@ export default function AboutUs() {
                             />
                         </div>
                     </div>
-                    <div className="w-full flex justify-center">
+                    <div className="w-full flex justify-center py-8">
                         <div className="md:w-[85%] flex xl:flex-row flex-col jusitfy-center items-center gap-8">
                             <div className="flex-2">
                                 <img

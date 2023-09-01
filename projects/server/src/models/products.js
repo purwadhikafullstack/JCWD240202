@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
             category_id: { type: DataTypes.INTEGER, allowNull: true },
             color_id: DataTypes.INTEGER,
             price: DataTypes.INTEGER,
-            description: DataTypes.STRING,
+            description: DataTypes.STRING(500),
             length: DataTypes.INTEGER,
             width: DataTypes.INTEGER,
             height: DataTypes.INTEGER,

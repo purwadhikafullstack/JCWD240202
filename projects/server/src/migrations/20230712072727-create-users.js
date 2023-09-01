@@ -37,10 +37,17 @@ module.exports = {
                 type: Sequelize.INTEGER,
             },
             token_verification: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(500),
             },
             token_password: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(500),
+            },
+            googleSignIn: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false,
+            },
+            birth_date: {
+                type: Sequelize.DATE
             },
             createdAt: {
                 allowNull: false,

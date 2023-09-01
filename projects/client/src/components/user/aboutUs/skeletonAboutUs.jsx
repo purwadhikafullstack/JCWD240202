@@ -1,11 +1,11 @@
 export default function SkeletonAboutUs() {
     return (
         <>
-            <div className="w-full animate-pulse">
+            <div className="w-full animate-pulse mb-8">
                 <div className="relative flex justify-center items-center mb-12">
                     <div className="w-full h-[350px] bg-gray-300 dark:bg-gray-700"></div>
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center py-8">
                     <div className="md:w-[85%] flex xl:flex-row flex-col jusitfy-center items-center gap-8">
                         <div className="flex-2 bg-gray-300 rounded-lg">
                             <img

@@ -25,24 +25,24 @@ export default function CartTable(props) {
             {props.data.value.product.total_stock === 0
                 ? props.data?.setUnavailableProduct(true)
                 : ''}
-            <div className="h-[205px] mt-4 pb-4 flex border-b relative">
+            <div className="lg:h-[205px] mt-4 pb-4 flex border-b relative">
                 <Toaster />
-                <div className="flex-2">
+                <div className="flex-2 max-md:hidden">
                     <img
                         src={props.data.value.image}
                         alt="..."
                         className="h-[200px] w-[200px]"
                     />
                 </div>
-                <div className=" flex-1 px-9 py-2 relative flex flex-col gap-2">
-                    <div className="font-bold text-xl">
+                <div className=" flex-1 md:px-9 py-2 relative flex flex-col gap-2">
+                    <div className="font-bold sm:text-xl max-sm:text-lg">
                         {props.data.value.product_name}
                     </div>
                     <div>{props.data.value.product.category.name}</div>
                     <div className="font-bold">
                         Rp {props.data.value.price.toLocaleString('ID-id')}
                     </div>
-                    <div className="absolute bottom-0">
+                    <div className="absolute bottom-0 max-md:hidden">
                         <div className="text-sm">
                             Weight : {props.data.value.product.weight / 1000} kg
                         </div>
@@ -97,7 +97,7 @@ export default function CartTable(props) {
 
                 {props?.data?.value?.product?.total_stock === 0 ? (
                     <>
-                        <div className="flex-2 w-[200px] flex flex-col items-center justify-center text-xl font-bold">
+                        <div className="md:flex-2 w-[200px] flex flex-col items-center justify-center text-xl font-bold">
                             <div className=" line-through">
                                 Rp{' '}
                                 {(
@@ -121,7 +121,7 @@ export default function CartTable(props) {
                     </>
                 ) : (
                     <>
-                        <div className="flex-2 w-[200px] flex items-center justify-center text-xl font-bold">
+                        <div className="flex-1 w-[200px] flex items-center justify-center sm:text-xl max-sm:text-md font-bold">
                             Rp{' '}
                             {(
                                 props.data.value.price *

@@ -17,6 +17,17 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
+            expired: {
+                type: Sequelize.DATE,
+            },
+            is_rejected: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false,
+            },
+            is_active: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: true,
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,

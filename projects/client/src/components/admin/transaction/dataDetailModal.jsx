@@ -15,7 +15,7 @@ export default function DataDetail(props) {
     const [isZoomed, setIsZoomed] = useState(false);
     const [idZoom, setIdZoom] = useState('');
     return (
-        <>
+        <>{console.log('props ========>', props?.detailId, '==<><><', props?.data?.data?.rows)}
             {props?.data?.data?.rows?.map((value, index) => {
                 if (value?.cart_id === props?.detailId) {
                     return (
@@ -148,7 +148,8 @@ export default function DataDetail(props) {
                                                 //         ),
                                                 //     )
                                                 // }
-                                                onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
+                                                // onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
+                                                onClick={() => {props?.notification?.showNotificationModal(); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
                                                 className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 ml-2"
                                             >
                                                 Reject
