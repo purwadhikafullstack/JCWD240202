@@ -9,9 +9,7 @@ export default function OrderSummary(props) {
     return (
         <>
             <div
-                className={`border h-[600px] w-[500px] mt-9 rounded-2xl shadow-xl relative ${
-                    choosePayment === true ? 'h-[550px]' : 'h-max'
-                }`}
+                className={`border h-max md:w-[500px] max-md:w-full mt-9 rounded-2xl shadow-xl relative`}
             >
                 <div className="font-bold text-lg p-4 border-b bg-gray-200 rounded-t-2xl">
                     Order Summary
@@ -86,30 +84,19 @@ export default function OrderSummary(props) {
                                     onClick={() => {
                                         setChoosePayment(!choosePayment);
                                     }}
+                                    onChange={(e) => {}}
                                     checked={
-                                        choosePayment === true ? true : false
+                                        choosePayment
                                     }
+                                    className='hover:cursor-pointer'
                                 ></Radio>
                                 <Label className="text-md">Bank Transfer</Label>
-                            </div>
-                        </div>
-                        <div className="flex gap-4 items-center">
-                            <div
-                                className={`w-max p-2 ${
-                                    choosePayment === true ? '' : 'hidden'
-                                }`}
-                            >
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/BANK_BRI_logo_%28vertical%29.svg/1200px-BANK_BRI_logo_%28vertical%29.svg.png"
-                                    alt="payment_image"
-                                    className="w-[90px] h-[60px]"
-                                />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div
-                    className={`w-full absolute bottom-0 p-4 bg-gray-200 ${
+                    className={`w-full p-4 bg-gray-200 ${
                         choosePayment === true ? '' : 'hidden'
                     }`}
                 >

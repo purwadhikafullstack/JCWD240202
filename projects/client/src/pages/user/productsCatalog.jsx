@@ -37,6 +37,7 @@ export default function ProductsCatalog() {
 
     const categoryChange = (category) => {
         setCategory(category);
+        setPage(1);
     };
 
     const sortChange = (sortCat) => {
@@ -109,8 +110,8 @@ export default function ProductsCatalog() {
                 }`}
             >
                 <div className="font-bold text-4xl">All Products</div>
-                <div className="flex justify-between pt-9">
-                    <div className="flex flex-1 gap-9 w-full">
+                <div className="flex md:flex-row min-[0px]:flex-col min-[0px]:gap-4 justify-between pt-9">
+                    <div className="flex flex-1 gap-9 w-full min-[0px]:order-last md:order-none">
                         <Button
                             onClick={() => {
                                 showFilter === false
@@ -145,9 +146,7 @@ export default function ProductsCatalog() {
                         showFilter === false ? 'hidden' : ''
                     } flex gap-4 mt-4 p-4 border`}
                 >
-                    <FilterButton
-                        data={{ categoryChange, setPage, category }}
-                    />
+                    <FilterButton data={{ categoryChange, category }} />
                     <ColorFilter
                         state={{
                             setColorName,
@@ -158,7 +157,7 @@ export default function ProductsCatalog() {
                     />
                 </div>
                 {productLists?.data?.rows?.length !== 0 ? (
-                    <div className=" flex gap-6 flex-wrap pt-12">
+                    <div className=" flex max-sm:flex-col gap-6 flex-wrap pt-12">
                         {productLists?.data?.rows?.map((value, index) => {
                             if (loading) {
                                 return (

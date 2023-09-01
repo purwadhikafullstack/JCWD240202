@@ -6,7 +6,7 @@ export default function ChosenAddress(props) {
                     {props?.data?.chosenAddress?.data?.receiver_name}
                 </div>
                 <div>{props?.data?.chosenAddress?.data?.receiver_number}</div>
-                <div className="w-[500px] flex wrap">
+                <div className="md:w-[500px] flex wrap">
                     {props?.data?.chosenAddress?.data?.street},{' '}
                     {props?.data?.chosenAddress?.data?.subdistrict},{' '}
                     {props?.data?.chosenAddress?.data?.city},{' '}

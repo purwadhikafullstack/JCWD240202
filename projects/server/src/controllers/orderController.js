@@ -248,6 +248,7 @@ const postUserPaymentProof = async (req, res) => {
 };
 
 const userCancelOrder = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { order_id } = req.body;
@@ -265,16 +266,20 @@ const userCancelOrder = async (req, res) => {
                 },
             });
             if (getStatus) {
-                const cancelOrder = await order_statuses.create({
-                    order_id: findOrder.id,
-                    status_id: 6,
-                    is_active: true,
-                });
+                const cancelOrder = await order_statuses.create(
+                    {
+                        order_id: findOrder.id,
+                        status_id: 6,
+                        is_active: true,
+                    },
+                    { transaction: t },
+                );
                 const updatePrev = await order_statuses.update(
                     {
                         is_active: false,
                     },
                     { where: { id: getStatus.id } },
+                    { transaction: t },
                 );
 
                 const updateStock = findOrder.cart.cart_products.map(
@@ -291,23 +296,17 @@ const userCancelOrder = async (req, res) => {
                             {
                                 where: { id: value.product_id },
                             },
+                            { transaction: t },
                         );
                     },
                 );
 
-                if (cancelOrder && updatePrev) {
-                    res.status(200).send({
-                        success: true,
-                        message: 'order cancelled',
-                        data: {},
-                    });
-                } else {
-                    res.status(400).send({
-                        success: false,
-                        message: 'failed to cancel order',
-                        data: null,
-                    });
-                }
+                await t.commit();
+                res.status(200).send({
+                    success: true,
+                    message: 'order cancelled',
+                    data: {},
+                });
             } else {
                 res.status(400).send({
                     success: false,
@@ -323,6 +322,7 @@ const userCancelOrder = async (req, res) => {
             });
         }
     } catch (error) {
+        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,
@@ -355,19 +355,11 @@ const userConfirmDelivery = async (req, res) => {
                 },
             );
 
-            if (createStatus && updatePrev) {
-                res.status(200).send({
-                    success: true,
-                    message: 'order confirmed',
-                    data: findOrder,
-                });
-            } else {
-                res.status(400).send({
-                    success: false,
-                    message: 'confirm order failed',
-                    data: {},
-                });
-            }
+            res.status(200).send({
+                success: true,
+                message: 'order confirmed',
+                data: findOrder,
+            });
         } else {
             res.status(400).send({
                 success: false,

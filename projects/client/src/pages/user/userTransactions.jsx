@@ -83,60 +83,50 @@ export default function UserTransactions() {
                 <title>IKEWA | Transactions</title>
                 <meta name="description" content="transactions" />
             </Helmet>
-            <div className="flex justify-center">
-                <div className="py-[80px] pl-[80px]">
+            <div className="flex justify-center gap-4 py-[80px] max-lg:flex-col max-lg:w-full max-lg:items-center max-lg:px-9 lg:flex-row">
+                <div className="md:w-1/4 flex justify-center">
                     <UserSidebar />
                 </div>
-                <div className="p-[80px] flex flex-col items-center">
-                    <div className="w-full">
-                        <div className="font-bold text-3xl">
-                            Transaction History
-                        </div>
-                    </div>
-                    <div className="py-9">
-                        <TransactionTabs
-                            state={{
-                                status_id,
-                                setStatusId,
-                                setPage,
-                                setStatusName,
-                            }}
-                        />
-                    </div>
-                    <div className="flex justify-between w-full items-center">
-                        <div className="flex items-center gap-4">
-                            <SortTransactionSelect
-                                state={{ setSortTransaction, sortTransaction }}
-                            />
-                        </div>
-                        <div>
-                            <InvoiceSearch
-                                state={{ search, setSearch, setPage }}
-                            />
-                        </div>
-                    </div>
-                    <div className=" p-9 flex flex-col gap-7 w-full">
-                        {!orderLists?.data?.data?.rows ? (
-                            <div className="flex items-center justify-center py-8">
-                                <div>
-                                    <div className="flex justify-center items-center font-semibold text-xl mb-6">
-                                        <h1 className="font-semibold text-2xl">
-                                            No Transaction Found
-                                        </h1>
-                                    </div>
-                                    <div className="w-full flex justify-center items-center">
-                                        <img
-                                            src="/images/not-found-user.png"
-                                            alt="not-found"
-                                            className="min-w-[200px] max-w-[400px]"
-                                        ></img>
-                                    </div>
-                                </div>
+                <div className="w-full md:flex md:justify-start">
+                    <div>
+                        <div className="">
+                            <div className="font-bold text-3xl">
+                                Transaction History
                             </div>
-                        ) : (
-                            orderLists?.data?.data?.rows?.map(
-                                (value, index) => {
-                                    if (loading) {
+                        </div>
+                        <div className="py-9">
+                            <TransactionTabs
+                                state={{
+                                    status_id,
+                                    setStatusId,
+                                    setPage,
+                                    setStatusName,
+                                }}
+                            />
+                        </div>
+                        <div className="flex sm:flex-row max-sm:flex-col max-md:gap-4 justify-between w-full items-center">
+                            <div className="flex items-center gap-4">
+                                <SortTransactionSelect
+                                    state={{
+                                        setSortTransaction,
+                                        sortTransaction,
+                                    }}
+                                />
+                            </div>
+                            <div className='max-sm:order-first'>
+                                <InvoiceSearch
+                                    state={{ search, setSearch, setPage }}
+                                />
+                            </div>
+                        </div>
+                        <div className=" p-9 flex flex-col gap-7 w-full">
+                            {!orderLists?.data?.data?.rows ? (
+                                <div className="flex justify-center">
+                                    No Transaction Found
+                                </div>
+                            ) : (
+                                orderLists?.data?.data?.rows?.map(
+                                    (value, index) => {
                                         return (
                                             <TransactionHistoryBox
                                                 key={index}
@@ -149,33 +139,27 @@ export default function UserTransactions() {
                                                 }}
                                             />
                                         );
-                                    } else {
-                                        return (
-                                            <SkeletonTransactionCard
-                                                key={index}
-                                            />
-                                        );
-                                    }
-                                },
-                            )
+                                    },
+                                )
+                            )}
+                        </div>
+                        {orderLists?.data?.data?.rows ? (
+                            <div className="flex justify-center">
+                                <PaginationButton
+                                    data={{
+                                        totalPage: orderLists?.data?.totalPage,
+                                        page,
+                                        pageChange,
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            ''
                         )}
                     </div>
-
-                    {orderLists?.data?.data?.rows ? (
-                        <div>
-                            <PaginationButton
-                                data={{
-                                    totalPage: orderLists?.data?.totalPage,
-                                    page,
-                                    pageChange,
-                                }}
-                            />
-                        </div>
-                    ) : (
-                        ''
-                    )}
                 </div>
             </div>
+
             <ModalCancelOrder
                 state={{
                     setCancelOrder,

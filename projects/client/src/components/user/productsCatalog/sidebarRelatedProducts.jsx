@@ -12,7 +12,7 @@ export default function SidebarRelatedProducts(props) {
     const dispatch = useDispatch();
     return (
         <>
-            <div className="w-[150px] h-[280px] relative">
+            <div className="md:w-[150px] md:h-[280px] max-md:w-[100px] max-md:h-[280px] relative">
                 <div>
                     <img
                         src={props?.data?.value?.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.value?.product_images[0]?.name : props?.data?.value?.product_images[0]?.name}

@@ -4,7 +4,7 @@ export default function CurrentStatus(props) {
             {props?.data?.status?.map((value, index) => {
                 return value.is_active === true ? (
                     <div
-                        className={`border px-4 py-1 rounded-full ${
+                        className={`border px-4 py-1 rounded-full max-md:order-last ${
                             value?.status_id === 1
                                 ? 'bg-[#F9E79F] text-[#D6A500] border-[#F8C471]'
                                 : ''
