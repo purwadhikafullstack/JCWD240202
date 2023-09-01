@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { MdOutlineAccountCircle } from 'react-icons/md';
-import { AiOutlineHeart, AiOutlineBell } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { GrClose } from 'react-icons/gr';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Avatar, Modal } from 'flowbite-react';
+import { Avatar } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useSelector } from 'react-redux';
@@ -95,10 +94,6 @@ export default function Navbar(props) {
                         props.dataLogin?.role_id === 2 ||
                         props.dataLogin?.role_id === 3
                     }
-                    disabled={
-                        props.dataLogin?.role_id === 2 ||
-                        props.dataLogin?.role_id === 3
-                    }
                 >
                     {showBurger ? (
                         <GrClose size={25} />
@@ -106,19 +101,6 @@ export default function Navbar(props) {
                         <GiHamburgerMenu size={25} />
                     )}
                 </button>
-                <button
-                    className={`w-16 sm:w-24 ${
-                        props.dataLogin?.role_id === 2 ||
-                        props.dataLogin?.role_id === 3
-                            ? 'cursor-not-allowed'
-                            : ''
-                    }`}
-                    onClick={() => navigate('/')}
-                    disabled={
-                        props.dataLogin?.role_id === 2 ||
-                        props.dataLogin?.role_id === 3
-                    }
-                >
                 <button
                     className={`w-16 sm:w-24 ${
                         props.dataLogin?.role_id === 2 ||
@@ -148,7 +130,7 @@ export default function Navbar(props) {
                             props.dataLogin?.role_id === 2 ||
                             props.dataLogin?.role_id === 3
                         }
-                    >
+                    ></button>
                     <button
                         className={
                             props.dataLogin?.role_id === 2 ||
@@ -202,20 +184,8 @@ export default function Navbar(props) {
                                             ? props.dataLogin?.profile_picture
                                             : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'
                                     }
-                                    img={
-                                        props.dataLogin?.profile_picture &&
-                                        props.dataLogin?.profile_picture.startsWith(
-                                            'PIMG',
-                                        )
-                                            ? process.env
-                                                  .REACT_APP_API_IMAGE_URL +
-                                              props.dataLogin?.profile_picture
-                                            : props.dataLogin?.profile_picture
-                                            ? props.dataLogin?.profile_picture
-                                            : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'
-                                    }
                                     rounded
-                                    className='object-fill'
+                                    className="object-fill"
                                 />
                             </label>
                             <ul
@@ -229,18 +199,8 @@ export default function Navbar(props) {
                                     >
                                         Profile
                                     </Link>
-                                    <Link
-                                        to="/users/profile"
-                                        onClick={() => setShowBurger(false)}
-                                    >
-                                        Profile
-                                    </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        to="/users/transactions"
-                                        onClick={() => setShowBurger(false)}
-                                    >
                                     <Link
                                         to="/users/transactions"
                                         onClick={() => setShowBurger(false)}
@@ -250,8 +210,6 @@ export default function Navbar(props) {
                                 </li>
                             </ul>
                         </div>
-                    ) : props.dataLogin?.role_id === 2 ||
-                      props.dataLogin?.role_id === 3 ? (
                     ) : props.dataLogin?.role_id === 2 ||
                       props.dataLogin?.role_id === 3 ? (
                         <Link to={'/admins/dashboard'}>
@@ -268,7 +226,7 @@ export default function Navbar(props) {
                     )}
 
                     {userLogin ? (
-                        <div className="flex gap-9 items-center">
+                        <div className="flex gap-4 items-center">
                             <Notification
                                 state={{ notification, setNotification }}
                                 data={{ notification: notificationData?.data }}
@@ -300,7 +258,7 @@ export default function Navbar(props) {
                                     props.dataLogin?.role_id === 2 ||
                                     props.dataLogin?.role_id === 3
                                 }
-                            >
+                            ></button>
                             <button
                                 onClick={() => navigate('/cart')}
                                 className={
@@ -314,10 +272,10 @@ export default function Navbar(props) {
                                     props.dataLogin?.role_id === 3
                                 }
                             >
-                                <div className="flex items-center">
+                                <div className="flex items-center w-12 h-12 relative">
                                     <AiOutlineShoppingCart size={25} />
                                     {userCartCount?.data?.count > 0 ? (
-                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
+                                        <div className="border rounded-full flex items-center justify-center bg-red-700 text-white absolute top-0 right-1 w-6 h-6">
                                             {userCartCount?.data?.count}
                                         </div>
                                     ) : (
@@ -345,6 +303,7 @@ export default function Navbar(props) {
                     >
                         Home
                     </div>
+                </button>
                 <button className="text-left">
                     <div
                         onClick={() => {
