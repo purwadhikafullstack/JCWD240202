@@ -5,6 +5,8 @@ const fs = require('fs');
 const transporter = require('../helper/nodemailer');
 const { hashPassword, hashCompare } = require('../lib/hashBcrypt');
 const path = require('path');
+const { googleRecaptcha } = require('./../helper/recaptcha')
+const axios = require('axios');
 
 const db = require('../models');
 const user = db.users;
@@ -14,7 +16,7 @@ const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 module.exports = {
     registration: async (req, res) => {
         try {
-            const { email } = req.body;
+            const { email, tokenRecaptcha } = req.body;
 
             if (!email)
                 return res.status(400).send({
@@ -28,6 +30,15 @@ module.exports = {
                     email,
                 },
             });
+
+            const verifyRecaptcha = await googleRecaptcha(tokenRecaptcha)
+
+            if (!verifyRecaptcha)
+                return res.status(400).send({
+                    success: false,
+                    message: "You're not a Human, Please try again!",
+                    data: null,
+                });
 
             if (result) {
                 return res.status(406).send({
@@ -355,7 +366,6 @@ module.exports = {
             const uid = req.User.id;
             const verified = req.User.is_verified
             const link = req.User.link
-            console.log('inii linkkkkk', link)
             const userCheck = await user.findOne({
                 where: {
                     id: uid
@@ -392,11 +402,9 @@ module.exports = {
     const t = await sequelize.transaction();
         try {
             const {data} = req.body
-            console.log('data', data.email)
             const checkUser = await user.findOne({
                 where: {email: data.email, googleSignIn: true}
             })
-            console.log('checkUser', checkUser)
             if (!checkUser) {
                 const createUser = await user.create({
                     email: data.email,
@@ -406,7 +414,7 @@ module.exports = {
                     role_id: 1,
                     googleSignIn: true
                 }, { transaction: t })
-                console.log('createUser', createUser)
+
                 let payload = {
                     id: createUser.id,
                     email: createUser.email,

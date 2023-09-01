@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getUserWishlists } from '../../redux/features/wishlistSlice';
+import { getUserWishlists, setLoading } from '../../redux/features/wishlistSlice';
 import UserSidebar from '../../components/user/sidebar/userSidebar';
 import { Toaster } from 'react-hot-toast';
 import WishlistCard from '../../components/user/wishlist/wishlistCard';
 import { Button, Label, Select } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import PaginationButton from '../../components/user/pagination/paginationButton';
+import SkeletonWishList from '../../components/user/wishlist/skeletonWishlist';
 
 export default function Wishlist() {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function Wishlist() {
     const navigate = useNavigate();
     const [sort, setSort] = useState('newest');
     const [page, setPage] = useState(1);
+    const loading = useSelector((state) => state.wishlist.loading)
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -21,6 +23,7 @@ export default function Wishlist() {
 
     useEffect(() => {
         dispatch(getUserWishlists({ sort, page }));
+        return () => dispatch(setLoading(false))
     }, [sort, page]);
 
     return (

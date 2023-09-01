@@ -131,6 +131,7 @@ export const getAllMutation =
     (page, response, request, status, warehouse, sort, startDate, endDate) =>
     async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
             const dataAllMutation = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/mutations',
@@ -154,7 +155,6 @@ export const getAllMutation =
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)));
             dispatch(setAllMutation(dataAllMutation?.data));
         } catch (error) {
             dispatch(setLoading(false));

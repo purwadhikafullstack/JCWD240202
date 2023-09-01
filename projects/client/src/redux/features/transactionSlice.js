@@ -28,6 +28,7 @@ export const allTransactionAsync =
     (page, warehouse, search, startDate, endDate, statusId, sort) =>
     async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
             const result = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/transactions',
@@ -50,7 +51,6 @@ export const allTransactionAsync =
             setTimeout(() => {
                 dispatch(setLoading(true));
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)));
             dispatch(setData(result.data));
         } catch (error) {
             dispatch(setLoading(false));

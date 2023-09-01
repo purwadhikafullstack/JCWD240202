@@ -3,6 +3,7 @@ const db = require('../models');
 const user = db.users;
 const { sequelize } = require('./../models');
 const { hashCompare, hashPassword } = require('../lib/hashBcrypt');
+const { googleRecaptcha } = require('./../helper/recaptcha')
 
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -83,6 +84,7 @@ module.exports = {
                 phone_number,
                 password,
                 confirm_password,
+                tokenRecaptcha,
             } = req.body;
 
             if (
@@ -130,6 +132,15 @@ module.exports = {
                     email,
                 },
             });
+
+            const verifyRecaptcha = await googleRecaptcha(tokenRecaptcha);
+
+            if (!verifyRecaptcha)
+                return res.status(400).send({
+                    success: false,
+                    message: "You're not a Human, Please try again!",
+                    data: null,
+                });
 
             if (result) {
                 return res.status(406).send({

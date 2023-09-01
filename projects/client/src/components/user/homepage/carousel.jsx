@@ -25,7 +25,22 @@ export default function CarouselHome() {
                 autoplay
             >
                 <SwiperSlide>
-                    <img src="/images/banner-4.png" alt="..." />
+                    <img
+                        src="/images/banner-pwd.png"
+                        alt="..."
+                    />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img
+                        src="/images/banner-pwd.png"
+                        alt="..."
+                    />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img
+                        src="/images/banner-4.png"
+                        alt="..."
+                    />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img src="/images/banner-1.png" alt="..." />

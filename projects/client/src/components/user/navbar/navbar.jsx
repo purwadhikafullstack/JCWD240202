@@ -95,6 +95,10 @@ export default function Navbar(props) {
                         props.dataLogin?.role_id === 2 ||
                         props.dataLogin?.role_id === 3
                     }
+                    disabled={
+                        props.dataLogin?.role_id === 2 ||
+                        props.dataLogin?.role_id === 3
+                    }
                 >
                     {showBurger ? (
                         <GrClose size={25} />
@@ -115,10 +119,36 @@ export default function Navbar(props) {
                         props.dataLogin?.role_id === 3
                     }
                 >
+                <button
+                    className={`w-16 sm:w-24 ${
+                        props.dataLogin?.role_id === 2 ||
+                        props.dataLogin?.role_id === 3
+                            ? 'cursor-not-allowed'
+                            : ''
+                    }`}
+                    onClick={() => navigate('/')}
+                    disabled={
+                        props.dataLogin?.role_id === 2 ||
+                        props.dataLogin?.role_id === 3
+                    }
+                >
                     <img src="/logo2.png" alt="company_logo" />
                 </button>
                 {/* middle => pages */}
                 <div className="hidden md:block md:flex gap-9 items-center text-xl">
+                    <button
+                        className={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                                ? 'cursor-not-allowed'
+                                : ''
+                        }
+                        onClick={() => navigate('/')}
+                        disabled={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                        }
+                    >
                     <button
                         className={
                             props.dataLogin?.role_id === 2 ||
@@ -172,7 +202,20 @@ export default function Navbar(props) {
                                             ? props.dataLogin?.profile_picture
                                             : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'
                                     }
+                                    img={
+                                        props.dataLogin?.profile_picture &&
+                                        props.dataLogin?.profile_picture.startsWith(
+                                            'PIMG',
+                                        )
+                                            ? process.env
+                                                  .REACT_APP_API_IMAGE_URL +
+                                              props.dataLogin?.profile_picture
+                                            : props.dataLogin?.profile_picture
+                                            ? props.dataLogin?.profile_picture
+                                            : 'https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png'
+                                    }
                                     rounded
+                                    className='object-fill'
                                 />
                             </label>
                             <ul
@@ -186,8 +229,18 @@ export default function Navbar(props) {
                                     >
                                         Profile
                                     </Link>
+                                    <Link
+                                        to="/users/profile"
+                                        onClick={() => setShowBurger(false)}
+                                    >
+                                        Profile
+                                    </Link>
                                 </li>
                                 <li>
+                                    <Link
+                                        to="/users/transactions"
+                                        onClick={() => setShowBurger(false)}
+                                    >
                                     <Link
                                         to="/users/transactions"
                                         onClick={() => setShowBurger(false)}
@@ -197,6 +250,8 @@ export default function Navbar(props) {
                                 </li>
                             </ul>
                         </div>
+                    ) : props.dataLogin?.role_id === 2 ||
+                      props.dataLogin?.role_id === 3 ? (
                     ) : props.dataLogin?.role_id === 2 ||
                       props.dataLogin?.role_id === 3 ? (
                         <Link to={'/admins/dashboard'}>
@@ -246,6 +301,19 @@ export default function Navbar(props) {
                                     props.dataLogin?.role_id === 3
                                 }
                             >
+                            <button
+                                onClick={() => navigate('/cart')}
+                                className={
+                                    props.dataLogin?.role_id === 2 ||
+                                    props.dataLogin?.role_id === 3
+                                        ? 'cursor-not-allowed'
+                                        : ''
+                                }
+                                disabled={
+                                    props.dataLogin?.role_id === 2 ||
+                                    props.dataLogin?.role_id === 3
+                                }
+                            >
                                 <div className="flex items-center">
                                     <AiOutlineShoppingCart size={25} />
                                     {userCartCount?.data?.count > 0 ? (
@@ -268,6 +336,15 @@ export default function Navbar(props) {
                     showBurger ? 'block h-screen w-screen z-[998]' : 'hidden'
                 }`}
             >
+                <button className="text-left">
+                    <div
+                        onClick={() => {
+                            setShowBurger(!showBurger);
+                            navigate('/');
+                        }}
+                    >
+                        Home
+                    </div>
                 <button className="text-left">
                     <div
                         onClick={() => {

@@ -34,7 +34,10 @@ module.exports = {
                 });
             }
 
-            if (postcode.match(/[a-zA-Z]/) || postcode.length < 5) {
+            if (
+                postcode.toString().match(/[a-zA-Z]/) ||
+                postcode.toString().length < 5
+            ) {
                 return res.status(400).send({
                     success: false,
                     message: 'Invalid Postal Code!',
@@ -66,6 +69,34 @@ module.exports = {
                 { transaction: t },
             );
 
+            var product_id = [];
+
+            const getAllProduct = await db.products.findAll({
+                where: {
+                    is_deleted: false,
+                },
+            });
+
+            // find All product_id
+            for (const item of getAllProduct) {
+                product_id.push(item.id);
+            }
+
+            // product_stock for new Warehouse
+            const productStockNewWh = product_id.map((value) => {
+                return {
+                    product_id: value,
+                    warehouse_id: addWarehouse.id,
+                    stock: 0,
+                };
+            });
+
+            // create product_stock for new Warehouse
+            const newWhProductStock = await db.product_stocks.bulkCreate(
+                productStockNewWh,
+                { transaction: t },
+            );
+
             await t.commit();
 
             return res.status(200).send({
@@ -75,7 +106,6 @@ module.exports = {
             });
         } catch (error) {
             await t.rollback();
-            console.log(error);
             res.status(500).send({
                 success: false,
                 message: error.message,
@@ -112,7 +142,10 @@ module.exports = {
                 });
             }
 
-            if (postcode.match(/[a-zA-Z]/) || postcode.length < 5) {
+            if (
+                postcode.toString().match(/[a-zA-Z]/) ||
+                postcode.toString().length < 5
+            ) {
                 return res.status(400).send({
                     success: false,
                     message: 'Invalid Postal Code!',
@@ -193,8 +226,10 @@ module.exports = {
 
             // mapping stock dan product_id wh yang akan didelete
             for (const item of findStock) {
-                product_id.push(item.product_id);
-                stockDeletedWh.push(item.stock);
+                if (item.stock > 0) {
+                    product_id.push(item.product_id);
+                    stockDeletedWh.push(item.stock);
+                }
             }
 
             // cari stock Wh jakarta yang akan di tambahkan stock dari wh yang akan dihapus

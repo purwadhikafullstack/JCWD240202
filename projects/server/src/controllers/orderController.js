@@ -239,7 +239,6 @@ const postUserPaymentProof = async (req, res) => {
     } catch (error) {
         await t.rollback();
         deleteSingleFile(req.files?.images[0]?.path);
-        console.log(error);
         return res.status(500).send({
             success: false,
             message: error.message,

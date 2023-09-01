@@ -3,6 +3,7 @@ import TransactionTabs from '../../components/user/transactions/transactionTabs'
 import { useEffect, useState } from 'react';
 import {
     getAllUserOrderAsync,
+    setLoading,
     userCancelOrderAsync,
 } from '../../redux/features/orderSlice';
 import { useSelector } from 'react-redux';
@@ -15,7 +16,7 @@ import { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import InvoiceSearch from '../../components/user/transactions/invoiceSearch';
 import { Helmet } from 'react-helmet';
-import GenerateInvoice from '../../components/user/transactions/generateInvoice';
+import SkeletonTransactionCard from '../../components/user/transactions/skeletonTransaction';
 
 export default function UserTransactions() {
     const dispatch = useDispatch();
@@ -30,7 +31,8 @@ export default function UserTransactions() {
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [expiredTime, setExpiredTime] = useState(false);
-
+    const loading = useSelector((state) => state.order.loading)
+ 
     const pageChange = (event, value) => {
         setPage(value);
     };
@@ -72,6 +74,7 @@ export default function UserTransactions() {
                 search,
             }),
         );
+        return () => dispatch(setLoading(false))
     }, [page, sortTransaction, status_id, search, expiredTime]);
     return (
         <>

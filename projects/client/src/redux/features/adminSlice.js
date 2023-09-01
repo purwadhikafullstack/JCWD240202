@@ -31,6 +31,7 @@ export const adminSlice = createSlice({
 export const getDataAdminUser =
     (page, sort, search, warehouse) => async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
             const admins = await axios.get(
@@ -51,7 +52,6 @@ export const getDataAdminUser =
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)))
             dispatch(setDataAdmin(admins?.data));
         } catch (error) {
             dispatch(setLoading(false))

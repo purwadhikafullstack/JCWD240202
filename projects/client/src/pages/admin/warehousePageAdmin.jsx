@@ -1,7 +1,7 @@
 import AddWareHouseModal from '../../components/admin/warehouse/addWarehouseModal';
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import WarehouseTableSetting from '../../components/admin/warehouse/tableWarehouseSetting';
-import { getAllDataWh } from '../../redux/features/warehouseSlice';
+import { getAllDataWh, setLoading } from '../../redux/features/warehouseSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
@@ -60,6 +60,7 @@ export default function WarehousePageAdmin() {
         }
         setSearchParams(queryParams);
         dispatch(getAllDataWh(page, search, sort, wh));
+        return () => dispatch(setLoading(false))
     }, [page, search, sort, wh]);
 
     return (
