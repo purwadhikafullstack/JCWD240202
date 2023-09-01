@@ -196,7 +196,7 @@ export default function TransactionAdmin() {
                 confirm={{ setShowConfirm, setFuncConfirm, setValueConfirm, setModalNotification }}
             />
             <ModalConfirmTransaction
-                data={{ showConfirm, setShowConfirm, funcConfirm }}
+                data={{ showConfirm, setShowConfirm, funcConfirm, reset }}
                 handleConfirm={handleConfirm}
             />
             <ModalNotificationMessage

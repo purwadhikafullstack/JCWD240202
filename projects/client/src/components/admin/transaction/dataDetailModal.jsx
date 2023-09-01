@@ -15,7 +15,7 @@ export default function DataDetail(props) {
     const [isZoomed, setIsZoomed] = useState(false);
     const [idZoom, setIdZoom] = useState('');
     return (
-        <>
+        <>{console.log('props ========>', props?.detailId, '==<><><', props?.data?.data?.rows)}
             {props?.data?.data?.rows?.map((value, index) => {
                 if (value?.cart_id === props?.detailId) {
                     return (

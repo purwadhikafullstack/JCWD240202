@@ -32,7 +32,7 @@ export default function UserCart() {
                 <title>IKEWA | Cart</title>
                 <meta name="description" content="cart" />
             </Helmet>
-            <div className="px-[200px] mb-24">
+            <div className="lg:px-[200px] max-lg:px-2 mb-24">
                 <div className=" py-[50px] font-bold text-3xl border-b">
                     Your Shopping Cart
                 </div>

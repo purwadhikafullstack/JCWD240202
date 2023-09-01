@@ -6,10 +6,10 @@ export default function NotificationCard(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     return (
-        <div className="border border-black w-2/3 h-max p-2 relative">
-            <div className="font-bold border-b flex justify-between py-1">
-                <div>{props?.data?.title}</div>
-                <div>{props?.data?.createdAt}</div>
+        <div className="border border-black md:w-2/3 max-md:w-full h-max pt-2 pb-7 px-2 relative">
+            <div className="border-b flex md:flex-row max-md:flex-col justify-between py-1">
+                <div className='font-bold'>{props?.data?.title}</div>
+                <div className='max-md:order-first max-md:text-sm font-bold'>{props?.data?.createdAt}</div>
             </div>
             <div className="py-1">{props?.data?.message}</div>
             <div

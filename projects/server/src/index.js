@@ -28,6 +28,7 @@ const {
     wishlistRouter,
     reviewRouter,
     notificationRouter,
+    dashboardRouter
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -68,6 +69,7 @@ app.use('/api/checkout', checkoutCartRouter);
 app.use('/api/mutations', mutationRouter);
 app.use('/api/log', stockHistoryRouter);
 app.use('/api/reports', reportRouter);
+app.use('/api/dashboards', dashboardRouter)
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

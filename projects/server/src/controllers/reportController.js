@@ -166,7 +166,7 @@ const getSalesPerProduct = async (req, res) => {
             req.query;
 
         if (user.role_id === 3) {
-            const paginationLimit = 5;
+            const paginationLimit = 8;
             const paginationOffset =
                 (Number(page ? page : 1) - 1) * paginationLimit;
 
@@ -225,7 +225,7 @@ const getSalesPerProduct = async (req, res) => {
                 where: { user_id: user.id },
             });
 
-            const paginationLimit = 5;
+            const paginationLimit = 8;
             const paginationOffset =
                 (Number(page ? page : 1) - 1) * paginationLimit;
 

@@ -25,6 +25,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import ModalCancelOrder from '../../components/user/transactions/modalCancelOrder';
 import { Helmet } from 'react-helmet';
+import ModalPayment from '../../components/user/orderDetails/modalPayment';
 
 export default function OrderDetailsPage() {
     const dispatch = useDispatch();
@@ -39,6 +40,7 @@ export default function OrderDetailsPage() {
     const [modalSubmitProof, setModalSubmitProof] = useState(false);
     const [showHistoryStatus, setShowHistoryStatus] = useState(false);
     const [cancelOrder, setCancelOrder] = useState(false);
+    const [modalPayment, setModalPayment] = useState(false)
 
     const handleImagePreview = (e) => {
         try {
@@ -100,9 +102,9 @@ export default function OrderDetailsPage() {
                 <title>IKEWA | Transaction Details</title>
                 <meta name="description" content="transaction-details" />
             </Helmet>
-            <div className="flex justify-center">
-                <div className="w-1/2">
-                    <div className="px-[100px] py-[50px]">
+            <div className="flex justify-center max-md:px-4">
+                <div className="xl:w-1/2">
+                    <div className="lg:px-[100px] py-[50px]">
                         <div className="pb-[30px] flex items-center justify-start">
                             <Link to={'/users/transactions'}>
                                 <div className="flex items-center">
@@ -148,7 +150,7 @@ export default function OrderDetailsPage() {
                             <div className="border px-4 mt-9">
                                 <div className="text-lg border-b py-4 font-bold flex items-center justify-between">
                                     <div>Payment Proof</div>
-                                    <Button className="bg-yellow-300 text-sky-700 hover:text-yellow-300">
+                                    <Button onClick={() => setModalPayment(true)} className="bg-yellow-300 text-sky-700 hover:text-yellow-300">
                                         How to pay?
                                     </Button>
                                 </div>
@@ -174,7 +176,7 @@ export default function OrderDetailsPage() {
                                         </div>
                                     </div>
                                     <div className="flex-1 flex justify-center items-center border-l h-full">
-                                        <div className="h-3/4 w-1/2">
+                                        <div className="max-sm:h-1/2 sm:h-3/4 w-1/2">
                                             {imagePreview.length > 0 ? (
                                                 <>
                                                     <img
@@ -353,6 +355,7 @@ export default function OrderDetailsPage() {
                 func={{ handleCancelOrder }}
                 state={{ setCancelOrder, cancelOrder }}
             />
+            <ModalPayment state={{modalPayment, setModalPayment}}/>
         </>
     );
 }

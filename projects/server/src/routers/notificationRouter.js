@@ -11,7 +11,7 @@ const {
 router.post(
     '/',
     verifyToken,
-    checkUserRole,
+    checkWhAdminRole,
     notificationController.createNotification,
 );
 router.get('/', verifyToken, notificationController.getUserNotification);

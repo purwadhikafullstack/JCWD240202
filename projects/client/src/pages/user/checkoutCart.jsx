@@ -128,8 +128,8 @@ export default function CheckoutCart() {
                 <title>IKEWA | Checkout</title>
                 <meta name="description" content="chekout" />
             </Helmet>
-            <div className="flex justify-center gap-2 mb-24">
-                <div className="w-[1000px] px-9">
+            <div className="flex lg:flex-row max-lg:flex-col justify-center gap-2 mb-24">
+                <div className="lg:w-[1000px] px-9">
                     <div className="py-9 font-bold text-2xl">Checkout</div>
                     <div className="divide-y">
                         <div className="pb-2 font-bold text-lg">
@@ -288,7 +288,7 @@ export default function CheckoutCart() {
                     </div>
                 </div>
                 {/* right total box */}
-                <div>
+                <div className='max-md:px-4'>
                     <OrderSummary
                         data={{
                             closestWH,

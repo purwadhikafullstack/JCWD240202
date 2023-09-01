@@ -1,13 +1,9 @@
 import CarouselHome from '../../components/user/homepage/carousel';
 import CategoryCard from '../../components/user/homepage/categoryCard';
 import { Helmet } from 'react-helmet';
-
-//redux
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
-import NewArrivalsCard from '../../components/user/productCard/newArrivalsCard';
-import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
-
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import {
     getAllCategoriesAsync,
     getBestSellerAsync,
@@ -17,18 +13,28 @@ import ServicesBox from '../../components/user/homepage/services';
 import BestSellerCard from '../../components/user/productCard/bestSellerCard';
 import { Toaster } from 'react-hot-toast';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, A11y, Scrollbar } from 'swiper/modules';
+import {
+    Navigation,
+    Pagination,
+    A11y,
+    Scrollbar,
+    Autoplay,
+    EffectCards,
+} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import 'swiper/css/autoplay';
 import { userAddToCartAsync } from '../../redux/features/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function Homepage() {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.homepage.category);
     const bestSeller = useSelector((state) => state.homepage.bestSeller);
     const newArrivals = useSelector((state) => state.homepage.newArrivals);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getAllCategoriesAsync());
@@ -43,14 +49,14 @@ export default function Homepage() {
                 <title>IKEWA | Home of Furniture</title>
                 <meta name="description" content="homepage" />
             </Helmet>
-            <div>
+            <div className='w-full'>
                 <CarouselHome />
             </div>
             <div className="pt-9 w-full">
                 <div className="flex justify-center my-9 text-3xl font-bold">
                     Shop By Category
                 </div>
-                <div className="flex justify-evenly gap-24 flex-wrap px-[300px]">
+                <div className="flex justify-evenly items-center gap-17 flex-wrap px-24">
                     {categories?.data?.map((value, index) => {
                         return (
                             <div key={index}>
@@ -64,72 +70,62 @@ export default function Homepage() {
                 <div className="flex justify-center my-9 text-3xl font-bold">
                     New Arrivals
                 </div>
-                <div className="flex justify-center gap-14 px-9">
+                <div className="flex justify-center gap-14 md:px-24 max-md:px-2">
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, A11y]}
                         spaceBetween={100}
-                        slidesPerView={3}
+                        slidesPerView={2}
                         navigation
                     >
                         {newArrivals?.data?.map((value, index) => {
                             return (
-                                <React.Fragment key={index}>
-                                    <div key={index} className="mx-24">
-                                        <SwiperSlide>
-                                            <div className="rounded shadow-xl flex">
-                                                <div className="w-full flex-1">
-                                                    <img
-                                                        src={
-                                                            value
-                                                                ?.product_images[0]
-                                                                ?.name
-                                                        }
-                                                        alt="..."
-                                                        className="h-[400px] w-full"
+                                <SwiperSlide key={index}>
+                                    <div className="rounded-xl shadow-2xl flex lg:flex-row max-lg:flex-col h-full">
+                                        <div className="w-full flex-1">
+                                            <img
+                                                src={
+                                                    value?.product_images[0]
+                                                        ?.name
+                                                }
+                                                alt="..."
+                                                className="lg:h-[400px] w-full"
+                                            />
+                                        </div>
+                                        <div className="w-full text-center flex-1 py-9 border-l bg-sky-700 text-yellow-300 px-4 relative flex flex-col gap-4">
+                                            <div className="font-bold text-lg">
+                                                {value?.name}
+                                            </div>
+                                            <div>
+                                                Rp{' '}
+                                                {(value?.price).toLocaleString(
+                                                    'id',
+                                                )}
+                                            </div>
+                                            <div className='max-lg:hidden'>{value?.description}</div>
+                                            <div className="absolute right-5 bottom-5 flex gap-4">
+                                                <div
+                                                    className="hover:cursor-pointer hover:border hover:rounded-full hover:p-4 hover:bg-yellow-200 hover:text-sky-700"
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            userAddToCartAsync({
+                                                                product_id:
+                                                                    value.id,
+                                                                quantity: 1,
+                                                            }),
+                                                        )
+                                                    }
+                                                >
+                                                    <AiOutlineShoppingCart
+                                                        size={25}
                                                     />
                                                 </div>
-                                                <div className="w-full text-center flex-1 py-9 border-l bg-sky-700 text-yellow-300 px-4 relative flex flex-col gap-4">
-                                                    <div className="font-bold text-lg">
-                                                        {value?.name}
-                                                    </div>
-                                                    <div>
-                                                        Rp{' '}
-                                                        {(value?.price).toLocaleString(
-                                                            'id',
-                                                        )}
-                                                    </div>
-                                                    <div>
-                                                        {value?.description}
-                                                    </div>
-                                                    <div className="absolute right-5 bottom-5 flex gap-4">
-                                                        <div
-                                                            className="hover:cursor-pointer hover:border hover:rounded-full hover:p-4 hover:bg-yellow-200 hover:text-sky-700"
-                                                            onClick={() =>
-                                                                dispatch(
-                                                                    userAddToCartAsync(
-                                                                        {
-                                                                            product_id:
-                                                                                value.id,
-                                                                            quantity: 1,
-                                                                        },
-                                                                    ),
-                                                                )
-                                                            }
-                                                        >
-                                                            <AiOutlineShoppingCart
-                                                                size={25}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </SwiperSlide>
+                                        </div>
                                     </div>
-                                </React.Fragment>
+                                </SwiperSlide>
                             );
                         })}
                     </Swiper>
-                    {console.log(newArrivals)}
                 </div>
             </div>
             <div className="pt-9">
@@ -142,7 +138,7 @@ export default function Homepage() {
                     })}
                 </div>
             </div>
-            <div className="pt-9">
+            <div className="pt-9 overflow-auto">
                 <div className="flex justify-center my-9 text-3xl font-bold">
                     Services For Your Convenience
                 </div>

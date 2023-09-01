@@ -27,7 +27,7 @@ export default function WishlistCard(props) {
 
     return (
         <>
-            <div className="border w-3/4 rounded-xl h-[250px] p-4 mb-4">
+            <div className="border rounded-xl h-[250px] w-full p-4 mb-4">
                 <div className="h-full w-full flex items-center gap-4 relative">
                     <div
                         onClick={() => {
@@ -37,7 +37,7 @@ export default function WishlistCard(props) {
                         }}
                         className="flex-1 h-full w-full flex items-center gap-9 hover:cursor-pointer"
                     >
-                        <div>
+                        <div className='max-md:hidden'>
                             <img
                                 src={
                                     props?.data?.value?.product

@@ -15,11 +15,18 @@ export default function RelatedProducts(props) {
                 return (
                     <div
                         key={index}
-                        className="w-[300px] h-[450px] flex flex-col rounded shadow-2xl"
+                        className="w-[300px] xl:h-[450px] sm:h-inherit flex flex-col rounded shadow-2xl"
                     >
                         <div className="flex-1 relative">
                             <img
-                                src={value.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value.product_images[0]?.name : value.product_images[0]?.name}
+                                src={
+                                    value.product_images[0]?.name.startsWith(
+                                        'PIMG',
+                                    )
+                                        ? process.env.REACT_APP_API_IMAGE_URL +
+                                          value.product_images[0]?.name
+                                        : value.product_images[0]?.name
+                                }
                                 alt="best seller products"
                                 className="w-[300px] h-[300px]"
                             />

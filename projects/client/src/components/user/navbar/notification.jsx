@@ -11,7 +11,7 @@ export default function Notification(props) {
     return (
         <>
             <div
-                onMouseEnter={() => props?.state?.setNotification(true)}
+                onClick={() => props?.state?.setNotification(!props?.state?.notification)}
                 className={`flex items-center w-12 h-12 justify-center relative hover:cursor-pointer ${
                     props?.state?.notification === true
                         ? 'border rounded shadow-lg bg-gray-200'
@@ -22,9 +22,6 @@ export default function Notification(props) {
                     <AiOutlineBell size={25} />
                     {props?.state?.notification === true ? (
                         <div
-                            onMouseLeave={() =>
-                                props?.state?.setNotification(false)
-                            }
                             className="absolute -right-16 mt-4 w-64 bg-white border-4 shadow-lg border-sky-700 rounded-xl"
                         >
                             {props?.data?.notification?.notifications?.rows

@@ -26,38 +26,47 @@ export default function UserNotifications() {
                 <title>IKEWA | Notifications</title>
                 <meta name="description" content="transactions" />
             </Helmet>
-            <div className="flex">
-                <div className="flex-2 py-[80px] ml-[200px]">
+            <div className="flex justify-center gap-4 py-[80px] max-lg:flex-col max-lg:w-full max-lg:items-center max-lg:px-9 lg:flex-row">
+                <div className="md:w-1/4 flex justify-center">
                     <UserSidebar />
                 </div>
-                <div className="flex-1 p-[80px] flex flex-col items-center mr-[100px]">
-                    <div className="w-full">
-                        <div className="font-bold text-3xl">Notifications</div>
-                    </div>
-                    {notificationData?.data?.notifications?.rows.length ===
-                    0 ? (
-                        <div className='h-full flex items-center font-bold text-lg'>No Notifications</div>
-                    ) : (
-                        <div className=" p-9 flex flex-col gap-7 w-full">
-                            {notificationData?.data?.notifications?.rows?.map(
-                                (value, index) => {
-                                    return (
-                                        <React.Fragment key={index}>
-                                            <NotificationCard data={value} />
-                                        </React.Fragment>
-                                    );
-                                },
-                            )}
+                <div className="w-full flex justify-start">
+                    <div className='lg:w-3/4 max-lg:w-full'>
+                        {' '}
+                        <div className="w-full">
+                            <div className="font-bold text-3xl">
+                                Notifications
+                            </div>
                         </div>
-                    )}
-                    <div>
-                        <PaginationButton
-                            data={{
-                                totalPage: notificationData?.totalPage,
-                                page,
-                                pageChange,
-                            }}
-                        />
+                        {notificationData?.data?.notifications?.rows.length ===
+                        0 ? (
+                            <div className="h-full flex items-center font-bold text-lg">
+                                No Notifications
+                            </div>
+                        ) : (
+                            <div className=" p-9 flex flex-col gap-7 w-full">
+                                {notificationData?.data?.notifications?.rows?.map(
+                                    (value, index) => {
+                                        return (
+                                            <React.Fragment key={index}>
+                                                <NotificationCard
+                                                    data={value}
+                                                />
+                                            </React.Fragment>
+                                        );
+                                    },
+                                )}
+                            </div>
+                        )}
+                        <div className='md:w-3/4 max-md:w-full flex justify-center'>
+                            <PaginationButton
+                                data={{
+                                    totalPage: notificationData?.totalPage,
+                                    page,
+                                    pageChange,
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -37,11 +37,6 @@ const userAddToCart = async (req, res) => {
                     { where: { id: checkCartProducts.id } },
                     { transaction: t },
                 );
-                res.status(200).send({
-                    success: true,
-                    message: 'update quantity in cart success',
-                    data: {},
-                });
             } else {
                 const addProduct = await cart_products.create(
                     {

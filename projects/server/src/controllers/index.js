@@ -21,6 +21,7 @@ const reportController = require('./reportController');
 const wishlistController = require('./wishlistController');
 const reviewController = require('./reviewController');
 const notificationController = require('./notificationController');
+const dashboardController = require('./dashboardController');
 
 module.exports = {
     rajaOngkirController,
@@ -46,4 +47,5 @@ module.exports = {
     wishlistController,
     reviewController,
     notificationController,
+    dashboardController
 };

@@ -72,7 +72,7 @@ export default function ProductDetails() {
         <>
             <div className="divide-y mb-16">
                 <Toaster />
-                <div className="flex px-[200px] justify-evenly gap-14 pt-9">
+                <div className="flex min-[0px]:flex-col min-[0px]:mb-9 xl:flex-row xl:px-[200px] min-[0px]:px-4 justify-evenly gap-14 pt-9">
                     <div className="flex-1">
                         <div className="h-[700px]">
                             <CarouselDetails
@@ -132,7 +132,7 @@ export default function ProductDetails() {
                             )}
                         </div>
                     </div>
-                    <div className="flex-2 w-[500px]">
+                    <div className="flex-2 xl:w-[500px]">
                         <ProductDescription
                             data={{ proDetails: proDetails.data }}
                         />
@@ -321,11 +321,11 @@ export default function ProductDetails() {
                         )}
                     </div>
                 </div>
-                <div className="px-[200px]">
+                <div className="xl:px-[200px] sm:px-[50px]">
                     <div className="pt-9 text-3xl font-bold">
                         Related Products
                     </div>
-                    <div className="pt-9 flex gap-9">
+                    <div className="pt-9 flex gap-9 max-md:w-screen max-md:overflow-auto">
                         <RelatedProducts data={{ recommendation }} />
                     </div>
                 </div>

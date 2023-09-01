@@ -14,6 +14,7 @@ import { getUserCartAsync } from '../../../redux/features/cartSlice';
 import { getUserWishlists } from '../../../redux/features/wishlistSlice';
 import Notification from './notification';
 import { getUserNotificationAsync } from '../../../redux/features/notificationSlice';
+import WishlistIcon from './wishlistIcon';
 
 export default function Navbar(props) {
     const navigate = useNavigate();
@@ -28,28 +29,6 @@ export default function Navbar(props) {
         (state) => state.notification.notifications,
     );
     const [notification, setNotification] = useState(false);
-
-    const logout = () => {
-        try {
-            localStorage.removeItem('user');
-            toast.success('Logout success!', {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
-            setOpenModal(false);
-            setTimeout(() => {
-                navigate('/');
-            }, 1000);
-        } catch (error) {
-            toast.error(error.message);
-        }
-    };
 
     useEffect(() => {
         if (userLogin) {
@@ -105,7 +84,7 @@ export default function Navbar(props) {
             <div className="flex justify-between items-center border-b py-6 px-12 bg-white h-[100px]">
                 {/* left side => logo */}
                 <button
-                    className={`sm:hidden ${
+                    className={`md:hidden ${
                         props.dataLogin?.role_id === 2 ||
                         props.dataLogin?.role_id === 3
                             ? 'cursor-not-allowed'
@@ -155,7 +134,6 @@ export default function Navbar(props) {
                     >
                         <div>Home</div>
                     </button>
-                    <div>Offers</div>
                     <button
                         className={
                             props.dataLogin?.role_id === 2 ||
@@ -171,7 +149,6 @@ export default function Navbar(props) {
                     >
                         <div>Products</div>
                     </button>
-                    <div>Categories</div>
                     <div>About</div>
                 </div>
                 {/* right side => account, cart, wishlist */}
@@ -200,7 +177,7 @@ export default function Navbar(props) {
                             </label>
                             <ul
                                 tabIndex={0}
-                                className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-44"
+                                className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-44 divide-y"
                             >
                                 <li>
                                     <Link
@@ -217,16 +194,6 @@ export default function Navbar(props) {
                                     >
                                         Transactions
                                     </Link>
-                                </li>
-                                <li className="border-t">
-                                    <button
-                                        onClick={() => {
-                                            setOpenModal(true);
-                                            setShowBurger(false);
-                                        }}
-                                    >
-                                        Log Out
-                                    </button>
                                 </li>
                             </ul>
                         </div>
@@ -264,18 +231,7 @@ export default function Navbar(props) {
                                     props.dataLogin?.role_id === 3
                                 }
                             >
-                                <div className="flex items-center">
-                                    <AiOutlineHeart size={25} />
-
-                                    {wishlistCount?.data?.wishlists.length >
-                                    0 ? (
-                                        <div className="border rounded-full flex items-center justify-center bg-sky-700 text-yellow-200 w-7 h-7">
-                                            {wishlistCount?.totalProducts}
-                                        </div>
-                                    ) : (
-                                        ''
-                                    )}
-                                </div>
+                                <WishlistIcon data={{ wishlistCount }} />
                             </button>
                             <button
                                 onClick={() => navigate('/cart')}
@@ -306,38 +262,10 @@ export default function Navbar(props) {
                         ''
                     )}
                 </div>
-                <Modal
-                    dismissible
-                    className="z-[999]"
-                    show={openModal}
-                    onClose={() => setOpenModal(false)}
-                >
-                    <Modal.Body>
-                        <div className="text-lg flex justify-center items-center">
-                            Are you sure want to log out?
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div className="flex justify-center gap-9 w-full">
-                            <button
-                                className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                                onClick={logout}
-                            >
-                                Confirm
-                            </button>
-                            <button
-                                className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3"
-                                onClick={() => setOpenModal(false)}
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </Modal.Footer>
-                </Modal>
             </div>
             <div
-                className={`absolute top-100 bg-white left-0 w-full md:w-auto pt-6 pl-12 duration-400 ease-in text-3xl flex flex-col gap-4 sm:hidden ${
-                    showBurger ? 'block h-screen z-[998]' : 'hidden'
+                className={`absolute top-100 bg-white left-0 w-full md:w-auto pt-6 pl-12 duration-400 ease-in text-3xl flex flex-col gap-4 md:hidden ${
+                    showBurger ? 'block h-screen w-screen z-[998]' : 'hidden'
                 }`}
             >
                 <button className="text-left">
@@ -350,7 +278,6 @@ export default function Navbar(props) {
                         Home
                     </div>
                 </button>
-                <div>Offers</div>
                 <button className="text-left">
                     <div
                         onClick={() => {
@@ -361,7 +288,6 @@ export default function Navbar(props) {
                         Products
                     </div>
                 </button>
-                <div>Categories</div>
                 <div>About</div>
             </div>
         </div>

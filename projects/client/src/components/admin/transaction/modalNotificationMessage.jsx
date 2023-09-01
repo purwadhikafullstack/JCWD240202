@@ -1,19 +1,24 @@
 import { Button, Label, Modal, TextInput, Textarea } from 'flowbite-react';
 import { useRef } from 'react';
+import { toast } from 'react-hot-toast';
 
 export default function ModalNotificationMessage(props) {
     const _title = useRef();
     const _message = useRef();
 
     const submitMessage = () => {
-        const title = _title.current.value;
-        const message = _message.current.value;
-        props?.state?.setTitle(title);
-        props?.state?.setMessage(message);
-        props?.state?.setModalNotification(false);
-        props?.state?.setShowConfirm(true);
-        _title.current.value = ''
-        _message.current.value = ''
+        if (!_title.current.value || !_message.current.value) {
+            toast.error('Please Fill All The Fields');
+        } else {
+            const title = _title.current.value;
+            const message = _message.current.value;
+            props?.state?.setTitle(title);
+            props?.state?.setMessage(message);
+            props?.state?.setModalNotification(false);
+            props?.state?.setShowConfirm(true);
+            _title.current.value = '';
+            _message.current.value = '';
+        }
     };
 
     return (
@@ -43,7 +48,14 @@ export default function ModalNotificationMessage(props) {
                     >
                         Submit
                     </Button>
-                    <Button color={'failure'}>Cancel</Button>
+                    <Button
+                        onClick={() =>
+                            props?.state?.setModalNotification(false)
+                        }
+                        color={'failure'}
+                    >
+                        Cancel
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </>
