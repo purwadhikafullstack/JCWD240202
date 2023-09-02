@@ -90,13 +90,13 @@ export default function PrintStockLog({ data }) {
                                                         {value?.product_name}
                                                     </td>
                                                     <td className="px-6 py-4 border text-center border-black text-xs">
-                                                        {value?.user}
+                                                        {value?.user ? value?.user : <p className='text-red-600'>Deleted Warehouse Admin</p>}
                                                     </td>
                                                     <td className="px-6 py-4 border text-center border-black text-xs">
                                                         {value?.quantity}
                                                     </td>
                                                     <td className="px-6 py-4 border text-center border-black text-xs">
-                                                        {value?.warehouse}
+                                                        {value?.is_deleted === false ? value?.warehouse : <>{value?.warehouse}<br></br><p className='text-red-600'>(Deleted Warehouse)</p></>}
                                                     </td>
                                                     <td className="px-6 py-4 border text-center border-black text-xs">
                                                         {value?.type}

@@ -12,13 +12,15 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
          */
-        await queryInterface.bulkInsert('informations', [
+        await queryInterface.bulkInsert('types', [
             {
+                id: 1,
                 name: 'Increment',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
+                id: 2,
                 name: 'Decrement',
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -33,6 +35,6 @@ module.exports = {
          * Example:
          * await queryInterface.bulkDelete('People', null, {});
          */
-        await queryInterface.bulkDelete('informations', null, {});
+        await queryInterface.bulkDelete('types', null, {});
     },
 };

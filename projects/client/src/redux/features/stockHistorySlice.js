@@ -96,6 +96,7 @@ export const getStockLog =
                     ),
                     quantity: value?.quantity,
                     warehouse: value?.warehouse?.city,
+                    is_deleted: value?.warehouse?.is_deleted,
                     type: value?.type?.name,
                     information: value?.information?.name,
                 };

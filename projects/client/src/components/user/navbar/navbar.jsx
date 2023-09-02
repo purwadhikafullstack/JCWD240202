@@ -130,19 +130,6 @@ export default function Navbar(props) {
                             props.dataLogin?.role_id === 2 ||
                             props.dataLogin?.role_id === 3
                         }
-                    ></button>
-                    <button
-                        className={
-                            props.dataLogin?.role_id === 2 ||
-                            props.dataLogin?.role_id === 3
-                                ? 'cursor-not-allowed'
-                                : ''
-                        }
-                        onClick={() => navigate('/')}
-                        disabled={
-                            props.dataLogin?.role_id === 2 ||
-                            props.dataLogin?.role_id === 3
-                        }
                     >
                         <div>Home</div>
                     </button>
@@ -161,7 +148,21 @@ export default function Navbar(props) {
                     >
                         <div>Products</div>
                     </button>
-                    <div>About</div>
+                    <button
+                        className={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                                ? 'cursor-not-allowed'
+                                : ''
+                        }
+                        onClick={() => navigate('/about')}
+                        disabled={
+                            props.dataLogin?.role_id === 2 ||
+                            props.dataLogin?.role_id === 3
+                        }
+                    >
+                        <div>About</div>
+                    </button>
                 </div>
                 {/* right side => account, cart, wishlist */}
                 <div className="flex items-center z-[999]">
@@ -314,7 +315,16 @@ export default function Navbar(props) {
                         Products
                     </div>
                 </button>
-                <div>About</div>
+                <button className="text-left">
+                    <div
+                        onClick={() => {
+                            setShowBurger(!showBurger);
+                            navigate('/about');
+                        }}
+                    >
+                        About
+                    </div>
+                </button>
             </div>
         </div>
     );

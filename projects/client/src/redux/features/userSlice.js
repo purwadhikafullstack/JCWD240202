@@ -39,7 +39,6 @@ export const getDataLogin = () => async (dispatch) => {
         dispatch(setDataLogin(dataUser?.data?.data));
     } catch (error) {
         dispatch(setLoading(false));
-        toast.error(error.message);
     }
 };
 

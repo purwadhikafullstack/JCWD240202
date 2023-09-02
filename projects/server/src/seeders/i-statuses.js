@@ -3,43 +3,46 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        /**
-         * Add seed commands here.
-         *
-         * Example:
-         * await queryInterface.bulkInsert('People', [{
-         *   name: 'John Doe',
-         *   isBetaMember: false
-         * }], {});
-         */
-        await queryInterface.bulkInsert('colors', [
+        await queryInterface.bulkInsert('statuses', [
             {
                 id: 1,
-                name: 'BLACK',
+                name: 'Waiting for payment',
+                label: 'New Order',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
                 id: 2,
-                name: 'WHITE',
+                name: 'Waiting for payment confirmation',
+                label: 'Confirmation',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
                 id: 3,
-                name: 'BROWN',
+                name: 'Order is being processed',
+                label: 'Processing',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
                 id: 4,
-                name: 'BEIGE',
+                name: 'In delivery',
+                label: 'In Delivery',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
                 id: 5,
-                name: 'GREY',
+                name: 'Order confirmed',
+                label: 'Done',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                id: 6,
+                name: 'Order canceled',
+                label: 'Canceled',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -47,12 +50,6 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        /**
-         * Add commands to revert seed here.
-         *
-         * Example:
-         * await queryInterface.bulkDelete('People', null, {});
-         */
-        await queryInterface.bulkDelete('colors', null, {});
+        await queryInterface.bulkDelete('statuses', null, {});
     },
 };
