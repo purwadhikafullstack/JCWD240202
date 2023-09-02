@@ -62,24 +62,19 @@ export default function ProfilePage() {
 
     const onChangeProfilePic = (e) => {
         try {
-            if (
-                e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpg' &&
-                e.target.files[0]?.type.split('/')[1].toLowerCase() !==
-                    'jpeg' &&
-                e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'png'
-            ) {
-                setImagePreview(null);
+            if (e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpeg' && e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'png') {
+                setImagePreview('');
                 throw { message: 'Format file must jpg, jpeg, or png' };
             }
 
             if (e.target.files[0]?.size >= 1000000) {
-                setImagePreview(null);
+                setImagePreview('');
                 throw { message: 'File size max 1 Mb!' };
             }
 
             const reader = new FileReader();
             const selectedFile = e.target.files[0];
-
+            
             if (selectedFile) {
                 reader.readAsDataURL(selectedFile);
             }
@@ -87,7 +82,7 @@ export default function ProfilePage() {
             reader.onload = (readerEvent) => {
                 setImagePreview(readerEvent.target.result);
             };
-
+            
             return setUpdateProfilePic(e.target.files[0]);
         } catch (error) {
             if (error.response) {
@@ -249,72 +244,32 @@ export default function ProfilePage() {
                                             <div className="lg:flex lg:justify-center lg:items-center mt-6 lg:ml-6">
                                                 <div className="w-full md:w-[400px]">
                                                     <div className="p-[10px] border-2 border-gray-200 rounded-lg">
-                                                        <div className="flex justify-center">
-                                                            {dataLogin?.profile_picture ||
-                                                            imagePreview ? (
-                                                                <img
-                                                                    src={
-                                                                        imagePreview
-                                                                            ? imagePreview
-                                                                            : dataLogin?.profile_picture.startsWith(
-                                                                                  'PIMG',
-                                                                              )
-                                                                            ? process
-                                                                                  .env
-                                                                                  .REACT_APP_API_IMAGE_URL +
-                                                                              dataLogin?.profile_picture
-                                                                            : dataLogin?.profile_picture
-                                                                    }
+                                                        <div className="flex justify-center max-h-[250px]">
+                                                            {dataLogin?.profile_picture || imagePreview ? (
+                                                                <img src={imagePreview ? imagePreview : dataLogin?.profile_picture.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + dataLogin?.profile_picture : dataLogin?.profile_picture}
                                                                     alt="profile_picture"
-                                                                    // width={'250px'}
-                                                                    className="object-contain"
+                                                                    className="object-cover max-w-[275px] rounded-lg"
                                                                 />
                                                             ) : (
-                                                                <img
-                                                                    src="https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png"
-                                                                    alt="profile_picture"
-                                                                    width={
-                                                                        '250px'
-                                                                    }
-                                                                />
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Default-welcomer.png" alt="profile_picture" className="object-cover max-w-[275px] rounded-lg"/>
                                                             )}
                                                         </div>
                                                         <div className="mt-[10px] flex justify-center">
                                                             <div className="w-full">
                                                                 <label className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white w-full py-2 mt-1 text-sm flex justify-center cursor-pointer">
-                                                                    <input
-                                                                        type="file"
-                                                                        className="hidden"
-                                                                        onChange={
-                                                                            onChangeProfilePic
-                                                                        }
-                                                                    />
-                                                                    <p>
-                                                                        Edit
-                                                                        Photo
-                                                                    </p>
+                                                                    <input type="file" className="hidden" value='' onChange={onChangeProfilePic}/>
+                                                                    <p>Edit Photo</p>
                                                                 </label>
                                                                 {imagePreview ? (
                                                                     <div className="flex justify-center w-full gap-2">
                                                                         <button
                                                                             className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm w-full disabled:cursor-not-allowed disabled:bg-black"
-                                                                            onClick={
-                                                                                onEditProfilePicture
-                                                                            }
-                                                                            disabled={
-                                                                                disabledPhoto
-                                                                            }
+                                                                            onClick={onEditProfilePicture}
+                                                                            disabled={disabledPhoto}
                                                                         >
                                                                             Save
                                                                         </button>
-                                                                        <button
-                                                                            onClick={() =>
-                                                                                setImagePreview(
-                                                                                    '',
-                                                                                )
-                                                                            }
-                                                                            className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm w-full"
-                                                                        >
+                                                                        <button onClick={() => setImagePreview('')} className="bg-red-600 hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm w-full">
                                                                             Cancel
                                                                         </button>
                                                                     </div>
@@ -324,15 +279,7 @@ export default function ProfilePage() {
                                                             </div>
                                                         </div>
                                                         <div className="mt-3 text-[12px]">
-                                                            <p>
-                                                                Maximum file
-                                                                size 1000
-                                                                Kilobytes (1
-                                                                Megabytes).
-                                                                Allowed file
-                                                                extensions: .JPG
-                                                                .JPEG .PNG
-                                                            </p>
+                                                            <p>Maximum file size 1000 Kilobytes (1 Megabytes). Allowed file extensions: .JPG .JPEG .PNG</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -364,15 +311,9 @@ export default function ProfilePage() {
                                                                 <input
                                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="last_name"
-                                                                    disabled={
-                                                                        disabled
-                                                                    }
-                                                                    value={
-                                                                        input?.last_name
-                                                                    }
-                                                                    onChange={
-                                                                        onChange
-                                                                    }
+                                                                    disabled={disabled}
+                                                                    value={input?.last_name}
+                                                                    onChange={onChange}
                                                                 />
                                                             </label>
                                                             <label className="block mb-3 w-full md:w-[400px]">
@@ -382,15 +323,9 @@ export default function ProfilePage() {
                                                                 <input
                                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="email"
-                                                                    disabled={
-                                                                        disabled
-                                                                    }
-                                                                    value={
-                                                                        input?.email
-                                                                    }
-                                                                    onChange={
-                                                                        onChange
-                                                                    }
+                                                                    disabled={disabled}
+                                                                    value={input?.email}
+                                                                    onChange={onChange}
                                                                 />
                                                             </label>
                                                             <label className="block mb-3 w-full md:w-[400px]">
@@ -400,26 +335,9 @@ export default function ProfilePage() {
                                                                 <input
                                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="phone_number"
-                                                                    disabled={
-                                                                        disabled
-                                                                    }
-                                                                    value={
-                                                                        input?.phone_number
-                                                                    }
-                                                                    onChange={(
-                                                                        e,
-                                                                    ) => {
-                                                                        setInput(
-                                                                            {
-                                                                                ...input,
-                                                                                phone_number:
-                                                                                    e.target.value.replace(
-                                                                                        /[^0-9]/g,
-                                                                                        '',
-                                                                                    ),
-                                                                            },
-                                                                        );
-                                                                    }}
+                                                                    disabled={disabled}
+                                                                    value={input?.phone_number}
+                                                                    onChange={(e) => {setInput({...input, phone_number: e.target.value.replace(/[^0-9]/g,'')})}}
                                                                     type="tel"
                                                                     pattern="[0-9]{12}"
                                                                     maxLength="12"
@@ -433,26 +351,16 @@ export default function ProfilePage() {
                                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="birth_date"
                                                                     type="date"
-                                                                    disabled={
-                                                                        disabled
-                                                                    }
-                                                                    value={
-                                                                        input?.birth_date
-                                                                    }
-                                                                    onChange={
-                                                                        onChange
-                                                                    }
+                                                                    disabled={disabled}
+                                                                    value={input?.birth_date}
+                                                                    onChange={onChange}
                                                                 />
                                                             </label>
                                                         </form>
                                                         {disabled ? (
                                                             <button
                                                                 className="bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white px-5 py-2 mt-2 text-sm"
-                                                                onClick={() =>
-                                                                    setDisabled(
-                                                                        false,
-                                                                    )
-                                                                }
+                                                                onClick={() => setDisabled(false)}
                                                             >
                                                                 Edit
                                                             </button>
@@ -460,11 +368,7 @@ export default function ProfilePage() {
                                                             <>
                                                                 <button
                                                                     className="bg-[#0051BA] mr-2 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
-                                                                    onClick={() =>
-                                                                        setOpenModal(
-                                                                            true,
-                                                                        )
-                                                                    }
+                                                                    onClick={() => setOpenModal(true)}
                                                                     disabled={
                                                                         !input.first_name ||
                                                                         !input.last_name ||
@@ -482,16 +386,10 @@ export default function ProfilePage() {
                                                                         );
                                                                         setInput(
                                                                             {
-                                                                                first_name:
-                                                                                    dataLogin?.first_name,
-                                                                                last_name:
-                                                                                    dataLogin?.last_name,
-                                                                                phone_number:
-                                                                                    dataLogin?.phone_number,
-                                                                                birth_date:
-                                                                                    dataLogin?.birth_date.split(
-                                                                                        'T',
-                                                                                    )[0],
+                                                                                first_name: dataLogin?.first_name ? dataLogin?.first_name : '',
+                                                                                last_name: dataLogin?.last_name ? dataLogin?.last_name : '',
+                                                                                phone_number: dataLogin?.phone_number ? dataLogin?.phone_number : '',
+                                                                                birth_date: dataLogin?.birth_date ? dataLogin?.birth_date.split('T')[0] : '',
                                                                             },
                                                                         );
                                                                     }}
@@ -541,10 +439,10 @@ export default function ProfilePage() {
                         onClick={() => {
                             setOpenModal(false);
                             setInput({
-                                first_name: dataLogin?.first_name,
-                                last_name: dataLogin?.last_name,
-                                phone_number: dataLogin?.phone_number,
-                                birth_date: dataLogin?.birth_date.split('T')[0],
+                                first_name: dataLogin?.first_name ? dataLogin?.first_name : '',
+                                last_name: dataLogin?.last_name ? dataLogin?.last_name : '',
+                                phone_number: dataLogin?.phone_number ? dataLogin?.phone_number : '',
+                                birth_date: dataLogin?.birth_date ? dataLogin?.birth_date.split('T')[0] : '',
                             });
                         }}
                     >

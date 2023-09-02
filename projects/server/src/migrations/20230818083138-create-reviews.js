@@ -18,10 +18,14 @@ module.exports = {
                 allowNull: false,
             },
             comment: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(500),
             },
             rating: {
                 type: Sequelize.INTEGER,
+            },
+            order_id: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,

@@ -168,8 +168,8 @@ export default function LoginPage() {
                 <img
                     src="/images/banner-ikewa-login.png"
                     alt="not-found"
-                    className="min-w-[200px]"
-                ></img>
+                    className="max-h-[200px] object-fill w-full"
+                />
             </div>
         </>
     );

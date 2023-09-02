@@ -1,6 +1,6 @@
 // import { useRef } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 export default function SearchBarAdmin(props) {
     const _search = useRef();

@@ -14,6 +14,7 @@ module.exports = {
          */
         await queryInterface.bulkInsert('product_stocks', [
             {
+                id: 1,
                 product_id: 1,
                 warehouse_id: 1,
                 stock: 25,
@@ -21,6 +22,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 2,
                 product_id: 2,
                 warehouse_id: 1,
                 stock: 25,
@@ -28,6 +30,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 3,
                 product_id: 3,
                 warehouse_id: 1,
                 stock: 25,
@@ -35,6 +38,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 4,
                 product_id: 4,
                 warehouse_id: 1,
                 stock: 25,
@@ -42,6 +46,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 5,
                 product_id: 5,
                 warehouse_id: 1,
                 stock: 25,
@@ -49,6 +54,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 6,
                 product_id: 6,
                 warehouse_id: 1,
                 stock: 25,
@@ -56,6 +62,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 7,
                 product_id: 7,
                 warehouse_id: 1,
                 stock: 25,
@@ -63,6 +70,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 8,
                 product_id: 8,
                 warehouse_id: 1,
                 stock: 25,
@@ -70,6 +78,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 9,
                 product_id: 9,
                 warehouse_id: 1,
                 stock: 25,
@@ -77,6 +86,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 10,
                 product_id: 10,
                 warehouse_id: 1,
                 stock: 25,
@@ -84,6 +94,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 11,
                 product_id: 11,
                 warehouse_id: 1,
                 stock: 25,
@@ -91,6 +102,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 12,
                 product_id: 12,
                 warehouse_id: 1,
                 stock: 25,
@@ -98,6 +110,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 13,
                 product_id: 13,
                 warehouse_id: 1,
                 stock: 25,
@@ -105,6 +118,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 14,
                 product_id: 14,
                 warehouse_id: 1,
                 stock: 25,
@@ -112,6 +126,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 15,
                 product_id: 15,
                 warehouse_id: 1,
                 stock: 25,
@@ -119,6 +134,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 16,
                 product_id: 16,
                 warehouse_id: 1,
                 stock: 25,
@@ -126,6 +142,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 17,
                 product_id: 17,
                 warehouse_id: 1,
                 stock: 25,
@@ -133,6 +150,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 18,
                 product_id: 18,
                 warehouse_id: 1,
                 stock: 25,
@@ -140,6 +158,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 19,
                 product_id: 19,
                 warehouse_id: 1,
                 stock: 25,
@@ -147,6 +166,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 20,
                 product_id: 20,
                 warehouse_id: 1,
                 stock: 25,
@@ -154,6 +174,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 21,
                 product_id: 21,
                 warehouse_id: 1,
                 stock: 25,
@@ -161,6 +182,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 22,
                 product_id: 22,
                 warehouse_id: 1,
                 stock: 25,
@@ -168,6 +190,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 23,
                 product_id: 23,
                 warehouse_id: 1,
                 stock: 25,
@@ -175,6 +198,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 24,
                 product_id: 24,
                 warehouse_id: 1,
                 stock: 25,
@@ -182,6 +206,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 25,
                 product_id: 25,
                 warehouse_id: 1,
                 stock: 25,
@@ -189,6 +214,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 26,
                 product_id: 26,
                 warehouse_id: 1,
                 stock: 25,
@@ -196,6 +222,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 27,
                 product_id: 27,
                 warehouse_id: 1,
                 stock: 25,
@@ -203,6 +230,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 28,
                 product_id: 28,
                 warehouse_id: 1,
                 stock: 25,
@@ -210,6 +238,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 29,
                 product_id: 29,
                 warehouse_id: 1,
                 stock: 25,
@@ -217,6 +246,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 30,
                 product_id: 30,
                 warehouse_id: 1,
                 stock: 25,
@@ -224,6 +254,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 31,
                 product_id: 31,
                 warehouse_id: 1,
                 stock: 25,
@@ -231,6 +262,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 32,
                 product_id: 32,
                 warehouse_id: 1,
                 stock: 25,
@@ -238,6 +270,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 33,
                 product_id: 33,
                 warehouse_id: 1,
                 stock: 25,
@@ -245,6 +278,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 34,
                 product_id: 34,
                 warehouse_id: 1,
                 stock: 25,
@@ -252,6 +286,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 35,
                 product_id: 35,
                 warehouse_id: 1,
                 stock: 25,
@@ -259,6 +294,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 36,
                 product_id: 36,
                 warehouse_id: 1,
                 stock: 25,
@@ -266,6 +302,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 37,
                 product_id: 37,
                 warehouse_id: 1,
                 stock: 25,
@@ -273,6 +310,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 38,
                 product_id: 38,
                 warehouse_id: 1,
                 stock: 25,
@@ -280,6 +318,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 39,
                 product_id: 39,
                 warehouse_id: 1,
                 stock: 25,
@@ -287,6 +326,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 40,
                 product_id: 40,
                 warehouse_id: 1,
                 stock: 25,
@@ -294,6 +334,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 41,
                 product_id: 41,
                 warehouse_id: 1,
                 stock: 25,
@@ -301,6 +342,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 42,
                 product_id: 42,
                 warehouse_id: 1,
                 stock: 25,
@@ -308,6 +350,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 43,
                 product_id: 43,
                 warehouse_id: 1,
                 stock: 25,
@@ -315,6 +358,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 44,
                 product_id: 44,
                 warehouse_id: 1,
                 stock: 25,
@@ -322,6 +366,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 45,
                 product_id: 45,
                 warehouse_id: 1,
                 stock: 25,
@@ -329,6 +374,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 46,
                 product_id: 46,
                 warehouse_id: 1,
                 stock: 25,
@@ -336,6 +382,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 47,
                 product_id: 47,
                 warehouse_id: 1,
                 stock: 25,
@@ -343,6 +390,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 48,
                 product_id: 48,
                 warehouse_id: 1,
                 stock: 25,
@@ -350,6 +398,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 49,
                 product_id: 49,
                 warehouse_id: 1,
                 stock: 25,
@@ -357,6 +406,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 50,
                 product_id: 50,
                 warehouse_id: 1,
                 stock: 25,
@@ -364,6 +414,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 51,
                 product_id: 51,
                 warehouse_id: 1,
                 stock: 25,
@@ -371,6 +422,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 52,
                 product_id: 52,
                 warehouse_id: 1,
                 stock: 25,
@@ -378,6 +430,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 53,
                 product_id: 53,
                 warehouse_id: 1,
                 stock: 25,
@@ -385,6 +438,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 54,
                 product_id: 54,
                 warehouse_id: 1,
                 stock: 25,
@@ -392,6 +446,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 55,
                 product_id: 55,
                 warehouse_id: 1,
                 stock: 25,
@@ -399,6 +454,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 56,
                 product_id: 56,
                 warehouse_id: 1,
                 stock: 25,
@@ -406,6 +462,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 57,
                 product_id: 57,
                 warehouse_id: 1,
                 stock: 25,
@@ -413,6 +470,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 58,
                 product_id: 58,
                 warehouse_id: 1,
                 stock: 25,
@@ -420,6 +478,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 59,
                 product_id: 59,
                 warehouse_id: 1,
                 stock: 25,
@@ -427,6 +486,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 60,
                 product_id: 60,
                 warehouse_id: 1,
                 stock: 25,
@@ -434,6 +494,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 61,
                 product_id: 61,
                 warehouse_id: 1,
                 stock: 25,
@@ -441,6 +502,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 62,
                 product_id: 62,
                 warehouse_id: 1,
                 stock: 25,
@@ -448,6 +510,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 63,
                 product_id: 63,
                 warehouse_id: 1,
                 stock: 25,
@@ -455,6 +518,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 64,
                 product_id: 64,
                 warehouse_id: 1,
                 stock: 25,
@@ -462,6 +526,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 65,
                 product_id: 65,
                 warehouse_id: 1,
                 stock: 25,
@@ -469,6 +534,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 66,
                 product_id: 66,
                 warehouse_id: 1,
                 stock: 25,
@@ -476,6 +542,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 67,
                 product_id: 67,
                 warehouse_id: 1,
                 stock: 25,
@@ -483,6 +550,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 68,
                 product_id: 68,
                 warehouse_id: 1,
                 stock: 25,
@@ -490,6 +558,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 69,
                 product_id: 69,
                 warehouse_id: 1,
                 stock: 25,
@@ -497,6 +566,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 70,
                 product_id: 70,
                 warehouse_id: 1,
                 stock: 25,
@@ -504,6 +574,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 71,
                 product_id: 71,
                 warehouse_id: 1,
                 stock: 25,
@@ -511,6 +582,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 72,
                 product_id: 72,
                 warehouse_id: 1,
                 stock: 25,
@@ -518,6 +590,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 73,
                 product_id: 73,
                 warehouse_id: 1,
                 stock: 25,
@@ -525,6 +598,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 74,
                 product_id: 74,
                 warehouse_id: 1,
                 stock: 25,
@@ -532,6 +606,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 75,
                 product_id: 75,
                 warehouse_id: 1,
                 stock: 25,
@@ -539,6 +614,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 76,
                 product_id: 76,
                 warehouse_id: 1,
                 stock: 25,
@@ -546,6 +622,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 77,
                 product_id: 77,
                 warehouse_id: 1,
                 stock: 25,
@@ -553,6 +630,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 78,
                 product_id: 78,
                 warehouse_id: 1,
                 stock: 25,
@@ -560,6 +638,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 79,
                 product_id: 79,
                 warehouse_id: 1,
                 stock: 25,
@@ -567,6 +646,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 80,
                 product_id: 80,
                 warehouse_id: 1,
                 stock: 25,
@@ -574,6 +654,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 81,
                 product_id: 81,
                 warehouse_id: 1,
                 stock: 25,
@@ -581,6 +662,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 82,
                 product_id: 82,
                 warehouse_id: 1,
                 stock: 25,
@@ -588,6 +670,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 83,
                 product_id: 83,
                 warehouse_id: 1,
                 stock: 25,
@@ -595,6 +678,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 84,
                 product_id: 84,
                 warehouse_id: 1,
                 stock: 25,
@@ -602,6 +686,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 85,
                 product_id: 85,
                 warehouse_id: 1,
                 stock: 25,
@@ -609,6 +694,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 86,
                 product_id: 86,
                 warehouse_id: 1,
                 stock: 25,
@@ -616,6 +702,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 87,
                 product_id: 87,
                 warehouse_id: 1,
                 stock: 25,
@@ -623,6 +710,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 88,
                 product_id: 88,
                 warehouse_id: 1,
                 stock: 25,
@@ -630,6 +718,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 89,
                 product_id: 89,
                 warehouse_id: 1,
                 stock: 25,
@@ -637,6 +726,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 90,
                 product_id: 1,
                 warehouse_id: 2,
                 stock: 25,
@@ -644,6 +734,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 91,
                 product_id: 2,
                 warehouse_id: 2,
                 stock: 25,
@@ -651,6 +742,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 92,
                 product_id: 3,
                 warehouse_id: 2,
                 stock: 25,
@@ -658,6 +750,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 93,
                 product_id: 4,
                 warehouse_id: 2,
                 stock: 25,
@@ -665,6 +758,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 94,
                 product_id: 5,
                 warehouse_id: 2,
                 stock: 25,
@@ -672,6 +766,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 95,
                 product_id: 6,
                 warehouse_id: 2,
                 stock: 25,
@@ -679,6 +774,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 96,
                 product_id: 7,
                 warehouse_id: 2,
                 stock: 25,
@@ -686,6 +782,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 97,
                 product_id: 8,
                 warehouse_id: 2,
                 stock: 25,
@@ -693,6 +790,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 98,
                 product_id: 9,
                 warehouse_id: 2,
                 stock: 25,
@@ -700,6 +798,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 99,
                 product_id: 10,
                 warehouse_id: 2,
                 stock: 25,
@@ -707,6 +806,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 100,
                 product_id: 11,
                 warehouse_id: 2,
                 stock: 25,
@@ -714,6 +814,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 101,
                 product_id: 12,
                 warehouse_id: 2,
                 stock: 25,
@@ -721,6 +822,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 102,
                 product_id: 13,
                 warehouse_id: 2,
                 stock: 25,
@@ -728,6 +830,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 103,
                 product_id: 14,
                 warehouse_id: 2,
                 stock: 25,
@@ -735,6 +838,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 104,
                 product_id: 15,
                 warehouse_id: 2,
                 stock: 25,
@@ -742,6 +846,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 105,
                 product_id: 16,
                 warehouse_id: 2,
                 stock: 25,
@@ -749,6 +854,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 106,
                 product_id: 17,
                 warehouse_id: 2,
                 stock: 25,
@@ -756,6 +862,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 107,
                 product_id: 18,
                 warehouse_id: 2,
                 stock: 25,
@@ -763,6 +870,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 108,
                 product_id: 19,
                 warehouse_id: 2,
                 stock: 25,
@@ -770,6 +878,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 109,
                 product_id: 20,
                 warehouse_id: 2,
                 stock: 25,
@@ -777,6 +886,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 110,
                 product_id: 21,
                 warehouse_id: 2,
                 stock: 25,
@@ -784,6 +894,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 111,
                 product_id: 22,
                 warehouse_id: 2,
                 stock: 25,
@@ -791,6 +902,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 112,
                 product_id: 23,
                 warehouse_id: 2,
                 stock: 25,
@@ -798,6 +910,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 113,
                 product_id: 24,
                 warehouse_id: 2,
                 stock: 25,
@@ -805,6 +918,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 114,
                 product_id: 25,
                 warehouse_id: 2,
                 stock: 25,
@@ -812,6 +926,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 115,
                 product_id: 26,
                 warehouse_id: 2,
                 stock: 25,
@@ -819,6 +934,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 116,
                 product_id: 27,
                 warehouse_id: 2,
                 stock: 25,
@@ -826,6 +942,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 117,
                 product_id: 28,
                 warehouse_id: 2,
                 stock: 25,
@@ -833,6 +950,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 118,
                 product_id: 29,
                 warehouse_id: 2,
                 stock: 25,
@@ -840,6 +958,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 119,
                 product_id: 30,
                 warehouse_id: 2,
                 stock: 25,
@@ -847,6 +966,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 120,
                 product_id: 31,
                 warehouse_id: 2,
                 stock: 25,
@@ -854,6 +974,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 121,
                 product_id: 32,
                 warehouse_id: 2,
                 stock: 25,
@@ -861,6 +982,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 122,
                 product_id: 33,
                 warehouse_id: 2,
                 stock: 25,
@@ -868,6 +990,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 123,
                 product_id: 34,
                 warehouse_id: 2,
                 stock: 25,
@@ -875,6 +998,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 124,
                 product_id: 35,
                 warehouse_id: 2,
                 stock: 25,
@@ -882,6 +1006,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 125,
                 product_id: 36,
                 warehouse_id: 2,
                 stock: 25,
@@ -889,6 +1014,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 126,
                 product_id: 37,
                 warehouse_id: 2,
                 stock: 25,
@@ -896,6 +1022,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 127,
                 product_id: 38,
                 warehouse_id: 2,
                 stock: 25,
@@ -903,6 +1030,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 128,
                 product_id: 39,
                 warehouse_id: 2,
                 stock: 25,
@@ -910,6 +1038,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 129,
                 product_id: 40,
                 warehouse_id: 2,
                 stock: 25,
@@ -917,6 +1046,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 130,
                 product_id: 41,
                 warehouse_id: 2,
                 stock: 25,
@@ -924,6 +1054,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 131,
                 product_id: 42,
                 warehouse_id: 2,
                 stock: 25,
@@ -931,6 +1062,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 132,
                 product_id: 43,
                 warehouse_id: 2,
                 stock: 25,
@@ -938,6 +1070,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 133,
                 product_id: 44,
                 warehouse_id: 2,
                 stock: 25,
@@ -945,6 +1078,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 134,
                 product_id: 45,
                 warehouse_id: 2,
                 stock: 25,
@@ -952,6 +1086,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 135,
                 product_id: 46,
                 warehouse_id: 2,
                 stock: 25,
@@ -959,6 +1094,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 136,
                 product_id: 47,
                 warehouse_id: 2,
                 stock: 25,
@@ -966,6 +1102,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 137,
                 product_id: 48,
                 warehouse_id: 2,
                 stock: 25,
@@ -973,6 +1110,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 138,
                 product_id: 49,
                 warehouse_id: 2,
                 stock: 25,
@@ -980,6 +1118,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 139,
                 product_id: 50,
                 warehouse_id: 2,
                 stock: 25,
@@ -987,6 +1126,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 140,
                 product_id: 51,
                 warehouse_id: 2,
                 stock: 25,
@@ -994,6 +1134,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 141,
                 product_id: 52,
                 warehouse_id: 2,
                 stock: 25,
@@ -1001,6 +1142,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 142,
                 product_id: 53,
                 warehouse_id: 2,
                 stock: 25,
@@ -1008,6 +1150,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 143,
                 product_id: 54,
                 warehouse_id: 2,
                 stock: 25,
@@ -1015,6 +1158,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 144,
                 product_id: 55,
                 warehouse_id: 2,
                 stock: 25,
@@ -1022,6 +1166,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 145,
                 product_id: 56,
                 warehouse_id: 2,
                 stock: 25,
@@ -1029,6 +1174,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 146,
                 product_id: 57,
                 warehouse_id: 2,
                 stock: 25,
@@ -1036,6 +1182,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 147,
                 product_id: 58,
                 warehouse_id: 2,
                 stock: 25,
@@ -1043,6 +1190,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 148,
                 product_id: 59,
                 warehouse_id: 2,
                 stock: 25,
@@ -1050,6 +1198,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 149,
                 product_id: 60,
                 warehouse_id: 2,
                 stock: 25,
@@ -1057,6 +1206,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 150,
                 product_id: 61,
                 warehouse_id: 2,
                 stock: 25,
@@ -1064,6 +1214,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 151,
                 product_id: 62,
                 warehouse_id: 2,
                 stock: 25,
@@ -1071,6 +1222,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 152,
                 product_id: 63,
                 warehouse_id: 2,
                 stock: 25,
@@ -1078,6 +1230,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 153,
                 product_id: 64,
                 warehouse_id: 2,
                 stock: 25,
@@ -1085,6 +1238,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 154,
                 product_id: 65,
                 warehouse_id: 2,
                 stock: 25,
@@ -1092,6 +1246,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 155,
                 product_id: 66,
                 warehouse_id: 2,
                 stock: 25,
@@ -1099,6 +1254,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 156,
                 product_id: 67,
                 warehouse_id: 2,
                 stock: 25,
@@ -1106,6 +1262,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 157,
                 product_id: 68,
                 warehouse_id: 2,
                 stock: 25,
@@ -1113,6 +1270,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 158,
                 product_id: 69,
                 warehouse_id: 2,
                 stock: 25,
@@ -1120,6 +1278,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 159,
                 product_id: 70,
                 warehouse_id: 2,
                 stock: 25,
@@ -1127,6 +1286,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 160,
                 product_id: 71,
                 warehouse_id: 2,
                 stock: 25,
@@ -1134,6 +1294,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 161,
                 product_id: 72,
                 warehouse_id: 2,
                 stock: 25,
@@ -1141,6 +1302,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 162,
                 product_id: 73,
                 warehouse_id: 2,
                 stock: 25,
@@ -1148,6 +1310,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 163,
                 product_id: 74,
                 warehouse_id: 2,
                 stock: 25,
@@ -1155,6 +1318,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 164,
                 product_id: 75,
                 warehouse_id: 2,
                 stock: 25,
@@ -1162,6 +1326,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 165,
                 product_id: 76,
                 warehouse_id: 2,
                 stock: 25,
@@ -1169,6 +1334,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 166,
                 product_id: 77,
                 warehouse_id: 2,
                 stock: 25,
@@ -1176,6 +1342,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 167,
                 product_id: 78,
                 warehouse_id: 2,
                 stock: 25,
@@ -1183,6 +1350,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 168,
                 product_id: 79,
                 warehouse_id: 2,
                 stock: 25,
@@ -1190,6 +1358,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 169,
                 product_id: 80,
                 warehouse_id: 2,
                 stock: 25,
@@ -1197,6 +1366,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 170,
                 product_id: 81,
                 warehouse_id: 2,
                 stock: 25,
@@ -1204,6 +1374,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 171,
                 product_id: 82,
                 warehouse_id: 2,
                 stock: 25,
@@ -1211,6 +1382,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 172,
                 product_id: 83,
                 warehouse_id: 2,
                 stock: 25,
@@ -1218,6 +1390,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 173,
                 product_id: 84,
                 warehouse_id: 2,
                 stock: 25,
@@ -1225,6 +1398,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 174,
                 product_id: 85,
                 warehouse_id: 2,
                 stock: 25,
@@ -1232,6 +1406,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 175,
                 product_id: 86,
                 warehouse_id: 2,
                 stock: 25,
@@ -1239,6 +1414,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 176,
                 product_id: 87,
                 warehouse_id: 2,
                 stock: 25,
@@ -1246,6 +1422,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 177,
                 product_id: 88,
                 warehouse_id: 2,
                 stock: 25,
@@ -1253,6 +1430,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 178,
                 product_id: 89,
                 warehouse_id: 2,
                 stock: 25,
@@ -1260,6 +1438,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 179,
                 product_id: 1,
                 warehouse_id: 3,
                 stock: 25,
@@ -1267,6 +1446,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 180,
                 product_id: 2,
                 warehouse_id: 3,
                 stock: 25,
@@ -1274,6 +1454,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 181,
                 product_id: 3,
                 warehouse_id: 3,
                 stock: 25,
@@ -1281,6 +1462,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 182,
                 product_id: 4,
                 warehouse_id: 3,
                 stock: 25,
@@ -1288,6 +1470,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 183,
                 product_id: 5,
                 warehouse_id: 3,
                 stock: 25,
@@ -1295,6 +1478,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 184,
                 product_id: 6,
                 warehouse_id: 3,
                 stock: 25,
@@ -1302,6 +1486,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 185,
                 product_id: 7,
                 warehouse_id: 3,
                 stock: 25,
@@ -1309,6 +1494,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 186,
                 product_id: 8,
                 warehouse_id: 3,
                 stock: 25,
@@ -1316,6 +1502,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 187,
                 product_id: 9,
                 warehouse_id: 3,
                 stock: 25,
@@ -1323,6 +1510,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 188,
                 product_id: 10,
                 warehouse_id: 3,
                 stock: 25,
@@ -1330,6 +1518,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 189,
                 product_id: 11,
                 warehouse_id: 3,
                 stock: 25,
@@ -1337,6 +1526,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 190,
                 product_id: 12,
                 warehouse_id: 3,
                 stock: 25,
@@ -1344,6 +1534,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 191,
                 product_id: 13,
                 warehouse_id: 3,
                 stock: 25,
@@ -1351,6 +1542,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 192,
                 product_id: 14,
                 warehouse_id: 3,
                 stock: 25,
@@ -1358,6 +1550,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 193,
                 product_id: 15,
                 warehouse_id: 3,
                 stock: 25,
@@ -1365,6 +1558,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 194,
                 product_id: 16,
                 warehouse_id: 3,
                 stock: 25,
@@ -1372,6 +1566,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 195,
                 product_id: 17,
                 warehouse_id: 3,
                 stock: 25,
@@ -1379,6 +1574,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 196,
                 product_id: 18,
                 warehouse_id: 3,
                 stock: 25,
@@ -1386,6 +1582,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 197,
                 product_id: 19,
                 warehouse_id: 3,
                 stock: 25,
@@ -1393,6 +1590,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 198,
                 product_id: 20,
                 warehouse_id: 3,
                 stock: 25,
@@ -1400,6 +1598,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 199,
                 product_id: 21,
                 warehouse_id: 3,
                 stock: 25,
@@ -1407,6 +1606,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 200,
                 product_id: 22,
                 warehouse_id: 3,
                 stock: 25,
@@ -1414,6 +1614,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 201,
                 product_id: 23,
                 warehouse_id: 3,
                 stock: 25,
@@ -1421,6 +1622,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 202,
                 product_id: 24,
                 warehouse_id: 3,
                 stock: 25,
@@ -1428,6 +1630,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 203,
                 product_id: 25,
                 warehouse_id: 3,
                 stock: 25,
@@ -1435,6 +1638,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 204,
                 product_id: 26,
                 warehouse_id: 3,
                 stock: 25,
@@ -1442,6 +1646,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 205,
                 product_id: 27,
                 warehouse_id: 3,
                 stock: 25,
@@ -1449,6 +1654,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 206,
                 product_id: 28,
                 warehouse_id: 3,
                 stock: 25,
@@ -1456,6 +1662,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 207,
                 product_id: 29,
                 warehouse_id: 3,
                 stock: 25,
@@ -1463,6 +1670,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 208,
                 product_id: 30,
                 warehouse_id: 3,
                 stock: 25,
@@ -1470,6 +1678,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 209,
                 product_id: 31,
                 warehouse_id: 3,
                 stock: 25,
@@ -1477,6 +1686,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 210,
                 product_id: 32,
                 warehouse_id: 3,
                 stock: 25,
@@ -1484,6 +1694,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 211,
                 product_id: 33,
                 warehouse_id: 3,
                 stock: 25,
@@ -1491,6 +1702,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 212,
                 product_id: 34,
                 warehouse_id: 3,
                 stock: 25,
@@ -1498,6 +1710,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 213,
                 product_id: 35,
                 warehouse_id: 3,
                 stock: 25,
@@ -1505,6 +1718,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 214,
                 product_id: 36,
                 warehouse_id: 3,
                 stock: 25,
@@ -1512,6 +1726,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 215,
                 product_id: 37,
                 warehouse_id: 3,
                 stock: 25,
@@ -1519,6 +1734,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 216,
                 product_id: 38,
                 warehouse_id: 3,
                 stock: 25,
@@ -1526,6 +1742,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 217,
                 product_id: 39,
                 warehouse_id: 3,
                 stock: 25,
@@ -1533,6 +1750,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 218,
                 product_id: 40,
                 warehouse_id: 3,
                 stock: 25,
@@ -1540,6 +1758,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 219,
                 product_id: 41,
                 warehouse_id: 3,
                 stock: 25,
@@ -1547,6 +1766,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 220,
                 product_id: 42,
                 warehouse_id: 3,
                 stock: 25,
@@ -1554,6 +1774,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 221,
                 product_id: 43,
                 warehouse_id: 3,
                 stock: 25,
@@ -1561,6 +1782,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 222,
                 product_id: 44,
                 warehouse_id: 3,
                 stock: 25,
@@ -1568,6 +1790,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 223,
                 product_id: 45,
                 warehouse_id: 3,
                 stock: 25,
@@ -1575,6 +1798,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 224,
                 product_id: 46,
                 warehouse_id: 3,
                 stock: 25,
@@ -1582,6 +1806,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 225,
                 product_id: 47,
                 warehouse_id: 3,
                 stock: 25,
@@ -1589,6 +1814,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 226,
                 product_id: 48,
                 warehouse_id: 3,
                 stock: 25,
@@ -1596,6 +1822,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 227,
                 product_id: 49,
                 warehouse_id: 3,
                 stock: 25,
@@ -1603,6 +1830,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 228,
                 product_id: 50,
                 warehouse_id: 3,
                 stock: 25,
@@ -1610,6 +1838,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 229,
                 product_id: 51,
                 warehouse_id: 3,
                 stock: 25,
@@ -1617,6 +1846,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 230,
                 product_id: 52,
                 warehouse_id: 3,
                 stock: 25,
@@ -1624,6 +1854,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 231,
                 product_id: 53,
                 warehouse_id: 3,
                 stock: 25,
@@ -1631,6 +1862,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 232,
                 product_id: 54,
                 warehouse_id: 3,
                 stock: 25,
@@ -1638,6 +1870,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 233,
                 product_id: 55,
                 warehouse_id: 3,
                 stock: 25,
@@ -1645,6 +1878,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 234,
                 product_id: 56,
                 warehouse_id: 3,
                 stock: 25,
@@ -1652,6 +1886,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 235,
                 product_id: 57,
                 warehouse_id: 3,
                 stock: 25,
@@ -1659,6 +1894,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 236,
                 product_id: 58,
                 warehouse_id: 3,
                 stock: 25,
@@ -1666,6 +1902,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 237,
                 product_id: 59,
                 warehouse_id: 3,
                 stock: 25,
@@ -1673,6 +1910,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 238,
                 product_id: 60,
                 warehouse_id: 3,
                 stock: 25,
@@ -1680,6 +1918,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 239,
                 product_id: 61,
                 warehouse_id: 3,
                 stock: 25,
@@ -1687,6 +1926,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 240,
                 product_id: 62,
                 warehouse_id: 3,
                 stock: 25,
@@ -1694,6 +1934,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 241,
                 product_id: 63,
                 warehouse_id: 3,
                 stock: 25,
@@ -1701,6 +1942,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 242,
                 product_id: 64,
                 warehouse_id: 3,
                 stock: 25,
@@ -1708,6 +1950,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 243,
                 product_id: 65,
                 warehouse_id: 3,
                 stock: 25,
@@ -1715,6 +1958,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 244,
                 product_id: 66,
                 warehouse_id: 3,
                 stock: 25,
@@ -1722,6 +1966,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 245,
                 product_id: 67,
                 warehouse_id: 3,
                 stock: 25,
@@ -1729,6 +1974,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 246,
                 product_id: 68,
                 warehouse_id: 3,
                 stock: 25,
@@ -1736,6 +1982,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 247,
                 product_id: 69,
                 warehouse_id: 3,
                 stock: 25,
@@ -1743,6 +1990,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 248,
                 product_id: 70,
                 warehouse_id: 3,
                 stock: 25,
@@ -1750,6 +1998,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 249,
                 product_id: 71,
                 warehouse_id: 3,
                 stock: 25,
@@ -1757,6 +2006,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 250,
                 product_id: 72,
                 warehouse_id: 3,
                 stock: 25,
@@ -1764,6 +2014,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 251,
                 product_id: 73,
                 warehouse_id: 3,
                 stock: 25,
@@ -1771,6 +2022,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 252,
                 product_id: 74,
                 warehouse_id: 3,
                 stock: 25,
@@ -1778,6 +2030,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 253,
                 product_id: 75,
                 warehouse_id: 3,
                 stock: 25,
@@ -1785,6 +2038,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 254,
                 product_id: 76,
                 warehouse_id: 3,
                 stock: 25,
@@ -1792,6 +2046,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 255,
                 product_id: 77,
                 warehouse_id: 3,
                 stock: 25,
@@ -1799,6 +2054,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 256,
                 product_id: 78,
                 warehouse_id: 3,
                 stock: 25,
@@ -1806,6 +2062,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 257,
                 product_id: 79,
                 warehouse_id: 3,
                 stock: 25,
@@ -1813,6 +2070,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 258,
                 product_id: 80,
                 warehouse_id: 3,
                 stock: 25,
@@ -1820,6 +2078,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 259,
                 product_id: 81,
                 warehouse_id: 3,
                 stock: 25,
@@ -1827,6 +2086,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 260,
                 product_id: 82,
                 warehouse_id: 3,
                 stock: 25,
@@ -1834,6 +2094,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 261,
                 product_id: 83,
                 warehouse_id: 3,
                 stock: 25,
@@ -1841,6 +2102,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 262,
                 product_id: 84,
                 warehouse_id: 3,
                 stock: 25,
@@ -1848,6 +2110,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 263,
                 product_id: 85,
                 warehouse_id: 3,
                 stock: 25,
@@ -1855,6 +2118,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 264,
                 product_id: 86,
                 warehouse_id: 3,
                 stock: 25,
@@ -1862,6 +2126,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 265,
                 product_id: 87,
                 warehouse_id: 3,
                 stock: 25,
@@ -1869,6 +2134,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 266,
                 product_id: 88,
                 warehouse_id: 3,
                 stock: 25,
@@ -1876,6 +2142,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 267,
                 product_id: 89,
                 warehouse_id: 3,
                 stock: 25,
@@ -1883,6 +2150,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 268,
                 product_id: 1,
                 warehouse_id: 4,
                 stock: 25,
@@ -1890,6 +2158,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 269,
                 product_id: 2,
                 warehouse_id: 4,
                 stock: 25,
@@ -1897,6 +2166,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 270,
                 product_id: 3,
                 warehouse_id: 4,
                 stock: 25,
@@ -1904,6 +2174,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 271,
                 product_id: 4,
                 warehouse_id: 4,
                 stock: 25,
@@ -1911,6 +2182,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 272,
                 product_id: 5,
                 warehouse_id: 4,
                 stock: 25,
@@ -1918,6 +2190,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 273,
                 product_id: 6,
                 warehouse_id: 4,
                 stock: 25,
@@ -1925,6 +2198,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 274,
                 product_id: 7,
                 warehouse_id: 4,
                 stock: 25,
@@ -1932,6 +2206,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 275,
                 product_id: 8,
                 warehouse_id: 4,
                 stock: 25,
@@ -1939,6 +2214,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 276,
                 product_id: 9,
                 warehouse_id: 4,
                 stock: 25,
@@ -1946,6 +2222,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 277,
                 product_id: 10,
                 warehouse_id: 4,
                 stock: 25,
@@ -1953,6 +2230,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 278,
                 product_id: 11,
                 warehouse_id: 4,
                 stock: 25,
@@ -1960,6 +2238,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 279,
                 product_id: 12,
                 warehouse_id: 4,
                 stock: 25,
@@ -1967,6 +2246,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 280,
                 product_id: 13,
                 warehouse_id: 4,
                 stock: 25,
@@ -1974,6 +2254,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 281,
                 product_id: 14,
                 warehouse_id: 4,
                 stock: 25,
@@ -1981,6 +2262,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 282,
                 product_id: 15,
                 warehouse_id: 4,
                 stock: 25,
@@ -1988,6 +2270,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 283,
                 product_id: 16,
                 warehouse_id: 4,
                 stock: 25,
@@ -1995,6 +2278,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 284,
                 product_id: 17,
                 warehouse_id: 4,
                 stock: 25,
@@ -2002,6 +2286,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 285,
                 product_id: 18,
                 warehouse_id: 4,
                 stock: 25,
@@ -2009,6 +2294,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 286,
                 product_id: 19,
                 warehouse_id: 4,
                 stock: 25,
@@ -2016,6 +2302,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 287,
                 product_id: 20,
                 warehouse_id: 4,
                 stock: 25,
@@ -2023,6 +2310,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 288,
                 product_id: 21,
                 warehouse_id: 4,
                 stock: 25,
@@ -2030,6 +2318,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 289,
                 product_id: 22,
                 warehouse_id: 4,
                 stock: 25,
@@ -2037,6 +2326,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 290,
                 product_id: 23,
                 warehouse_id: 4,
                 stock: 25,
@@ -2044,6 +2334,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 291,
                 product_id: 24,
                 warehouse_id: 4,
                 stock: 25,
@@ -2051,6 +2342,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 292,
                 product_id: 25,
                 warehouse_id: 4,
                 stock: 25,
@@ -2058,6 +2350,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 293,
                 product_id: 26,
                 warehouse_id: 4,
                 stock: 25,
@@ -2065,6 +2358,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 294,
                 product_id: 27,
                 warehouse_id: 4,
                 stock: 25,
@@ -2072,6 +2366,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 295,
                 product_id: 28,
                 warehouse_id: 4,
                 stock: 25,
@@ -2079,6 +2374,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 296,
                 product_id: 29,
                 warehouse_id: 4,
                 stock: 25,
@@ -2086,6 +2382,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 297,
                 product_id: 30,
                 warehouse_id: 4,
                 stock: 25,
@@ -2093,6 +2390,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 298,
                 product_id: 31,
                 warehouse_id: 4,
                 stock: 25,
@@ -2100,6 +2398,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 299,
                 product_id: 32,
                 warehouse_id: 4,
                 stock: 25,
@@ -2107,6 +2406,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 300,
                 product_id: 33,
                 warehouse_id: 4,
                 stock: 25,
@@ -2114,6 +2414,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 301,
                 product_id: 34,
                 warehouse_id: 4,
                 stock: 25,
@@ -2121,6 +2422,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 302,
                 product_id: 35,
                 warehouse_id: 4,
                 stock: 25,
@@ -2128,6 +2430,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 303,
                 product_id: 36,
                 warehouse_id: 4,
                 stock: 25,
@@ -2135,6 +2438,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 304,
                 product_id: 37,
                 warehouse_id: 4,
                 stock: 25,
@@ -2142,6 +2446,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 305,
                 product_id: 38,
                 warehouse_id: 4,
                 stock: 25,
@@ -2149,6 +2454,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 306,
                 product_id: 39,
                 warehouse_id: 4,
                 stock: 25,
@@ -2156,6 +2462,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 307,
                 product_id: 40,
                 warehouse_id: 4,
                 stock: 25,
@@ -2163,6 +2470,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 308,
                 product_id: 41,
                 warehouse_id: 4,
                 stock: 25,
@@ -2170,6 +2478,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 309,
                 product_id: 42,
                 warehouse_id: 4,
                 stock: 25,
@@ -2177,6 +2486,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 310,
                 product_id: 43,
                 warehouse_id: 4,
                 stock: 25,
@@ -2184,6 +2494,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 311,
                 product_id: 44,
                 warehouse_id: 4,
                 stock: 25,
@@ -2191,6 +2502,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 312,
                 product_id: 45,
                 warehouse_id: 4,
                 stock: 25,
@@ -2198,6 +2510,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 313,
                 product_id: 46,
                 warehouse_id: 4,
                 stock: 25,
@@ -2205,6 +2518,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 314,
                 product_id: 47,
                 warehouse_id: 4,
                 stock: 25,
@@ -2212,6 +2526,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 315,
                 product_id: 48,
                 warehouse_id: 4,
                 stock: 25,
@@ -2219,6 +2534,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 316,
                 product_id: 49,
                 warehouse_id: 4,
                 stock: 25,
@@ -2226,6 +2542,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 317,
                 product_id: 50,
                 warehouse_id: 4,
                 stock: 25,
@@ -2233,6 +2550,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 318,
                 product_id: 51,
                 warehouse_id: 4,
                 stock: 25,
@@ -2240,6 +2558,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 319,
                 product_id: 52,
                 warehouse_id: 4,
                 stock: 25,
@@ -2247,6 +2566,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 320,
                 product_id: 53,
                 warehouse_id: 4,
                 stock: 25,
@@ -2254,6 +2574,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 321,
                 product_id: 54,
                 warehouse_id: 4,
                 stock: 25,
@@ -2261,6 +2582,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 322,
                 product_id: 55,
                 warehouse_id: 4,
                 stock: 25,
@@ -2268,6 +2590,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 323,
                 product_id: 56,
                 warehouse_id: 4,
                 stock: 25,
@@ -2275,6 +2598,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 324,
                 product_id: 57,
                 warehouse_id: 4,
                 stock: 25,
@@ -2282,6 +2606,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 325,
                 product_id: 58,
                 warehouse_id: 4,
                 stock: 25,
@@ -2289,6 +2614,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 326,
                 product_id: 59,
                 warehouse_id: 4,
                 stock: 25,
@@ -2296,6 +2622,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 327,
                 product_id: 60,
                 warehouse_id: 4,
                 stock: 25,
@@ -2303,6 +2630,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 328,
                 product_id: 61,
                 warehouse_id: 4,
                 stock: 25,
@@ -2310,6 +2638,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 329,
                 product_id: 62,
                 warehouse_id: 4,
                 stock: 25,
@@ -2317,6 +2646,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 330,
                 product_id: 63,
                 warehouse_id: 4,
                 stock: 25,
@@ -2324,6 +2654,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 331,
                 product_id: 64,
                 warehouse_id: 4,
                 stock: 25,
@@ -2331,6 +2662,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 332,
                 product_id: 65,
                 warehouse_id: 4,
                 stock: 25,
@@ -2338,6 +2670,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 333,
                 product_id: 66,
                 warehouse_id: 4,
                 stock: 25,
@@ -2345,6 +2678,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 334,
                 product_id: 67,
                 warehouse_id: 4,
                 stock: 25,
@@ -2352,6 +2686,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 335,
                 product_id: 68,
                 warehouse_id: 4,
                 stock: 25,
@@ -2359,6 +2694,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 336,
                 product_id: 69,
                 warehouse_id: 4,
                 stock: 25,
@@ -2366,6 +2702,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 337,
                 product_id: 70,
                 warehouse_id: 4,
                 stock: 25,
@@ -2373,6 +2710,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 338,
                 product_id: 71,
                 warehouse_id: 4,
                 stock: 25,
@@ -2380,6 +2718,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 339,
                 product_id: 72,
                 warehouse_id: 4,
                 stock: 25,
@@ -2387,6 +2726,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 340,
                 product_id: 73,
                 warehouse_id: 4,
                 stock: 25,
@@ -2394,6 +2734,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 341,
                 product_id: 74,
                 warehouse_id: 4,
                 stock: 25,
@@ -2401,6 +2742,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 342,
                 product_id: 75,
                 warehouse_id: 4,
                 stock: 25,
@@ -2408,6 +2750,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 343,
                 product_id: 76,
                 warehouse_id: 4,
                 stock: 25,
@@ -2415,6 +2758,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 344,
                 product_id: 77,
                 warehouse_id: 4,
                 stock: 25,
@@ -2422,6 +2766,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 345,
                 product_id: 78,
                 warehouse_id: 4,
                 stock: 25,
@@ -2429,6 +2774,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 346,
                 product_id: 79,
                 warehouse_id: 4,
                 stock: 25,
@@ -2436,6 +2782,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 347,
                 product_id: 80,
                 warehouse_id: 4,
                 stock: 25,
@@ -2443,6 +2790,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 348,
                 product_id: 81,
                 warehouse_id: 4,
                 stock: 25,
@@ -2450,6 +2798,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 349,
                 product_id: 82,
                 warehouse_id: 4,
                 stock: 25,
@@ -2457,6 +2806,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 350,
                 product_id: 83,
                 warehouse_id: 4,
                 stock: 25,
@@ -2464,6 +2814,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 351,
                 product_id: 84,
                 warehouse_id: 4,
                 stock: 25,
@@ -2471,6 +2822,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 352,
                 product_id: 85,
                 warehouse_id: 4,
                 stock: 25,
@@ -2478,6 +2830,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 353,
                 product_id: 86,
                 warehouse_id: 4,
                 stock: 25,
@@ -2485,6 +2838,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 354,
                 product_id: 87,
                 warehouse_id: 4,
                 stock: 25,
@@ -2492,6 +2846,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 355,
                 product_id: 88,
                 warehouse_id: 4,
                 stock: 25,
@@ -2499,6 +2854,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 356,
                 product_id: 89,
                 warehouse_id: 4,
                 stock: 25,
@@ -2506,6 +2862,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 357,
                 product_id: 1,
                 warehouse_id: 5,
                 stock: 25,
@@ -2513,6 +2870,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 358,
                 product_id: 2,
                 warehouse_id: 5,
                 stock: 25,
@@ -2520,6 +2878,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 359,
                 product_id: 3,
                 warehouse_id: 5,
                 stock: 25,
@@ -2527,6 +2886,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 360,
                 product_id: 4,
                 warehouse_id: 5,
                 stock: 25,
@@ -2534,6 +2894,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 361,
                 product_id: 5,
                 warehouse_id: 5,
                 stock: 25,
@@ -2541,6 +2902,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 362,
                 product_id: 6,
                 warehouse_id: 5,
                 stock: 25,
@@ -2548,6 +2910,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 363,
                 product_id: 7,
                 warehouse_id: 5,
                 stock: 25,
@@ -2555,6 +2918,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 364,
                 product_id: 8,
                 warehouse_id: 5,
                 stock: 25,
@@ -2562,6 +2926,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 365,
                 product_id: 9,
                 warehouse_id: 5,
                 stock: 25,
@@ -2569,6 +2934,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 366,
                 product_id: 10,
                 warehouse_id: 5,
                 stock: 25,
@@ -2576,6 +2942,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 367,
                 product_id: 11,
                 warehouse_id: 5,
                 stock: 25,
@@ -2583,6 +2950,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 368,
                 product_id: 12,
                 warehouse_id: 5,
                 stock: 25,
@@ -2590,6 +2958,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 369,
                 product_id: 13,
                 warehouse_id: 5,
                 stock: 25,
@@ -2597,6 +2966,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 370,
                 product_id: 14,
                 warehouse_id: 5,
                 stock: 25,
@@ -2604,6 +2974,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 371,
                 product_id: 15,
                 warehouse_id: 5,
                 stock: 25,
@@ -2611,6 +2982,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 372,
                 product_id: 16,
                 warehouse_id: 5,
                 stock: 25,
@@ -2618,6 +2990,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 373,
                 product_id: 17,
                 warehouse_id: 5,
                 stock: 25,
@@ -2625,6 +2998,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 374,
                 product_id: 18,
                 warehouse_id: 5,
                 stock: 25,
@@ -2632,6 +3006,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 375,
                 product_id: 19,
                 warehouse_id: 5,
                 stock: 25,
@@ -2639,6 +3014,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 376,
                 product_id: 20,
                 warehouse_id: 5,
                 stock: 25,
@@ -2646,6 +3022,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 377,
                 product_id: 21,
                 warehouse_id: 5,
                 stock: 25,
@@ -2653,6 +3030,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 378,
                 product_id: 22,
                 warehouse_id: 5,
                 stock: 25,
@@ -2660,6 +3038,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 379,
                 product_id: 23,
                 warehouse_id: 5,
                 stock: 25,
@@ -2667,6 +3046,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 380,
                 product_id: 24,
                 warehouse_id: 5,
                 stock: 25,
@@ -2674,6 +3054,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 381,
                 product_id: 25,
                 warehouse_id: 5,
                 stock: 25,
@@ -2681,6 +3062,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 382,
                 product_id: 26,
                 warehouse_id: 5,
                 stock: 25,
@@ -2688,6 +3070,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 383,
                 product_id: 27,
                 warehouse_id: 5,
                 stock: 25,
@@ -2695,6 +3078,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 384,
                 product_id: 28,
                 warehouse_id: 5,
                 stock: 25,
@@ -2702,6 +3086,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 385,
                 product_id: 29,
                 warehouse_id: 5,
                 stock: 25,
@@ -2709,6 +3094,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 386,
                 product_id: 30,
                 warehouse_id: 5,
                 stock: 25,
@@ -2716,6 +3102,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 387,
                 product_id: 31,
                 warehouse_id: 5,
                 stock: 25,
@@ -2723,6 +3110,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 388,
                 product_id: 32,
                 warehouse_id: 5,
                 stock: 25,
@@ -2730,6 +3118,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 389,
                 product_id: 33,
                 warehouse_id: 5,
                 stock: 25,
@@ -2737,6 +3126,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 390,
                 product_id: 34,
                 warehouse_id: 5,
                 stock: 25,
@@ -2744,6 +3134,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 391,
                 product_id: 35,
                 warehouse_id: 5,
                 stock: 25,
@@ -2751,6 +3142,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 392,
                 product_id: 36,
                 warehouse_id: 5,
                 stock: 25,
@@ -2758,6 +3150,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 393,
                 product_id: 37,
                 warehouse_id: 5,
                 stock: 25,
@@ -2765,6 +3158,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 394,
                 product_id: 38,
                 warehouse_id: 5,
                 stock: 25,
@@ -2772,6 +3166,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 395,
                 product_id: 39,
                 warehouse_id: 5,
                 stock: 25,
@@ -2779,6 +3174,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 396,
                 product_id: 40,
                 warehouse_id: 5,
                 stock: 25,
@@ -2786,6 +3182,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 397,
                 product_id: 41,
                 warehouse_id: 5,
                 stock: 25,
@@ -2793,6 +3190,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 398,
                 product_id: 42,
                 warehouse_id: 5,
                 stock: 25,
@@ -2800,6 +3198,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 399,
                 product_id: 43,
                 warehouse_id: 5,
                 stock: 25,
@@ -2807,6 +3206,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 400,
                 product_id: 44,
                 warehouse_id: 5,
                 stock: 25,
@@ -2814,6 +3214,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 401,
                 product_id: 45,
                 warehouse_id: 5,
                 stock: 25,
@@ -2821,6 +3222,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 402,
                 product_id: 46,
                 warehouse_id: 5,
                 stock: 25,
@@ -2828,6 +3230,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 403,
                 product_id: 47,
                 warehouse_id: 5,
                 stock: 25,
@@ -2835,6 +3238,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 404,
                 product_id: 48,
                 warehouse_id: 5,
                 stock: 25,
@@ -2842,6 +3246,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 405,
                 product_id: 49,
                 warehouse_id: 5,
                 stock: 25,
@@ -2849,6 +3254,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 406,
                 product_id: 50,
                 warehouse_id: 5,
                 stock: 25,
@@ -2856,6 +3262,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 407,
                 product_id: 51,
                 warehouse_id: 5,
                 stock: 25,
@@ -2863,6 +3270,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 408,
                 product_id: 52,
                 warehouse_id: 5,
                 stock: 25,
@@ -2870,6 +3278,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 409,
                 product_id: 53,
                 warehouse_id: 5,
                 stock: 25,
@@ -2877,6 +3286,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 410,
                 product_id: 54,
                 warehouse_id: 5,
                 stock: 25,
@@ -2884,6 +3294,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 411,
                 product_id: 55,
                 warehouse_id: 5,
                 stock: 25,
@@ -2891,6 +3302,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 412,
                 product_id: 56,
                 warehouse_id: 5,
                 stock: 25,
@@ -2898,6 +3310,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 413,
                 product_id: 57,
                 warehouse_id: 5,
                 stock: 25,
@@ -2905,6 +3318,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 414,
                 product_id: 58,
                 warehouse_id: 5,
                 stock: 25,
@@ -2912,6 +3326,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 415,
                 product_id: 59,
                 warehouse_id: 5,
                 stock: 25,
@@ -2919,6 +3334,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 416,
                 product_id: 60,
                 warehouse_id: 5,
                 stock: 25,
@@ -2926,6 +3342,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 417,
                 product_id: 61,
                 warehouse_id: 5,
                 stock: 25,
@@ -2933,6 +3350,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 418,
                 product_id: 62,
                 warehouse_id: 5,
                 stock: 25,
@@ -2940,6 +3358,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 419,
                 product_id: 63,
                 warehouse_id: 5,
                 stock: 25,
@@ -2947,6 +3366,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 420,
                 product_id: 64,
                 warehouse_id: 5,
                 stock: 25,
@@ -2954,6 +3374,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 421,
                 product_id: 65,
                 warehouse_id: 5,
                 stock: 25,
@@ -2961,6 +3382,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 422,
                 product_id: 66,
                 warehouse_id: 5,
                 stock: 25,
@@ -2968,6 +3390,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 423,
                 product_id: 67,
                 warehouse_id: 5,
                 stock: 25,
@@ -2975,6 +3398,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 424,
                 product_id: 68,
                 warehouse_id: 5,
                 stock: 25,
@@ -2982,6 +3406,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 425,
                 product_id: 69,
                 warehouse_id: 5,
                 stock: 25,
@@ -2989,6 +3414,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 426,
                 product_id: 70,
                 warehouse_id: 5,
                 stock: 25,
@@ -2996,6 +3422,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 427,
                 product_id: 71,
                 warehouse_id: 5,
                 stock: 25,
@@ -3003,6 +3430,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 428,
                 product_id: 72,
                 warehouse_id: 5,
                 stock: 25,
@@ -3010,6 +3438,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 429,
                 product_id: 73,
                 warehouse_id: 5,
                 stock: 25,
@@ -3017,6 +3446,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 430,
                 product_id: 74,
                 warehouse_id: 5,
                 stock: 25,
@@ -3024,6 +3454,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 431,
                 product_id: 75,
                 warehouse_id: 5,
                 stock: 25,
@@ -3031,6 +3462,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 432,
                 product_id: 76,
                 warehouse_id: 5,
                 stock: 25,
@@ -3038,6 +3470,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 433,
                 product_id: 77,
                 warehouse_id: 5,
                 stock: 25,
@@ -3045,6 +3478,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 434,
                 product_id: 78,
                 warehouse_id: 5,
                 stock: 25,
@@ -3052,6 +3486,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 435,
                 product_id: 79,
                 warehouse_id: 5,
                 stock: 25,
@@ -3059,6 +3494,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 436,
                 product_id: 80,
                 warehouse_id: 5,
                 stock: 25,
@@ -3066,6 +3502,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 437,
                 product_id: 81,
                 warehouse_id: 5,
                 stock: 25,
@@ -3073,6 +3510,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 438,
                 product_id: 82,
                 warehouse_id: 5,
                 stock: 25,
@@ -3080,6 +3518,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 439,
                 product_id: 83,
                 warehouse_id: 5,
                 stock: 25,
@@ -3087,6 +3526,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 440,
                 product_id: 84,
                 warehouse_id: 5,
                 stock: 25,
@@ -3094,6 +3534,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 441,
                 product_id: 85,
                 warehouse_id: 5,
                 stock: 25,
@@ -3101,6 +3542,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 442,
                 product_id: 86,
                 warehouse_id: 5,
                 stock: 25,
@@ -3108,6 +3550,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 443,
                 product_id: 87,
                 warehouse_id: 5,
                 stock: 25,
@@ -3115,6 +3558,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 444,
                 product_id: 88,
                 warehouse_id: 5,
                 stock: 25,
@@ -3122,6 +3566,7 @@ module.exports = {
                 updatedAt: new Date(),
             },
             {
+                id: 445,
                 product_id: 89,
                 warehouse_id: 5,
                 stock: 25,

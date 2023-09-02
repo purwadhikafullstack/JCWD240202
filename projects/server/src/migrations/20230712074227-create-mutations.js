@@ -23,9 +23,11 @@ module.exports = {
             },
             is_approved: {
                 type: Sequelize.BOOLEAN,
+                defaultValue: false,
             },
             is_rejected: {
                 type: Sequelize.BOOLEAN,
+                defaultValue: false,
             },
             createdAt: {
                 allowNull: false,

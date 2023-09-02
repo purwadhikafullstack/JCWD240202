@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             user_id: DataTypes.INTEGER,
             product_id: DataTypes.INTEGER,
-            comment: { type: DataTypes.STRING, allowNull: true },
+            comment: { type: DataTypes.STRING(500), allowNull: true },
             rating: DataTypes.INTEGER,
             order_id: { type: DataTypes.INTEGER, allowNull: false },
         },

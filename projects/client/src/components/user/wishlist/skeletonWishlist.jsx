@@ -1,7 +1,7 @@
 export default function SkeletonWishList() {
     return (
         <>
-            <div className="border w-3/4 rounded-xl h-[250px] p-4 mb-4 animate-pulse">
+            <div className="border w-full rounded-xl h-[250px] p-4 mb-4 animate-pulse">
                 <div className="h-full w-full flex items-center gap-4 relative">
                     <div className="flex-1 h-full w-full flex items-center gap-9">
                         <div className="bg-gray-300 dark:bg-gray-700 h-[200px] w-[150px] rounded-lg"></div>

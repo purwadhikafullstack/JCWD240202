@@ -43,47 +43,68 @@ export default function Wishlist() {
                             </Select>
                         </div>
                         {wishlistData?.data?.wishlists.length === 0 ? (
-                            <>
-                                <div className="h-full flex justify-center items-center font-bold text-lg">
-                                    <div className="flex flex-col items-center gap-4">
-                                        <div>Wishlist Empty</div>
-                                        <div>
-                                            <Button
-                                                onClick={() =>
-                                                    navigate('/products')
-                                                }
-                                                color={'light'}
-                                            >
-                                                Browse Products Here
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className="pt-9">
-                                    {wishlistData?.data?.wishlists?.map(
-                                        (value, index) => {
-                                            return (
-                                                <WishlistCard
-                                                    key={index}
-                                                    data={{ value }}
-                                                />
-                                            );
-                                        },
-                                    )}
-                                </div>
-                                <div className="flex justify-center">
-                                    <PaginationButton
-                                        data={{
-                                            totalPage: wishlistData?.totalPage,
-                                            page,
-                                            pageChange,
-                                        }}
-                                    />
-                                </div>
-                            </>
+                             <>
+                             <div className="h-full flex justify-center items-center font-bold text-lg">
+                                 <div className="flex flex-col items-center gap-4">
+                                     <div className="flex items-center justify-center py-8">
+                                         <div>
+                                             <div className="flex justify-center items-center font-semibold text-xl mb-6">
+                                                 <h1 className="font-semibold text-2xl">
+                                                     Wishlist Empty
+                                                 </h1>
+                                             </div>
+                                             <div className="w-full flex justify-center items-center">
+                                                 <img
+                                                     src="/images/not-found-user.png"
+                                                     alt="not-found"
+                                                     className="min-w-[200px] max-w-[400px]"
+                                                 ></img>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div>
+                                         <Button
+                                             onClick={() =>
+                                                 navigate('/products')
+                                             }
+                                             color={'light'}
+                                         >
+                                             Browse Products Here
+                                         </Button>
+                                     </div>
+                                 </div>
+                             </div>
+                         </>
+                     ) : (
+                         <>
+                             <div className="pt-9">
+                                 {wishlistData?.data?.wishlists?.map(
+                                     (value, index) => {
+                                         if (loading) {
+                                             return (
+                                                 <WishlistCard
+                                                     key={index}
+                                                     data={{ value }}
+                                                 />
+                                             );
+                                         } else {
+                                             return (
+                                                 <SkeletonWishList key={index} />
+                                             );
+                                         }
+                                     },
+                                 )}
+                             </div>
+                             <div className="flex justify-center w-3/4">
+                                 <PaginationButton
+                                     data={{
+                                         totalPage: wishlistData?.totalPage,
+                                         page,
+                                         pageChange,
+                                     }}
+                                 />
+                             </div>
+                         </>
                         )}
                     </div>
                 </div>

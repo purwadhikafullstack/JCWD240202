@@ -198,7 +198,7 @@ export default function RegisterPage() {
                     src="/images/banner-ikewa.png"
                     alt="not-found"
                     className="min-w-[200px]"
-                ></img>
+                />
             </div>
         </>
     );

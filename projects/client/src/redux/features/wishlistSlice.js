@@ -43,7 +43,7 @@ export const getUserWishlists = (data) => async (dispatch) => {
         );
         setTimeout(() => {
             dispatch(setLoading(true));
-        }, 1500);
+        }, 1000);
         dispatch(setWishlists(getWishlists.data));
         const getIds = getWishlists?.data?.allProduct?.wishlists?.map(
             (value) => {
