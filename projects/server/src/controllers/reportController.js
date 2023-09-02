@@ -346,6 +346,8 @@ const chartSales = async (req, res) => {
                     raw: true,
                 });
 
+                let highestVal = Math.max(...getData.map((val) => val.total));
+
                 const salesMap = new Map();
 
                 getData.forEach((item) => {
@@ -361,6 +363,7 @@ const chartSales = async (req, res) => {
                     success: true,
                     message: 'get data success',
                     data: result,
+                    highestVal,
                 });
             } else if (year && month) {
                 const startDate = new Date(year, month - 1, 1);
@@ -409,6 +412,8 @@ const chartSales = async (req, res) => {
                     raw: true,
                 });
 
+                let highestVal = Math.max(...getData.map((val) => val.total));
+
                 const salesMap = new Map();
 
                 getData.forEach((item) => {
@@ -428,6 +433,7 @@ const chartSales = async (req, res) => {
                     success: true,
                     message: 'get data success',
                     data: result,
+                    highestVal,
                 });
             }
         } else if (user.role_id === 2) {
@@ -481,6 +487,8 @@ const chartSales = async (req, res) => {
                     raw: true,
                 });
 
+                let highestVal = Math.max(...getData.map((val) => val.total));
+
                 const salesMap = new Map();
 
                 getData.forEach((item) => {
@@ -496,6 +504,7 @@ const chartSales = async (req, res) => {
                     success: true,
                     message: 'get data success',
                     data: result,
+                    highestVal,
                 });
             } else if (year && month) {
                 const startDate = new Date(year, month - 1, 1);
@@ -544,6 +553,8 @@ const chartSales = async (req, res) => {
                     raw: true,
                 });
 
+                let highestVal = Math.max(...getData.map((val) => val.total));
+
                 const salesMap = new Map();
 
                 getData.forEach((item) => {
@@ -563,6 +574,7 @@ const chartSales = async (req, res) => {
                     success: true,
                     message: 'get data success',
                     data: result,
+                    highestVal,
                 });
             }
         }

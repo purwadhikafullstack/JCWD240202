@@ -33,7 +33,7 @@ export default function NewArrivalsCard({ loading }) {
                                 <div className="rounded shadow-xl flex">
                                     <div className="w-full flex-1">
                                         <img
-                                            src={value?.product_images[0]?.name}
+                                            src={value?.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.product_images[0]?.name : value?.product_images[0]?.name}
                                             alt="..."
                                             className="h-[400px] w-full"
                                         />

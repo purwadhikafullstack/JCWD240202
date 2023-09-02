@@ -9,6 +9,7 @@ import {
     YAxis,
     Tooltip,
     Legend,
+    ResponsiveContainer,
 } from 'recharts';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -104,59 +105,64 @@ export default function ChartSales(props) {
                             </div>
                         </div>
                     </div>
+                    {console.log(chartData)}
                     {chosenTime === 'daily' ? (
-                        <div className="h-full overflow-x-auto">
-                            <LineChart
-                                width={1100}
-                                height={400}
-                                data={chartData?.data}
-                                margin={{
-                                    top: 20,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="5 5" />
-                                <XAxis dataKey="date" />
-                                <YAxis
-                                    type="number"
-                                    domain={['auto', 'auto']}
-                                    allowDataOverflow={true}
-                                />
-                                <Tooltip />
-                                <Legend />
-                                <Line
-                                    type="monotone"
-                                    dataKey="total"
-                                    stroke="#0369a1"
-                                />
-                            </LineChart>
+                        <div className="h-[500px] w-full overflow-x-auto">
+                            <ResponsiveContainer width={'99%'} height={'99%'}>
+                                <LineChart
+                                    width={1100}
+                                    height={400}
+                                    data={chartData?.data}
+                                    margin={{
+                                        top: 20,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="5 5" />
+                                    <XAxis dataKey="date" />
+                                    <YAxis
+                                        type="number"
+                                        domain={['auto', chartData?.highestVal]}
+                                        allowDataOverflow={true}
+                                    />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="total"
+                                        stroke="#0369a1"
+                                    />
+                                </LineChart>
+                            </ResponsiveContainer>
                         </div>
                     ) : chosenTime === 'monthly' ? (
-                        <div className="h-full overflow-x-auto">
-                            <LineChart
-                                width={1100}
-                                height={400}
-                                data={chartData?.data}
-                                margin={{
-                                    top: 20,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="5 5" />
-                                <XAxis dataKey="monthYear" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Line
-                                    type="monotone"
-                                    dataKey="total"
-                                    stroke="#0369a1"
-                                />
-                            </LineChart>
+                        <div className="h-[500px] w-full overflow-x-auto">
+                            <ResponsiveContainer width={'99%'} height={'99%'}>
+                                <LineChart
+                                    width={1100}
+                                    height={400}
+                                    data={chartData?.data}
+                                    margin={{
+                                        top: 20,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="5 5" />
+                                    <XAxis dataKey="monthYear" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="total"
+                                        stroke="#0369a1"
+                                    />
+                                </LineChart>
+                            </ResponsiveContainer>
                         </div>
                     ) : (
                         ''

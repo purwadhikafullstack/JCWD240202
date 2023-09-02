@@ -39,6 +39,7 @@ const getAllCategories = async (req, res) => {
 const getNewArrivals = async (req, res) => {
     try {
         const newArrivals = await products.findAll({
+            where: { is_deleted: false },
             limit: 10,
             include: [
                 {
@@ -74,6 +75,7 @@ const getNewArrivals = async (req, res) => {
 const getBestSeller = async (req, res) => {
     try {
         const bestSeller = await products.findAll({
+            where: { is_deleted: false },
             attributes: [
                 'id',
                 'name',

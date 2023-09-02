@@ -102,7 +102,7 @@ export default function Navbar(props) {
                     )}
                 </button>
                 <button
-                    className={`w-16 sm:w-24 ${
+                    className={`w-16 sm:w-24 max-sm:hidden ${
                         props.dataLogin?.role_id === 2 ||
                         props.dataLogin?.role_id === 3
                             ? 'cursor-not-allowed'
@@ -294,16 +294,6 @@ export default function Navbar(props) {
                     showBurger ? 'block h-screen w-screen z-[998]' : 'hidden'
                 }`}
             >
-                <button className="text-left">
-                    <div
-                        onClick={() => {
-                            setShowBurger(!showBurger);
-                            navigate('/');
-                        }}
-                    >
-                        Home
-                    </div>
-                </button>
                 <button className="text-left">
                     <div
                         onClick={() => {

@@ -39,7 +39,7 @@ export default function AfterAddCart(props) {
                     : 'translate-x-full'
             } transition-transform ease-in-out duration-1000`}
         >
-            <div className="bg-sky-700 text-yellow-300 h-[100px] p-9 font-bold text-xl flex">
+            <div className="bg-sky-700 text-yellow-300 h-[50px] p-9 font-bold text-xl flex items-center">
                 <div
                     onClick={() => props?.state?.setAddNewItem(false)}
                     className="flex-2 flex items-center justify-center hover:cursor-pointer"
@@ -96,12 +96,12 @@ export default function AfterAddCart(props) {
                         </div>
                     </div>
                 </div>
-                <div className="flex">
+                <div className="flex max-sm:flex-col max-sm:gap-2">
                     <div className="flex-1 flex justify-start">
                         <Button
                             pill
                             color={'light'}
-                            className="w-[200px] h-[60px]"
+                            className="w-[200px] h-[60px] max-sm:w-full"
                             onClick={() => props?.state?.setAddNewItem(false)}
                         >
                             <div className="text-lg flex items-center gap-2">
@@ -110,13 +110,13 @@ export default function AfterAddCart(props) {
                             </div>
                         </Button>
                     </div>
-                    <div className="flex-1 flex justify-center">
+                    <div className="flex-1 flex justify-center max-sm:order-first max-sm:w-full">
                         <Button
                             pill
                             onClick={() => {
                                 navigate('/cart');
                             }}
-                            className="lg:w-[400px] sm:w-max h-[60px] bg-sky-700 text-yellow-300"
+                            className="lg:w-[400px] sm:w-max max-sm:w-full h-[60px] bg-sky-700 text-yellow-300"
                         >
                             <div className="text-xl flex items-center gap-4">
                                 <AiOutlineShoppingCart size={25} />
@@ -125,7 +125,7 @@ export default function AfterAddCart(props) {
                         </Button>
                     </div>
                 </div>
-                <div className="lg:mt-16 sm:mt-9 max-lg:mt-4">
+                <div className="lg:mt-7 sm:mt-4 max-lg:mt-4">
                     <div className="text-lg font-bold">Related Products</div>
                     <div className="lg:mt-9 max-lg:mt-2 flex gap-2 justify-evenly">
                         {related?.data?.map((value, index) => {
