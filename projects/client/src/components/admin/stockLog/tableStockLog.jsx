@@ -22,13 +22,11 @@ export default function TableStockLog({ data, loading }) {
                                 {value?.product?.name}
                             </td>
                             <td className="px-6 py-4 border-r text-center">
-                                {value?.user?.role?.name.replace(/\b\w/g, (char) =>
-                                    char.toUpperCase(),
-                                )}
+                                {value?.user ? value?.user?.role?.name.replace(/\b\w/g, (char) => char.toUpperCase()) : <p className='text-red-600'>Deleted Warehouse Admin</p>}
                             </td>
                             <td className="px-6 py-4 border-r text-center">{value?.quantity}</td>
                             <td className="px-6 py-4 border-r text-center">
-                                {value?.warehouse?.city}
+                                {value?.warehouse?.is_deleted === false ? value?.warehouse?.city : <>{value?.warehouse?.city}<br></br><p className='text-red-600'>(Deleted Warehouse)</p></>}
                             </td>
                             <td className="px-6 py-4 border-r text-center">
                                 {value?.type?.name}

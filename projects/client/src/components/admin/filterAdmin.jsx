@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getAllDataWh } from '../../redux/features/warehouseSlice';
 import { Dropdown, Label, Radio } from 'flowbite-react';
 import axios from 'axios';
 
 export default function FilterAdmin(props) {
-    const dispatch = useDispatch();
     const warehouse = useSelector((state) => state.warehouse.dataWh);
     const dataLogin = JSON.parse(localStorage?.getItem('user'));
     const [result, setResult] = useState([]);

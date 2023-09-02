@@ -74,7 +74,7 @@ export default function AddQuantityModal({ showModal, selected, params }) {
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
                                     className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
-                                    disabled={!addQty}
+                                    disabled={!addQty || Number(addQty) === 0}
                                     onClick={() => {
                                         setConfirm(true);
                                     }}

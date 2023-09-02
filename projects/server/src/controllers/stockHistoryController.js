@@ -1,6 +1,5 @@
 const db = require('../models');
 const log = db.stock_histories;
-const { sequelize } = require('./../models');
 const { Op } = require('sequelize');
 const moment = require('moment');
 
@@ -311,7 +310,7 @@ module.exports = {
                     },
                     {
                         model: db.warehouses,
-                        attributes: ['id', 'city', 'city_id'],
+                        attributes: ['id', 'city', 'city_id', 'is_deleted'],
                     },
                     {
                         model: db.types,
@@ -352,7 +351,7 @@ module.exports = {
                     },
                     {
                         model: db.warehouses,
-                        attributes: ['id', 'city', 'city_id'],
+                        attributes: ['id', 'city', 'city_id', 'is_deleted'],
                     },
                     {
                         model: db.types,

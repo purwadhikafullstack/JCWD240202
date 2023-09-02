@@ -422,7 +422,7 @@ module.exports = {
                 warehouse,
             } = req.query;
             const { id, role_id } = req.User;
-            let order = [['createdAt', 'DESC']];
+            let order = [['id', 'DESC']];
             let where = undefined;
             let wh = undefined;
             const paginationLimit = 5;
@@ -569,9 +569,9 @@ module.exports = {
 
             if (sort) {
                 if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 

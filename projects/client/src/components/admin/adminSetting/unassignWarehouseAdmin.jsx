@@ -1,5 +1,5 @@
 import { AiOutlineClose } from 'react-icons/ai';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { unassignWhAdmin } from '../../../redux/features/warehouseSlice';
 

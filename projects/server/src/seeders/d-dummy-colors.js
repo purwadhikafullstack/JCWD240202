@@ -12,24 +12,39 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
          */
-        await queryInterface.bulkInsert('types', [
+        await queryInterface.bulkInsert('colors', [
             {
-                name: 'Manual Update',
+                id: 1,
+                name: 'BLACK',
+                color_code: '#000000',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                name: 'Sales',
+                id: 2,
+                name: 'WHITE',
+                color_code: '#FFFFFF',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                name: 'Mutation',
+                id: 3,
+                name: 'BROWN',
+                color_code: '#A52A2A',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
-                name: 'Canceled',
+                id: 4,
+                name: 'BEIGE',
+                color_code: '#F5F5DC',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            },
+            {
+                id: 5,
+                name: 'GREY',
+                color_code: '#808080',
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
@@ -43,6 +58,6 @@ module.exports = {
          * Example:
          * await queryInterface.bulkDelete('People', null, {});
          */
-        await queryInterface.bulkDelete('types', null, {});
+        await queryInterface.bulkDelete('colors', null, {});
     },
 };

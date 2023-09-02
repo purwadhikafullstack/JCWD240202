@@ -9,7 +9,6 @@ import {FcGoogle} from 'react-icons/fc'
 import { Helmet } from 'react-helmet';
 
 export default function LoginPage() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(true);
     const [input, setInput] = useState({
@@ -33,9 +32,6 @@ export default function LoginPage() {
                 email: '',
                 password: '',
             });
-            // setTimeout(() => {
-            //     window.history.back()
-            // }, 1000);
         }
     };
 
@@ -56,8 +52,6 @@ export default function LoginPage() {
             }
         }
     }
-
-    console.log(window.history.length, 'testttttt')
 
     return (
         <>
@@ -172,8 +166,8 @@ export default function LoginPage() {
                 <img
                     src="/images/banner-ikewa-login.png"
                     alt="not-found"
-                    className="min-w-[200px]"
-                ></img>
+                    className="max-h-[200px] object-fill w-full"
+                />
             </div>
         </>
     );

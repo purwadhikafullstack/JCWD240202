@@ -41,6 +41,7 @@ import { getDataLogin } from './redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import UserNotifications from './pages/user/notificationsPage';
 import CategoryProducts from './pages/user/categoryProducts';
+import AboutUs from './pages/user/aboutUs';
 
 function App() {
     const dispatch = useDispatch();
@@ -134,6 +135,7 @@ function App() {
                         />
                     }
                 />
+                <Route path="/about" element={<NotLoginRoute component={<AboutUs/>} dataLogin={dataLogin}/>}/>
 
                 {/* User Login */}
                 <Route

@@ -126,7 +126,7 @@ export default function AdminLoginPage() {
                     src="/images/banner-ikewa.png"
                     alt="not-found"
                     className="min-w-[200px]"
-                ></img>
+                />
             </div>
         </div>
     );

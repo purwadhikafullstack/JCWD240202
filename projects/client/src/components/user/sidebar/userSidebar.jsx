@@ -41,7 +41,7 @@ export default function UserSidebar() {
                 <div className="flex max-lg:flex-row max-lg:items-center max-lg:justify-evenly max-lg:divide-x max-lg:w-full lg:flex-col lg:gap-2">
                     <div
                         onClick={() => navigate('/users/profile')}
-                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
+                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold hover:cursor-pointer flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
                     >
                         <div>
                             <MdOutlineAccountCircle size={20} />
@@ -50,7 +50,7 @@ export default function UserSidebar() {
                     </div>
                     <div
                         onClick={() => navigate('/users/address')}
-                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
+                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold hover:cursor-pointer flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
                     >
                         <div>
                             <FaRegAddressBook size={20} />
@@ -59,7 +59,7 @@ export default function UserSidebar() {
                     </div>
                     <div
                         onClick={() => navigate('/users/transactions')}
-                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
+                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold hover:cursor-pointer flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
                     >
                         <div>
                             <FaRegMoneyBillAlt size={20} />
@@ -68,7 +68,7 @@ export default function UserSidebar() {
                     </div>
                     <div
                         onClick={() => navigate('/users/wishlists')}
-                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
+                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold hover:cursor-pointer flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
                     >
                         <div>
                             <AiOutlineHeart size={20} />
@@ -77,7 +77,7 @@ export default function UserSidebar() {
                     </div>
                     <div
                         onClick={() => navigate('/users/notifications')}
-                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
+                        className="border-b-2 p-2 hover:bg-yellow-300 hover:text-sky-700 hover:rounded-lg hover:shadow-xl hover:font-bold hover:cursor-pointer flex lg:flex-row max-lg:flex-col max-lg:justify-center items-center gap-1"
                     >
                         <div className="flex justify-center">
                             <AiOutlineBell size={20} />
