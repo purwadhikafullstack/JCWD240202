@@ -5,6 +5,9 @@ import { Toaster } from 'react-hot-toast';
 
 export default function ModalTransactionDetail(props) {
     const [show, setShow] = useState(false)
+    const showNotificationModal = () => {
+        props?.confirm?.setModalNotification(true)
+    }
     return (
         <>
             <Toaster />
@@ -22,6 +25,7 @@ export default function ModalTransactionDetail(props) {
                         detailId={props?.data?.detailId}
                         history={{ show, setShow }}
                         confirm={props?.confirm}
+                        notification={{showNotificationModal}}
                     />
                 </Modal.Body>
             </Modal>

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import ProductTabs from '../../components/admin/product/productTabs';
-import { getAllProductsAsync } from '../../redux/features/productSlice';
+import { getAllProductsAsync, setLoading } from '../../redux/features/productSlice';
 import { useEffect, useState } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import FilterButton from '../../components/user/button/filterButton';
@@ -35,7 +35,7 @@ export default function ProductAdmin() {
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [openModalDelete, setOpenModalDelete] = useState(false);
     const [dataDetail, setDataDetail] = useState('');
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector((state) => state.product.loading)
 
     const defaultValue = () => {
         if (isSuccess) {
@@ -93,14 +93,11 @@ export default function ProductAdmin() {
             queryParams['search'] = search;
         }
         setSearchParams(queryParams);
-        setTimeout(() => {
-            setLoading(true);
-        }, 1000);
-        clearTimeout(setLoading(false))
         showProducts(page, category, sort, search);
         dispatch(getAllCategoriesAsync());
         dispatch(getAllColorAsync());
         defaultValue();
+        return () => dispatch(setLoading(false))
     }, [page, category, sort, search, isSuccess]);
 
     if (!dataLogin) {

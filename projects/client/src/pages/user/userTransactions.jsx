@@ -3,6 +3,7 @@ import TransactionTabs from '../../components/user/transactions/transactionTabs'
 import { useEffect, useState } from 'react';
 import {
     getAllUserOrderAsync,
+    setLoading,
     userCancelOrderAsync,
 } from '../../redux/features/orderSlice';
 import { useSelector } from 'react-redux';
@@ -15,7 +16,7 @@ import { Toaster } from 'react-hot-toast';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import InvoiceSearch from '../../components/user/transactions/invoiceSearch';
 import { Helmet } from 'react-helmet';
-import GenerateInvoice from '../../components/user/transactions/generateInvoice';
+import SkeletonTransactionCard from '../../components/user/transactions/skeletonTransaction';
 
 export default function UserTransactions() {
     const dispatch = useDispatch();
@@ -30,7 +31,8 @@ export default function UserTransactions() {
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [expiredTime, setExpiredTime] = useState(false);
-
+    const loading = useSelector((state) => state.order.loading)
+ 
     const pageChange = (event, value) => {
         setPage(value);
     };
@@ -72,6 +74,7 @@ export default function UserTransactions() {
                 search,
             }),
         );
+        return () => dispatch(setLoading(false))
     }, [page, sortTransaction, status_id, search, expiredTime]);
     return (
         <>
@@ -80,77 +83,83 @@ export default function UserTransactions() {
                 <title>IKEWA | Transactions</title>
                 <meta name="description" content="transactions" />
             </Helmet>
-            <div className="flex">
-                <div className="flex-2 py-[80px] ml-[200px]">
+            <div className="flex justify-center gap-4 py-[80px] max-lg:flex-col max-lg:w-full max-lg:items-center max-lg:px-9 lg:flex-row">
+                <div className="md:w-1/4 flex justify-center">
                     <UserSidebar />
                 </div>
-                <div className="flex-1 p-[80px] flex flex-col items-center mr-[100px]">
-                    <div className="w-full">
-                        <div className="font-bold text-3xl">
-                            Transaction History
-                        </div>
-                    </div>
-                    <div className="py-9">
-                        <TransactionTabs
-                            state={{
-                                status_id,
-                                setStatusId,
-                                setPage,
-                                setStatusName,
-                            }}
-                        />
-                    </div>
-                    <div className="flex justify-between w-full items-center">
-                        <div className="flex items-center gap-4">
-                            <SortTransactionSelect
-                                state={{ setSortTransaction, sortTransaction }}
-                            />
-                        </div>
-                        <div>
-                            <InvoiceSearch
-                                state={{ search, setSearch, setPage }}
-                            />
-                        </div>
-                    </div>
-                    <div className=" p-9 flex flex-col gap-7 w-full">
-                        {!orderLists?.data?.data?.rows ? (
-                            <div className="flex justify-center">
-                                No Transaction Found
+                <div className="w-full md:flex md:justify-start">
+                    <div>
+                        <div className="">
+                            <div className="font-bold text-3xl">
+                                Transaction History
                             </div>
-                        ) : (
-                            orderLists?.data?.data?.rows?.map(
-                                (value, index) => {
-                                    return (
-                                        <TransactionHistoryBox
-                                            key={index}
-                                            data={{ value }}
-                                            state={{
-                                                setCancelOrder,
-                                                setOrderId,
-                                                setStatusId,
-                                                setExpiredTime,
-                                            }}
-                                        />
-                                    );
-                                },
-                            )
-                        )}
-                    </div>
-                    {orderLists?.data?.data?.rows ? (
-                        <div>
-                            <PaginationButton
-                                data={{
-                                    totalPage: orderLists?.data?.totalPage,
-                                    page,
-                                    pageChange,
+                        </div>
+                        <div className="py-9">
+                            <TransactionTabs
+                                state={{
+                                    status_id,
+                                    setStatusId,
+                                    setPage,
+                                    setStatusName,
                                 }}
                             />
                         </div>
-                    ) : (
-                        ''
-                    )}
+                        <div className="flex sm:flex-row max-sm:flex-col max-md:gap-4 justify-between w-full items-center">
+                            <div className="flex items-center gap-4">
+                                <SortTransactionSelect
+                                    state={{
+                                        setSortTransaction,
+                                        sortTransaction,
+                                    }}
+                                />
+                            </div>
+                            <div className='max-sm:order-first'>
+                                <InvoiceSearch
+                                    state={{ search, setSearch, setPage }}
+                                />
+                            </div>
+                        </div>
+                        <div className=" p-9 flex flex-col gap-7 w-full">
+                            {!orderLists?.data?.data?.rows ? (
+                                <div className="flex justify-center">
+                                    No Transaction Found
+                                </div>
+                            ) : (
+                                orderLists?.data?.data?.rows?.map(
+                                    (value, index) => {
+                                        return (
+                                            <TransactionHistoryBox
+                                                key={index}
+                                                data={{ value }}
+                                                state={{
+                                                    setCancelOrder,
+                                                    setOrderId,
+                                                    setStatusId,
+                                                    setExpiredTime,
+                                                }}
+                                            />
+                                        );
+                                    },
+                                )
+                            )}
+                        </div>
+                        {orderLists?.data?.data?.rows ? (
+                            <div className="flex justify-center">
+                                <PaginationButton
+                                    data={{
+                                        totalPage: orderLists?.data?.totalPage,
+                                        page,
+                                        pageChange,
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
                 </div>
             </div>
+
             <ModalCancelOrder
                 state={{
                     setCancelOrder,
@@ -160,7 +169,6 @@ export default function UserTransactions() {
                 }}
                 func={{ handleCancelOrder }}
             />
-            <GenerateInvoice />
         </>
     );
 }

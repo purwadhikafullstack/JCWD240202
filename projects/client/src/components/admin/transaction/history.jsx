@@ -8,6 +8,7 @@ export default function History() {
             <div className="border rounded-md mb-3 p-2">
                 {data.length >= 1
                     ? data?.map((value, index) => {
+                        console.log(value)
                           return (
                               <div key={index} className="flex">
                                   <div className="w-[219px] text-slate-600">
@@ -38,8 +39,8 @@ export default function History() {
                                           </div>
                                           <div className="w-[150px] md:w-[300px] text-slate-500 text-sm">
                                               {value.status_id === 1
-                                                  ? 'Customer checkout the order'
-                                                  : value.status_id === 2
+                                                  ? 'Order checked out and waiting customer payment'
+                                                  : value.status_id === 2 && value.is_rejected === false
                                                   ? 'Customer has made a payment and waiting confirmation by admin'
                                                   : value.status_id === 3
                                                   ? 'Payment has been confirmed by admin and the order is being processed'
@@ -50,7 +51,7 @@ export default function History() {
                                                   : value.status_id === 6
                                                   ? 'Order has been canceled'
                                                   : value.status_id === 2 && value.is_rejected === true
-                                                  ? 'Order has been canceled by admin due to payment error' : ''}
+                                                  ? 'Customer has made a payment and order has been canceled by admin due to payment error. Customer must re-payment' : ''}
                                           </div>
                                       </div>
                                   </div>

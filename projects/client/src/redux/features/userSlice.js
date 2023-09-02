@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 
 const initialState = {
     dataLogin: null,
+    loading: false,
 };
 
 export const userSlice = createSlice({
@@ -13,10 +14,14 @@ export const userSlice = createSlice({
         setDataLogin: (initialState, action) => {
             initialState.dataLogin = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        },
     },
 });
 
 export const getDataLogin = () => async (dispatch) => {
+    dispatch(setLoading(false));
     try {
         const token = JSON.parse(localStorage?.getItem('user'));
         const dataUser = await axios.get(
@@ -28,15 +33,18 @@ export const getDataLogin = () => async (dispatch) => {
             },
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setDataLogin(dataUser?.data?.data));
     } catch (error) {
         if (error.response) {
             toast.error(error.response.data.message)
             localStorage.removeItem('user');
         }
-        console.log(error.message);
+        dispatch(setLoading(false));
     }
 };
 
-export const { setDataLogin } = userSlice.actions;
+export const { setDataLogin, setLoading } = userSlice.actions;
 export default userSlice.reducer;

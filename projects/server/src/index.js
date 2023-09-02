@@ -27,6 +27,8 @@ const {
     reportRouter,
     wishlistRouter,
     reviewRouter,
+    notificationRouter,
+    dashboardRouter
 } = require('./routers');
 
 const PORT = process.env.PORT || 8000;
@@ -60,12 +62,14 @@ app.use('/api/status', statusRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/wishlists', wishlistRouter);
 app.use('/api/reviews', reviewRouter);
+app.use('/api/notifications', notificationRouter);
 
 app.use('/api/stocks', stockRouter);
 app.use('/api/checkout', checkoutCartRouter);
 app.use('/api/mutations', mutationRouter);
 app.use('/api/log', stockHistoryRouter);
 app.use('/api/reports', reportRouter);
+app.use('/api/dashboards', dashboardRouter)
 
 app.get('/api', (req, res) => {
     res.send(`Hello, this is my API`);

@@ -12,7 +12,6 @@ export default function FilterButton(props) {
     const handleCategory = (category) => {
         props?.data?.categoryChange(category);
         setName(category);
-        props?.data?.setPage(1);
     };
 
     useEffect(() => {

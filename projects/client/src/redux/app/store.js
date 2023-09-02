@@ -20,6 +20,8 @@ import stockHistoryReducer from '../features/stockHistorySlice';
 import reportReducer from '../features/reportSlice';
 import wishlistReducer from '../features/wishlistSlice';
 import reviewReducer from '../features/reviewSlice';
+import notificationReducer from '../features/notificationSlice';
+import dashboardReducer from '../features/dashboardSlice';
 
 export const store = configureStore({
     reducer: {
@@ -44,6 +46,8 @@ export const store = configureStore({
         report: reportReducer,
         wishlist: wishlistReducer,
         review: reviewReducer,
+        notification: notificationReducer,
+        dashboard: dashboardReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({ serializableCheck: false }),

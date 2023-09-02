@@ -28,12 +28,13 @@ export const productSlice = createSlice({
         },
         setLoading: (initialState, action) => {
             initialState.loading = action.payload;
-        }
+        },
     },
 });
 
 export const getAllProductsAsync = (data) => async (dispatch) => {
     try {
+        dispatch(setLoading(false))
         const allProducts = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/products`,
             {
@@ -46,39 +47,47 @@ export const getAllProductsAsync = (data) => async (dispatch) => {
                 },
             },
         );
-
         setTimeout(() => {
-            dispatch(setLoading(true))
+            dispatch(setLoading(true));
         }, 1000);
-        clearTimeout(dispatch(setLoading(false)))
         dispatch(setProducts(allProducts.data));
     } catch (error) {
-        dispatch(setLoading(false))
+        dispatch(setLoading(false));
         console.log(error.message);
     }
 };
 
 export const productDetailsAsync = (id) => async (dispatch) => {
     try {
+        dispatch(setLoading(false));
         const getDetails = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/products/${id}`,
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setDetails(getDetails.data));
     } catch (error) {
+        dispatch(setLoading(false));
         console.log(error.message);
     }
 };
 
 export const productRecommenadationAsync = (id) => async (dispatch) => {
     try {
+        dispatch(setLoading(false));
         const getRecommend = await axios.get(
             process.env.REACT_APP_API_BASE_URL +
                 `/products/${id}/recommendations`,
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setRecommendations(getRecommend.data));
     } catch (error) {
+        dispatch(setLoading(false));
         console.log('error');
     }
 };
@@ -331,12 +340,24 @@ export const deleteProductAsync = (id, filter) => async (dispatch) => {
             },
         );
 
-            dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
-            toast.success(result.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: { border: '2px solid #000', borderRadius: '10px', background: '#0051BA', color: 'white', },
-            });
+        dispatch(
+            getAllProductsAsync({
+                page: filter?.page,
+                category: filter?.category,
+                sort: filter?.sort,
+                search: filter?.search,
+            }),
+        );
+        toast.success(result.data.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#0051BA',
+                color: 'white',
+            },
+        });
     } catch (error) {
         if (error.response) {
             toast.error(error.response?.data?.message, {
@@ -376,9 +397,16 @@ export const thumbnailAsync = (pId, piId, filter) => async (dispatch) => {
                     authorization: `Bearer ${dataLogin}`,
                 },
             },
-        )
-        dispatch(getAllProductsAsync({page: filter?.page, category: filter?.category, sort: filter?.sort, search: filter?.search,}));
-        dispatch(productDetailsAsync(pId))
+        );
+        dispatch(
+            getAllProductsAsync({
+                page: filter?.page,
+                category: filter?.category,
+                sort: filter?.sort,
+                search: filter?.search,
+            }),
+        );
+        dispatch(productDetailsAsync(pId));
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -416,6 +444,11 @@ export const thumbnailAsync = (pId, piId, filter) => async (dispatch) => {
     }
 };
 
-export const { setProducts, setDetails, setRecommendations, setSuccess, setLoading } =
-    productSlice.actions;
+export const {
+    setProducts,
+    setDetails,
+    setRecommendations,
+    setSuccess,
+    setLoading,
+} = productSlice.actions;
 export default productSlice.reducer;

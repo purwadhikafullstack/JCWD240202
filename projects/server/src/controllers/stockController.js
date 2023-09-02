@@ -11,7 +11,6 @@ module.exports = {
             let wh = undefined;
             const { id, role_id } = req.User;
             const { page, warehouse, search, sort, category } = req.query;
-            console.log(warehouse);
 
             const paginationLimit = 15;
             const paginationOffset =
@@ -297,6 +296,14 @@ module.exports = {
                 });
             }
 
+            if (quantity > checkProduct.stock) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Quantity Exceeds Available Stock!',
+                    data: null,
+                });
+            }
+
             if (
                 role_id === 2 &&
                 checkWarehouse.id !== checkProduct.warehouse_id
@@ -341,8 +348,8 @@ module.exports = {
                     {
                         product_id: checkProduct.product_id,
                         quantity,
-                        type_id: 1,
-                        information_id: 2,
+                        type_id: 2,
+                        information_id: 1,
                         user_id: id,
                         warehouse_id: checkProduct.warehouse_id,
                     },

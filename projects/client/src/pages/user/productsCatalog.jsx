@@ -5,7 +5,7 @@ import SearchBar from '../../components/user/searchInput/searchBar';
 import ProductsCard from '../../components/user/productCard/productsCard';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getAllProductsAsync } from '../../redux/features/productSlice';
+import { getAllProductsAsync, setLoading } from '../../redux/features/productSlice';
 import PaginationButton from '../../components/user/pagination/paginationButton';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { Button } from 'flowbite-react';
 import { MdFilterAlt } from 'react-icons/md';
 import { MdFilterAltOff } from 'react-icons/md';
 import ColorFilter from '../../components/user/button/colorFilter';
+import SkeletonProductCard from '../../components/user/productCard/skeletonProductCard';
 
 export default function ProductsCatalog() {
     const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function ProductsCatalog() {
     const [addNewItem, setAddNewItem] = useState(false);
     const productLists = useSelector((state) => state.product.products);
     const [showFilter, setShowFilter] = useState(false);
+    const loading = useSelector((state) => state.product.loading);
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -35,6 +37,7 @@ export default function ProductsCatalog() {
 
     const categoryChange = (category) => {
         setCategory(category);
+        setPage(1);
     };
 
     const sortChange = (sortCat) => {
@@ -91,6 +94,7 @@ export default function ProductsCatalog() {
         }
         setSearchParams(queryParams);
         showProducts(page, category, sort, search);
+        return () => dispatch(setLoading(false))
     }, [page, category, sort, search, addNewItem, colorId, colorName]);
     return (
         <div className="relative">
@@ -106,8 +110,8 @@ export default function ProductsCatalog() {
                 }`}
             >
                 <div className="font-bold text-4xl">All Products</div>
-                <div className="flex justify-between pt-9">
-                    <div className="flex flex-1 gap-9 w-full">
+                <div className="flex md:flex-row min-[0px]:flex-col min-[0px]:gap-4 justify-between pt-9">
+                    <div className="flex flex-1 gap-9 w-full min-[0px]:order-last md:order-none">
                         <Button
                             onClick={() => {
                                 showFilter === false
@@ -142,9 +146,7 @@ export default function ProductsCatalog() {
                         showFilter === false ? 'hidden' : ''
                     } flex gap-4 mt-4 p-4 border`}
                 >
-                    <FilterButton
-                        data={{ categoryChange, setPage, category }}
-                    />
+                    <FilterButton data={{ categoryChange, category }} />
                     <ColorFilter
                         state={{
                             setColorName,
@@ -155,20 +157,37 @@ export default function ProductsCatalog() {
                     />
                 </div>
                 {productLists?.data?.rows?.length !== 0 ? (
-                    <div className=" flex gap-6 flex-wrap pt-12">
+                    <div className=" flex max-sm:flex-col gap-6 flex-wrap pt-12">
                         {productLists?.data?.rows?.map((value, index) => {
-                            return (
-                                <ProductsCard
-                                    key={index}
-                                    data={{ value }}
-                                    state={{ setAddNewItem }}
-                                />
-                            );
+                            if (loading) {
+                                return (
+                                    <ProductsCard
+                                        key={index}
+                                        data={{ value }}
+                                        state={{ setAddNewItem }}
+                                    />
+                                );
+                            } else {
+                                return <SkeletonProductCard key={index} />;
+                            }
                         })}
                     </div>
                 ) : (
-                    <div className="flex justify-center py-24 font-bold tex-2xl">
-                        No Product Found
+                    <div className="flex items-center justify-center py-8">
+                        <div>
+                            <div className="flex justify-center items-center font-semibold text-xl mb-6">
+                                <h1 className="font-semibold text-2xl">
+                                    No Product Found
+                                </h1>
+                            </div>
+                            <div className="w-full flex justify-center items-center">
+                                <img
+                                    src="/images/not-found-user.png"
+                                    alt="not-found"
+                                    className="min-w-[200px] max-w-[400px]"
+                                ></img>
+                            </div>
+                        </div>
                     </div>
                 )}
 

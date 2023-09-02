@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 const initialState = {
     order: null,
     orderDetails: null,
+    loading: false,
 };
 
 export const orderSlice = createSlice({
@@ -17,6 +18,9 @@ export const orderSlice = createSlice({
         setOrderDetails: (initialState, action) => {
             initialState.orderDetails = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload
+        }
     },
 });
 
@@ -25,6 +29,7 @@ export const getAllUserOrderAsync = (data) => async (dispatch) => {
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
     try {
+        dispatch(setLoading(false))
         const getOrders = await axios.get(
             process.env.REACT_APP_API_BASE_URL +
                 `/orders?page=${data.page}&sort=${data.sort}&status_id=${data.status_id}&search=${data.search}`,
@@ -34,8 +39,13 @@ export const getAllUserOrderAsync = (data) => async (dispatch) => {
                 },
             },
         );
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setOrder(getOrders));
-    } catch (error) {}
+    } catch (error) {
+        dispatch(setLoading(false))
+    }
 };
 
 export const getOrderDetailsAsync = (data) => async (dispatch) => {
@@ -133,5 +143,5 @@ export const userConfirmOrderAsync = (data) => async (dispatch) => {
     }
 };
 
-export const { setOrder, setOrderDetails } = orderSlice.actions;
+export const { setOrder, setOrderDetails, setLoading } = orderSlice.actions;
 export default orderSlice.reducer;

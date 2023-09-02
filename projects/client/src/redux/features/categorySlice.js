@@ -6,6 +6,7 @@ import { getAllCategoriesAsync } from './homepageSlice';
 const initialState = {
     category: {},
     success: false,
+    productCategory: null,
 };
 
 export const categorySlice = createSlice({
@@ -18,12 +19,15 @@ export const categorySlice = createSlice({
         setSuccess: (initialState, action) => {
             initialState.success = action.payload;
         },
+        setProductCategory: (initialState, action) => {
+            initialState.productCategory = action.payload;
+        },
     },
 });
 
 export const addCategoryAsync = (name, imageCategory) => async (dispatch) => {
     try {
-    const dataLogin = JSON.parse(localStorage?.getItem('user'));
+        const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
         if (!name) throw new Error('Name required!');
 
@@ -255,5 +259,23 @@ export const deleteCategoryAsync = (id) => async (dispatch) => {
     }
 };
 
-export const { setCategory, setSuccess } = categorySlice.actions;
+export const getProductCategoryAsync = (data) => async (dispatch) => {
+    try {
+        const getProducts = await axios.get(
+            process.env.REACT_APP_API_BASE_URL + `/categories/${data?.id}`,
+            {
+                params: {
+                    page: data?.page,
+                    colorId: data?.colorId,
+                },
+            },
+        );
+        dispatch(setProductCategory(getProducts.data));
+    } catch (error) {
+        toast.error(error.message);
+    }
+};
+
+export const { setCategory, setSuccess, setProductCategory } =
+    categorySlice.actions;
 export default categorySlice.reducer;

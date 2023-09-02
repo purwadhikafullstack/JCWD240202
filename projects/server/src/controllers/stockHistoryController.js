@@ -117,12 +117,10 @@ module.exports = {
                 add += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id:
-                            role_id === 2
-                                ? { [Op.in]: [1, 3, 4] }
-                                : { [Op.in]: [1, 4] },
+                        information_id:
+                            wh ? { [Op.in]: [1, 3, 4] } : { [Op.in]: [1, 4] },
                         ...wh,
-                        information_id: 1,
+                        type_id: 1,
                         createdAt: {
                             [Op.lt]: moment(dates).add(1, 'month').toDate(),
                             [Op.gte]: dates,
@@ -134,12 +132,12 @@ module.exports = {
                 reduc += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id:
-                            role_id === 2
+                        information_id:
+                            wh 
                                 ? { [Op.in]: [1, 2, 3] }
                                 : { [Op.in]: [1, 2] },
                         ...wh,
-                        information_id: 2,
+                        type_id: 2,
                         createdAt: {
                             [Op.lt]: moment(dates).add(1, 'month').toDate(),
                             [Op.gte]: dates,
@@ -151,9 +149,9 @@ module.exports = {
                 after_add += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id: { [Op.in]: [1, 3, 4] },
+                        information_id: { [Op.in]: [1, 3, 4] },
                         ...wh,
-                        information_id: 1,
+                        type_id: 1,
                         createdAt: {
                             [Op.gte]: moment(dates).add(1, 'month').toDate(),
                         },
@@ -164,9 +162,9 @@ module.exports = {
                 after_reduc += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id: { [Op.in]: [1, 2, 3] },
+                        information_id: { [Op.in]: [1, 2, 3] },
                         ...wh,
-                        information_id: 2,
+                        type_id: 2,
                         createdAt: {
                             [Op.gte]: moment(dates).add(1, 'month').toDate(),
                         },

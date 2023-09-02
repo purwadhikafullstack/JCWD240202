@@ -6,6 +6,7 @@ import { transactionHistory } from '../../../redux/features/transactionSlice';
 import History from './history';
 
 export default function DataDetail(props) {
+    console.log(props.data)
     const dispatch = useDispatch();
     const [openMore, setOpenMore] = useState(false);
     const [isZoomed, setIsZoomed] = useState(false);
@@ -13,6 +14,7 @@ export default function DataDetail(props) {
     return (
         <>
             {props?.data?.data?.rows?.map((value, index) => {
+                console.log(value.id, 'kakakakka')
                 if (value?.cart_id === props?.detailId) {
                     return (
                         <div key={index} className="flex-auto w-full">
@@ -130,7 +132,7 @@ export default function DataDetail(props) {
                                                 Confirm
                                             </button>
                                             <button
-                                                onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
+                                                onClick={() => { props.notification?.showNotificationModal(); props.confirm?.setFuncConfirm(2); props.confirm?.setValueConfirm(value.id)}}
                                                 className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 ml-2"
                                             >
                                                 Reject

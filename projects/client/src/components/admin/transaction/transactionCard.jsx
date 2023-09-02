@@ -179,7 +179,7 @@ export default function TransactionCard(props) {
                                                 Ready To Ship
                                             </button>
                                             <button
-                                            onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(4); props.confirm?.setValueConfirm(value.id)}}
+                                            onClick={() => { props.notification?.setModalNotification(true); props.confirm?.setFuncConfirm(4); props.confirm?.setValueConfirm(value.id)}}
                                             className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
                                                 Cancel
                                             </button>
@@ -189,7 +189,7 @@ export default function TransactionCard(props) {
                             </div>
                         );
                     } else {
-                        return <SkeletonTransactionAdmin key={index}/>
+                        return <SkeletonTransactionAdmin key={index} />;
                     }
                 })
             ) : (

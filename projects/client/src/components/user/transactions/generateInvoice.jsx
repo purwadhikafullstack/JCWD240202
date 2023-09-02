@@ -7,13 +7,12 @@ export default function GenerateInvoice({ data }) {
 
     const handleInvoice = useReactToPrint({
         content: () => _invoice.current,
-        documentTitle: 'Invoice',
+        documentTitle: `${data?.order?.invoice_number}`,
         onAfterPrint: () => 'Generate Invoice Success',
     });
 
     return (
         <>
-            {console.log('', data)}
             <div>
                 <Button
                     onClick={handleInvoice}

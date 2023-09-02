@@ -20,7 +20,7 @@ export default function ProductsCard(props) {
     const navigate = useNavigate();
 
     return (
-        <div className="w-[400px] h-[550px] border flex flex-col p-2 relative shadow-lg mt-9">
+        <div className="lg:w-[400px] lg:h-[550px] min-[0px]:h-[420px] min-[0px]:w-full sm:w-inherit border flex flex-col p-2 relative shadow-lg mt-9">
             {userLogin ? (
                 wishlistProducts.includes(props?.data?.value?.id) === true ? (
                     <div
@@ -63,16 +63,25 @@ export default function ProductsCard(props) {
             <Link to={`/products/${props?.data?.value?.id}`}>
                 <div className="flex justify-center">
                     <img
-                        src={props?.data?.value?.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.value?.product_images[0]?.name : props?.data?.value?.product_images[0]?.name}
+                        src={
+                            props?.data?.value?.product_images[0]?.name.startsWith(
+                                'PIMG',
+                            )
+                                ? process.env.REACT_APP_API_IMAGE_URL +
+                                  props?.data?.value?.product_images[0]?.name
+                                : props?.data?.value?.product_images[0]?.name
+                        }
                         alt="..."
-                        className="h-[300px]"
+                        className="max-sm:h-[250px] sm:h-[300px]"
                     />
                 </div>
                 <div className="font-bold text-xl pt-4">
                     {props?.data?.value?.name}
                 </div>
                 <div>Rp {props?.data?.value?.price.toLocaleString('id')}</div>
-                <div>{props?.data?.value?.description}</div>
+                <div className="min-[0px]:hidden lg:block">
+                    {props?.data?.value?.description}
+                </div>
             </Link>
             {userLogin ? (
                 props?.data?.value?.total_stock === 0 ? (

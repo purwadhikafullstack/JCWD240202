@@ -41,13 +41,14 @@ export const authSlice = createSlice({
     },
 });
 
-export const register = (email) => async (dispatch) => {
+export const register = (email, tokenRecaptcha) => async (dispatch) => {
     try {
         dispatch(setLoading(true))
         const result = await axios.post(
             process.env.REACT_APP_API_BASE_URL + '/auth/register',
             {
                 email,
+                tokenRecaptcha,
             },
         );
         if (result) {

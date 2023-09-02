@@ -31,6 +31,7 @@ export const stockSlice = createSlice({
 export const getDataStock =
     (page, search, sort, category, warehouse) => async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const token = JSON.parse(localStorage?.getItem('user'));
             const dataStock = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/stocks',
@@ -51,7 +52,6 @@ export const getDataStock =
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)))
             dispatch(setStocks(dataStock?.data));
         } catch (error) {
             dispatch(setLoading(false))
@@ -118,10 +118,15 @@ export const addQuantity =
     };
 
 export const reduceQuantity =
-    (product_stock_id, quantity, params) => async (dispatch) => {
+    (product_stock_id, quantity, params, product_stock) => async (dispatch) => {
         try {
             const token = JSON.parse(localStorage?.getItem('user'));
             dispatch(setDisabledButton(true));
+
+            if(quantity > product_stock) {
+                throw new Error('Quantity Exceeds Available Stock!')
+            }
+
             const addStock = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL +
                     `/stocks/reduce/${product_stock_id}`,
@@ -159,16 +164,29 @@ export const reduceQuantity =
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
-            toast.error('Update Quantity Failed!', {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#DC2626',
-                    color: 'white',
-                },
-            });
+            if (error.response) {
+                toast.error("Update Quantity Failed", {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#DC2626',
+                        color: 'white',
+                    },
+                });
+            } else {
+                toast.error(error.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#DC2626',
+                        color: 'white',
+                    },
+                });
+            }
         } finally {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));

@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 const initialState = {
     cart: {},
     newItem: null,
+    loading: false,
 };
 
 export const cartSlice = createSlice({
@@ -17,6 +18,9 @@ export const cartSlice = createSlice({
         setNewItem: (initialState, action) => {
             initialState.newItem = action.payload;
         },
+        setLoading: (initialState, action) => {
+            initialState.loading = action.payload;
+        },
     },
 });
 
@@ -25,6 +29,7 @@ export const getUserCartAsync = () => async (dispatch) => {
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
     try {
+        dispatch(setLoading(false))
         const getCart = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/carts`,
             {
@@ -34,8 +39,12 @@ export const getUserCartAsync = () => async (dispatch) => {
             },
         );
 
+        setTimeout(() => {
+            dispatch(setLoading(true));
+        }, 1000);
         dispatch(setCart(getCart.data));
     } catch (error) {
+        dispatch(setLoading(false))
         console.log('error => ', error.message);
     }
 };
@@ -118,10 +127,10 @@ export const modifyQuantityAsync = (data) => async (dispatch) => {
 };
 
 export const getNewItemsAsync = () => async (dispatch) => {
-    const getUser = localStorage.getItem('user')
-        ? JSON.parse(localStorage?.getItem('user'))
-        : null;
     try {
+        const getUser = localStorage.getItem('user')
+            ? JSON.parse(localStorage?.getItem('user'))
+            : null;
         const newItem = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/carts/newest`,
             {
@@ -137,5 +146,5 @@ export const getNewItemsAsync = () => async (dispatch) => {
     }
 };
 
-export const { setCart, setNewItem } = cartSlice.actions;
+export const { setCart, setNewItem, setLoading } = cartSlice.actions;
 export default cartSlice.reducer;

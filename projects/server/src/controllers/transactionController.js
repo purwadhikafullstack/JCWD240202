@@ -486,12 +486,12 @@ module.exports = {
         const t = await sequelize.transaction();
         try {
             const { order_id } = req.body;
-            const dataOrder = await orders.findOne({
-                where: {
-                    id: order_id,
-                },
-                include: [{ model: cart, include: [{ model: cartProduct }] }],
+            const currentTime = new Date();
+
+            const dataOrder = await orders.findByPk(order_id, {
+                include: [{ model: cart, include: { model: cartProduct } }],
             });
+
             const findData = await db.order_statuses.findOne({
                 where: {
                     order_id,
@@ -499,42 +499,82 @@ module.exports = {
                     is_active: true,
                 },
             });
-            const prevStockTotal = await dataOrder.cart?.cart_products.map((val) => {
-                return { id: val.product_id, stock: val.quantity };
-            });
-            if (!findData)
-                return res.status(404).send({
+
+            if (!findData) {
+                res.status(404).send({
                     success: false,
-                    message: "Data not found"
-                })
-            const totalProduct = prevStockTotal.length;
-            let updateStock = '';
-            for (let i = 0; i < prevStockTotal.length; i++) {
-                updateStock += `SELECT total_stock INTO current_quantity FROM products WHERE id = ${prevStockTotal[i].id};
-                UPDATE products SET total_stock = current_quantity + ${prevStockTotal[i].stock} WHERE id = ${prevStockTotal[i].id};`;
-            }
-                await db.order_statuses.update({is_active: 1, expired: new Date().getTime() + 24 * 60 * 60 * 1000,}, { where: { status_id: 1, order_id } }, { transaction: t })
-                const changeStatus = await db.order_statuses.destroy({ where: { status_id: 2, order_id } }, { transaction: t })
-            deleteSingleFile(`src/public/images/${dataOrder?.payment_proof}`);
-            console.log(updateStock)
-                const query = `CREATE EVENT payment_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 2 MINUTE
-                            DO BEGIN
-                            DECLARE status_check INT;
-                            DECLARE current_quantity INT;
-                            SELECT status_id INTO status_check FROM order_statuses WHERE id = ${order_id} AND is_active = 1 LIMIT 1;
-                            IF status_check = 1 THEN
-                            INSERT INTO order_statuses (status_id, order_id, createdAt, updatedAt, is_active) VALUES (6, "${order_id}", current_timestamp(), current_timestamp(), 1);
-                            UPDATE order_statuses SET is_active = 0 WHERE id = "${order_id}" AND status_id = 1;
-                            ${updateStock}
-                            END IF;
-                            END;`;
-                            await sequelize.query(query, {transaction: t});
+                    message: 'Data not found',
+                });
+            } else {
+                const changeStatus = await db.order_statuses.update(
+                    { is_active: 0, is_rejected: 1 },
+                    { where: { id: findData.id } },
+                    { transaction: t },
+                );
+                const removeImage = await orders.update(
+                    { payment_proof: null },
+                    { where: { id: dataOrder.id } },
+                    { transaction: t },
+                );
+                const createStatus = await db.order_statuses.create(
+                    {
+                        status_id: 1,
+                        order_id,
+                        is_active: 1,
+                        expired: currentTime.getTime() + 24 * 60 * 60 * 1000,
+                    },
+                    { transaction: t },
+                );
+                deleteSingleFile(
+                    `src/public/images/${dataOrder?.payment_proof}`,
+                );
+
+                const getProducts = dataOrder.cart.cart_products.map(
+                    (value) => {
+                        return {
+                            id: value.product_id,
+                            quantity: value.quantity,
+                        };
+                    },
+                );
+                let updateStock = '';
+                for (let i = 0; i < getProducts.length; i++) {
+                    updateStock += `SELECT total_stock INTO current_quantity FROM products WHERE id = ${getProducts[i].id};
+                    UPDATE products SET total_stock = current_quantity + ${getProducts[i].quantity} WHERE id = ${getProducts[i].id};`;
+                }
+
+                const eventScheduler = await sequelize.query(
+                    `CREATE EVENT payment_expired_${createStatus.id} ON SCHEDULE AT NOW() + INTERVAL 24 HOUR
+                                DO BEGIN
+                                DECLARE status_check INT;
+                                DECLARE is_active_check INT;
+                                DECLARE current_quantity INT;
+                                SELECT status_id INTO status_check FROM order_statuses WHERE id = ? LIMIT 1;
+                                SELECT is_active INTO is_active_check FROM order_statuses WHERE id = ? LIMIT 1;
+                                IF status_check = 1 AND is_active_check = 1 THEN
+                                INSERT INTO order_statuses (status_id, order_id, createdAt, updatedAt, is_active, is_rejected) VALUES (6, ?, current_timestamp(), current_timestamp(), 1, 0);
+                                UPDATE order_statuses SET is_active = 0 WHERE id = ? AND status_id = 1;
+                                ${updateStock}
+                                END IF;
+                                END;`,
+                    {
+                        replacements: [
+                            createStatus.id,
+                            createStatus.id,
+                            dataOrder.id,
+                            createStatus.id,
+                        ],
+                        transaction: t,
+                    },
+                );
+
                 await t.commit();
-            return res.status(200).send({
-                success: true,
-                message: 'Cancel payment confirmation success!',
-                data: null,
-            });
+                return res.status(200).send({
+                    success: true,
+                    message: 'Cancel payment confirmation success!',
+                    data: null,
+                });
+            }
         } catch (error) {
             await t.rollback();
             return res.status(500).send({
@@ -788,17 +828,17 @@ module.exports = {
     },
     transactionHistory: async (req, res) => {
         try {
-            const { order_id } = req.params
+            const { order_id } = req.params;
             const result = await db.order_statuses.findAll({
                 where: { order_id },
                 include: [{ model: orders }, { model: db.statuses }],
-                order: [['status_id', 'DESC']]
-            })
+                order: [['id', 'DESC']],
+            });
             if (!result) {
                 return res.status(404).send({
                     success: false,
-                    message: 'data not found!'
-                })
+                    message: 'data not found!',
+                });
             }
             res.status(200).send({
                 success: true,
@@ -812,5 +852,5 @@ module.exports = {
                 data: null,
             });
         }
-    }
+    },
 };

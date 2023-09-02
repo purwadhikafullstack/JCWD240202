@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import SideBarAdmin from '../../components/admin/adminPageSideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { getStockHistory } from '../../redux/features/stockHistorySlice';
+import { getStockHistory, setLoading } from '../../redux/features/stockHistorySlice';
 import { getAllCategoriesAsync } from '../../redux/features/homepageSlice';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import SortAdmin from '../../components/admin/sortAdmin';
@@ -73,6 +73,7 @@ export default function StockHistoryProduct() {
         setSearchParams(queryParams);
         dispatch(getStockHistory(page, date, category, search, warehouse, sort));
         dispatch(getAllCategoriesAsync());
+        return () => dispatch(setLoading(false))
     }, [page, date, category, search, warehouse, sort]);
 
     return (

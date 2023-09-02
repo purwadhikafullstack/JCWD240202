@@ -31,6 +31,7 @@ export const stockHistorySlice = createSlice({
 export const getStockHistory =
     (page, date, category, search, warehouse, sort) => async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const token = JSON.parse(localStorage?.getItem('user'));
             const dataStockHistory = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/log/stock-history',
@@ -52,7 +53,6 @@ export const getStockHistory =
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)))
             dispatch(setStockHistories(dataStockHistory?.data));
         } catch (error) {
             dispatch(setLoading(false))
@@ -63,6 +63,7 @@ export const getStockHistory =
 export const getStockLog =
     (page, date, search, warehouse, sort) => async (dispatch) => {
         try {
+            dispatch(setLoading(false))
             const token = JSON.parse(localStorage?.getItem('user'));
             const dataStockLog = await axios.get(
                 process.env.REACT_APP_API_BASE_URL + '/log/stock-log',
@@ -82,7 +83,6 @@ export const getStockLog =
             setTimeout(() => {
                 dispatch(setLoading(true))
             }, 1000);
-            clearTimeout(dispatch(setLoading(false)))
             dispatch(setStockLog(dataStockLog?.data));
 
             const exportData = dataStockLog?.data?.export?.map((value) => {

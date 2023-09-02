@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { IoMdArrowBack } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getNewItemsAsync } from '../../../redux/features/cartSlice';
+import {
+    getNewItemsAsync,
+    modifyQuantityAsync,
+} from '../../../redux/features/cartSlice';
 import { Button } from 'flowbite-react';
 import { productRecommenadationAsync } from '../../../redux/features/productSlice';
 import SidebarRelatedProducts from './sidebarRelatedProducts';
@@ -30,7 +33,7 @@ export default function AfterAddCart(props) {
     }, [id, props?.state?.addNewItem]);
     return (
         <div
-            className={`fixed top-[100px] right-0 h-screen w-[750px] border bg-white ${
+            className={`fixed top-[100px] right-0 h-screen lg:w-[750px] max-lg:w-full border bg-white ${
                 props?.state?.addNewItem === true
                     ? 'translate-x-0'
                     : 'translate-x-full'
@@ -55,7 +58,7 @@ export default function AfterAddCart(props) {
                                 newItems?.data[newItems?.data?.length - 1].image
                             }
                             alt="product_image"
-                            className="w-36 h-36"
+                            className="w-36 h-36 max-sm:w-24 max-sm:h-24"
                         />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -80,19 +83,14 @@ export default function AfterAddCart(props) {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="flex-1 flex items-center justify-center">
-                            <div className="flex border gap-9 p-4 rounded-full items-center">
-                                <div className="text-xl hover:cursor-pointer">
-                                    -
-                                </div>
+                            <div className="flex border gap-9 p-4 px-9 rounded-full items-center">
                                 <div>
                                     {
                                         newItems?.data[
                                             newItems?.data?.length - 1
                                         ].quantity
-                                    }
-                                </div>
-                                <div className="text-xl hover:cursor-pointer">
-                                    +
+                                    }{' '}
+                                    items
                                 </div>
                             </div>
                         </div>
@@ -118,7 +116,7 @@ export default function AfterAddCart(props) {
                             onClick={() => {
                                 navigate('/cart');
                             }}
-                            className="w-[400px] h-[60px] bg-sky-700 text-yellow-300"
+                            className="lg:w-[400px] sm:w-max h-[60px] bg-sky-700 text-yellow-300"
                         >
                             <div className="text-xl flex items-center gap-4">
                                 <AiOutlineShoppingCart size={25} />
@@ -127,9 +125,9 @@ export default function AfterAddCart(props) {
                         </Button>
                     </div>
                 </div>
-                <div className="mt-16">
+                <div className="lg:mt-16 sm:mt-9 max-lg:mt-4">
                     <div className="text-lg font-bold">Related Products</div>
-                    <div className="mt-9 flex gap-2 justify-evenly">
+                    <div className="lg:mt-9 max-lg:mt-2 flex gap-2 justify-evenly">
                         {related?.data?.map((value, index) => {
                             if (index < 3) {
                                 return (
