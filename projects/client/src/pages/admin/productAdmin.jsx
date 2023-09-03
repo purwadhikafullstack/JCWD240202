@@ -76,6 +76,7 @@ export default function ProductAdmin() {
         setSearch('')
         setPage('')
         setCategory('')
+        setSort('')
     }
 
     useEffect(() => {
@@ -114,7 +115,7 @@ export default function ProductAdmin() {
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
-                    <div className="p-8 w-full">
+                    <div className="sm:p-8 p-3 w-full">
                         <div className="font-bold text-2xl mt-2">
                             <h1>PRODUCTS</h1>
                         </div>
@@ -126,8 +127,10 @@ export default function ProductAdmin() {
                                     <FilterButton
                                         data={{ categoryChange, category }}
                                     />
+                                    <div className='flex'>
                                     <SortButton data={{ sortChange, sort }} />
-                                <button onClick={reset} className='hover:underline text-xs text-[#2296f3]'>Reset Filter</button>
+                                <button onClick={reset} className='hover:underline text-xs text-[#2296f3] ml-2'>Reset Filter</button>
+                                    </div>
                                 </div>
                                 <button
                                     onClick={() => setOpenModal(true)}
@@ -136,6 +139,15 @@ export default function ProductAdmin() {
                                     + ADD NEW PRODUCT
                                 </button>
                             </div>
+                            <div className="mb-5 flex justify-center sm:hidden">
+                                    <PaginationButton
+                                        data={{
+                                            totalPage: products?.totalPage,
+                                            page: Number(page),
+                                            pageChange,
+                                        }}
+                                    />
+                                </div>
                             <div className="relative overflow-x-auto shadow-m rounded-lg">
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

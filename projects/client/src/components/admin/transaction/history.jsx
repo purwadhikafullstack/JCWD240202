@@ -8,7 +8,6 @@ export default function History() {
             <div className="border rounded-md mb-3 p-2">
                 {data.length >= 1
                     ? data?.map((value, index) => {
-                        console.log(value)
                           return (
                               <div key={index} className="flex">
                                   <div className="w-[219px] text-slate-600">

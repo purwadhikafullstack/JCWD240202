@@ -6,7 +6,6 @@ import { transactionHistory } from '../../../redux/features/transactionSlice';
 import History from './history';
 
 export default function DataDetail(props) {
-    console.log(props.data)
     const dispatch = useDispatch();
     const [openMore, setOpenMore] = useState(false);
     const [isZoomed, setIsZoomed] = useState(false);
@@ -14,7 +13,6 @@ export default function DataDetail(props) {
     return (
         <>
             {props?.data?.data?.rows?.map((value, index) => {
-                console.log(value.id, 'kakakakka')
                 if (value?.cart_id === props?.detailId) {
                     return (
                         <div key={index} className="flex-auto w-full">
@@ -122,7 +120,7 @@ export default function DataDetail(props) {
                                             }`}
                                         />
                                     </div>
-                                    {value?.order_statuses[0]?.status_id ===
+                                     {props.data.roleId === 2 && value?.order_statuses[0]?.status_id ===
                                     2 ? (
                                         <div className="flex justify-center mt-3">
                                             <button

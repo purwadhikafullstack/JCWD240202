@@ -40,7 +40,7 @@ export default function VerificationPage() {
             });
             setTimeout(() => {
                 navigate('/login');
-            }, 3000);
+            }, 1000);
         }
     };
     useEffect(() => {

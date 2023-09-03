@@ -462,6 +462,15 @@ module.exports = {
                 { status_id: 3, order_id: data.id, is_active: 1 },
                 { transaction: t },
             );
+            await db.notifications.create(
+                {
+                    order_id: data.id,
+                    user_id: data.cart.user_id,
+                    message: 'Your payment has been confirmed by admin and your order is being processed',
+                    title: 'Payment Success',
+                },
+                { transaction: t },
+            );
             await t.commit();
             return res.status(200).send({
                 success: true,
@@ -621,6 +630,15 @@ module.exports = {
                 },
                 { transaction: t },
             );
+            await db.notifications.create(
+                {
+                    order_id,
+                    user_id: data.cart.user_id,
+                    message: 'Your order is on the way',
+                    title: 'Order Sent',
+                },
+                { transaction: t },
+            );
             const expired = await sequelize.query(`
             CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 7 DAY
             DO BEGIN
@@ -731,24 +749,24 @@ module.exports = {
                         }
                     },
                 );
-                await stockHistory.map(async (value) => {
-                    await db.mutations.destroy(
-                        {
-                            where: {
-                                id: value.mutation_id,
-                            },
-                        },
-                        { transaction: t },
-                    );
-                    await db.mutation_details.destroy(
-                        {
-                            where: {
-                                mutation_id: value.mutation_id,
-                            },
-                        },
-                        { transaction: t },
-                    );
-                });
+                // await stockHistory.map(async (value) => {
+                //     await db.mutation_details.destroy(
+                //         {
+                //             where: {
+                //                 mutation_id: value.mutation_id,
+                //             },
+                //         },
+                //         { transaction: t },
+                //     );
+                //     await db.mutations.destroy(
+                //         {
+                //             where: {
+                //                 id: value.mutation_id,
+                //             },
+                //         },
+                //         { transaction: t },
+                //     );
+                // });
             }
             prevStockTotal.map(async(value) => {
                 const data = await db.products.findByPk(value.product_id)

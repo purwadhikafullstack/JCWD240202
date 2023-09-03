@@ -7,8 +7,12 @@ import {
     FcVoicePresentation,
 } from 'react-icons/fc';
 import SkeletonTransactionAdmin from './skeletonTransactionAdmin';
+import CountdownAdmin from './countdownAdmin';
 
 export default function TransactionCard(props) {
+    const countdownExpired = () => {
+        props?.time?.setExpiredTime(false);
+    };
     return (
         <>
             {props?.transaction?.data?.rows?.length !== 0 ? (
@@ -20,7 +24,7 @@ export default function TransactionCard(props) {
                             className="border p-2 rounded-lg shadow-lg mt-3"
                         >
                             <div className="flex flex-col gap-2 md:flex-row md:justify-between md:gap-0 border-b py-2">
-                                <div className="md:w-72 flex justify-center md:justify-start">
+                                <div className="md:w-72 flex flex-col md:flex-row items-center justify-center md:justify-start">
                                     <div
                                         className={`border truncate w-fit rounded-full px-3 flex items-center
                                     ${
@@ -63,6 +67,7 @@ export default function TransactionCard(props) {
                                     >
                                         {value?.order_statuses[0]?.status?.name}
                                     </div>
+                                    {value?.order_statuses[0]?.status_id === 1 ? <CountdownAdmin expiredDate={value?.order_statuses[0]?.expired } countdownExpired={countdownExpired}/> : null}
                                 </div>
                                 <div className="flex-1 flex md:justify-center items-center">
                                     <FcViewDetails className="text-[22px]" />
@@ -87,10 +92,7 @@ export default function TransactionCard(props) {
                                 <div className="flex justify-between md:justify-start md:w-96">
                                     <div className="w-[120px] h-[120px]">
                                         <img
-                                            src={
-                                                value?.cart?.cart_products[0]
-                                                    ?.image
-                                            }
+                                            src={value?.cart?.cart_products[0]?.image.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.cart?.cart_products[0]?.image : value?.cart?.cart_products[0]?.image}
                                         />
                                     </div>
                                     <div className="m-3 flex flex-col items-end md:items-start">
@@ -170,7 +172,7 @@ export default function TransactionCard(props) {
                                         ) : null}
                                     </div>
                                 </div>
-                                {value?.order_statuses[0]?.status_id === 3 ? (
+                                {props.transaction.roleId === 2 && value?.order_statuses[0]?.status_id === 3 ? (
                                     <div className="flex-1 flex justify-end gap-5 mr-5">
                                         <button
                                             onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(3); props.confirm?.setValueConfirm(value.id)}}
@@ -203,7 +205,7 @@ export default function TransactionCard(props) {
                                 src="/images/not-found-3.png"
                                 alt="not-found"
                                 className="min-w-[200px] max-w-[400px]"
-                            ></img>
+                            />
                         </div>
                     </div>
                 </div>

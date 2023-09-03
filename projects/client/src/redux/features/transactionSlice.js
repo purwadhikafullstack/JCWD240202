@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { getUserNotificationAsync } from './notificationSlice';
 
 const initialState = {
     data: {},
@@ -73,6 +74,7 @@ export const confirmPaymentAsync = (cartId, page, warehouse, search, startDate, 
             },
         );
         dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
+        dispatch(getUserNotificationAsync({page: 1}))
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -160,6 +162,7 @@ export const sendUserOrder = (order_id, page, warehouse, search, startDate, endD
             },
         );
         dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
+        dispatch(getUserNotificationAsync({page: 1}))
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,

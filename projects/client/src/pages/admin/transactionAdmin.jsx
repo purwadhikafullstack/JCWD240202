@@ -43,6 +43,7 @@ export default function TransactionAdmin() {
     const [modalNotification, setModalNotification] = useState(false);
     const [title, setTitle] = useState('')
     const [message, setMessage] = useState('')
+    const [expiredTime, setExpiredTime] = useState(false);
 
     const pageChange = (event, value) => {
         setPage(value);
@@ -126,7 +127,7 @@ export default function TransactionAdmin() {
         );
         dispatch(getAllStatus());
         return () => dispatch(setLoading(false))
-    }, [page, warehouse, search, startDate, endDate, statusId, sort]);
+    }, [page, warehouse, search, startDate, endDate, statusId, sort, expiredTime]);
     return (
         <>
             <Toaster />
@@ -167,6 +168,15 @@ export default function TransactionAdmin() {
                             data={{ handleStatusChange, statusId, reset }}
                         />
                     </div>
+                    <div className="w-full flex justify-center mt-3 sm:hidden">
+                        <PaginationAdmin
+                            data={{
+                                totalPage: transaction?.totalPage,
+                                page: Number(page),
+                                pageChange,
+                            }}
+                        />
+                    </div>
                     <TransactionCard
                         transaction={transaction}
                         detail={{ setDetailId, detailId, setOpenDetail }}
@@ -176,7 +186,8 @@ export default function TransactionAdmin() {
                             setValueConfirm,
                         }}
                         loading={loading}
-                        notification={{setModalNotification, setDetailId}}
+                        notification={{ setModalNotification, setDetailId }}
+                        time={setExpiredTime}
                     />
                     <div className="w-full flex justify-center mt-3">
                         <PaginationAdmin

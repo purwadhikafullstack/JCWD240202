@@ -41,6 +41,7 @@ export const getDataLogin = () => async (dispatch) => {
         if (error.response) {
             toast.error(error.response.data.message)
             localStorage.removeItem('user');
+            localStorage.removeItem('_grecaptcha');
         }
         dispatch(setLoading(false));
     }

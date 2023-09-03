@@ -8,8 +8,6 @@ import ModalAddColor from '../../components/admin/product/modalAddColor';
 import ModalDeleteColor from '../../components/admin/product/modalDeleteColor';
 import { Toaster } from 'react-hot-toast';
 
-
-
 export default function ColorProductAdmin() {
     const dispatch = useDispatch();
     const [openModalAdd, setOpenModalAdd] = useState(false);
@@ -31,7 +29,7 @@ export default function ColorProductAdmin() {
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
-                    <div className="p-8 w-full">
+                    <div className="sm:p-8 p-3 w-full">
                         <div className="font-bold text-2xl mt-2">
                             <h1>BASE COLOR PRODUCTS</h1>
                         </div>

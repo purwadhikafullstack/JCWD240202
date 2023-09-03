@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
             width: DataTypes.INTEGER,
             height: DataTypes.INTEGER,
             weight: DataTypes.INTEGER,
-            is_deleted: DataTypes.BOOLEAN,
+            is_deleted: { type: DataTypes.BOOLEAN, defaultValue: false },
             total_stock: { type: DataTypes.INTEGER, defaultValue: 0 },
         },
         {

@@ -35,7 +35,7 @@ export default function CategoryProductAdmin() {
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
-                    <div className="p-8 w-full">
+                    <div className="sm:p-8 p-3 w-full">
                         <div className="font-bold text-2xl mt-2">
                             <h1>CATEGORY PRODUCTS</h1>
                         </div>

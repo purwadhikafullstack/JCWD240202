@@ -31,6 +31,7 @@ export default function ModalEditProduct(props) {
             let targetFiles = [...e.target.files];
 
             targetFiles.map((value) => {
+                console.log(value)
                 if (
                     value.type.split('/')[1].toLowerCase() !== 'jpg' &&
                     value.type.split('/')[1].toLowerCase() !== 'jpeg' &&
@@ -41,9 +42,9 @@ export default function ModalEditProduct(props) {
             });
 
             targetFiles.map((value) => {
-                if (value.size > 100000000)
+                if (value.size > 1000000)
                     throw {
-                        message: `${value.originalname} is Too Large`,
+                        message: `${value.name} is Too Large`,
                     };
             });
 
