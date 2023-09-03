@@ -54,19 +54,7 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
                                         <div className="flex items-center gap-5">
                                             <div className="image max-w-[130px] border border-gray-300 p-2 rounded-lg">
                                                 <img
-                                                    src={
-                                                        value?.product?.product_images[0]?.name.startsWith(
-                                                            'PIMG',
-                                                        )
-                                                            ? process.env
-                                                                  .REACT_APP_API_IMAGE_URL +
-                                                              value?.product
-                                                                  ?.product_images[0]
-                                                                  ?.name
-                                                            : value?.product
-                                                                  ?.product_images[0]
-                                                                  ?.name
-                                                    }
+                                                    src={value?.product?.product_images[0]?.name.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.product?.product_images[0]?.name : value?.product?.product_images[0]?.name}
                                                     alt="product_image"
                                                 />
                                             </div>
@@ -75,11 +63,7 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
                                                     {value?.product?.name}
                                                 </div>
                                                 <div className="category text-xs">
-                                                    Category:{' '}
-                                                    {
-                                                        value?.product?.category
-                                                            ?.name
-                                                    }
+                                                    Category:{' '}{value?.product?.category?.name}
                                                 </div>
                                             </div>
                                         </div>
@@ -87,16 +71,13 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
                                 </div>
                                 <div className="right-container w-[300px] md:border-l-2 border-gray-300 sm:pl-8 mt-4 sm:mt-0">
                                     <div className="mt-2">
-                                        {dataLogin?.warehouse?.id ===
-                                        value?.mutation_details[0]
-                                            ?.warehouse_destination_id ? (
+                                        {dataLogin?.warehouse?.id === value?.mutation_details[0]?.warehouse_destination_id ? (
                                             <div className="request-from text-sm sm:text-md mb-10">
                                                 Request from : <br></br>
                                                 <span className="font-bold">
                                                     {value?.origin?.city}
                                                 </span>
-                                                {value?.origin?.is_deleted ===
-                                                true ? (
+                                                {value?.origin?.is_deleted === true ? (
                                                     <>
                                                         <br></br>
                                                         <span className="text-red-600">
@@ -107,20 +88,13 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
                                                     <></>
                                                 )}
                                             </div>
-                                        ) : dataLogin?.warehouse?.id ===
-                                          value?.origin?.id ? (
+                                        ) : dataLogin?.warehouse?.id === value?.origin?.id ? (
                                             <div className="request-to text-sm sm:text-md mb-10">
                                                 Request to : <br></br>
                                                 <span className="font-bold">
-                                                    {
-                                                        value
-                                                            ?.mutation_details[0]
-                                                            ?.destination?.city
-                                                    }
+                                                    {value?.mutation_details[0]?.destination?.city}
                                                 </span>
-                                                {value?.mutation_details[0]
-                                                    ?.destination
-                                                    ?.is_deleted === true ? (
+                                                {value?.mutation_details[0]?.destination?.is_deleted === true ? (
                                                     <>
                                                         <br></br>
                                                         <span className="text-red-600">
@@ -138,9 +112,7 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
                                                     <span className="font-bold">
                                                         {value?.origin?.city}
                                                     </span>
-                                                    {value?.origin
-                                                        ?.is_deleted ===
-                                                    true ? (
+                                                    {value?.origin?.is_deleted === true ? (
                                                         <>
                                                             <br></br>
                                                             <span className="text-red-600">
@@ -156,17 +128,9 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
                                                 <div className="request-to">
                                                     Request to : <br></br>
                                                     <span className="font-bold">
-                                                        {
-                                                            value
-                                                                ?.mutation_details[0]
-                                                                ?.destination
-                                                                ?.city
-                                                        }
+                                                        {value?.mutation_details[0]?.destination?.city}
                                                     </span>
-                                                    {value?.mutation_details[0]
-                                                        ?.destination
-                                                        ?.is_deleted ===
-                                                    true ? (
+                                                    {value?.mutation_details[0]?.destination?.is_deleted === true ? (
                                                         <>
                                                             <br></br>
                                                             <span className="text-red-600">
@@ -185,39 +149,21 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
 
                                         <div className="total-quantity-request flex flex-col text-sm sm:text-md items-start gap-3 mb-10">
                                             <div>Total Quantity:</div>
-                                            <div className="font-bold">
-                                                {
-                                                    value?.mutation_details[0]
-                                                        ?.quantity
-                                                }{' '}
-                                                Pcs
-                                            </div>
+                                            <div className="font-bold">{value?.mutation_details[0]?.quantity}{' '}Pcs</div>
                                         </div>
                                     </div>
-                                    {(value.is_approved === true &&
-                                        value.is_rejected === false) ||
-                                    (value.is_rejected === true &&
-                                        value.is_approved === false) ||
-                                    dataLogin?.warehouse?.id ===
-                                        value?.origin?.id ||
-                                    dataLogin?.role_id === 3 ? (
+                                    {(value.is_approved === true && value.is_rejected === false) || (value.is_rejected === true && value.is_approved === false) || dataLogin?.warehouse?.id === value?.origin?.id || dataLogin?.role_id === 3 ? (
                                         <></>
                                     ) : (
                                         <div className="flex justify-start sm:justify-center gap-3 mb-2">
                                             <button
                                                 className="confirm w-20 bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
-                                                onClick={() => {
-                                                    setShowConfirmModal(true);
-                                                    setSelected(value);
-                                                }}
+                                                onClick={() => {setShowConfirmModal(true); setSelected(value)}}
                                             >
                                                 Confirm
                                             </button>
                                             <button
-                                                onClick={() => {
-                                                    setShowRejectModal(true);
-                                                    setSelected(value);
-                                                }}
+                                                onClick={() => {setShowRejectModal(true); setSelected(value)}}
                                                 className="reject w-20 bg-red-600 hover:bg-gray-400 rounded-lg text-white text-sm text-white py-2 text-sm p-3"
                                             >
                                                 Reject
@@ -237,22 +183,14 @@ export default function MutationCard({ data, dataLogin, params, loading }) {
 
             {/* Confirm Modal */}
             {showConfirmModal === true ? (
-                <ConfirmMutation
-                    showModal={setShowConfirmModal}
-                    selected={selected}
-                    params={params}
-                />
+                <ConfirmMutation showModal={setShowConfirmModal} selected={selected} params={params}/>
             ) : (
                 <></>
             )}
 
             {/* Reject Modal */}
             {showRejectModal === true ? (
-                <RejectMutation
-                    showModal={setShowRejectModal}
-                    selected={selected}
-                    params={params}
-                />
+                <RejectMutation showModal={setShowRejectModal} selected={selected} params={params}/>
             ) : (
                 <></>
             )}

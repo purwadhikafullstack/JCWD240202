@@ -7,12 +7,14 @@ import DatePicker from 'react-datepicker';
 import SearchBarAdmin from '../../components/admin/searchBarAdmin';
 import SortNewestMutation from '../../components/admin/sortNewestMutation';
 import TableStockLog from '../../components/admin/stockLog/tableStockLog';
-import { getStockLog, setLoading } from '../../redux/features/stockHistorySlice';
+import {getStockLog, setLoading} from '../../redux/features/stockHistorySlice';
 import PaginationAdmin from '../../components/admin/paginationAdmin';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import * as XLSX from 'xlsx';
 import PrintStockLog from '../../components/admin/stockLog/printStockLog';
 import { Helmet } from 'react-helmet';
+import FilterInformation from '../../components/admin/filterInformation';
+import FilterType from '../../components/admin/filterType';
 const moment = require('moment');
 
 export default function StockLogPage() {
@@ -28,6 +30,8 @@ export default function StockLogPage() {
     const [warehouse, setWarehouse] = useState(searchParams.get('warehouse') || '');
     const [sort, setSort] = useState(searchParams.get('status') || '');
     const loading = useSelector((state) => state.stockHistory.loading);
+    const [informations, setInformations] = useState(searchParams.get('information') || '')
+    const [types, setTypes] = useState(searchParams.get('type') || '')
 
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -47,6 +51,16 @@ export default function StockLogPage() {
 
     const sortChange = (sort) => {
         setSort(sort);
+        setPage(1);
+    };
+
+    const filterInformations = (informations) => {
+        setInformations(informations);
+        setPage(1);
+    };
+
+    const filterTypes = (types) => {
+        setTypes(types);
         setPage(1);
     };
 
@@ -74,10 +88,16 @@ export default function StockLogPage() {
         if (sort) {
             queryParams['sort'] = sort;
         }
+        if (types) {
+            queryParams['type'] = types;
+        }
+        if (informations) {
+            queryParams['information'] = informations;
+        }
         setSearchParams(queryParams);
-        dispatch(getStockLog(page, date, search, warehouse, sort));
-        return () => dispatch(setLoading(false))
-    }, [page, date, search, warehouse, sort]);
+        dispatch(getStockLog(page, date, search, warehouse, sort, types, informations));
+        return () => dispatch(setLoading(false));
+    }, [page, date, search, warehouse, sort, types, informations]);
 
     return (
         <>
@@ -89,7 +109,9 @@ export default function StockLogPage() {
                 <div className="sm:flex">
                     <SideBarAdmin />
                     <div className="bg-blue-200 p-8 w-full">
-                        <div className="mb-6 font-bold text-4xl">STOCK LOG</div>
+                        <div className="mb-6 font-bold text-4xl">
+                            PRODUCT STOCK LOG
+                        </div>
                         <div className="font-bold text-2xl">
                             {dataLogin?.warehouse?.city ? (
                                 <>
@@ -124,16 +146,14 @@ export default function StockLogPage() {
                                     />
                                 </div>
                             </div>
-                            <div className={`w-full flex items-center ${search || date || warehouse || sort ? 'mt-4' : ''} mb-4`}>
-                                {search || date || warehouse || sort ? (
+                            <div className={`w-full flex items-center ${search || date || warehouse || sort || informations || types ? 'mt-4' : ''} mb-4`}>
+                                {search || date || warehouse || sort || informations || types ? (
                                     <div className="mr-2 text-xs">Reset Filter :</div>
                                 ) : (
                                     <></>
                                 )}
                                 {search ? (
-                                    <button onClick={() => {setSearch(''); setPage(1)}}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setSearch(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{search}</div>
                                     </button>
@@ -141,9 +161,7 @@ export default function StockLogPage() {
                                     <></>
                                 )}
                                 {date ? (
-                                    <button onClick={() => {setDate(''); setPage(1)}}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setDate(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{months[new Date(date).getMonth()]}</div>
                                     </button>
@@ -151,9 +169,7 @@ export default function StockLogPage() {
                                     <></>
                                 )}
                                 {warehouse ? (
-                                    <button onClick={() => {setWarehouse(''); setPage(1)}}
-                                        className="flex items-center gap-1 mr-2 mb-1 sm:mb-0"
-                                    >
+                                    <button onClick={() => {setWarehouse(''); setPage(1)}} className="flex items-center gap-1 mr-2 mb-1 sm:mb-0">
                                         <IoCloseCircleSharp />
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{warehouse.replace(/%/g, ' ')}</div>
                                     </button>
@@ -161,11 +177,25 @@ export default function StockLogPage() {
                                     <></>
                                 )}
                                 {sort ? (
-                                    <button onClick={() => {setSort(''); setPage(1)}}
-                                        className="flex items-center gap-1 mr-2"
-                                    >
+                                    <button onClick={() => {setSort(''); setPage(1)}} className="flex items-center gap-1 mr-2">
                                         <IoCloseCircleSharp size={12} />
                                         <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{sort === 'newest' ? 'Newest' : 'Oldest'}</div>
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}
+                                {types ? (
+                                    <button onClick={() => {setTypes(''); setPage(1)}} className="flex items-center gap-1 mr-2">
+                                        <IoCloseCircleSharp size={12} />
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{types}</div>
+                                    </button>
+                                ) : (
+                                    <></>
+                                )}
+                                {informations ? (
+                                    <button onClick={() => {setInformations(''); setPage(1)}} className="flex items-center gap-1 mr-2">
+                                        <IoCloseCircleSharp size={12} />
+                                        <div className="bg-[#0051BA] text-white rounded-lg px-2 py-1 text-xs flex items-center">{informations.replace(/%/g, ' ')}</div>
                                     </button>
                                 ) : (
                                     <></>
@@ -174,15 +204,17 @@ export default function StockLogPage() {
                             <div className="mb-4">
                                 <hr className="border border-gray-200"></hr>
                             </div>
-                            <div className="flex justify-between gap-3 mb-4">
-                                <div className="flex gap-3">
+                            <div className="flex md:flex-row flex-col justify-between gap-3 mb-4">
+                                <div className="flex md:flex-row flex-col md:gap-3">
                                     <SearchBarAdmin data={{ searchChange, search }}/>
-                                    <SortNewestMutation data={{ sortChange, sort }}/>
+                                    <div className="flex gap-2 md:mt-0 mt-2">
+                                        <SortNewestMutation data={{ sortChange, sort }}/>
+                                        <FilterType data={{ filterTypes, types }}/>
+                                        <FilterInformation data={{ filterInformations, informations }}/>
+                                    </div>
                                 </div>
                                 <div className="flex gap-3">
-                                    <button onClick={handleExportFile} className="border border-gray-200 rounded-lg text-xs px-4">
-                                        Export Data
-                                    </button>
+                                    <button onClick={handleExportFile} className="border border-gray-200 rounded-lg text-xs p-3">Export Data</button>
                                     <PrintStockLog data={dataExport} />
                                 </div>
                             </div>
@@ -195,12 +227,14 @@ export default function StockLogPage() {
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">User</th>
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Quantity</th>
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Warehouse</th>
-                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Information</th>
                                             <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Type</th>
+                                            <th scope="col" className="px-6 py-3 border-r border-gray-300 text-center">Information</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {(dataStockLog?.data?.rows?.length > 0 || dataStockLog === null) && (<TableStockLog data={dataStockLog?.data} loading={loading}/>)}
+                                        {(dataStockLog?.data?.rows?.length > 0 || dataStockLog === null) && (
+                                            <TableStockLog data={dataStockLog?.data} loading={loading}/>
+                                        )}
                                     </tbody>
                                 </table>
                                 {dataStockLog?.data?.rows?.length === 0 && (
@@ -214,7 +248,7 @@ export default function StockLogPage() {
                                                     src="/images/not-found-3.png"
                                                     alt="not-found"
                                                     className="min-w-[200px] max-w-[400px]"
-                                                ></img>
+                                                />
                                             </div>
                                         </div>
                                     </div>

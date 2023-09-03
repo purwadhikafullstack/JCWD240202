@@ -106,8 +106,8 @@ export const setWhAdmin =
                 dispatch(
                     getDataAdminUser(
                         params.page,
-                        params.search,
                         params.sort,
+                        params.search,
                         params.warehouse,
                     ),
                 );
@@ -165,8 +165,8 @@ export const unassignWhAdmin =
                 dispatch(
                     getDataAdminUser(
                         params.page,
-                        params.search,
                         params.sort,
+                        params.search,
                         params.warehouse,
                     ),
                 );
