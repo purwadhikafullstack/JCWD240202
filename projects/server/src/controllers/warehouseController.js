@@ -496,7 +496,7 @@ module.exports = {
 
                 if (checkAdminWh) {
                     where = {
-                        user_id: { [Op.ne]: id },
+                        id: { [Op.ne]: checkAdminWh.id },
                         is_deleted: false,
                     };
                 } else {
