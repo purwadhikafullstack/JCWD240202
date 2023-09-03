@@ -6,8 +6,9 @@ import { BsFillHouseDoorFill } from 'react-icons/bs';
 import { Table } from 'flowbite-react';
 import PaginationButton from '../../user/pagination/paginationButton';
 import { getDataLogin } from '../../../redux/features/userSlice';
+import SkeletonStock from './skeletonStock';
 
-export default function ProductTotalStock() {
+export default function ProductTotalStock(props) {
     const dispatch = useDispatch();
     const stockData = useSelector((state) => state.stock.stocks);
     const loginData = useSelector((state) => state.user.dataLogin)
@@ -26,7 +27,8 @@ export default function ProductTotalStock() {
         dispatch(getDataStock(page, search, sort, category, warehouse));
     }, [page, search, sort, category, warehouse]);
     return (
-        <div className="w-full p-4 bg-white rounded-2xl shadow-xl h-full">
+        <>{
+            props?.data?.loading ? <div className="w-full p-4 bg-white rounded-2xl shadow-xl h-full">
             <div className="flex gap-4 items-center">
                 <div>
                     <BsFillHouseDoorFill size={35} />
@@ -60,6 +62,7 @@ export default function ProductTotalStock() {
                     }}
                 />
             </div>
-        </div>
+        </div> : <SkeletonStock />
+        }</>
     );
 }

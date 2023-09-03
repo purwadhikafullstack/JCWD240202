@@ -145,8 +145,8 @@ export default function ChartSales(props) {
                                     data={chartData?.data}
                                     margin={{
                                         top: 20,
-                                        right: 30,
-                                        left: 20,
+                                        right: 50,
+                                        left: 50,
                                         bottom: 5,
                                     }}
                                 >
