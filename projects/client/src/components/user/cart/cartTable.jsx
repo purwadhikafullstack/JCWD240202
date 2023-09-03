@@ -29,7 +29,12 @@ export default function CartTable(props) {
                 <Toaster />
                 <div className="flex-2 max-md:hidden">
                     <img
-                        src={props.data.value.image}
+                        src={
+                            props.data.value.image.startsWith('PIMG')
+                                ? process.env.REACT_APP_API_IMAGE_URL +
+                                  props.data.value.image
+                                : props.data.value.image
+                        }
                         alt="..."
                         className="h-[200px] w-[200px]"
                     />

@@ -30,6 +30,8 @@ export default function AfterAddCart(props) {
         } else if (props?.state?.addNewItem === false) {
             document.body.classList.remove('overflow-hidden');
         }
+
+        return () => document.body.classList.remove('overflow-hidden');
     }, [id, props?.state?.addNewItem]);
     return (
         <div

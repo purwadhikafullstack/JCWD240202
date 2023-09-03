@@ -105,18 +105,17 @@ export default function ChartSales(props) {
                             </div>
                         </div>
                     </div>
-                    {console.log(chartData)}
                     {chosenTime === 'daily' ? (
                         <div className="h-[500px] w-full overflow-x-auto">
-                            <ResponsiveContainer width={'99%'} height={'99%'}>
+                            <ResponsiveContainer width={'100%'} height={'100%'}>
                                 <LineChart
                                     width={1100}
                                     height={400}
                                     data={chartData?.data}
                                     margin={{
                                         top: 20,
-                                        right: 30,
-                                        left: 20,
+                                        right: 50,
+                                        left: 50,
                                         bottom: 5,
                                     }}
                                 >
@@ -139,7 +138,7 @@ export default function ChartSales(props) {
                         </div>
                     ) : chosenTime === 'monthly' ? (
                         <div className="h-[500px] w-full overflow-x-auto">
-                            <ResponsiveContainer width={'99%'} height={'99%'}>
+                            <ResponsiveContainer width={'100%'} height={'100%'}>
                                 <LineChart
                                     width={1100}
                                     height={400}
@@ -153,7 +152,11 @@ export default function ChartSales(props) {
                                 >
                                     <CartesianGrid strokeDasharray="5 5" />
                                     <XAxis dataKey="monthYear" />
-                                    <YAxis />
+                                    <YAxis
+                                        type="number"
+                                        domain={['auto', chartData?.highestVal]}
+                                        allowDataOverflow={true}
+                                    />
                                     <Tooltip />
                                     <Legend />
                                     <Line
