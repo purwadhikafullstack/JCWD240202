@@ -45,6 +45,7 @@ export default function RelatedProducts(props) {
                                                 product_id: value.id,
                                                 rating: '',
                                                 sort: '',
+                                                page:1
                                             }),
                                         );
                                         navigate(`/products/${value.id}`);

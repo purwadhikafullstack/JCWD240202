@@ -21,11 +21,9 @@ export default function AfterAddCart(props) {
     const id = newItems?.data[0]?.product?.id;
 
     useEffect(() => {
-        if (props?.state?.addNewItem === true) {
-            dispatch(getNewItemsAsync());
-            if (id) {
-                dispatch(productRecommenadationAsync(id));
-            }
+        if (props?.state?.addNewItem === true && id) {
+            dispatch(productRecommenadationAsync(id));
+
             document.body.classList.add('overflow-hidden');
         } else if (props?.state?.addNewItem === false) {
             document.body.classList.remove('overflow-hidden');
@@ -57,7 +55,14 @@ export default function AfterAddCart(props) {
                     <div>
                         <img
                             src={
-                                newItems?.data[newItems?.data?.length - 1].image
+                                newItems?.data[
+                                    newItems?.data?.length - 1
+                                ]?.image.startsWith('PIMG')
+                                    ? process.env.REACT_APP_API_IMAGE_URL +
+                                      newItems?.data[newItems?.data?.length - 1]
+                                          ?.image
+                                    : newItems?.data[newItems?.data?.length - 1]
+                                          ?.image
                             }
                             alt="product_image"
                             className="w-36 h-36 max-sm:w-24 max-sm:h-24"

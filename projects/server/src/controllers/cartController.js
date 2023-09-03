@@ -16,26 +16,29 @@ const userAddToCart = async (req, res) => {
 
         const findUser = await users.findOne({
             where: { id: user_id },
+            transaction: t,
         });
         const findProduct = await products.findOne({
             where: { id: product_id },
             include: [{ model: product_images, where: { is_thumbnail: true } }],
+            transaction: t,
         });
 
         // Check if user already have a cart
         const findCart = await carts.findOne({
             where: { user_id: user_id, is_checkout: false },
+            transaction: t,
         });
         if (findCart) {
             // check product exist in cart
             const checkCartProducts = await cart_products.findOne({
                 where: { cart_id: findCart.id, product_id: product_id },
+                transaction: t,
             });
             if (checkCartProducts) {
                 const updateCart = await cart_products.update(
                     { quantity: checkCartProducts.quantity + quantity },
-                    { where: { id: checkCartProducts.id } },
-                    { transaction: t },
+                    { where: { id: checkCartProducts.id }, transaction: t },
                 );
             } else {
                 const addProduct = await cart_products.create(
@@ -159,26 +162,24 @@ const deleteProductCart = async (req, res) => {
 
         const findCart = await carts.findOne({
             where: { user_id: user_id, is_checkout: false },
+            transaction: t,
         });
 
         if (findCart) {
-            const removeProduct = await cart_products.destroy(
-                {
-                    where: { product_id: id, cart_id: findCart.id },
-                },
-                { transaction: t },
-            );
+            const removeProduct = await cart_products.destroy({
+                where: { product_id: id, cart_id: findCart.id },
+                transaction: t,
+            });
             if (removeProduct) {
                 const checkProductCart = await cart_products.findAndCountAll({
                     where: { cart_id: findCart.id },
+                    transaction: t,
                 });
                 if (checkProductCart.count === 0) {
-                    const removeCart = await carts.destroy(
-                        {
-                            where: { id: findCart.id },
-                        },
-                        { transaction: t },
-                    );
+                    const removeCart = await carts.destroy({
+                        where: { id: findCart.id },
+                        transaction: t,
+                    });
                 }
             } else {
                 res.status(400).send({
@@ -218,41 +219,40 @@ const modifyQuantity = async (req, res) => {
         const { id } = req.params;
         const findCart = await carts.findOne({
             where: { user_id: user_id, is_checkout: false },
+            transaction: t,
         });
         if (findCart) {
             const findCartProduct = await cart_products.findOne({
                 where: { cart_id: findCart.id, product_id: id },
+                transaction: t,
             });
             if (findCartProduct) {
                 const editQuantity = await cart_products.update(
                     {
                         quantity: findCartProduct.quantity + quantity,
                     },
-                    { where: { id: findCartProduct.id } },
-                    { transaction: t },
+                    { where: { id: findCartProduct.id }, transaction: t },
                 );
                 const checkQuantity = await cart_products.findOne({
                     where: { cart_id: findCart.id, product_id: id },
+                    transaction: t,
                 });
                 if (checkQuantity.quantity <= 0) {
-                    const removeProduct = await cart_products.destroy(
-                        {
-                            where: { cart_id: findCart.id, product_id: id },
-                        },
-                        { transaction: t },
-                    );
+                    const removeProduct = await cart_products.destroy({
+                        where: { cart_id: findCart.id, product_id: id },
+                        transaction: t,
+                    });
                     const checkCartProducts =
                         await cart_products.findAndCountAll({
                             where: { cart_id: findCart.id },
+                            transaction: t,
                         });
 
                     if (checkCartProducts.count === 0) {
-                        const removeCart = await carts.destroy(
-                            {
-                                where: { id: findCart.id },
-                            },
-                            { transaction: t },
-                        );
+                        const removeCart = await carts.destroy({
+                            where: { id: findCart.id },
+                            transaction: t,
+                        });
                         res.status(200).send({
                             success: true,
                             message: 'cart removed',

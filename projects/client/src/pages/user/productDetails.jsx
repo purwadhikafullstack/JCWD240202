@@ -295,13 +295,14 @@ export default function ProductDetails() {
                                                 pill
                                                 className="w-full p-4 bg-sky-700 text-yellow-200"
                                                 onClick={() => {
+                                                    userLogin ?
                                                     dispatch(
                                                         userAddToCartAsync({
                                                             product_id:
                                                                 Number(id),
                                                             quantity: quantity,
                                                         }),
-                                                    );
+                                                    ) : toast.error('Please Login/Register First')
                                                 }}
                                             >
                                                 <div className="text-xl">

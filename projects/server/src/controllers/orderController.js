@@ -181,6 +181,7 @@ const getOrderDetails = async (req, res) => {
 };
 
 const postUserPaymentProof = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { order_id } = req.body;
@@ -204,23 +205,30 @@ const postUserPaymentProof = async (req, res) => {
         if (findOrder) {
             const uploadProof = await orders.update(
                 { payment_proof },
-                { where: { id: findOrder.id } },
+                { where: { id: findOrder.id }, transaction: t },
             );
 
-            const updateStatus = await order_statuses.create({
-                status_id: 2,
-                order_id: findOrder.id,
-                is_active: true,
-            });
+            const updateStatus = await order_statuses.create(
+                {
+                    status_id: 2,
+                    order_id: findOrder.id,
+                    is_active: true,
+                },
+                { transaction: t },
+            );
 
             const updatePrevStatus = await order_statuses.update(
                 {
                     is_active: false,
                 },
-                { where: { status_id: 1, order_id: findOrder.id } },
+                {
+                    where: { status_id: 1, order_id: findOrder.id },
+                    transaction: t,
+                },
             );
 
             if (uploadProof && updateStatus) {
+                await t.commit();
                 return res.status(200).send({
                     success: true,
                     message: 'upload payment proof success',
@@ -248,7 +256,6 @@ const postUserPaymentProof = async (req, res) => {
 };
 
 const userCancelOrder = async (req, res) => {
-    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { order_id } = req.body;
@@ -266,20 +273,16 @@ const userCancelOrder = async (req, res) => {
                 },
             });
             if (getStatus) {
-                const cancelOrder = await order_statuses.create(
-                    {
-                        order_id: findOrder.id,
-                        status_id: 6,
-                        is_active: true,
-                    },
-                    { transaction: t },
-                );
+                const cancelOrder = await order_statuses.create({
+                    order_id: findOrder.id,
+                    status_id: 6,
+                    is_active: true,
+                });
                 const updatePrev = await order_statuses.update(
                     {
                         is_active: false,
                     },
                     { where: { id: getStatus.id } },
-                    { transaction: t },
                 );
 
                 const updateStock = findOrder.cart.cart_products.map(
@@ -296,12 +299,10 @@ const userCancelOrder = async (req, res) => {
                             {
                                 where: { id: value.product_id },
                             },
-                            { transaction: t },
                         );
                     },
                 );
 
-                await t.commit();
                 res.status(200).send({
                     success: true,
                     message: 'order cancelled',
@@ -322,7 +323,6 @@ const userCancelOrder = async (req, res) => {
             });
         }
     } catch (error) {
-        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,
@@ -332,6 +332,7 @@ const userCancelOrder = async (req, res) => {
 };
 
 const userConfirmDelivery = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { order_id } = req.body;
@@ -342,19 +343,24 @@ const userConfirmDelivery = async (req, res) => {
         });
 
         if (findOrder) {
-            const createStatus = await order_statuses.create({
-                status_id: 5,
-                order_id: findOrder.id,
-                is_rejected: false,
-                is_active: true,
-            });
+            const createStatus = await order_statuses.create(
+                {
+                    status_id: 5,
+                    order_id: findOrder.id,
+                    is_rejected: false,
+                    is_active: true,
+                },
+                { transaction: t },
+            );
             const updatePrev = await order_statuses.update(
                 { is_active: false },
                 {
                     where: { order_id: findOrder.id, status_id: 4 },
+                    transaction: t,
                 },
             );
 
+            await t.commit();
             res.status(200).send({
                 success: true,
                 message: 'order confirmed',
@@ -368,6 +374,7 @@ const userConfirmDelivery = async (req, res) => {
             });
         }
     } catch (error) {
+        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,

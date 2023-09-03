@@ -19,8 +19,8 @@ export const orderSlice = createSlice({
             initialState.orderDetails = action.payload;
         },
         setLoading: (initialState, action) => {
-            initialState.loading = action.payload
-        }
+            initialState.loading = action.payload;
+        },
     },
 });
 
@@ -29,7 +29,7 @@ export const getAllUserOrderAsync = (data) => async (dispatch) => {
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
     try {
-        dispatch(setLoading(false))
+        dispatch(setLoading(false));
         const getOrders = await axios.get(
             process.env.REACT_APP_API_BASE_URL +
                 `/orders?page=${data.page}&sort=${data.sort}&status_id=${data.status_id}&search=${data.search}`,
@@ -44,7 +44,7 @@ export const getAllUserOrderAsync = (data) => async (dispatch) => {
         }, 1000);
         dispatch(setOrder(getOrders));
     } catch (error) {
-        dispatch(setLoading(false))
+        dispatch(setLoading(false));
     }
 };
 
