@@ -18,4 +18,7 @@ router.get(
     stockHistoryController.getStockLog,
 );
 
+router.get('/types', stockHistoryController.getTypes)
+router.get('/informations', stockHistoryController.getInformations)
+
 module.exports = router;

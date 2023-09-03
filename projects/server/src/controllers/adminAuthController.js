@@ -192,6 +192,7 @@ module.exports = {
                         email,
                         phone_number,
                         password: createPassword,
+                        is_verified: 1,
                         role_id: 2,
                     },
                     { transaction: t },

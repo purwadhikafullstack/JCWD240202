@@ -33,12 +33,9 @@ export default function EditDataAdmin({ showModal, selected, params }) {
     return (
         <>
             <div className="bg-black bg-opacity-50 fixed inset-0 z-50">
-                {/* <!-- Main modal --> */}
                 <div className="fixed flex items-center justify-center z-999 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div className="relative w-full max-w-2xl max-h-full">
-                        {/* <!-- Modal content --> */}
                         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                                     Edit Data Warehouse Admin
@@ -50,7 +47,6 @@ export default function EditDataAdmin({ showModal, selected, params }) {
                                     <AiOutlineClose size={16} />
                                 </button>
                             </div>
-                            {/* <!-- Modal body --> */}
                             <div className="p-6 space-y-6">
                                 <form>
                                     <div className="block mb-3">
@@ -125,7 +121,6 @@ export default function EditDataAdmin({ showModal, selected, params }) {
                                     </div>
                                 </form>
                             </div>
-                            {/* <!-- Modal footer --> */}
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
                                     className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"

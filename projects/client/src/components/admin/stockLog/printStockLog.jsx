@@ -18,8 +18,8 @@ export default function PrintStockLog({ data }) {
             >
                 Print Data
             </button>
-            <div>
-                <div className="hidden">
+            <div className='flex justify-center items-center hidden'>
+                <div>
                     <div ref={componentRef}>
                         <div className="mt-5 mb-3">
                             <p className="text-3xl text-center font-bold mt-5 mb-3 text-txt-500">
@@ -27,7 +27,7 @@ export default function PrintStockLog({ data }) {
                             </p>
                         </div>
                         <div className="mx-5 my-5">
-                            <div className="mt-5 mr-3 bg-white">
+                            <div className="mt-5 bg-white">
                                 <table className="w-full text-sm text-left text-gray-500 mt-5">
                                     <thead className="text-sm sm:text-lg text-gray-600 uppercase border border-black">
                                         <tr className=" divide-black divide-x">
