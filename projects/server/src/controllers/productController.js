@@ -189,8 +189,6 @@ const addNewProduct = async (req, res) => {
             transaction: t,
         });
 
-        await t.commit();
-
         await product_images.update(
             {
                 is_thumbnail: true,
@@ -199,17 +197,18 @@ const addNewProduct = async (req, res) => {
                 where: {
                     id: postProductImages[0].dataValues.id,
                     product_id: postProduct.dataValues.id,
-                },
-            },
-            { transaction: t },
-        );
-
+                }, transaction: t
+            }
+            );
+            await t.commit();
+            
         return res.status(200).send({
             success: true,
             message: 'Create new product success!',
             data: { postProduct, postProductImages, createProductStock },
         });
     } catch (error) {
+        await t.rollback();
         deleteFiles(req.files.images);
         return res.status(500).send({
             success: false,
@@ -294,8 +293,7 @@ const editProduct = async (req, res) => {
                 height,
                 weight,
             },
-            { where: { id: id } },
-            { transaction: t },
+            { where: { id: id }, transaction: t }
         );
 
         await t.commit();
@@ -322,7 +320,6 @@ const editProductImages = async (req, res) => {
         const recentImage = await product_images.findAll({
             where: {
                 product_id: id,
-                // is_thumbnail: 0,
             },
         });
 
@@ -337,20 +334,17 @@ const editProductImages = async (req, res) => {
             transaction: t,
         });
 
-        deleteFilesPublic(recentImage);
+        // deleteFilesPublic(recentImage);
 
         const deleteRecent = await recentImage.map((value) => {
             product_images.destroy(
                 {
-                    where: { name: value?.dataValues.name },
-                },
-                { transaction: t },
+                    where: { name: value?.dataValues.name }, transaction: t
+                }
             );
         });
 
-        await t.commit();
-
-        await product_images.update(
+        const cek = await product_images.update(
             {
                 is_thumbnail: true,
             },
@@ -358,10 +352,18 @@ const editProductImages = async (req, res) => {
                 where: {
                     id: updateProductImages[0].dataValues.id,
                     product_id: id,
-                },
-            },
-            { transaction: t },
+                }, transaction: t
+            }
         );
+        if (cek[0] === 0) {
+            return res.status(400).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+        deleteFilesPublic(recentImage);
+        await t.commit();
 
         return res.status(200).send({
             success: true,
@@ -411,8 +413,8 @@ const deleteProduct = async (req, res) => {
                 is_thumbnail: 0,
             },
         });
-        await imageToDelete.map((value) => {
-            product_images.destroy(
+        await imageToDelete.map(async(value) => {
+            await product_images.destroy(
                 {
                     where: { name: value?.dataValues.name },
                 },

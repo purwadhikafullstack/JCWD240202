@@ -410,13 +410,13 @@ module.exports = {
                                 warehouse_origin_id: value.warehouse_origin_id,
                                 user_id,
                                 is_approved: value.is_approved,
-                            });
+                            },{ transaction: t });
                             const mutTail = await db.mutation_details.create({
                                 warehouse_destination_id:
                                     val.warehouse_destination_id,
                                 mutation_id: mut.id,
                                 quantity: val.quantity,
-                            });
+                            },{ transaction: t });
                             historyMut.map(async (value) => {
                                 if (
                                     value.cek ===
@@ -432,7 +432,7 @@ module.exports = {
                                         user_id,
                                         type_id: value.type_id,
                                         information_id: value.information_id,
-                                    });
+                                    },{ transaction: t });
                                 }
                             });
                         }
@@ -447,16 +447,14 @@ module.exports = {
                     {
                         where: {
                             id: value.product_stock_id,
-                        },
-                    },
-                    { transaction: t },
+                        }, transaction: t
+                    }
                 );
             });
 
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 2, order_id: data.id } },
-                { transaction: t },
+                { where: { status_id: 2, order_id: data.id }, transaction: t },
             );
             const createStatus = await db.order_statuses.create(
                 { status_id: 3, order_id: data.id, is_active: 1 },
@@ -649,12 +647,11 @@ module.exports = {
             UPDATE order_statuses SET is_active = 0 WHERE order_id = "${order_id}" AND status_id = 4;
             END IF;
             END;`);
-            await t.commit();
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 3, order_id } },
-                { transaction: t },
-            );
+                { where: { status_id: 3, order_id }, transaction: t }
+                );
+                await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Sending users order!',
@@ -735,9 +732,8 @@ module.exports = {
                                     where: {
                                         product_id: product.product_id,
                                         warehouse_id: data.warehouse_id,
-                                    },
-                                },
-                                { transaction: t },
+                                    }, transaction: t
+                                }
                             );
                             totalFromMut = 0;
                         } else {
@@ -775,8 +771,8 @@ module.exports = {
                 }, {
                     where: {
                         id: value.product_id
-                    }
-                },{ transaction: t })
+                    }, transaction: t
+                })
             })
             if (prevStock.length > 0) {
                 prevStock.map(async (value) => {
@@ -794,9 +790,8 @@ module.exports = {
                             where: {
                                 product_id: value.product_id,
                                 warehouse_id: value.warehouse_id,
-                            },
-                        },
-                        { transaction: t },
+                            }, transaction: t
+                        }
                     );
                 });
             }
@@ -820,8 +815,7 @@ module.exports = {
 
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 3, order_id } },
-                { transaction: t },
+                { where: { status_id: 3, order_id }, transaction: t }
             );
             const createStatus = await db.order_statuses.create(
                 { status_id: 6, order_id, is_active: 1 },

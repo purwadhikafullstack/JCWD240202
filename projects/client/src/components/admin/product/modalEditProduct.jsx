@@ -31,7 +31,6 @@ export default function ModalEditProduct(props) {
             let targetFiles = [...e.target.files];
 
             targetFiles.map((value) => {
-                console.log(value)
                 if (
                     value.type.split('/')[1].toLowerCase() !== 'jpg' &&
                     value.type.split('/')[1].toLowerCase() !== 'jpeg' &&
@@ -88,6 +87,9 @@ export default function ModalEditProduct(props) {
     const defaultValue = () => {
         if (isSuccess) {
             props.funcShow(false);
+            setShowEditImg(true)
+            setImagePreview(null);
+            setImageProduct(null)
         }
     };
 
@@ -102,7 +104,9 @@ export default function ModalEditProduct(props) {
         setWidth(props.data?.width);
         setHeight(props.data?.height);
         setWeight(props.data?.weight);
-        defaultValue()
+        if (isSuccess) {
+            defaultValue()
+        }
     }, [proDetails, isSuccess]);
 
     return (
