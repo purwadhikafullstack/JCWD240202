@@ -167,8 +167,8 @@ export default function LoginPage() {
             <div className="w-full flex justify-center items-center fixed bottom-0">
                 <img
                     src="/images/banner-ikewa-login.png"
-                    alt="not-found"
-                    className="max-h-[200px] object-fill w-full"
+                    alt="banner"
+                    className="max-h-[250px] object-fill w-full"
                 />
             </div>
         </>

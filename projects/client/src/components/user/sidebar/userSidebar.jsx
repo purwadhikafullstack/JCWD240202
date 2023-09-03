@@ -15,6 +15,7 @@ export default function UserSidebar() {
     const logout = () => {
         try {
             localStorage.removeItem('user');
+            localStorage.removeItem('_grecaptcha');
             toast.success('Logout success!', {
                 position: 'top-center',
                 duration: 2000,

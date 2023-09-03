@@ -31,7 +31,7 @@ export default function UserTransactions() {
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [expiredTime, setExpiredTime] = useState(false);
-    const loading = useSelector((state) => state.order.loading)
+    const loading = useSelector((state) => state.order.loading);
  
     const pageChange = (event, value) => {
         setPage(value);

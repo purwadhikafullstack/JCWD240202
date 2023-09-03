@@ -11,6 +11,7 @@ module.exports = {
             },
             user_id: {
                 type: Sequelize.INTEGER,
+                allowNull: true,
             },
             province: {
                 type: Sequelize.STRING,

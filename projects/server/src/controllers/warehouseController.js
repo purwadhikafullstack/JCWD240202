@@ -369,8 +369,8 @@ module.exports = {
                     where: {
                         id: warehouse_id,
                     },
+                    transaction: t
                 },
-                { transaction: t },
             );
 
             await t.commit();
@@ -391,7 +391,7 @@ module.exports = {
     },
     getAllDataWarehouse: async (req, res) => {
         try {
-            let order = [['createdAt', 'DESC']];
+            let order = [['id', 'DESC']];
             let where = { is_deleted: false };
             let uname = undefined;
             const { page, search, sort, warehouses } = req.query;
@@ -407,9 +407,9 @@ module.exports = {
                     } else if (sort === 'name-desc') {
                         order = [['city', 'DESC']];
                     } else if (sort === 'newest') {
-                        order = [['createdAt', 'DESC']];
+                        order = [['id', 'DESC']];
                     } else if (sort === 'oldest') {
-                        order = [['createdAt', 'ASC']];
+                        order = [['id', 'ASC']];
                     }
                 }
             }
@@ -496,7 +496,7 @@ module.exports = {
 
                 if (checkAdminWh) {
                     where = {
-                        user_id: { [Op.ne]: id },
+                        id: { [Op.ne]: checkAdminWh.id },
                         is_deleted: false,
                     };
                 } else {
@@ -700,7 +700,7 @@ module.exports = {
 
                 return res.status(200).send({
                     success: true,
-                    message: 'Assign Warehouse Admin Success!',
+                    message: 'Unassign Warehouse Admin Success!',
                     data: unassignAdmin,
                 });
             }

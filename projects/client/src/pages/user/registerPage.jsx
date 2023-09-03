@@ -80,7 +80,7 @@ export default function RegisterPage() {
                 <title>IKEWA | Register</title>
                 <meta name="description" content="register" />
             </Helmet>
-            <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
+            <div className="flex flex-col md:flex-row my-10 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center text-center md:text-start">
                     <div>
                         <div className="text-4xl font-bold mb-10 w-72">
@@ -193,11 +193,11 @@ export default function RegisterPage() {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex justify-center items-center fixed bottom-0">
                 <img
-                    src="/images/banner-ikewa.png"
-                    alt="not-found"
-                    className="min-w-[200px]"
+                    src="/images/banner-ikewa-login.png"
+                    alt="banner"
+                    className="max-h-[250px] object-fill w-full"
                 />
             </div>
         </>

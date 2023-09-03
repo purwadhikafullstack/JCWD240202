@@ -17,7 +17,7 @@ module.exports = {
             {
                 id: 1,
                 product_id: 1,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/967/0996740_PE822487_S5.jpg',
+                name: 'PIMG-JESTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -25,7 +25,7 @@ module.exports = {
             {
                 id: 2,
                 product_id: 1,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/962/0996258_PE822208_S5.jpg',
+                name: 'PIMG-JESTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -33,7 +33,7 @@ module.exports = {
             {
                 id: 3,
                 product_id: 1,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/903/0990311_PE818846_S5.jpg',
+                name: 'PIMG-JESTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -41,7 +41,7 @@ module.exports = {
             {
                 id: 4,
                 product_id: 1,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/019/1001968_PE824566_S5.jpg',
+                name: 'PIMG-JESTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -49,7 +49,7 @@ module.exports = {
             {
                 id: 5,
                 product_id: 2,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/508/0350899_PE535069_S5.jpg',
+                name: 'PIMG-HESTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -57,7 +57,7 @@ module.exports = {
             {
                 id: 6,
                 product_id: 2,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/999/0999907_PE823987_S5.jpg',
+                name: 'PIMG-HESTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -65,7 +65,7 @@ module.exports = {
             {
                 id: 7,
                 product_id: 2,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/434/0843466_PE535615_S5.jpg',
+                name: 'PIMG-HESTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -73,7 +73,7 @@ module.exports = {
             {
                 id: 8,
                 product_id: 2,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/502/0750272_PE746483_S5.jpg',
+                name: 'PIMG-HESTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -81,7 +81,7 @@ module.exports = {
             {
                 id: 9,
                 product_id: 3,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/152/0915273_PE784679_S5.jpg',
+                name: 'PIMG-EKET_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -89,7 +89,7 @@ module.exports = {
             {
                 id: 10,
                 product_id: 3,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/448/1044803_PE842303_S5.jpg',
+                name: 'PIMG-EKET_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -97,7 +97,7 @@ module.exports = {
             {
                 id: 11,
                 product_id: 3,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/152/0915271_PE784674_S5.jpg',
+                name: 'PIMG-EKET_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -105,7 +105,7 @@ module.exports = {
             {
                 id: 12,
                 product_id: 3,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/614/1161445_PE889394_S5.jpg',
+                name: 'PIMG-EKET_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -113,7 +113,7 @@ module.exports = {
             {
                 id: 13,
                 product_id: 4,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/204/0820413_PE732468_S5.jpg',
+                name: 'PIMG-HAVSTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -121,7 +121,7 @@ module.exports = {
             {
                 id: 14,
                 product_id: 4,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/479/0847960_PE693089_S5.jpg',
+                name: 'PIMG-HAVSTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -129,7 +129,7 @@ module.exports = {
             {
                 id: 15,
                 product_id: 4,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/479/0847955_PE693088_S5.jpg',
+                name: 'PIMG-HAVSTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -137,7 +137,7 @@ module.exports = {
             {
                 id: 16,
                 product_id: 4,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/432/0843299_PE692329_S5.jpg',
+                name: 'PIMG-HAVSTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -145,7 +145,7 @@ module.exports = {
             {
                 id: 17,
                 product_id: 5,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/492/0949249_PE799590_S5.jpg',
+                name: 'PIMG-HAUGA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -153,7 +153,7 @@ module.exports = {
             {
                 id: 18,
                 product_id: 5,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/778/0977840_PE813836_S5.jpg',
+                name: 'PIMG-HAUGA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -161,7 +161,7 @@ module.exports = {
             {
                 id: 19,
                 product_id: 5,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/778/0977843_PE813828_S5.jpg',
+                name: 'PIMG-HAUGA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -169,7 +169,7 @@ module.exports = {
             {
                 id: 20,
                 product_id: 5,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/778/0977841_PE813837_S5.jpg',
+                name: 'PIMG-HAUGA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -177,7 +177,7 @@ module.exports = {
             {
                 id: 21,
                 product_id: 6,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/281/1128173_PE876446_S5.jpg',
+                name: 'PIMG-SKRUVBY_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -185,7 +185,7 @@ module.exports = {
             {
                 id: 22,
                 product_id: 6,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/420/1142047_PE881140_S5.jpg',
+                name: 'PIMG-SKRUVBY_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -193,7 +193,7 @@ module.exports = {
             {
                 id: 23,
                 product_id: 6,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/423/1142327_PE881239_S5.jpg',
+                name: 'PIMG-SKRUVBY_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -201,7 +201,7 @@ module.exports = {
             {
                 id: 24,
                 product_id: 6,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/420/1142046_PE881135_S5.jpg',
+                name: 'PIMG-SKRUVBY_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -209,7 +209,7 @@ module.exports = {
             {
                 id: 25,
                 product_id: 7,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/399/0239990_PE379591_S5.jpg',
+                name: 'PIMG-KLIPPAN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -217,7 +217,7 @@ module.exports = {
             {
                 id: 26,
                 product_id: 7,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/209/0820907_PE709145_S5.jpg',
+                name: 'PIMG-KLIPPAN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -225,7 +225,7 @@ module.exports = {
             {
                 id: 27,
                 product_id: 7,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/209/0820948_PE709146_S5.jpg',
+                name: 'PIMG-KLIPPAN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -233,7 +233,7 @@ module.exports = {
             {
                 id: 28,
                 product_id: 7,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/214/0721437_PH143338_S5.jpg',
+                name: 'PIMG-KLIPPAN_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -241,7 +241,7 @@ module.exports = {
             {
                 id: 29,
                 product_id: 8,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/419/1041904_PE841184_S5.jpg',
+                name: 'PIMG-PARUP_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -249,7 +249,7 @@ module.exports = {
             {
                 id: 30,
                 product_id: 8,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/501/0950178_PE800193_S5.jpg',
+                name: 'PIMG-PARUP_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -257,7 +257,7 @@ module.exports = {
             {
                 id: 31,
                 product_id: 8,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/501/0950102_PE800231_S5.jpg',
+                name: 'PIMG-PARUP_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -265,7 +265,7 @@ module.exports = {
             {
                 id: 32,
                 product_id: 8,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/501/0950105_PE800216_S5.jpg',
+                name: 'PIMG-PARUP_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -273,7 +273,7 @@ module.exports = {
             {
                 id: 33,
                 product_id: 9,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/173/0817362_PE773988_S5.jpg',
+                name: 'PIMG-VIMLE_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -281,7 +281,7 @@ module.exports = {
             {
                 id: 34,
                 product_id: 9,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/173/0817361_PE773987_S5.jpg',
+                name: 'PIMG-VIMLE_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -289,7 +289,7 @@ module.exports = {
             {
                 id: 35,
                 product_id: 9,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/173/0817360_PE773991_S5.jpg',
+                name: 'PIMG-VIMLE_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -297,7 +297,7 @@ module.exports = {
             {
                 id: 36,
                 product_id: 9,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/290/0929083_PE790127_S5.jpg',
+                name: 'PIMG-VIMLE_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -305,7 +305,7 @@ module.exports = {
             {
                 id: 37,
                 product_id: 10,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/506/0950612_PE800541_S5.jpg',
+                name: 'PIMG-BACKSALEN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -313,7 +313,7 @@ module.exports = {
             {
                 id: 38,
                 product_id: 10,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/506/0950614_PE800543_S5.jpg',
+                name: 'PIMG-BACKSALEN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -321,7 +321,7 @@ module.exports = {
             {
                 id: 39,
                 product_id: 10,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/506/0950613_PE800542_S5.jpg',
+                name: 'PIMG-BACKSALEN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -329,7 +329,7 @@ module.exports = {
             {
                 id: 40,
                 product_id: 10,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/866/0986633_PE817252_S5.jpg',
+                name: 'PIMG-BACKSALEN_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -337,7 +337,7 @@ module.exports = {
             {
                 id: 41,
                 product_id: 11,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/020/0602094_PE680163_S5.jpg',
+                name: 'PIMG-LANDSKRONA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -345,7 +345,7 @@ module.exports = {
             {
                 id: 42,
                 product_id: 11,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/289/0828951_PE680162_S5.jpg',
+                name: 'PIMG-LANDSKRONA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -353,7 +353,7 @@ module.exports = {
             {
                 id: 43,
                 product_id: 11,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/254/0825418_PE680177_S5.jpg',
+                name: 'PIMG-LANDSKRONA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -361,7 +361,7 @@ module.exports = {
             {
                 id: 44,
                 product_id: 11,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/254/0825423_PE712647_S5.jpg',
+                name: 'PIMG-LANDSKRONA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -369,7 +369,7 @@ module.exports = {
             {
                 id: 45,
                 product_id: 12,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/027/0602718_PE680490_S5.jpg',
+                name: 'PIMG-TULLSTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -377,7 +377,7 @@ module.exports = {
             {
                 id: 46,
                 product_id: 12,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/690/0869044_PE680489_S5.jpg',
+                name: 'PIMG-TULLSTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -385,7 +385,7 @@ module.exports = {
             {
                 id: 47,
                 product_id: 12,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/690/0869048_PE680493_S5.jpg',
+                name: 'PIMG-TULLSTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -393,7 +393,7 @@ module.exports = {
             {
                 id: 48,
                 product_id: 12,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/690/0869043_PE680488_S5.jpg',
+                name: 'PIMG-TULLSTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -401,7 +401,7 @@ module.exports = {
             {
                 id: 49,
                 product_id: 13,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/715/0571538_PE666953_S5.jpg',
+                name: 'PIMG-POANG_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -409,7 +409,7 @@ module.exports = {
             {
                 id: 50,
                 product_id: 13,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/406/0840687_PE666956_S5.jpg',
+                name: 'PIMG-POANG_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -417,7 +417,7 @@ module.exports = {
             {
                 id: 51,
                 product_id: 13,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/406/0840685_PE666955_S5.jpg',
+                name: 'PIMG-POANG_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -425,7 +425,7 @@ module.exports = {
             {
                 id: 52,
                 product_id: 13,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/406/0840683_PE666954_S5.jpg',
+                name: 'PIMG-POANG_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -433,7 +433,7 @@ module.exports = {
             {
                 id: 53,
                 product_id: 14,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/942/0994248_PE820906_S5.jpg',
+                name: 'PIMG-BESTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -441,7 +441,7 @@ module.exports = {
             {
                 id: 54,
                 product_id: 14,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/019/1001954_PE824550_S5.jpg',
+                name: 'PIMG-BESTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -449,7 +449,7 @@ module.exports = {
             {
                 id: 55,
                 product_id: 14,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/639/0763972_PE753006_S5.jpg',
+                name: 'PIMG-BESTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -457,7 +457,7 @@ module.exports = {
             {
                 id: 56,
                 product_id: 14,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/019/1001968_PE824566_S5.jpg',
+                name: 'PIMG-BESTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -465,7 +465,7 @@ module.exports = {
             {
                 id: 57,
                 product_id: 15,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/942/0994248_PE820906_S5.jpg',
+                name: 'PIMG-GESTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -473,7 +473,7 @@ module.exports = {
             {
                 id: 58,
                 product_id: 15,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/019/1001954_PE824550_S5.jpg',
+                name: 'PIMG-GESTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -481,7 +481,7 @@ module.exports = {
             {
                 id: 59,
                 product_id: 15,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/639/0763972_PE753006_S5.jpg',
+                name: 'PIMG-GESTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -489,7 +489,7 @@ module.exports = {
             {
                 id: 60,
                 product_id: 15,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/019/1001968_PE824566_S5.jpg',
+                name: 'PIMG-GESTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -497,7 +497,7 @@ module.exports = {
             {
                 id: 61,
                 product_id: 16,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/152/1015274_PE829966_S5.jpg',
+                name: 'PIMG-ABYGDA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -505,7 +505,7 @@ module.exports = {
             {
                 id: 62,
                 product_id: 16,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/444/1044452_PE842166_S5.jpg',
+                name: 'PIMG-ABYGDA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -513,7 +513,7 @@ module.exports = {
             {
                 id: 63,
                 product_id: 16,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/500/1050069_PE844632_S5.jpg',
+                name: 'PIMG-ABYGDA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -521,7 +521,7 @@ module.exports = {
             {
                 id: 64,
                 product_id: 16,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/486/1048651_PE843815_S5.jpg',
+                name: 'PIMG-ABYGDA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -529,7 +529,7 @@ module.exports = {
             {
                 id: 65,
                 product_id: 17,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/152/1015271_PE829965_S5.jpg',
+                name: 'PIMG-AKREHAMN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -537,7 +537,7 @@ module.exports = {
             {
                 id: 66,
                 product_id: 17,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/626/1062618_PE851029_S5.jpg',
+                name: 'PIMG-AKREHAMN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -545,7 +545,7 @@ module.exports = {
             {
                 id: 67,
                 product_id: 17,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/500/1050067_PE844630_S5.jpg',
+                name: 'PIMG-AKREHAMN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -553,7 +553,7 @@ module.exports = {
             {
                 id: 68,
                 product_id: 17,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/486/1048652_PE843816_S5.jpg',
+                name: 'PIMG-AKREHAMN_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -561,7 +561,7 @@ module.exports = {
             {
                 id: 69,
                 product_id: 18,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/866/0986620_PE818094_S5.jpg',
+                name: 'PIMG-ASVANG_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -569,7 +569,7 @@ module.exports = {
             {
                 id: 70,
                 product_id: 18,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/760/0976032_PE812963_S5.jpg',
+                name: 'PIMG-ASVANG_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -577,7 +577,7 @@ module.exports = {
             {
                 id: 71,
                 product_id: 18,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/500/1050068_PE844633_S5.jpg',
+                name: 'PIMG-ASVANG_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -585,7 +585,7 @@ module.exports = {
             {
                 id: 72,
                 product_id: 18,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/559/1155988_PE886831_S5.jpg',
+                name: 'PIMG-ASVANG_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -593,7 +593,7 @@ module.exports = {
             {
                 id: 73,
                 product_id: 19,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/980/0598056_PE677425_S5.jpg',
+                name: 'PIMG-BJORKSNAS_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -601,7 +601,7 @@ module.exports = {
             {
                 id: 74,
                 product_id: 19,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/573/0857331_PE677428_S5.jpg',
+                name: 'PIMG-BJORKSNAS_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -609,7 +609,7 @@ module.exports = {
             {
                 id: 75,
                 product_id: 19,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/980/0598053_PE677426_S5.jpg',
+                name: 'PIMG-BJORKSNAS_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -617,7 +617,7 @@ module.exports = {
             {
                 id: 76,
                 product_id: 19,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/980/0598054_PE677427_S5.jpg',
+                name: 'PIMG-BJORKSNAS_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -625,7 +625,7 @@ module.exports = {
             {
                 id: 77,
                 product_id: 20,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/511/0651172_PE706784_S5.jpg',
+                name: 'PIMG-HEMNES_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -633,7 +633,7 @@ module.exports = {
             {
                 id: 78,
                 product_id: 20,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/514/1151407_PE886156_S5.jpg',
+                name: 'PIMG-HEMNES_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -641,7 +641,7 @@ module.exports = {
             {
                 id: 79,
                 product_id: 20,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/850/0385085_PE557635_S5.jpg',
+                name: 'PIMG-HEMNES_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -649,7 +649,7 @@ module.exports = {
             {
                 id: 80,
                 product_id: 20,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/803/0380367_PE555288_S5.jpg',
+                name: 'PIMG-HEMNES_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -657,7 +657,7 @@ module.exports = {
             {
                 id: 81,
                 product_id: 21,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/064/0806406_PE769940_S5.jpg',
+                name: 'PIMG-KORNSJO_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -665,7 +665,7 @@ module.exports = {
             {
                 id: 82,
                 product_id: 21,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/624/0862400_PE781260_S5.jpg',
+                name: 'PIMG-KORNSJO_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -673,7 +673,7 @@ module.exports = {
             {
                 id: 83,
                 product_id: 21,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/650/0865098_PE781362_S5.jpg',
+                name: 'PIMG-KORNSJO_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -681,7 +681,7 @@ module.exports = {
             {
                 id: 84,
                 product_id: 21,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/650/0865097_PE781363_S5.jpg',
+                name: 'PIMG-KORNSJO_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -689,7 +689,7 @@ module.exports = {
             {
                 id: 85,
                 product_id: 22,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/491/0749127_PE745496_S5.jpg',
+                name: 'PIMG-MALM_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -697,7 +697,7 @@ module.exports = {
             {
                 id: 86,
                 product_id: 22,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/544/1154455_PE886061_S5.jpg',
+                name: 'PIMG-MALM_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -705,7 +705,7 @@ module.exports = {
             {
                 id: 87,
                 product_id: 22,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/543/1154392_PE886041_S5.jpg',
+                name: 'PIMG-MALM_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -713,7 +713,7 @@ module.exports = {
             {
                 id: 88,
                 product_id: 22,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/343/0734398_PE739459_S5.jpg',
+                name: 'PIMG-MALM_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -721,7 +721,7 @@ module.exports = {
             {
                 id: 89,
                 product_id: 23,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/510/1151050_PE884752_S5.jpg',
+                name: 'PIMG-MANDAL_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -729,7 +729,7 @@ module.exports = {
             {
                 id: 90,
                 product_id: 23,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/512/1051284_PE845130_S5.jpg',
+                name: 'PIMG-MANDAL_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -737,7 +737,7 @@ module.exports = {
             {
                 id: 91,
                 product_id: 23,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/512/1051283_PE845131_S5.jpg',
+                name: 'PIMG-MANDAL_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -745,7 +745,7 @@ module.exports = {
             {
                 id: 92,
                 product_id: 23,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/512/1051282_PE845129_S5.jpg',
+                name: 'PIMG-MANDAL_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -753,7 +753,7 @@ module.exports = {
             {
                 id: 93,
                 product_id: 24,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/553/0555302_PE660393_S5.jpg',
+                name: 'PIMG-NORDLI_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -761,7 +761,7 @@ module.exports = {
             {
                 id: 94,
                 product_id: 24,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/585/0858540_PE660394_S5.jpg',
+                name: 'PIMG-NORDLI_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -769,7 +769,7 @@ module.exports = {
             {
                 id: 95,
                 product_id: 24,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/578/0857874_PE660879_S5.jpg',
+                name: 'PIMG-NORDLI_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -777,7 +777,7 @@ module.exports = {
             {
                 id: 96,
                 product_id: 24,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/585/0858552_PE660881_S5.jpg',
+                name: 'PIMG-NORDLI_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -785,7 +785,7 @@ module.exports = {
             {
                 id: 97,
                 product_id: 25,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/832/0783211_PE761520_S5.jpg',
+                name: 'PIMG-SAGSTUA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -793,7 +793,7 @@ module.exports = {
             {
                 id: 98,
                 product_id: 25,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/019/1101952_PE866878_S5.jpg',
+                name: 'PIMG-SAGSTUA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -801,7 +801,7 @@ module.exports = {
             {
                 id: 99,
                 product_id: 25,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/019/1101988_PE866816_S5.jpg',
+                name: 'PIMG-SAGSTUA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -809,7 +809,7 @@ module.exports = {
             {
                 id: 100,
                 product_id: 25,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/619/0861927_PE713129_S5.jpg',
+                name: 'PIMG-SAGSTUA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -817,7 +817,7 @@ module.exports = {
             {
                 id: 101,
                 product_id: 26,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/510/1151018_PE884725_S5.jpg',
+                name: 'PIMG-SONGESAND_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -825,7 +825,7 @@ module.exports = {
             {
                 id: 102,
                 product_id: 26,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/015/1101593_PE866767_S5.jpg',
+                name: 'PIMG-SONGESAND_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -833,7 +833,7 @@ module.exports = {
             {
                 id: 103,
                 product_id: 26,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/506/1150689_PE884653_S5.jpg',
+                name: 'PIMG-SONGESAND_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -841,7 +841,7 @@ module.exports = {
             {
                 id: 104,
                 product_id: 26,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/617/0861702_PE674427_S5.jpg',
+                name: 'PIMG-SONGESAND_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -849,7 +849,7 @@ module.exports = {
             {
                 id: 105,
                 product_id: 27,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/376/0637611_PE698421_S5.jpg',
+                name: 'PIMG-TARVA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -857,7 +857,7 @@ module.exports = {
             {
                 id: 106,
                 product_id: 27,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/020/1102036_PE866857_S5.jpg',
+                name: 'PIMG-TARVA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -865,7 +865,7 @@ module.exports = {
             {
                 id: 107,
                 product_id: 27,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/020/1102037_PE866858_S5.jpg',
+                name: 'PIMG-TARVA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -873,7 +873,7 @@ module.exports = {
             {
                 id: 108,
                 product_id: 27,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/020/1102038_PE866859_S5.jpg',
+                name: 'PIMG-TARVA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -881,7 +881,7 @@ module.exports = {
             {
                 id: 109,
                 product_id: 28,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/986/1098690_PE865483_S5.jpg',
+                name: 'PIMG-TOLKNING_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -889,7 +889,7 @@ module.exports = {
             {
                 id: 110,
                 product_id: 28,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/987/1098704_PE865494_S5.jpg',
+                name: 'PIMG-TOLKNING_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -897,7 +897,7 @@ module.exports = {
             {
                 id: 111,
                 product_id: 28,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/987/1098703_PE865495_S5.jpg',
+                name: 'PIMG-TOLKNING_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -905,7 +905,7 @@ module.exports = {
             {
                 id: 112,
                 product_id: 28,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/987/1098702_PE865493_S5.jpg',
+                name: 'PIMG-TOLKNING_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -913,7 +913,7 @@ module.exports = {
             {
                 id: 113,
                 product_id: 29,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/627/0962751_PE817171_S5.jpg',
+                name: 'PIMG-VANNREID_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -921,7 +921,7 @@ module.exports = {
             {
                 id: 114,
                 product_id: 29,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/318/1031870_PE836664_S5.jpg',
+                name: 'PIMG-VANNREID_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -929,7 +929,7 @@ module.exports = {
             {
                 id: 115,
                 product_id: 29,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/759/0975997_PE812952_S5.jpg',
+                name: 'PIMG-VANNREID_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -937,7 +937,7 @@ module.exports = {
             {
                 id: 116,
                 product_id: 29,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/486/1048642_PE843807_S5.jpg',
+                name: 'PIMG-VANNREID_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -945,7 +945,7 @@ module.exports = {
             {
                 id: 117,
                 product_id: 30,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/896/0789642_PE764084_S5.jpg',
+                name: 'PIMG-VATNESTROM_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -953,7 +953,7 @@ module.exports = {
             {
                 id: 118,
                 product_id: 30,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/486/1048653_PE843814_S5.jpg',
+                name: 'PIMG-VATNESTROM_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -961,7 +961,7 @@ module.exports = {
             {
                 id: 119,
                 product_id: 30,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/014/0801446_PE768134_S5.jpg',
+                name: 'PIMG-VATNESTROM_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -969,7 +969,7 @@ module.exports = {
             {
                 id: 120,
                 product_id: 30,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/125/0812580_PE772047_S5.jpg',
+                name: 'PIMG-VATNESTROM_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -977,7 +977,7 @@ module.exports = {
             {
                 id: 121,
                 product_id: 31,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/822/0382232_PE556726_S5.jpg',
+                name: 'PIMG-ODENSVIK_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -985,7 +985,7 @@ module.exports = {
             {
                 id: 122,
                 product_id: 31,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/127/0412782_PE570527_S5.jpg',
+                name: 'PIMG-ODENSVIK_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -993,7 +993,7 @@ module.exports = {
             {
                 id: 123,
                 product_id: 31,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/619/0861974_PE649380_S5.jpg',
+                name: 'PIMG-ODENSVIK_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1001,7 +1001,7 @@ module.exports = {
             {
                 id: 124,
                 product_id: 31,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/613/0861354_PE414898_S5.jpg',
+                name: 'PIMG-ODENSVIK_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1009,7 +1009,7 @@ module.exports = {
             {
                 id: 125,
                 product_id: 32,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/119/0211968_PE365814_S5.jpg',
+                name: 'PIMG-DRAGGAN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1017,7 +1017,7 @@ module.exports = {
             {
                 id: 126,
                 product_id: 32,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/807/0380727_PE555606_S5.jpg',
+                name: 'PIMG-DRAGGAN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1025,7 +1025,7 @@ module.exports = {
             {
                 id: 127,
                 product_id: 33,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/161/0816146_PE773292_S5.jpg',
+                name: 'PIMG-ENHET_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1033,7 +1033,7 @@ module.exports = {
             {
                 id: 128,
                 product_id: 33,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/184/0918445_PE786291_S5.jpg',
+                name: 'PIMG-ENHET_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1041,7 +1041,7 @@ module.exports = {
             {
                 id: 129,
                 product_id: 33,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/157/0915700_PE784876_S5.jpg',
+                name: 'PIMG-ENHET_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1049,7 +1049,7 @@ module.exports = {
             {
                 id: 130,
                 product_id: 34,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/810/0981044_PE815247_S5.jpg',
+                name: 'PIMG-GANSJON_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1057,7 +1057,7 @@ module.exports = {
             {
                 id: 131,
                 product_id: 34,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/849/0984938_PE816459_S5.jpg',
+                name: 'PIMG-GANSJON_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1065,7 +1065,7 @@ module.exports = {
             {
                 id: 132,
                 product_id: 34,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/849/0984934_PE816454_S5.jpg',
+                name: 'PIMG-GANSJON_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1073,7 +1073,7 @@ module.exports = {
             {
                 id: 133,
                 product_id: 34,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/592/1059264_PH178426_S5.jpg',
+                name: 'PIMG-GANSJON_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1081,7 +1081,7 @@ module.exports = {
             {
                 id: 134,
                 product_id: 35,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/511/0551162_PE658418_S5.jpg',
+                name: 'PIMG-GRUMLAN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1089,7 +1089,7 @@ module.exports = {
             {
                 id: 135,
                 product_id: 35,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/638/0863839_PE661857_S5.jpg',
+                name: 'PIMG-GRUMLAN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1097,7 +1097,7 @@ module.exports = {
             {
                 id: 136,
                 product_id: 36,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/642/0964273_PE808960_S5.jpg',
+                name: 'PIMG-KROKFJORDEN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1105,7 +1105,7 @@ module.exports = {
             {
                 id: 137,
                 product_id: 36,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/642/0964274_PE808961_S5.jpg',
+                name: 'PIMG-KROKFJORDEN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1113,7 +1113,7 @@ module.exports = {
             {
                 id: 138,
                 product_id: 37,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/715/0971569_PE811379_S5.jpg',
+                name: 'PIMG-NYSJON_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1121,7 +1121,7 @@ module.exports = {
             {
                 id: 139,
                 product_id: 37,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/715/0971571_PE811378_S5.jpg',
+                name: 'PIMG-NYSJON_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1129,7 +1129,7 @@ module.exports = {
             {
                 id: 140,
                 product_id: 37,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/715/0971570_PE811377_S5.jpg',
+                name: 'PIMG-NYSJON_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1137,7 +1137,7 @@ module.exports = {
             {
                 id: 141,
                 product_id: 37,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/376/1137660_PE879658_S5.jpg',
+                name: 'PIMG-NYSJON_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1145,7 +1145,7 @@ module.exports = {
             {
                 id: 142,
                 product_id: 38,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/216/0721661_PE733334_S5.jpg',
+                name: 'PIMG-RAGRUND_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1153,7 +1153,7 @@ module.exports = {
             {
                 id: 143,
                 product_id: 38,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/803/0380374_PE555295_S5.jpg',
+                name: 'PIMG-RAGRUND_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1161,7 +1161,7 @@ module.exports = {
             {
                 id: 144,
                 product_id: 38,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/995/0199500_PE356682_S5.jpg',
+                name: 'PIMG-RAGRUND_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1169,7 +1169,7 @@ module.exports = {
             {
                 id: 145,
                 product_id: 38,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/832/0283252_PE376057_S5.jpg',
+                name: 'PIMG-RAGRUND_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1177,7 +1177,7 @@ module.exports = {
             {
                 id: 146,
                 product_id: 39,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/216/0721637_PE733310_S5.jpg',
+                name: 'PIMG-RONNSKAR_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1185,7 +1185,7 @@ module.exports = {
             {
                 id: 147,
                 product_id: 39,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/635/0863530_PE555743_S5.jpg',
+                name: 'PIMG-RONNSKAR_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1193,7 +1193,7 @@ module.exports = {
             {
                 id: 148,
                 product_id: 39,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/635/0863534_PE556092_S5.jpg',
+                name: 'PIMG-RONNSKAR_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1201,7 +1201,7 @@ module.exports = {
             {
                 id: 149,
                 product_id: 39,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/500/0250096_PE376801_S5.jpg',
+                name: 'PIMG-RONNSKAR_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1209,7 +1209,7 @@ module.exports = {
             {
                 id: 150,
                 product_id: 40,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/216/0721660_PE733333_S5.jpg',
+                name: 'PIMG-STORJORM_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1217,7 +1217,7 @@ module.exports = {
             {
                 id: 151,
                 product_id: 40,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/635/0863538_PE555292_S5.jpg',
+                name: 'PIMG-STORJORM_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1225,7 +1225,7 @@ module.exports = {
             {
                 id: 152,
                 product_id: 40,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/837/0383724_PH124884_S5.jpg',
+                name: 'PIMG-STORJORM_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1233,7 +1233,7 @@ module.exports = {
             {
                 id: 153,
                 product_id: 41,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/193/0419316_PE576206_S5.jpg',
+                name: 'PIMG-VESKEN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1241,7 +1241,7 @@ module.exports = {
             {
                 id: 154,
                 product_id: 41,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/commons/1675683898_20307867_S5.jpeg',
+                name: 'PIMG-VESKEN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1249,7 +1249,7 @@ module.exports = {
             {
                 id: 155,
                 product_id: 41,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/193/0419320_PE576209_S5.jpg',
+                name: 'PIMG-VESKEN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1257,7 +1257,7 @@ module.exports = {
             {
                 id: 156,
                 product_id: 42,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/394/0739454_PE741742_S5.jpg',
+                name: 'PIMG-VILTO_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1265,7 +1265,7 @@ module.exports = {
             {
                 id: 157,
                 product_id: 42,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/622/1062297_PE850748_S5.jpg',
+                name: 'PIMG-VILTO_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1273,7 +1273,7 @@ module.exports = {
             {
                 id: 158,
                 product_id: 42,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/115/0611599_PH148771_S5.jpg',
+                name: 'PIMG-VILTO_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1281,7 +1281,7 @@ module.exports = {
             {
                 id: 159,
                 product_id: 42,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/866/0686678_PH149430_S5.jpg',
+                name: 'PIMG-VILTO_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1289,7 +1289,7 @@ module.exports = {
             {
                 id: 160,
                 product_id: 43,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/689/0968936_PE810630_S5.jpg',
+                name: 'PIMG-BJORKAN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1297,7 +1297,7 @@ module.exports = {
             {
                 id: 161,
                 product_id: 43,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/689/0968937_PE810631_S5.jpg',
+                name: 'PIMG-BJORKAN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1305,7 +1305,7 @@ module.exports = {
             {
                 id: 162,
                 product_id: 43,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/689/0968956_PE810649_S5.jpg',
+                name: 'PIMG-BJORKAN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1313,7 +1313,7 @@ module.exports = {
             {
                 id: 163,
                 product_id: 44,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/312/1031288_PE836465_S5.jpg',
+                name: 'PIMG-LILLTJARN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1321,7 +1321,7 @@ module.exports = {
             {
                 id: 164,
                 product_id: 44,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/commons/1675682800_00513439_S5.jpeg',
+                name: 'PIMG-LILLTJARN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1329,7 +1329,7 @@ module.exports = {
             {
                 id: 165,
                 product_id: 45,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/756/0275669_PE413906_S5.jpg',
+                name: 'PIMG-GODMORGON_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1337,7 +1337,7 @@ module.exports = {
             {
                 id: 166,
                 product_id: 45,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/691/0869146_PE652592_S5.jpg',
+                name: 'PIMG-GODMORGON_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1345,7 +1345,7 @@ module.exports = {
             {
                 id: 167,
                 product_id: 45,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/613/0861354_PE414898_S5.jpg',
+                name: 'PIMG-GODMORGON_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1353,7 +1353,7 @@ module.exports = {
             {
                 id: 168,
                 product_id: 46,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/823/1082337_PE858627_S5.jpg',
+                name: 'PIMG-HYMNES_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1361,7 +1361,7 @@ module.exports = {
             {
                 id: 169,
                 product_id: 46,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/977/0397780_PH125506_S5.jpg',
+                name: 'PIMG-HYMNES_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1369,7 +1369,7 @@ module.exports = {
             {
                 id: 170,
                 product_id: 46,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/607/0860724_PE555272_S5.jpg',
+                name: 'PIMG-HYMNES_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1377,7 +1377,7 @@ module.exports = {
             {
                 id: 171,
                 product_id: 46,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/607/0860728_PE654734_S5.jpg',
+                name: 'PIMG-HYMNES_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1385,7 +1385,7 @@ module.exports = {
             {
                 id: 172,
                 product_id: 47,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/101/0210168_PE363627_S5.jpg',
+                name: 'PIMG-ANDLIG_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1393,7 +1393,7 @@ module.exports = {
             {
                 id: 173,
                 product_id: 47,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/271/0727122_PE735519_S5.jpg',
+                name: 'PIMG-ANDLIG_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1401,7 +1401,7 @@ module.exports = {
             {
                 id: 174,
                 product_id: 47,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/271/0727123_PE735518_S5.jpg',
+                name: 'PIMG-ANDLIG_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1409,7 +1409,7 @@ module.exports = {
             {
                 id: 175,
                 product_id: 47,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/271/0727124_PE735517_S5.jpg',
+                name: 'PIMG-ANDLIG_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1417,7 +1417,7 @@ module.exports = {
             {
                 id: 176,
                 product_id: 48,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/927/1092713_PE862968_S5.jpg',
+                name: 'PIMG-ASPINGE_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1425,7 +1425,7 @@ module.exports = {
             {
                 id: 177,
                 product_id: 48,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/903/1190395_PH188573_S5.jpg',
+                name: 'PIMG-ASPINGE_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1433,7 +1433,7 @@ module.exports = {
             {
                 id: 178,
                 product_id: 48,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/903/1190398_PH188577_S5.jpg',
+                name: 'PIMG-ASPINGE_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1441,7 +1441,7 @@ module.exports = {
             {
                 id: 179,
                 product_id: 48,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/904/1190400_PH188579_S5.jpg',
+                name: 'PIMG-ASPINGE_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1449,7 +1449,7 @@ module.exports = {
             {
                 id: 180,
                 product_id: 49,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/368/0736865_PE740780_S5.jpg',
+                name: 'PIMG-FORHOJA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1457,7 +1457,7 @@ module.exports = {
             {
                 id: 181,
                 product_id: 49,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/684/0468483_PH132250_S5.jpg',
+                name: 'PIMG-FORHOJA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1465,7 +1465,7 @@ module.exports = {
             {
                 id: 182,
                 product_id: 49,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/121/0812127_PH164290_S5.jpg',
+                name: 'PIMG-FORHOJA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1473,7 +1473,7 @@ module.exports = {
             {
                 id: 183,
                 product_id: 49,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/711/0871132_PE600444_S5.jpg',
+                name: 'PIMG-HORHOJA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1481,7 +1481,7 @@ module.exports = {
             {
                 id: 184,
                 product_id: 50,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/117/0711751_PE728440_S5.jpg',
+                name: 'PIMG-FULLANDAD_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1489,7 +1489,7 @@ module.exports = {
             {
                 id: 185,
                 product_id: 50,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/106/0810618_PE771344_S5.jpg',
+                name: 'PIMG-FULLANDAD_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1497,7 +1497,7 @@ module.exports = {
             {
                 id: 186,
                 product_id: 50,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/178/0817896_PE774199_S5.jpg',
+                name: 'PIMG-FULLANDAD_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1505,7 +1505,7 @@ module.exports = {
             {
                 id: 187,
                 product_id: 50,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/944/0894449_PE708336_S5.jpg',
+                name: 'PIMG-FULLANDAD_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1513,7 +1513,7 @@ module.exports = {
             {
                 id: 188,
                 product_id: 51,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/613/0761382_PE751247_S5.jpg',
+                name: 'PIMG-HALLBAR_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1521,7 +1521,7 @@ module.exports = {
             {
                 id: 189,
                 product_id: 51,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/247/0924795_PE788620_S5.jpg',
+                name: 'PIMG-HALLBAR_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1529,7 +1529,7 @@ module.exports = {
             {
                 id: 190,
                 product_id: 51,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/824/0782488_PE761338_S5.jpg',
+                name: 'PIMG-HALLBAR_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1537,7 +1537,7 @@ module.exports = {
             {
                 id: 191,
                 product_id: 52,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/427/0742793_PE742815_S5.jpg',
+                name: 'PIMG-KNOXHULT_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1545,7 +1545,7 @@ module.exports = {
             {
                 id: 192,
                 product_id: 52,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/852/0485283_PE621465_S5.jpg',
+                name: 'PIMG-KNOXHULT_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1553,7 +1553,7 @@ module.exports = {
             {
                 id: 193,
                 product_id: 52,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/786/0778693_PE759074_S5.jpg',
+                name: 'PIMG-KNOXHULT_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1561,7 +1561,7 @@ module.exports = {
             {
                 id: 194,
                 product_id: 52,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/910/0791092_PE764500_S5.jpg',
+                name: 'PIMG-KNOXHULT_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1569,7 +1569,7 @@ module.exports = {
             {
                 id: 195,
                 product_id: 53,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/940/1094044_PE863299_S5.jpg',
+                name: 'PIMG-PALYCKE_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1577,7 +1577,7 @@ module.exports = {
             {
                 id: 196,
                 product_id: 53,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/940/1094043_PE863300_S5.jpg',
+                name: 'PIMG-PALYCKE_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1585,7 +1585,7 @@ module.exports = {
             {
                 id: 197,
                 product_id: 53,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/940/1094038_PE863296_S5.jpg',
+                name: 'PIMG-PALYCKE_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1593,7 +1593,7 @@ module.exports = {
             {
                 id: 198,
                 product_id: 53,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/940/1094040_PE863298_S5.jpg',
+                name: 'PIMG-PALYCKE_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1601,7 +1601,7 @@ module.exports = {
             {
                 id: 199,
                 product_id: 54,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/297/0929751_PE790445_S5.jpg',
+                name: 'PIMG-RASKOG_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1609,7 +1609,7 @@ module.exports = {
             {
                 id: 200,
                 product_id: 54,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/297/0929752_PE790446_S5.jpg',
+                name: 'PIMG-RASKOG_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1617,7 +1617,7 @@ module.exports = {
             {
                 id: 201,
                 product_id: 54,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/297/0929753_PE790450_S5.jpg',
+                name: 'PIMG-RASKOG_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1625,7 +1625,7 @@ module.exports = {
             {
                 id: 202,
                 product_id: 55,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/132/0813216_PE772338_S5.jpg',
+                name: 'PIMG-RINNIG_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1633,7 +1633,7 @@ module.exports = {
             {
                 id: 203,
                 product_id: 55,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/182/0918268_PE786441_S5.jpg',
+                name: 'PIMG-RINNIG_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1641,7 +1641,7 @@ module.exports = {
             {
                 id: 204,
                 product_id: 55,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/182/0918270_PE786440_S5.jpg',
+                name: 'PIMG-RINNIG_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1649,7 +1649,7 @@ module.exports = {
             {
                 id: 205,
                 product_id: 55,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/182/0918269_PE786439_S5.jpg',
+                name: 'PIMG-RINNIG_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1657,7 +1657,7 @@ module.exports = {
             {
                 id: 206,
                 product_id: 56,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/110/0711025_PE727906_S5.jpg',
+                name: 'PIMG-RISATORP_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1665,7 +1665,7 @@ module.exports = {
             {
                 id: 207,
                 product_id: 56,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/995/0399543_PH123246_S5.jpg',
+                name: 'PIMG-RISATORP_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1673,7 +1673,7 @@ module.exports = {
             {
                 id: 208,
                 product_id: 56,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/995/0399542_PH125873_S5.jpg',
+                name: 'PIMG-RISATORP_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1681,7 +1681,7 @@ module.exports = {
             {
                 id: 209,
                 product_id: 56,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/334/0733491_PE738980_S5.jpg',
+                name: 'PIMG-RISATORP_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1689,7 +1689,7 @@ module.exports = {
             {
                 id: 210,
                 product_id: 57,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/691/0969119_PE810701_S5.jpg',
+                name: 'PIMG-UPPDATERA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1697,7 +1697,7 @@ module.exports = {
             {
                 id: 211,
                 product_id: 57,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/936/0993661_PE820650_S5.jpg',
+                name: 'PIMG-UPPDATERA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1705,7 +1705,7 @@ module.exports = {
             {
                 id: 212,
                 product_id: 57,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/158/1015828_PE830114_S5.jpg',
+                name: 'PIMG-UPPDATERA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1713,7 +1713,7 @@ module.exports = {
             {
                 id: 213,
                 product_id: 57,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/397/1139765_PE880456_S5.jpg',
+                name: 'PIMG-UPPDATERA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1721,7 +1721,7 @@ module.exports = {
             {
                 id: 214,
                 product_id: 58,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/050/0605057_PE681596_S5.jpg',
+                name: 'PIMG-VADHOLMA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1729,7 +1729,7 @@ module.exports = {
             {
                 id: 215,
                 product_id: 58,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/105/0810586_PH154911_S5.jpg',
+                name: 'PIMG-VADHOLMA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1737,7 +1737,7 @@ module.exports = {
             {
                 id: 216,
                 product_id: 58,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/232/0723299_PH152114_S5.jpg',
+                name: 'PIMG-VADHOLMA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1745,7 +1745,7 @@ module.exports = {
             {
                 id: 217,
                 product_id: 58,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/707/0870713_PE683472_S5.jpg',
+                name: 'PIMG-VADHOLMA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1753,7 +1753,7 @@ module.exports = {
             {
                 id: 218,
                 product_id: 59,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/793/0779358_PE759468_S5.jpg',
+                name: 'PIMG-GLYPEN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1761,7 +1761,7 @@ module.exports = {
             {
                 id: 219,
                 product_id: 59,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/336/0733630_PE739045_S5.jpg',
+                name: 'PIMG-GLYPEN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1769,7 +1769,7 @@ module.exports = {
             {
                 id: 220,
                 product_id: 59,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/793/0779362_PE761595_S5.jpg',
+                name: 'PIMG-GLYPEN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1777,7 +1777,7 @@ module.exports = {
             {
                 id: 221,
                 product_id: 59,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/793/0779361_PE759471_S5.jpg',
+                name: 'PIMG-GLYPEN_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1785,7 +1785,7 @@ module.exports = {
             {
                 id: 222,
                 product_id: 60,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/329/0832950_PE777897_S5.jpg',
+                name: 'PIMG-OLOFSJON_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1793,7 +1793,7 @@ module.exports = {
             {
                 id: 223,
                 product_id: 60,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/379/1037946_PE839398_S5.jpg',
+                name: 'PIMG-OLOFSJON_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1801,7 +1801,7 @@ module.exports = {
             {
                 id: 224,
                 product_id: 61,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/317/0831746_PE777341_S5.jpg',
+                name: 'PIMG-KILSVIKEN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1809,7 +1809,7 @@ module.exports = {
             {
                 id: 225,
                 product_id: 61,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/165/0916550_PE785244_S5.jpg',
+                name: 'PIMG-KILSVIKEN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1817,7 +1817,7 @@ module.exports = {
             {
                 id: 226,
                 product_id: 61,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/167/0916701_PE785346_S5.jpg',
+                name: 'PIMG-KILSVIKEN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1825,7 +1825,7 @@ module.exports = {
             {
                 id: 227,
                 product_id: 62,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/372/0737266_PE740964_S5.jpg',
+                name: 'PIMG-MELLTORP_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1833,7 +1833,7 @@ module.exports = {
             {
                 id: 228,
                 product_id: 62,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/286/1028690_PE835489_S5.jpg',
+                name: 'PIMG-MELLTORP_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1841,7 +1841,7 @@ module.exports = {
             {
                 id: 229,
                 product_id: 62,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/706/0870681_PE594905_S5.jpg',
+                name: 'PIMG-MELLTORP_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1849,7 +1849,7 @@ module.exports = {
             {
                 id: 230,
                 product_id: 62,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/commons/1675697895_89246372_S5.jpeg',
+                name: 'PIMG-MELLTORP_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1857,7 +1857,7 @@ module.exports = {
             {
                 id: 231,
                 product_id: 63,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/369/0736929_PE740809_S5.jpg',
+                name: 'PIMG-JOKKMOKK_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1865,7 +1865,7 @@ module.exports = {
             {
                 id: 232,
                 product_id: 63,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/709/0870916_PE716638_S5.jpg',
+                name: 'PIMG-JOKKMOKK_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1873,7 +1873,7 @@ module.exports = {
             {
                 id: 233,
                 product_id: 63,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/086/0208609_PE197452_S5.jpg',
+                name: 'PIMG-JOKKMOKK_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1881,7 +1881,7 @@ module.exports = {
             {
                 id: 234,
                 product_id: 63,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/708/0870896_PE594898_S5.jpg',
+                name: 'PIMG-JOKKMOKK_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1889,7 +1889,7 @@ module.exports = {
             {
                 id: 235,
                 product_id: 64,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/369/0736963_PE740827_S5.jpg',
+                name: 'PIMG-EKEDALEN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1897,7 +1897,7 @@ module.exports = {
             {
                 id: 236,
                 product_id: 64,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/708/0870847_PE640491_S5.jpg',
+                name: 'PIMG-EKEDALEN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1905,7 +1905,7 @@ module.exports = {
             {
                 id: 237,
                 product_id: 64,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/974/0797449_PH145500_S5.jpg',
+                name: 'PIMG-EKEDALEN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1913,7 +1913,7 @@ module.exports = {
             {
                 id: 238,
                 product_id: 64,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/199/0719960_PE732334_S5.jpg',
+                name: 'PIMG-EKEDALEN_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1921,7 +1921,7 @@ module.exports = {
             {
                 id: 239,
                 product_id: 65,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/491/0549135_PE657574_S5.jpg',
+                name: 'PIMG-NORRARYD_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1929,7 +1929,7 @@ module.exports = {
             {
                 id: 240,
                 product_id: 65,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/721/0872198_PE657576_S5.jpg',
+                name: 'PIMG-NORRARYD_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1937,7 +1937,7 @@ module.exports = {
             {
                 id: 241,
                 product_id: 65,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/706/0870623_PE548254_S5.jpg',
+                name: 'PIMG-NORRARYD_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1945,7 +1945,7 @@ module.exports = {
             {
                 id: 242,
                 product_id: 65,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/721/0872191_PE590638_S5.jpg',
+                name: 'PIMG-NORRARYD_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1953,7 +1953,7 @@ module.exports = {
             {
                 id: 243,
                 product_id: 66,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/093/0809397_PE771036_S5.jpg',
+                name: 'PIMG-VANGSTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1961,7 +1961,7 @@ module.exports = {
             {
                 id: 244,
                 product_id: 66,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/498/1049833_PH168859_S5.jpg',
+                name: 'PIMG-VANGSTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1969,7 +1969,7 @@ module.exports = {
             {
                 id: 245,
                 product_id: 66,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/498/1049826_PH168778_S5.jpg',
+                name: 'PIMG-VANGSTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1977,7 +1977,7 @@ module.exports = {
             {
                 id: 246,
                 product_id: 66,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/443/0944307_PH168818_S5.jpg',
+                name: 'PIMG-VANGSTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1985,7 +1985,7 @@ module.exports = {
             {
                 id: 247,
                 product_id: 67,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/670/1167042_PE891344_S5.jpg',
+                name: 'PIMG-LIDAS_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -1993,7 +1993,7 @@ module.exports = {
             {
                 id: 248,
                 product_id: 67,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/670/1167041_PE891345_S5.jpg',
+                name: 'PIMG-LIDAS_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2001,7 +2001,7 @@ module.exports = {
             {
                 id: 249,
                 product_id: 67,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/670/1167039_PE891343_S5.jpg',
+                name: 'PIMG-LIDAS_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2009,7 +2009,7 @@ module.exports = {
             {
                 id: 250,
                 product_id: 67,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/670/1167040_PE891346_S5.jpg',
+                name: 'PIMG-LIDAS_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2017,7 +2017,7 @@ module.exports = {
             {
                 id: 251,
                 product_id: 68,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/119/1111907_PE871017_S5.jpg',
+                name: 'PIMG-SYGTRYGG_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2025,7 +2025,7 @@ module.exports = {
             {
                 id: 252,
                 product_id: 68,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/119/1111902_PE871015_S5.jpg',
+                name: 'PIMG-SYGTRYGG_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2033,7 +2033,7 @@ module.exports = {
             {
                 id: 253,
                 product_id: 68,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/119/1111903_PE871016_S5.jpg',
+                name: 'PIMG-SYGTRYGG_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2041,7 +2041,7 @@ module.exports = {
             {
                 id: 254,
                 product_id: 68,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/350/1135090_PE878923_S5.jpg',
+                name: 'PIMG-SYGTRYGG_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2049,7 +2049,7 @@ module.exports = {
             {
                 id: 255,
                 product_id: 69,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/273/0727342_PE735614_S5.jpg',
+                name: 'PIMG-TOBIAS_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2057,7 +2057,7 @@ module.exports = {
             {
                 id: 256,
                 product_id: 69,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/705/0870537_PE620341_S5.jpg',
+                name: 'PIMG-TOBIAS_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2065,7 +2065,7 @@ module.exports = {
             {
                 id: 257,
                 product_id: 69,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/705/0870533_PE620340_S5.jpg',
+                name: 'PIMG-TOBIAS_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2073,7 +2073,7 @@ module.exports = {
             {
                 id: 258,
                 product_id: 69,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/751/0875154_PE620335_S5.jpg',
+                name: 'PIMG-TOBIAS_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2081,7 +2081,7 @@ module.exports = {
             {
                 id: 259,
                 product_id: 70,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/396/0739669_PE741828_S5.jpg',
+                name: 'PIMG-ODGER_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2089,7 +2089,7 @@ module.exports = {
             {
                 id: 260,
                 product_id: 70,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/708/1070852_PE854755_S5.jpg',
+                name: 'PIMG-ODGER_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2097,7 +2097,7 @@ module.exports = {
             {
                 id: 261,
                 product_id: 70,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/708/1070851_PE854756_S5.jpg',
+                name: 'PIMG-ODGER_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2105,7 +2105,7 @@ module.exports = {
             {
                 id: 262,
                 product_id: 70,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/708/1070849_PE854754_S5.jpg',
+                name: 'PIMG-ODGER_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2113,7 +2113,7 @@ module.exports = {
             {
                 id: 263,
                 product_id: 71,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/141/0714155_PE729953_S5.jpg',
+                name: 'PIMG-KYRRE_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2121,7 +2121,7 @@ module.exports = {
             {
                 id: 264,
                 product_id: 71,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/533/1053343_PE846923_S5.jpg',
+                name: 'PIMG-KYRRE_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2129,7 +2129,7 @@ module.exports = {
             {
                 id: 265,
                 product_id: 71,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/533/1053342_PE846922_S5.jpg',
+                name: 'PIMG-KYRRE_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2137,7 +2137,7 @@ module.exports = {
             {
                 id: 266,
                 product_id: 71,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/032/0803294_PE768839_S5.jpg',
+                name: 'PIMG-KYRRE_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2145,7 +2145,7 @@ module.exports = {
             {
                 id: 267,
                 product_id: 72,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/349/0034918_PE261629_S5.jpg',
+                name: 'PIMG-JUSTINA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2153,7 +2153,7 @@ module.exports = {
             {
                 id: 268,
                 product_id: 72,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/709/0870916_PE716638_S5.jpg',
+                name: 'PIMG-JUSTINA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2161,7 +2161,7 @@ module.exports = {
             {
                 id: 269,
                 product_id: 72,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/915/0891594_PE658492_S5.jpg',
+                name: 'PIMG-JUSTINA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2169,7 +2169,7 @@ module.exports = {
             {
                 id: 270,
                 product_id: 72,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/915/0891588_PE567158_S5.jpg',
+                name: 'PIMG-JUSTINA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2177,7 +2177,7 @@ module.exports = {
             {
                 id: 271,
                 product_id: 73,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/431/0143188_PE302771_S5.jpg',
+                name: 'PIMG-MALINDA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2185,7 +2185,7 @@ module.exports = {
             {
                 id: 272,
                 product_id: 73,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/914/0891441_PE566918_S5.jpg',
+                name: 'PIMG-MALINDA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2193,7 +2193,7 @@ module.exports = {
             {
                 id: 273,
                 product_id: 73,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/914/0891444_PE567157_S5.jpg',
+                name: 'PIMG-MALINDA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2201,7 +2201,7 @@ module.exports = {
             {
                 id: 274,
                 product_id: 73,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/916/1191688_PE900701_S5.jpg',
+                name: 'PIMG-MALINDA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2209,7 +2209,7 @@ module.exports = {
             {
                 id: 275,
                 product_id: 74,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/601/0560193_PE662246_S5.jpg',
+                name: 'PIMG-OMTANKSAM_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2217,7 +2217,7 @@ module.exports = {
             {
                 id: 276,
                 product_id: 74,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/917/0891712_PE665136_S5.jpg',
+                name: 'PIMG-OMTANKSAM_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2225,7 +2225,7 @@ module.exports = {
             {
                 id: 277,
                 product_id: 74,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/917/0891708_PE663933_S5.jpg',
+                name: 'PIMG-OMTANKSAM_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2233,7 +2233,7 @@ module.exports = {
             {
                 id: 278,
                 product_id: 74,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/917/0891701_PE663932_S5.jpg',
+                name: 'PIMG-OMTANKSAM_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2241,7 +2241,7 @@ module.exports = {
             {
                 id: 279,
                 product_id: 75,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/240/1024059_PE833396_S5.jpg',
+                name: 'PIMG-STAGGSTARR_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2249,7 +2249,7 @@ module.exports = {
             {
                 id: 280,
                 product_id: 75,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/240/1024061_PE833398_S5.jpg',
+                name: 'PIMG-STAGGSTARR_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2257,7 +2257,7 @@ module.exports = {
             {
                 id: 281,
                 product_id: 75,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/240/1024062_PE833397_S5.jpg',
+                name: 'PIMG-STAGGSTARR_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2265,7 +2265,7 @@ module.exports = {
             {
                 id: 282,
                 product_id: 75,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/240/1024060_PE833399_S5.jpg',
+                name: 'PIMG-STAGGSTARR_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2273,7 +2273,7 @@ module.exports = {
             {
                 id: 283,
                 product_id: 76,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/663/1166370_PE891143_S5.jpg',
+                name: 'PIMG-ASHPULT_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2281,7 +2281,7 @@ module.exports = {
             {
                 id: 284,
                 product_id: 76,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/995/1199516_PH191700_S5.jpg',
+                name: 'PIMG-ASHPULT_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2289,7 +2289,7 @@ module.exports = {
             {
                 id: 285,
                 product_id: 76,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/663/1166372_PE891141_S5.jpg',
+                name: 'PIMG-ASHPULT_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2297,7 +2297,7 @@ module.exports = {
             {
                 id: 286,
                 product_id: 76,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/663/1166371_PE891142_S5.jpg',
+                name: 'PIMG-ASHPULT_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2305,7 +2305,7 @@ module.exports = {
             {
                 id: 287,
                 product_id: 77,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/856/0985645_PE816716_S5.jpg',
+                name: 'PIMG-MATCHSPEL_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2313,7 +2313,7 @@ module.exports = {
             {
                 id: 288,
                 product_id: 77,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/848/0984824_PE816429_S5.jpg',
+                name: 'PIMG-MATCHSPEL_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2321,7 +2321,7 @@ module.exports = {
             {
                 id: 289,
                 product_id: 77,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/848/0984823_PE816428_S5.jpg',
+                name: 'PIMG-MATCHSPEL_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2329,7 +2329,7 @@ module.exports = {
             {
                 id: 290,
                 product_id: 77,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/848/0984827_PE816430_S5.jpg',
+                name: 'PIMG-MATCHSPEL_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2337,7 +2337,7 @@ module.exports = {
             {
                 id: 291,
                 product_id: 78,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/771/1077197_PE856914_S5.jpg',
+                name: 'PIMG-UPPSPEL_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2345,7 +2345,7 @@ module.exports = {
             {
                 id: 292,
                 product_id: 78,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/978/0997860_PE822835_S5.jpg',
+                name: 'PIMG-UPPSPEL_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2353,7 +2353,7 @@ module.exports = {
             {
                 id: 293,
                 product_id: 78,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/978/0997861_PE822838_S5.jpg',
+                name: 'PIMG-UPPSPEL_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2361,7 +2361,7 @@ module.exports = {
             {
                 id: 294,
                 product_id: 78,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/978/0997862_PE822837_S5.jpg',
+                name: 'PIMG-UPPSPEL_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2369,7 +2369,7 @@ module.exports = {
             {
                 id: 295,
                 product_id: 79,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/594/0859444_PE780909_S5.jpg',
+                name: 'PIMG-VIRRMO_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2377,7 +2377,7 @@ module.exports = {
             {
                 id: 296,
                 product_id: 79,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/594/0859445_PE780911_S5.jpg',
+                name: 'PIMG-VIRRMO_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2385,7 +2385,7 @@ module.exports = {
             {
                 id: 297,
                 product_id: 79,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/594/0859446_PE780910_S5.jpg',
+                name: 'PIMG-VIRRMO_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2393,7 +2393,7 @@ module.exports = {
             {
                 id: 298,
                 product_id: 79,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/573/1057339_PH179091_S5.jpg',
+                name: 'PIMG-VIRRMO_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2401,7 +2401,7 @@ module.exports = {
             {
                 id: 299,
                 product_id: 80,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/748/0974868_PE812565_S5.jpg',
+                name: 'PIMG-LANESPELARE_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2409,7 +2409,7 @@ module.exports = {
             {
                 id: 300,
                 product_id: 80,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/830/1083065_PE858960_S5.jpg',
+                name: 'PIMG-LANESPELARE_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2417,7 +2417,7 @@ module.exports = {
             {
                 id: 301,
                 product_id: 80,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/848/0984809_PE816415_S5.jpg',
+                name: 'PIMG-LANESPELARE_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2425,7 +2425,7 @@ module.exports = {
             {
                 id: 302,
                 product_id: 80,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/463/1046389_PH180841_S5.jpg',
+                name: 'PIMG-LANESPELARE_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2433,7 +2433,7 @@ module.exports = {
             {
                 id: 303,
                 product_id: 81,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/364/0736420_PE740535_S5.jpg',
+                name: 'PIMG-BEKANT_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2441,7 +2441,7 @@ module.exports = {
             {
                 id: 304,
                 product_id: 81,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/552/0855220_PE714635_S5.jpg',
+                name: 'PIMG-BEKANT_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2449,7 +2449,7 @@ module.exports = {
             {
                 id: 305,
                 product_id: 81,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/351/0735163_PE739791_S5.jpg',
+                name: 'PIMG-BEKANT_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2457,7 +2457,7 @@ module.exports = {
             {
                 id: 306,
                 product_id: 81,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/548/0854885_PE714612_S5.jpg',
+                name: 'PIMG-BEKANT_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2465,7 +2465,7 @@ module.exports = {
             {
                 id: 307,
                 product_id: 82,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/106/0710683_PE727709_S5.jpg',
+                name: 'PIMG-SKADIS_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2473,7 +2473,7 @@ module.exports = {
             {
                 id: 308,
                 product_id: 82,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/658/1165861_PE890994_S5.jpg',
+                name: 'PIMG-SKADIS_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2481,7 +2481,7 @@ module.exports = {
             {
                 id: 309,
                 product_id: 82,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/658/1165860_PE890993_S5.jpg',
+                name: 'PIMG-SKADIS_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2489,7 +2489,7 @@ module.exports = {
             {
                 id: 310,
                 product_id: 82,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/658/1165859_PE890992_S5.jpg',
+                name: 'PIMG-SKADIS_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2497,7 +2497,7 @@ module.exports = {
             {
                 id: 311,
                 product_id: 83,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/088/0808882_PE770871_S5.jpg',
+                name: 'PIMG-SAVSTA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2505,7 +2505,7 @@ module.exports = {
             {
                 id: 312,
                 product_id: 83,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/179/0917989_PE786028_S5.jpg',
+                name: 'PIMG-SAVSTA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2513,7 +2513,7 @@ module.exports = {
             {
                 id: 313,
                 product_id: 83,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/166/0916694_PE785345_S5.jpg',
+                name: 'PIMG-SAVSTA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2521,7 +2521,7 @@ module.exports = {
             {
                 id: 314,
                 product_id: 83,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/581/0958172_PE805257_S5.jpg',
+                name: 'PIMG-SAVSTA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2529,7 +2529,7 @@ module.exports = {
             {
                 id: 315,
                 product_id: 84,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/488/0748828_PE745209_S5.jpg',
+                name: 'PIMG-SOSDALA_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2537,7 +2537,7 @@ module.exports = {
             {
                 id: 316,
                 product_id: 84,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/488/0748827_PE745210_S5.jpg',
+                name: 'PIMG-SOSDALA_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2545,7 +2545,7 @@ module.exports = {
             {
                 id: 317,
                 product_id: 84,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/407/0940736_PE795139_S5.jpg',
+                name: 'PIMG-SOSDALA_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2553,7 +2553,7 @@ module.exports = {
             {
                 id: 318,
                 product_id: 84,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/407/0940735_PE795137_S5.jpg',
+                name: 'PIMG-SOSDALA_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2561,7 +2561,7 @@ module.exports = {
             {
                 id: 319,
                 product_id: 85,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/954/0395412_PE564513_S5.jpg',
+                name: 'PIMG-LENNART_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2569,7 +2569,7 @@ module.exports = {
             {
                 id: 320,
                 product_id: 85,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/commons/1675678749_10326178_S5.jpeg',
+                name: 'PIMG-LENNART_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2577,7 +2577,7 @@ module.exports = {
             {
                 id: 321,
                 product_id: 85,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/741/0974162_PH172787_S5.jpg',
+                name: 'PIMG-LENNART_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2585,7 +2585,7 @@ module.exports = {
             {
                 id: 322,
                 product_id: 85,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/022/0802263_PH159210_S5.jpg',
+                name: 'PIMG-LENNART_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2593,7 +2593,7 @@ module.exports = {
             {
                 id: 323,
                 product_id: 86,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/136/0613647_PE686436_S5.jpg',
+                name: 'PIMG-IDASEN_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2601,7 +2601,7 @@ module.exports = {
             {
                 id: 324,
                 product_id: 86,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/563/0856323_PE709882_S5.jpg',
+                name: 'PIMG-IDASEN_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2609,7 +2609,7 @@ module.exports = {
             {
                 id: 325,
                 product_id: 86,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/095/0709541_PH154515_S5.jpg',
+                name: 'PIMG-IDASEN_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2617,7 +2617,7 @@ module.exports = {
             {
                 id: 326,
                 product_id: 86,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/563/0856319_PE709881_S5.jpg',
+                name: 'PIMG-IDASEN_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2625,7 +2625,7 @@ module.exports = {
             {
                 id: 327,
                 product_id: 87,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/744/1074485_PE817659_S5.jpg',
+                name: 'PIMG-NORDMARKE_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2633,7 +2633,7 @@ module.exports = {
             {
                 id: 328,
                 product_id: 87,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/878/0987852_PE817662_S5.jpg',
+                name: 'PIMG-NORDMARKE_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2641,7 +2641,7 @@ module.exports = {
             {
                 id: 329,
                 product_id: 87,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/878/0987865_PE841853_S5.jpg',
+                name: 'PIMG-NORDMARKE_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2649,7 +2649,7 @@ module.exports = {
             {
                 id: 330,
                 product_id: 87,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/606/1060685_PE850134_S5.jpg',
+                name: 'PIMG-NORDMARKE_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2657,7 +2657,7 @@ module.exports = {
             {
                 id: 331,
                 product_id: 88,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/287/0528705_PE645930_S5.jpg',
+                name: 'PIMG-TRADFRI_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2665,7 +2665,7 @@ module.exports = {
             {
                 id: 332,
                 product_id: 88,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/816/0881689_PE645601_S5.jpg',
+                name: 'PIMG-TRADFRI_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2673,7 +2673,7 @@ module.exports = {
             {
                 id: 333,
                 product_id: 89,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/594/1159450_PE888496_S5.jpg',
+                name: 'PIMG-IDANAS_PIC_1.jpg',
                 is_thumbnail: true,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2681,7 +2681,7 @@ module.exports = {
             {
                 id: 334,
                 product_id: 89,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/594/1159453_PE888499_S5.jpg',
+                name: 'PIMG-IDANAS_PIC_2.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2689,7 +2689,7 @@ module.exports = {
             {
                 id: 335,
                 product_id: 89,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/594/1159452_PE888498_S5.jpg',
+                name: 'PIMG-IDANAS_PIC_3.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),
@@ -2697,7 +2697,7 @@ module.exports = {
             {
                 id: 336,
                 product_id: 89,
-                name: 'https://d2xjmi1k71iy2m.cloudfront.net/dairyfarm/id/images/594/1159454_PE888500_S5.jpg',
+                name: 'PIMG-IDANAS_PIC_4.jpg',
                 is_thumbnail: false,
                 createdAt: new Date(),
                 updatedAt: new Date(),

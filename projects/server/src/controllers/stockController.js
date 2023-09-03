@@ -7,7 +7,7 @@ module.exports = {
     getStock: async (req, res) => {
         try {
             let where = { is_deleted: false };
-            let order = undefined;
+            let order = [['name', 'ASC']];
             let wh = undefined;
             const { id, role_id } = req.User;
             const { page, warehouse, search, sort, category } = req.query;
@@ -82,6 +82,7 @@ module.exports = {
                 const checkWh = await db.warehouses.findOne({
                     where: {
                         city: warehouse.replace(/%/g, ' '),
+                        is_deleted: false,
                     },
                 });
                 if (role_id === 3) {
@@ -107,9 +108,9 @@ module.exports = {
                 } else if (sort === 'name-desc') {
                     order = [['name', 'DESC']];
                 } else if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -192,6 +193,14 @@ module.exports = {
                 return res.status(404).send({
                     success: false,
                     message: 'Product Not Found!',
+                    data: null,
+                });
+            }
+
+            if (Number(quantity) <= 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Please input the correct quantity!',
                     data: null,
                 });
             }
@@ -300,6 +309,14 @@ module.exports = {
                 return res.status(400).send({
                     success: false,
                     message: 'Quantity Exceeds Available Stock!',
+                    data: null,
+                });
+            }
+
+            if (Number(quantity) <= 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Please input the correct quantity!',
                     data: null,
                 });
             }

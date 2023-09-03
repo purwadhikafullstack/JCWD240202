@@ -168,7 +168,7 @@ const createUserOrder = async (req, res) => {
 
                     const updateCart = await carts.update(
                         { is_checkout: true },
-                        { where: { id: findCart.id }, transaction: t  },
+                        { where: { id: findCart.id }, transaction: t },
                     );
                     const getCartProducts = await cart_products.findAll({
                         where: { cart_id: findCart.id },

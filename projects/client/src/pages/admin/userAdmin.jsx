@@ -166,7 +166,7 @@ export default function UserAdmin() {
                     {showRegisModal === true ? (
                         <RegisterAdmin
                             showModal={setShowRegisModal}
-                            params={{ page, search, sort, warehouse }}
+                            params={{ page, sort, search, warehouse }}
                         />
                     ) : (
                         <></>

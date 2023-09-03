@@ -37,12 +37,8 @@ export default function ProfilePage() {
             first_name: dataLogin?.first_name ? dataLogin?.first_name : '',
             last_name: dataLogin?.last_name ? dataLogin?.last_name : '',
             email: dataLogin?.email,
-            phone_number: dataLogin?.phone_number
-                ? dataLogin?.phone_number
-                : '',
-            birth_date: dataLogin?.birth_date
-                ? dataLogin?.birth_date?.split('T')[0]
-                : '',
+            phone_number: dataLogin?.phone_number ? dataLogin?.phone_number : '',
+            birth_date: dataLogin?.birth_date ? dataLogin?.birth_date?.split('T')[0] : '',
         });
         setTimeout(() => {
             setLoadings(true);
@@ -293,15 +289,9 @@ export default function ProfilePage() {
                                                                 <input
                                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="first_name"
-                                                                    disabled={
-                                                                        disabled
-                                                                    }
-                                                                    value={
-                                                                        input?.first_name
-                                                                    }
-                                                                    onChange={
-                                                                        onChange
-                                                                    }
+                                                                    disabled={disabled}
+                                                                    value={input?.first_name}
+                                                                    onChange={onChange}
                                                                 />
                                                             </label>
                                                             <label className="block mb-3 w-full md:w-[400px]">
@@ -323,7 +313,7 @@ export default function ProfilePage() {
                                                                 <input
                                                                     className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="email"
-                                                                    disabled={disabled}
+                                                                    disabled={true}
                                                                     value={input?.email}
                                                                     onChange={onChange}
                                                                 />
@@ -369,12 +359,7 @@ export default function ProfilePage() {
                                                                 <button
                                                                     className="bg-[#0051BA] mr-2 enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
                                                                     onClick={() => setOpenModal(true)}
-                                                                    disabled={
-                                                                        !input.first_name ||
-                                                                        !input.last_name ||
-                                                                        !input.phone_number ||
-                                                                        !input.birth_date
-                                                                    }
+                                                                    disabled={!input.first_name || !input.last_name || !input.phone_number || !input.birth_date}
                                                                 >
                                                                     Save
                                                                 </button>
@@ -424,13 +409,7 @@ export default function ProfilePage() {
                     <button
                         className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white text-sm disabled:cursor-not-allowed disabled:bg-black rounded-lg py-2 mt-2 p-3"
                         onClick={onEditProfile}
-                        disabled={
-                            !input.first_name ||
-                            !input.last_name ||
-                            !input.phone_number ||
-                            !input.birth_date ||
-                            disabled
-                        }
+                        disabled={!input.first_name || !input.last_name || !input.phone_number || !input.birth_date || disabled}
                     >
                         Save
                     </button>

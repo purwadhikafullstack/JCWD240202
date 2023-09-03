@@ -99,8 +99,8 @@ export const editDataWarehouseAdmin =
                 dispatch(
                     getDataAdminUser(
                         params.page,
-                        params.search,
                         params.sort,
+                        params.search,
                         params.warehouse,
                     ),
                 );
@@ -186,8 +186,8 @@ export const changePasswordWarehouseAdmin =
                 dispatch(
                     getDataAdminUser(
                         params.page,
-                        params.search,
                         params.sort,
+                        params.search,
                         params.warehouse,
                     ),
                 );
