@@ -1,6 +1,6 @@
 {
     "development": {
-        "username": "root",
+        "username": "jcwd240202",
         "password": "group02",
         "database": "jcwd240202",
         "host": "127.0.0.1",
@@ -14,7 +14,7 @@
         "dialect": "mysql"
     },
     "production": {
-        "username": "root",
+        "username": "jcwd240202",
         "password": "group02",
         "database": "jcwd240202",
         "host": "127.0.0.1",
