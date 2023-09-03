@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function SearchBar(props) {
@@ -7,6 +7,10 @@ export default function SearchBar(props) {
         const search = _search.current.value;
         props?.data?.searchChange(search);
     };
+
+    useEffect(() => {
+        _search.current.value = props.data?.search || '';
+    }, [props.data?.search]);
 
     return (
         <div className="flex gap-2 items-center">

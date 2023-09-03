@@ -1,4 +1,4 @@
-import { Dropdown, Label, Radio } from 'flowbite-react';
+import { Dropdown } from 'flowbite-react';
 
 export default function DropdownSort(props) {
     return (

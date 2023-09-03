@@ -28,8 +28,6 @@ export default function ModalTransactionDetail(props) {
                         notification={{showNotificationModal}}
                     />
                 </Modal.Body>
-                {/* <Modal.Footer>
-                </Modal.Footer> */}
             </Modal>
         </>
     );

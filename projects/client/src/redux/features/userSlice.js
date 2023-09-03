@@ -38,6 +38,11 @@ export const getDataLogin = () => async (dispatch) => {
         }, 1000);
         dispatch(setDataLogin(dataUser?.data?.data));
     } catch (error) {
+        if (error.response) {
+            toast.error(error.response.data.message)
+            localStorage.removeItem('user');
+            localStorage.removeItem('_grecaptcha');
+        }
         dispatch(setLoading(false));
     }
 };

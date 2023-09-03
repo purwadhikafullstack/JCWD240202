@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MdDeleteForever } from 'react-icons/md';
 import { FaRegEdit } from 'react-icons/fa';
 import SkeletonCategoryAdmin from './skeletonCategoryAdmin';
@@ -38,7 +38,6 @@ export default function ComListCategory(props) {
                                         onClick={() => {
                                             props.funcShow(true);
                                             props.funcData(value);
-                                        //     dispatch(productDetailsAsync(value.id));
                                         }}
                                         className="flex justify-center text-[22px] pl-1 text-blue-600 dark:text-blue-500 hover:underline"
                                     >

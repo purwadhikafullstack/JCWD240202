@@ -1,18 +1,12 @@
 import { Modal } from 'flowbite-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteColorAsync } from '../../../redux/features/homepageSlice';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function ModalDeleteColor(props) {
     const dispatch = useDispatch()
     const isSuccess = useSelector((state) => state.homepage.success)
-    // const isMessage = useSelector((state) => state.homepage.message)
-    // const [tes, setTes] = useState(isMessage)
-    // console.log(tes, 'iniiii tess')
-    // console.log(isMessage, 'babababba')
-    // if (isSuccess) {
-    //     props.funcShow(false);
-    // }
+
     useEffect(() => {
         if (isSuccess) {
             props.funcShow(false);
@@ -32,7 +26,6 @@ export default function ModalDeleteColor(props) {
                 <div>
                 Are you sure want to delete this color? 
                 </div>
-                {/* {p ? <div className='text-[#fc8181] text-xs'>* This color is currently being used! </div> : null} */}
             </Modal.Body>
             <Modal.Footer>
                 <button

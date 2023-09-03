@@ -21,7 +21,7 @@ const createNotification = async (req, res) => {
             where: { status_id: 2, order_id, is_active: true },
         });
 
-        if (!findOrder || !checkStatus || !message || !title) {
+        if (!findOrder || !message || !title) {
             res.status(404).send({
                 success: false,
                 message: 'data not found',

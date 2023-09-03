@@ -43,9 +43,9 @@ export default function ModalAddProduct(props) {
             });
 
             targetFiles.map((value) => {
-                if (value.size > 100000000)
+                if (value.size > 1000000)
                     throw {
-                        message: `${value.originalname} is Too Large`,
+                        message: `${value.name} is Too Large`,
                     };
             });
 
@@ -94,6 +94,7 @@ export default function ModalAddProduct(props) {
         setHeight('');
         setWeight('');
         setImagePreview(null);
+        setImageProduct(null)
     };
 
     const data = {
@@ -110,7 +111,9 @@ export default function ModalAddProduct(props) {
 
     useEffect(() => {
         documentBodyRef.current = document.body;
-        defaultValue();
+        if (isSuccess) {
+            defaultValue();
+        }
     }, [isSuccess]);
 
     return (
@@ -158,6 +161,7 @@ export default function ModalAddProduct(props) {
                             onChange={onChangeProductImg}
                             type="file"
                             multiple="multiple"
+                            value=''
                             className="my-1 rounded-md hidden"
                         ></input>
                         <p>Upload Images</p>

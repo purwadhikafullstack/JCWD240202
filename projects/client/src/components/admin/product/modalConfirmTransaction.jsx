@@ -1,14 +1,7 @@
 import { Modal } from 'flowbite-react';
 import { Toaster } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-
 
 export default function ModalConfirmTransaction(props) {
-    // console.log(()=> props.confirm?.funcConfirm)
-    const dispatch = useDispatch()
-    // const handleConfirm = () => {
-    //     props.confirm?.funcConfirm()
-    // }
     return (
         <>
             <Toaster />
@@ -17,9 +10,6 @@ export default function ModalConfirmTransaction(props) {
                 show={props.data?.showConfirm}
                 onClose={() => props.data?.setShowConfirm(false)}
             >
-                {/* <Modal.Header>
-                    <div className="text-xl"></div>
-                </Modal.Header> */}
                 <Modal.Body>
                     <div>
                         Are you sure? 

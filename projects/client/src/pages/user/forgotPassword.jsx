@@ -12,9 +12,7 @@ export default function ForgotPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
-
     const userLogin = JSON.parse(localStorage.getItem("user"));
-
 
     //call data redux
     const msgError = useSelector((state) => state.auth.msg);
@@ -45,8 +43,6 @@ export default function ForgotPassword() {
                 </div>
             ));
             navigate('/');
-            // setTimeout(() => {
-            // }, 3000);
         }
     };
 
@@ -106,7 +102,7 @@ export default function ForgotPassword() {
                         <button
                             onClick={()=> dispatch(reqResetPassword(email))}
                             type="submit"
-                            className="bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
+                            className="bg-[#0051BA] border border-[#0051BA] hover:bg-[#d7d9db] rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
                             disabled={
                                 !email ||
                                 !email.includes('@') ||
