@@ -16,6 +16,7 @@ export default function UserCart() {
     const [unavailableProduct, setUnavailableProduct] = useState(false);
     const [modalUnavailable, setModalUnavailable] = useState(false);
     const loading = useSelector((state) => state.cart.loading);
+    const [loadings, setLoadings] = useState(false)
 
     const handleCheckout = () => {
         if (unavailableProduct === true) {
@@ -27,6 +28,9 @@ export default function UserCart() {
 
     useEffect(() => {
         dispatch(getUserCartAsync());
+        setTimeout(() => {
+            setLoadings(true)
+        }, 1000);
         return () => dispatch(setLoading(false))
     }, []);
     return (
@@ -69,7 +73,7 @@ export default function UserCart() {
                 ) : (
                     <div>
                         {userCart?.data?.rows?.map((value, index) => {
-                            if (loading) {
+                            if (loading && loadings) {
                                 return (
                                     <div key={index}>
                                         <CartTable

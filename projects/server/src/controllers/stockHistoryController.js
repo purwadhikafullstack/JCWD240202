@@ -57,6 +57,7 @@ module.exports = {
                 const findWhAdmin = await db.warehouses.findOne({
                     where: {
                         user_id: id,
+                        is_deleted: false,
                     },
                 });
                 if (findWhAdmin) {
@@ -74,6 +75,7 @@ module.exports = {
                 const findWh = await db.warehouses.findOne({
                     where: {
                         city: warehouse.replace(/%/g, ' '),
+                        is_deleted: false,
                     },
                 });
 
@@ -94,9 +96,9 @@ module.exports = {
                 } else if (sort === 'name-desc') {
                     order = [['name', 'DESC']];
                 } else if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -209,7 +211,7 @@ module.exports = {
     },
     getStockLog: async (req, res) => {
         try {
-            const { page, date, search, warehouse, sort } = req.query;
+            const { page, date, search, warehouse, sort, types, informations } = req.query;
             const { id, role_id } = req.User;
             const paginationLimit = 10;
             const paginationOffset =
@@ -218,9 +220,11 @@ module.exports = {
                 ? moment(new Date(date)).format('MM/01/YYYY')
                 : moment(new Date()).format('MM/01/YYYY');
 
-            let order = [['createdAt', 'DESC']];
+            let order = [['id', 'DESC']];
             let productName = undefined;
             let where = undefined;
+            let information = undefined;
+            let type = undefined;
 
             if (role_id === 2) {
                 const findWhAdmin = await db.warehouses.findOne({
@@ -246,10 +250,19 @@ module.exports = {
                 productName = { name: { [Op.substring]: [search] } };
             }
 
+            if (informations) {
+                information = { name: informations.replace(/%/g, ' ')}
+            }
+
+            if (types) {
+                type = { name: types}
+            }
+
             if (warehouse) {
                 const findWh = await db.warehouses.findOne({
                     where: {
                         city: warehouse.replace(/%/g, ' '),
+                        is_deleted: false,
                     },
                 });
 
@@ -274,9 +287,9 @@ module.exports = {
 
             if (sort) {
                 if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -314,10 +327,12 @@ module.exports = {
                     },
                     {
                         model: db.types,
+                        where: type,
                         attributes: { exclude: ['createdAt', 'updatedAt'] },
                     },
                     {
                         model: db.informations,
+                        where: information,
                         attributes: { exclude: ['createdAt', 'updatedAt'] },
                     },
                 ],
@@ -382,4 +397,40 @@ module.exports = {
             });
         }
     },
+    getTypes: async(req, res) => {
+        try {
+            const types = await db.types.findAll({
+                attributes: ['id', 'name']
+            })
+            return res.status(200).send({
+                success: true,
+                message: 'Fetch Types Success!',
+                data: types
+            })
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    getInformations: async(req, res) => {
+        try {
+            const informations = await db.informations.findAll({
+                attributes: ['id', 'name']
+            })
+            return res.status(200).send({
+                success: true,
+                message: 'Fetch Types Success!',
+                data: informations
+            }) 
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    }
 };

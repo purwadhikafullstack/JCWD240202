@@ -223,12 +223,12 @@ export default function VerificationPage() {
                     </div>
                 </div>
             </div>
-            <div className="w-full flex justify-center items-center mb-[-50px]">
+            <div className="w-full flex justify-center items-center">
                 <img
                     src="/images/banner-ikewa.png"
                     alt="not-found"
                     className="min-w-[200px]"
-                ></img>
+                />
             </div>
         </>
     );

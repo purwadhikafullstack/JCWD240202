@@ -7,6 +7,7 @@ export default function ModalLogoutAdmin({ showModal, disabled, disable }) {
         try {
             disabled(true);
             localStorage.removeItem('user');
+            localStorage.removeItem('_grecaptcha');
             toast.success('Logout success!', {
                 position: 'top-center',
                 duration: 2000,

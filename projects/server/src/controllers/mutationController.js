@@ -152,11 +152,14 @@ module.exports = {
                 { transaction: t },
             );
 
-            const createMutationDetails = await db.mutation_details.create({
-                warehouse_destination_id,
-                mutation_id: createMutation.id,
-                quantity,
-            });
+            const createMutationDetails = await db.mutation_details.create(
+                {
+                    warehouse_destination_id,
+                    mutation_id: createMutation.id,
+                    quantity,
+                },
+                { transaction: t },
+            );
 
             await t.commit();
 

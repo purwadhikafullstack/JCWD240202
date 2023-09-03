@@ -16,7 +16,7 @@ module.exports = {
         try {
             const { page, sort, search, warehouse } = req.query;
 
-            let order = [['createdAt', 'DESC']];
+            let order = undefined;
             let where = { role_id: 2 };
 
             const paginationLimit = 5;
