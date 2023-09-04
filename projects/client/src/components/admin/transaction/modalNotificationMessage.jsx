@@ -27,7 +27,7 @@ export default function ModalNotificationMessage(props) {
                 show={props?.state?.modalNotification}
                 onClose={() => props?.state?.setModalNotification(false)}
             >
-                <Modal.Header>Message to User (Reject Payment)</Modal.Header>
+                <Modal.Header>Message to User</Modal.Header>
                 <Modal.Body>
                     <div>
                         <Label>Title</Label>

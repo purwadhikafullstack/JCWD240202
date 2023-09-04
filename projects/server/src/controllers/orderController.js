@@ -138,14 +138,7 @@ const getOrderDetails = async (req, res) => {
                         'order_id',
                         'is_active',
                         'is_rejected',
-                        [
-                            sequelize.fn(
-                                'DATE_FORMAT',
-                                sequelize.col('order_statuses.createdAt'),
-                                '%a, %d-%b-%Y %h:%i %p',
-                            ),
-                            'createdAt',
-                        ],
+                        'createdAt'
                     ],
                     include: [{ model: statuses }],
                 },

@@ -119,7 +119,16 @@ export default function OrderStatus(props) {
                                 >
                                     {value?.status?.name}
                                 </div>
-                                <div>{value?.createdAt}</div>
+                                <div>
+                                    {[
+                                        new Date(value?.createdAt)
+                                            .toString()
+                                            .split(
+                                                'GMT+0700 (Western Indonesia Time)',
+                                            )[0]
+                                            .toString()
+                                    ]}
+                                </div>
                             </React.Fragment>
                         );
                     },
