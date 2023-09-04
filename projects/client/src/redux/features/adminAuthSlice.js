@@ -162,7 +162,7 @@ export const adminRegister =
                     },
                 });
             } else {
-                toast.error('Registered Failed!', {
+                toast.error(error.message, {
                     position: 'top-center',
                     duration: 2000,
                     style: {
