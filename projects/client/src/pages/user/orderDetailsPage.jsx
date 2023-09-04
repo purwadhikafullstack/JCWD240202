@@ -40,7 +40,7 @@ export default function OrderDetailsPage() {
     const [modalSubmitProof, setModalSubmitProof] = useState(false);
     const [showHistoryStatus, setShowHistoryStatus] = useState(false);
     const [cancelOrder, setCancelOrder] = useState(false);
-    const [modalPayment, setModalPayment] = useState(false)
+    const [modalPayment, setModalPayment] = useState(false);
 
     const handleImagePreview = (e) => {
         try {
@@ -150,7 +150,10 @@ export default function OrderDetailsPage() {
                             <div className="border px-4 mt-9">
                                 <div className="text-lg border-b py-4 font-bold flex items-center justify-between">
                                     <div>Payment Proof</div>
-                                    <Button onClick={() => setModalPayment(true)} className="bg-yellow-300 text-sky-700 hover:text-yellow-300">
+                                    <Button
+                                        onClick={() => setModalPayment(true)}
+                                        className="bg-yellow-300 text-sky-700 hover:text-yellow-300"
+                                    >
                                         How to pay?
                                     </Button>
                                 </div>
@@ -237,11 +240,11 @@ export default function OrderDetailsPage() {
                                             <img
                                                 onClick={() => {
                                                     setImageProofView(
-                                                        `http://localhost:8000/${userOrderDetails?.data?.payment_proof}`,
+                                                        `${process.env.REACT_APP_API_IMAGE_URL}/${userOrderDetails?.data?.payment_proof}`,
                                                     );
                                                     setModalImageProof(true);
                                                 }}
-                                                src={`http://localhost:8000/${userOrderDetails?.data?.payment_proof}`}
+                                                src={`${process.env.REACT_APP_API_IMAGE_URL}/${userOrderDetails?.data?.payment_proof}`}
                                                 alt="image_proof"
                                                 className="w-full h-[250px] hover:cursor-pointer"
                                             />
@@ -355,7 +358,7 @@ export default function OrderDetailsPage() {
                 func={{ handleCancelOrder }}
                 state={{ setCancelOrder, cancelOrder }}
             />
-            <ModalPayment state={{modalPayment, setModalPayment}}/>
+            <ModalPayment state={{ modalPayment, setModalPayment }} />
         </>
     );
 }
