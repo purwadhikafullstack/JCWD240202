@@ -12,7 +12,7 @@ import {
 } from '../../redux/features/homepageSlice';
 import ServicesBox from '../../components/user/homepage/services';
 import BestSellerCard from '../../components/user/productCard/bestSellerCard';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import SkeletonBestSeller from '../../components/user/productCard/skeletonBestSeller';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
@@ -39,6 +39,10 @@ export default function Homepage() {
     const newArrivals = useSelector((state) => state.homepage.newArrivals);
     const navigate = useNavigate();
     const loading = useSelector((state) => state.homepage.loading);
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
+
     useEffect(() => {
         dispatch(getAllCategoriesAsync());
         dispatch(getBestSellerAsync());
@@ -148,17 +152,21 @@ export default function Homepage() {
                                                 <div className="absolute right-5 bottom-5 flex gap-4">
                                                     <div
                                                         className="hover:cursor-pointer hover:border hover:rounded-full hover:p-4 hover:bg-yellow-200 hover:text-sky-700"
-                                                        onClick={() =>
-                                                            dispatch(
-                                                                userAddToCartAsync(
-                                                                    {
-                                                                        product_id:
-                                                                            value.id,
-                                                                        quantity: 1,
-                                                                    },
-                                                                ),
-                                                            )
-                                                        }
+                                                        onClick={() => {
+                                                            getUser
+                                                                ? dispatch(
+                                                                      userAddToCartAsync(
+                                                                          {
+                                                                              product_id:
+                                                                                  value.id,
+                                                                              quantity: 1,
+                                                                          },
+                                                                      ),
+                                                                  )
+                                                                : toast.error(
+                                                                      'Please Login/Register First',
+                                                                  );
+                                                        }}
                                                     >
                                                         <AiOutlineShoppingCart
                                                             size={25}
