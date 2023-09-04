@@ -254,10 +254,10 @@ module.exports = {
                 });
 
             const data = await fs.readFileSync(
-                path.resolve(
-                    '../server/src/email_template',
-                    'resetPassword.html',
-                ),
+                path.join(
+                        __dirname,
+                        '../email_template/resetPassword.html',
+                    ),
                 { encoding: 'utf-8' },
             );
 
