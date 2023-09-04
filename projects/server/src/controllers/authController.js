@@ -56,8 +56,8 @@ module.exports = {
 
                 const data = await fs.readFileSync(
                     path.resolve(
-                        '../server/src/email_template',
-                        'activation.html',
+                        __dirname,
+                        '../server/src/email_template/activation.html',
                     ),
                     { encoding: 'utf-8' },
                 );
