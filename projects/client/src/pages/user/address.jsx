@@ -207,7 +207,16 @@ export default function Address() {
                 });
             }
         } catch (error) {
-            console.log(error);
+            toast.error('Select Primary Address Failed!', {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
         }
     };
 
@@ -242,7 +251,16 @@ export default function Address() {
             }
         } catch (error) {
             setDisabled(false);
-            console.log(error);
+            toast.error('Delete Address Failed!', {
+                position: 'top-center',
+                duration: 2000,
+                style: {
+                    border: '2px solid #000',
+                    borderRadius: '10px',
+                    background: '#DC2626',
+                    color: 'white',
+                },
+            });
         }
     };
 

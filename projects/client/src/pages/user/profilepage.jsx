@@ -158,16 +158,29 @@ export default function ProfilePage() {
             }
         } catch (error) {
             setDisabledPhoto(false);
-            toast.error(error.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#DC2626',
-                    color: 'white',
-                },
-            });
+            if (error.response) {
+                toast.error('Update Profile Failed!', {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#DC2626',
+                        color: 'white',
+                    },
+                });
+            } else {
+                toast.error(error.message, {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#DC2626',
+                        color: 'white',
+                    },
+                });
+            }
         }
     };
 
@@ -238,7 +251,7 @@ export default function ProfilePage() {
                                         <ProfileTabs />
                                         {loading && loadings ? (
                                             <div className="lg:flex lg:justify-center lg:items-center mt-6 lg:ml-6">
-                                                <div className="w-full md:w-[400px]">
+                                                <div className="md:w-full w-[400px]">
                                                     <div className="p-[10px] border-2 border-gray-200 rounded-lg">
                                                         <div className="flex justify-center max-h-[250px]">
                                                             {dataLogin?.profile_picture || imagePreview ? (
@@ -282,48 +295,48 @@ export default function ProfilePage() {
                                                 <div className="lg:w-full ml-0 lg:ml-8 mt-6 md:relative">
                                                     <div>
                                                         <form>
-                                                            <label className="block mb-3 w-full md:w-[400px]">
+                                                            <label className="block mb-3 md:w-full w-[400px]">
                                                                 <span className="block text-sm font-medium text-slate-700 mb-1">
                                                                     First Name
                                                                 </span>
                                                                 <input
-                                                                    className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                                                                    className="border border-gray-400 md:w-full w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="first_name"
                                                                     disabled={disabled}
                                                                     value={input?.first_name}
                                                                     onChange={onChange}
                                                                 />
                                                             </label>
-                                                            <label className="block mb-3 w-full md:w-[400px]">
+                                                            <label className="block mb-3 md:w-full w-[400px]">
                                                                 <span className="block text-sm font-medium text-slate-700 mb-1">
                                                                     Last Name
                                                                 </span>
                                                                 <input
-                                                                    className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                                                                    className="border border-gray-400 md:w-full w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="last_name"
                                                                     disabled={disabled}
                                                                     value={input?.last_name}
                                                                     onChange={onChange}
                                                                 />
                                                             </label>
-                                                            <label className="block mb-3 w-full md:w-[400px]">
+                                                            <label className="block mb-3 md:w-full w-[400px]">
                                                                 <span className="block text-sm font-medium text-slate-700 mb-1">
                                                                     Email
                                                                 </span>
                                                                 <input
-                                                                    className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                                                                    className="border border-gray-400 md:w-full w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="email"
                                                                     disabled={true}
                                                                     value={input?.email}
                                                                     onChange={onChange}
                                                                 />
                                                             </label>
-                                                            <label className="block mb-3 w-full md:w-[400px]">
+                                                            <label className="block mb-3 md:w-full w-[400px]">
                                                                 <span className="block text-sm font-medium text-slate-700 mb-1">
                                                                     Phone Number
                                                                 </span>
                                                                 <input
-                                                                    className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                                                                    className="border border-gray-400 md:w-full w-[400px] rounded-md px-2 h-10 disabled:text-gray-700 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="phone_number"
                                                                     disabled={disabled}
                                                                     value={input?.phone_number}
@@ -333,12 +346,12 @@ export default function ProfilePage() {
                                                                     maxLength="12"
                                                                 />
                                                             </label>
-                                                            <label className="block mb-3 w-full md:w-[400px]">
+                                                            <label className="block mb-3 md:w-full w-[400px]">
                                                                 <span className="block text-sm font-medium text-slate-700 mb-1">
                                                                     Birthdate
                                                                 </span>
                                                                 <input
-                                                                    className="border border-gray-400 w-full md:w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
+                                                                    className="border border-gray-400 md:w-full w-[400px] rounded-md px-2 h-10 disabled:text-gray-600 disabled:bg-gray-200 disabled:cursor-not-allowed focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                                                                     name="birth_date"
                                                                     type="date"
                                                                     disabled={disabled}

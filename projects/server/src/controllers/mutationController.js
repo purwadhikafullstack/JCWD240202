@@ -89,12 +89,14 @@ module.exports = {
                         { id: warehouse_destination_id },
                     ],
                 },
+                transaction: t,
             });
 
             const checkAdminWh = await db.warehouses.findOne({
                 where: {
                     user_id: id,
                 },
+                transaction: t,
             });
 
             if (checkAdminWh.id != warehouse_origin_id) {
@@ -125,6 +127,7 @@ module.exports = {
                 where: {
                     id: product_id,
                 },
+                transaction: t,
             });
 
             if (!checkProduct) {
@@ -190,12 +193,14 @@ module.exports = {
                 where: {
                     id: mutation_id,
                 },
+                transaction: t
             });
 
             const checkMutationDetail = await db.mutation_details.findOne({
                 where: {
                     mutation_id,
                 },
+                transaction: t
             });
 
             if (checkMutation && checkMutationDetail) {
@@ -203,6 +208,7 @@ module.exports = {
                     where: {
                         user_id: id,
                     },
+                    transaction: t
                 });
 
                 if (
@@ -222,20 +228,18 @@ module.exports = {
                     {
                         is_approved: true,
                     },
-                    { where: { id: mutation_id } },
-                    { transaction: t },
+                    { where: { id: mutation_id }, transaction: t },
                 );
 
                 if (confMutation) {
                     // find Destination Stock
-                    const checkDestinationStock =
-                        await db.product_stocks.findOne({
-                            where: {
-                                product_id: checkMutation.product_id,
-                                warehouse_id:
-                                    checkMutationDetail.warehouse_destination_id,
-                            },
-                        });
+                    const checkDestinationStock = await db.product_stocks.findOne({
+                        where: {
+                            product_id: checkMutation.product_id,
+                            warehouse_id: checkMutationDetail.warehouse_destination_id,
+                        },
+                        transaction: t
+                    });
 
                     // find Origin stock
                     const checkOriginStock = await db.product_stocks.findOne({
@@ -243,6 +247,7 @@ module.exports = {
                             product_id: checkMutation.product_id,
                             warehouse_id: checkMutation.warehouse_origin_id,
                         },
+                        transaction: t
                     });
 
                     // Kurangin Stock ke Warehouse Destination
@@ -258,8 +263,8 @@ module.exports = {
                                 warehouse_id:
                                     checkMutationDetail.warehouse_destination_id,
                             },
+                            transaction: t
                         },
-                        { transaction: t },
                     );
 
                     // Tambahin stock ke warehouse origin
@@ -274,8 +279,8 @@ module.exports = {
                                 product_id: checkOriginStock.product_id,
                                 warehouse_id: checkMutation.warehouse_origin_id,
                             },
+                            transaction: t
                         },
-                        { transaction: t },
                     );
 
                     // Update Stock Histories Wh Destination
@@ -288,8 +293,7 @@ module.exports = {
                                 user_id: id,
                                 type_id: 2,
                                 information_id: 3,
-                                warehouse_id:
-                                    checkMutationDetail.warehouse_destination_id,
+                                warehouse_id: checkMutationDetail.warehouse_destination_id,
                             },
                             { transaction: t },
                         );
@@ -352,12 +356,14 @@ module.exports = {
                 where: {
                     id: mutation_id,
                 },
+                transaction: t
             });
 
             const checkMutationDetail = await db.mutation_details.findOne({
                 where: {
                     mutation_id,
                 },
+                transaction: t
             });
 
             if (checkMutation && checkMutationDetail) {
@@ -365,6 +371,7 @@ module.exports = {
                     where: {
                         user_id: id,
                     },
+                    transaction: t
                 });
 
                 if (
@@ -394,9 +401,11 @@ module.exports = {
                     where: {
                         id: mutation_id,
                     },
+                    transaction: t
                 },
-                { transaction: t },
             );
+
+            await t.commit();
 
             return res.status(200).send({
                 success: true,

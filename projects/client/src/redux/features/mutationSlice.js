@@ -111,7 +111,7 @@ export const requestMutation =
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
-            toast.error(error.message, {
+            toast.error('Request Mutation Failed!', {
                 position: 'top-center',
                 duration: 2000,
                 style: {
@@ -205,7 +205,7 @@ export const confirmMutation = (mutation_id, params) => async (dispatch) => {
     } catch (error) {
         dispatch(setDisabledButton(false));
         dispatch(setModal(false));
-        toast.error(error.message, {
+        toast.error('Confirm Mutation Failed!', {
             position: 'top-center',
             duration: 2000,
             style: {
@@ -264,7 +264,7 @@ export const rejectMutation = (mutation_id, params) => async (dispatch) => {
     } catch (error) {
         dispatch(setDisabledButton(false));
         dispatch(setModal(false));
-        toast.error(error.message, {
+        toast.error('Reject Mutation Failed!', {
             position: 'top-center',
             duration: 2000,
             style: {
