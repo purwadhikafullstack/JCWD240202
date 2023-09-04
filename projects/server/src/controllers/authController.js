@@ -55,9 +55,9 @@ module.exports = {
                 }, { transaction: t });
 
                 const data = await fs.readFileSync(
-                    path.resolve(
+                    path.join(
                         __dirname,
-                        '../server/src/email_template/activation.html',
+                        '../email_template/activation.html',
                     ),
                     { encoding: 'utf-8' },
                 );
@@ -83,7 +83,7 @@ module.exports = {
                 const tempCompile = await handlebars.compile(data);
                 const tempResult = tempCompile({
                     email: email,
-                    link: `http://localhost:3000/verification/${token}`,
+                    link: `https://jcwd240202.purwadhikabootcamp.com/verification/${token}`,
                 });
                 await transporter.sendMail({
                     from: 'Admin',
