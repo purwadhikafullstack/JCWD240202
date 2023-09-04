@@ -125,7 +125,7 @@ module.exports = {
                 },
                 {
                     where: {
-                        id: null,
+                        id,
                     },
                     transaction: t,
                 },
