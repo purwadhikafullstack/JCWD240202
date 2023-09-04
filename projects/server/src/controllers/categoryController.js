@@ -92,10 +92,8 @@ module.exports = {
         try {
             const { id } = req.params;
             const { name } = req.body;
-            // const image = req.files?.images[0]?.filename;
 
             if (!name) {
-                // deleteSingleFile(req.files?.images[0]?.path);
                 return res.status(406).send({
                     success: false,
                     message: 'Name are required!',
@@ -144,8 +142,6 @@ module.exports = {
                 },
             );
 
-            // deleteSingleFile(`src/public/images/${data?.image}`);
-
             await t.commit();
 
             return res.status(200).send({
@@ -155,7 +151,6 @@ module.exports = {
             });
         } catch (error) {
             await t.rollback();
-            // deleteSingleFile(req.files?.images[0]?.path);
             return res.status(500).send({
                 success: false,
                 message: error.message,
@@ -231,6 +226,7 @@ module.exports = {
                     success: false,
                     message: 'This category is currently being used!',
                 });
+            const prev = await categories.findByPk(id);
 
             const result = await categories.destroy(
                 {
@@ -242,7 +238,7 @@ module.exports = {
             );
 
             if (result) {
-                deleteSingleFile(`src/public/images/${checkData.image}`);
+                deleteSingleFile(`src/public/images/${prev.image}`);
             }
 
             await t.commit();

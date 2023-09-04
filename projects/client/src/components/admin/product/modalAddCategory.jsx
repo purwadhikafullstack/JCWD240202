@@ -10,7 +10,6 @@ import { addCategoryAsync } from '../../../redux/features/categorySlice';
 export default function ModalAddCategory(props) {
     const isSuccess = useSelector((state) => state.category.success);
     const dispatch = useDispatch();
-    // const documentBodyRef = useRef(null);
     const [imageCategory, setImageCategory] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
     const name = useRef();
@@ -29,11 +28,10 @@ export default function ModalAddCategory(props) {
                     throw { message: 'Format file must jpg, jpeg, or png' };
                 }
             });
-
             targetFiles.map((value) => {
-                if (value.size > 100000000)
+                if (value.size > 1000000)
                     throw {
-                        message: `${value.originalname} is Too Large`,
+                        message: `${value.name} is Too Large`,
                     };
             });
 
@@ -76,7 +74,6 @@ export default function ModalAddCategory(props) {
     };
 
     useEffect(() => {
-        // documentBodyRef.current = document.body;
         if (isSuccess) {
             name.current.value = '';
             setImagePreview(null);
@@ -86,7 +83,6 @@ export default function ModalAddCategory(props) {
     return (
         <>
             <Modal
-                // root={documentBodyRef.current}
                 dismissible
                 className=""
                 show={props.show}
@@ -126,7 +122,7 @@ export default function ModalAddCategory(props) {
                         <input
                             onChange={onChangeProductImg}
                             type="file"
-                            multiple="multiple"
+                            value=''
                             className="my-1 rounded-md hidden"
                         ></input>
                         <p>Upload Images</p>

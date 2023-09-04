@@ -6,7 +6,7 @@ export default function CardDetail(props) {
                 <div className="flex justify-between border rounded-md mt-2 mb-3">
                     <div className="flex-auto flex items-center w-64 p-1">
                         <img
-                            src={props?.data[0]?.image}
+                            src={props?.data[0]?.image.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data[0]?.image : props?.data[0]?.image}
                             className=" w-[100px] h-[100px] rounded-md"
                         />
                         <div className="ml-3">
@@ -37,10 +37,10 @@ export default function CardDetail(props) {
             ) : (
                 props?.data?.map((value, index) => {
                     return (
-                        <div className="flex justify-between border rounded-md mt-2 mb-3">
+                        <div key={index} className="flex justify-between border rounded-md mt-2 mb-3">
                             <div className="flex-auto flex items-center w-64 p-1">
                                 <img
-                                    src={value?.image}
+                                    src={value?.image.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.image : value?.image}
                                     className=" w-[100px] h-[100px] rounded-md"
                                 />
                                 <div className="ml-3">

@@ -8,19 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editCategoryAsync, editImageCategoryAsync } from '../../../redux/features/categorySlice';
 
 export default function ModalEditCategory(props) {
+    const documentBodyRef = useRef(null);
     const isSuccess = useSelector((state) => state.category.success);
     const dispatch = useDispatch()
-    // const documentBodyRef = useRef(null);
     const [showEditImg, setShowEditImg] = useState(true);
     const [imageCategory, setImageCategory] = useState([]);
     const [imagePreview, setImagePreview] = useState([]);
-    const name = useRef()
+    const [names, setNames] = useState()
 
     const onChangeProductImg = (e) => {
         try {
             const selectedFIles = [];
             const targetFiles = e.target.files[0];
-            console.log(targetFiles)
 
             if (
                 e.target.files[0]?.type.split('/')[1].toLowerCase() !== 'jpg' &&
@@ -71,17 +70,21 @@ export default function ModalEditCategory(props) {
 };
 
     useEffect(() => {
-        defaultValue()
-    },[isSuccess])
+        documentBodyRef.current = document.body;
+        setNames(props.data?.name)
+        if (isSuccess) {
+            defaultValue()
+        }
+    },[isSuccess, props.show])
 
     return (
         <>
             <Modal
-                // root={documentBodyRef.current}
+                root={documentBodyRef.current}
                 dismissible
                 className=""
                 show={props.show}
-                onClose={() => props.funcShow(false)}
+                onClose={() => { props.funcShow(false)}}
             >
                 <Modal.Header>
                     <div className="text-xl">Edit Category</div>
@@ -121,7 +124,7 @@ export default function ModalEditCategory(props) {
                             <input
                                 onChange={onChangeProductImg}
                                 type="file"
-                                multiple="multiple"
+                                value=''
                                 className="my-1 rounded-md hidden"
                             ></input>
                             <p>Upload Images</p>
@@ -160,15 +163,19 @@ export default function ModalEditCategory(props) {
                             className="border border-gray-400 w-[300px] rounded-md px-2 h-10 w-full focus:outline-none focus:border-blue-700 focus:ring-blue-600 focus:ring-1"
                             placeholder="Name"
                             type="text"
-                            ref={name}
-                            defaultValue={props.data?.name}
+                            // ref={name}
+                            // defaultValue={props.data?.name}
+                            onChange={(e) => {
+                                setNames(e.target.value);
+                            }}
+                            value={names}
                         />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <button
                         className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed`}
-                        onClick={() => dispatch(editCategoryAsync(name.current.value, props.data?.id))}
+                        onClick={() => dispatch(editCategoryAsync(names, props.data?.id))}
                     >
                         Confirm
                     </button>

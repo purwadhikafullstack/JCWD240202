@@ -126,12 +126,13 @@ module.exports = {
                 where: {
                     email,
                 },
+                transaction: t,
             });
 
             if (checkEmail) {
                 return res.status(406).send({
                     success: false,
-                    message: "Email is Already Used!",
+                    message: 'Email is Already Used!',
                     data: null,
                 });
             }
@@ -165,6 +166,7 @@ module.exports = {
                 where: {
                     email,
                 },
+                transaction: t,
             });
 
             const verifyRecaptcha = await googleRecaptcha(tokenRecaptcha);
@@ -197,15 +199,23 @@ module.exports = {
                     },
                     { transaction: t },
                 );
+
+                if (!registerAdmin) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'Registered Failed!',
+                        data: null,
+                    });
+                } else {
+                    await t.commit();
+
+                    return res.status(200).send({
+                        success: true,
+                        message: 'Register success!',
+                        data: {},
+                    });
+                }
             }
-
-            await t.commit();
-
-            return res.status(200).send({
-                success: true,
-                message: 'Register success!',
-                data: {},
-            });
         } catch (error) {
             await t.rollback();
             res.status(500).send({

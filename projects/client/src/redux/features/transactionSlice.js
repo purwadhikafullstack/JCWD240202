@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { getUserNotificationAsync } from './notificationSlice';
 
 const initialState = {
     data: {},
@@ -47,7 +48,6 @@ export const allTransactionAsync =
                     },
                 },
             );
-
             setTimeout(() => {
                 dispatch(setLoading(true));
             }, 1000);
@@ -58,7 +58,7 @@ export const allTransactionAsync =
         }
     };
 
-export const confirmPaymentAsync = (cartId) => async (dispatch) => {
+export const confirmPaymentAsync = (cartId, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(
@@ -73,7 +73,8 @@ export const confirmPaymentAsync = (cartId) => async (dispatch) => {
                 },
             },
         );
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
+        dispatch(getUserNotificationAsync({page: 1}))
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -111,7 +112,7 @@ export const confirmPaymentAsync = (cartId) => async (dispatch) => {
     }
 };
 
-export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
+export const cancelConfirmPaymentAsync = (order_id, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.patch(
@@ -125,7 +126,7 @@ export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
                 },
             },
         );
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -145,7 +146,7 @@ export const cancelConfirmPaymentAsync = (order_id) => async (dispatch) => {
     }
 };
 
-export const sendUserOrder = (order_id) => async (dispatch) => {
+export const sendUserOrder = (order_id, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(
@@ -160,7 +161,8 @@ export const sendUserOrder = (order_id) => async (dispatch) => {
                 },
             },
         );
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
+        dispatch(getUserNotificationAsync({page: 1}))
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,
@@ -180,7 +182,7 @@ export const sendUserOrder = (order_id) => async (dispatch) => {
     }
 };
 
-export const cancelShipping = (order_id) => async (dispatch) => {
+export const cancelShipping = (order_id, page, warehouse, search, startDate, endDate, statusId, sort) => async (dispatch) => {
     try {
         const dataLogin = JSON.parse(localStorage?.getItem('user'));
         const result = await axios.post(
@@ -195,7 +197,7 @@ export const cancelShipping = (order_id) => async (dispatch) => {
                 },
             },
         );
-        dispatch(allTransactionAsync());
+        dispatch(allTransactionAsync(page, warehouse, search, startDate, endDate, statusId, sort));
         toast.success(result.data.message, {
             position: 'top-center',
             duration: 2000,

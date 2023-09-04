@@ -289,6 +289,7 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
 
         if (result) {
             dispatch(productDetailsAsync(id));
+            dispatch(getAllProductsAsync());
             toast.success(result.data.message, {
                 position: 'top-center',
                 duration: 2000,
@@ -299,6 +300,7 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
                     color: 'white',
                 },
             });
+            dispatch(setSuccess(true));
         }
     } catch (error) {
         if (error.response) {
@@ -324,6 +326,8 @@ export const editProductImageAsync = (imageProduct, id) => async (dispatch) => {
                 },
             });
         }
+    } finally {
+        dispatch(setSuccess(false));
     }
 };
 

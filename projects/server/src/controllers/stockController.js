@@ -181,12 +181,14 @@ module.exports = {
                 where: {
                     user_id: id,
                 },
+                transaction: t
             });
 
             const checkProduct = await stock.findOne({
                 where: {
                     id: product_stock_id,
                 },
+                transaction: t
             });
 
             if (!checkProduct) {
@@ -222,14 +224,14 @@ module.exports = {
                     where: {
                         id: checkProduct.product_id,
                     },
+                    transaction: t
                 });
 
                 var addQuantity = await stock.update(
                     {
                         stock: Number(checkProduct.stock) + Number(quantity),
                     },
-                    { where: { id: product_stock_id } },
-                    { transaction: t },
+                    { where: { id: product_stock_id }, transaction: t },
                 );
 
                 // Update total_stock in products table
@@ -242,8 +244,8 @@ module.exports = {
                         where: {
                             id: findProduct.id,
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
 
                 await db.stock_histories.create(
@@ -289,12 +291,14 @@ module.exports = {
                 where: {
                     user_id: id,
                 },
+                transaction: t
             });
 
             const checkProduct = await stock.findOne({
                 where: {
                     id: product_stock_id,
                 },
+                transaction: t
             });
 
             if (!checkProduct) {
@@ -338,14 +342,14 @@ module.exports = {
                     where: {
                         id: checkProduct.product_id,
                     },
+                    transaction: t
                 });
 
                 var reduceQuantity = await stock.update(
                     {
                         stock: Number(checkProduct.stock) - Number(quantity),
                     },
-                    { where: { id: product_stock_id } },
-                    { transaction: t },
+                    { where: { id: product_stock_id }, transaction: t },
                 );
 
                 var updateTotalStock = await db.products.update(
@@ -357,8 +361,8 @@ module.exports = {
                         where: {
                             id: findProduct.id,
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
 
                 await db.stock_histories.create(

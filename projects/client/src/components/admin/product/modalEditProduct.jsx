@@ -41,9 +41,9 @@ export default function ModalEditProduct(props) {
             });
 
             targetFiles.map((value) => {
-                if (value.size > 100000000)
+                if (value.size > 1000000)
                     throw {
-                        message: `${value.originalname} is Too Large`,
+                        message: `${value.name} is Too Large`,
                     };
             });
 
@@ -87,6 +87,9 @@ export default function ModalEditProduct(props) {
     const defaultValue = () => {
         if (isSuccess) {
             props.funcShow(false);
+            setShowEditImg(true)
+            setImagePreview(null);
+            setImageProduct(null)
         }
     };
 
@@ -101,7 +104,9 @@ export default function ModalEditProduct(props) {
         setWidth(props.data?.width);
         setHeight(props.data?.height);
         setWeight(props.data?.weight);
-        defaultValue()
+        if (isSuccess) {
+            defaultValue()
+        }
     }, [proDetails, isSuccess]);
 
     return (
@@ -160,6 +165,7 @@ export default function ModalEditProduct(props) {
                                 onChange={onChangeProductImg}
                                 type="file"
                                 multiple="multiple"
+                                value=''
                                 className="my-1 rounded-md hidden"
                             ></input>
                             <p>Upload Images</p>

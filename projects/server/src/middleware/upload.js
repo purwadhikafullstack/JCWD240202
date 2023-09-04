@@ -6,7 +6,6 @@ const upload = (req, res, next) => {
     const multerResult = multerUpload.fields([{ name: 'images', maxCount: 5 }]);
     multerResult(req, res, function (err) {
         try {
-            console.log(req.files?.images, 'iniiiiiiii')
             if (!req.files?.images)
                 return res.status(404).send({
                     success: false,

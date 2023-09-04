@@ -21,7 +21,7 @@ module.exports = {
                 statusId,
             } = req.query;
 
-            const limit = 2;
+            const limit = 5;
             const offset = (Number(page ? page : 1) - 1) * limit;
             let order = [['createdAt', 'DESC']];
             let where = undefined;
@@ -52,6 +52,14 @@ module.exports = {
                             ],
                         },
                     };
+                } else if (startDate) {
+                    where = {
+                        warehouse_id: userWhId.dataValues.id,
+                        invoice_number: { [Op.substring]: [search] },
+                        createdAt: {
+                            [Op.gte]: new Date(startDate),
+                        },
+                    };
                 } else {
                     where = {
                         warehouse_id: userWhId.dataValues.id,
@@ -80,7 +88,15 @@ module.exports = {
                                 ],
                             },
                         };
-                    } else {
+                    } else if (startDate) {
+                        where = {
+                            warehouse_id: userWhId.dataValues.id,
+                            invoice_number: { [Op.substring]: [search] },
+                            createdAt: {
+                                [Op.gte]: new Date(startDate),
+                            },
+                        };
+                    }else {
                         where = {
                             warehouse_id: whId.dataValues.id,
                             invoice_number: { [Op.substring]: [search] },
@@ -95,6 +111,13 @@ module.exports = {
                                     new Date(startDate),
                                     new Date(dateEnd),
                                 ],
+                            },
+                        };
+                    } else if (startDate) {
+                        where = {
+                            invoice_number: { [Op.substring]: [search] },
+                            createdAt: {
+                                [Op.gte]: new Date(startDate),
                             },
                         };
                     } else {
@@ -184,6 +207,7 @@ module.exports = {
                 },
             });
             const findNearestWh = await warehouses.findAll({
+                where: {is_deleted: false},
                 attributes: [
                     'id',
                     [
@@ -219,7 +243,6 @@ module.exports = {
             });
 
             let enoughStock = [];
-            // let history = []
             let historyMut = [];
             let mutation = [];
             let mutationDetail = [];
@@ -246,15 +269,12 @@ module.exports = {
                                     product_stock_id: stockWh.id,
                                 });
                             }
-                            // history.push({ product_id: product.product_id, quantity: product.quantity, order_id: data.id, user_id, warehouse_id: data.warehouse_id, type_id: 2, information_id: 2 })
-                            // mutation.push({ product_id: product.product_id, warehouse_origin_id: data.warehouse_id, user_id, is_approved: true, })
                         } else if (product.quantity < stockWh.stock) {
                             enoughStock.push({
                                 product_id: product.product_id,
                                 resultStock: stockWh.stock - product.quantity,
                                 product_stock_id: stockWh.id,
                             });
-                            // history.push({product_id: product.product_id, quantity: product.quantity, order_id: data.id, user_id, warehouse_id: data.warehouse_id, type_id: 2, information_id: 2})
                         }
                     }
                 });
@@ -390,13 +410,13 @@ module.exports = {
                                 warehouse_origin_id: value.warehouse_origin_id,
                                 user_id,
                                 is_approved: value.is_approved,
-                            });
+                            },{ transaction: t });
                             const mutTail = await db.mutation_details.create({
                                 warehouse_destination_id:
                                     val.warehouse_destination_id,
                                 mutation_id: mut.id,
                                 quantity: val.quantity,
-                            });
+                            },{ transaction: t });
                             historyMut.map(async (value) => {
                                 if (
                                     value.cek ===
@@ -412,43 +432,13 @@ module.exports = {
                                         user_id,
                                         type_id: value.type_id,
                                         information_id: value.information_id,
-                                    });
+                                    },{ transaction: t });
                                 }
                             });
                         }
                     });
                 });
             }
-            // const updateMutation = await db.mutations.bulkCreate(mutation, { transaction: t })
-            // if (updateMutation) {
-            //     await updateMutation.map(async (val) => {
-            //         mutationDetail.map(async (value) => {
-            //             if (val.product_id === value.product_id) {
-            //                 await db.mutation_details.create({
-            //                     warehouse_destination_id: value.warehouse_destination_id,
-            //                     mutation_id: val.id,
-            //                     quantity: value.quantity
-            //                 }, { transaction: t })
-            //             }
-            //         })
-            //     })
-            //     await updateMutation.map(async (val) => {
-            //         historyMut.map(async (value) => {
-            //             if (val.product_id === value.product_id) {
-            //                 await db.stock_histories.create({
-            //                     product_id: value.product_id,
-            //                     warehouse_id: value.warehouse_id,
-            //                     quantity: value.quantity,
-            //                     mutation_id: val.id,
-            //                     order_id: data.id,
-            //                     user_id,
-            //                     type_id: value.type_id,
-            //                     information_id: value.information_id,
-            //                 }, { transaction: t })
-            //             }
-            //         })
-            //     })
-            // }
             enoughStock.map(async (value) => {
                 await db.product_stocks.update(
                     {
@@ -457,19 +447,26 @@ module.exports = {
                     {
                         where: {
                             id: value.product_stock_id,
-                        },
-                    },
-                    { transaction: t },
+                        }, transaction: t
+                    }
                 );
             });
 
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 2, order_id: data.id } },
-                { transaction: t },
+                { where: { status_id: 2, order_id: data.id }, transaction: t },
             );
             const createStatus = await db.order_statuses.create(
                 { status_id: 3, order_id: data.id, is_active: 1 },
+                { transaction: t },
+            );
+            await db.notifications.create(
+                {
+                    order_id: data.id,
+                    user_id: data.cart.user_id,
+                    message: 'Your payment has been confirmed by admin and your order is being processed',
+                    title: 'Payment Success',
+                },
                 { transaction: t },
             );
             await t.commit();
@@ -631,6 +628,15 @@ module.exports = {
                 },
                 { transaction: t },
             );
+            await db.notifications.create(
+                {
+                    order_id,
+                    user_id: data.cart.user_id,
+                    message: 'Your order is on the way',
+                    title: 'Order Sent',
+                },
+                { transaction: t },
+            );
             const expired = await sequelize.query(`
             CREATE EVENT shipping_expired_${order_id} ON SCHEDULE AT NOW() + INTERVAL 7 DAY
             DO BEGIN
@@ -641,12 +647,11 @@ module.exports = {
             UPDATE order_statuses SET is_active = 0 WHERE order_id = "${order_id}" AND status_id = 4;
             END IF;
             END;`);
-            await t.commit();
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 3, order_id } },
-                { transaction: t },
-            );
+                { where: { status_id: 3, order_id }, transaction: t }
+                );
+                await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Sending users order!',
@@ -670,6 +675,7 @@ module.exports = {
             const { order_id } = req.body;
             let prevStock = [];
             let stockHis = [];
+            let prevStockTotal = []
             const data = await orders.findOne({
                 where: {
                     id: order_id,
@@ -681,6 +687,12 @@ module.exports = {
                     order_id,
                     type_id: 2,
                 },
+            });
+            await data.cart?.cart_products.map((val) => {
+                prevStockTotal.push({
+                    product_id: val.product_id,
+                    stock: val.quantity,
+                });
             });
             if (stockHistory.length === 0) {
                 await data.cart?.cart_products.map((val) => {
@@ -720,9 +732,8 @@ module.exports = {
                                     where: {
                                         product_id: product.product_id,
                                         warehouse_id: data.warehouse_id,
-                                    },
-                                },
-                                { transaction: t },
+                                    }, transaction: t
+                                }
                             );
                             totalFromMut = 0;
                         } else {
@@ -734,25 +745,35 @@ module.exports = {
                         }
                     },
                 );
-                await stockHistory.map(async (value) => {
-                    await db.mutations.destroy(
-                        {
-                            where: {
-                                id: value.mutation_id,
-                            },
-                        },
-                        { transaction: t },
-                    );
-                    await db.mutation_details.destroy(
-                        {
-                            where: {
-                                mutation_id: value.mutation_id,
-                            },
-                        },
-                        { transaction: t },
-                    );
-                });
+                // await stockHistory.map(async (value) => {
+                //     await db.mutation_details.destroy(
+                //         {
+                //             where: {
+                //                 mutation_id: value.mutation_id,
+                //             },
+                //         },
+                //         { transaction: t },
+                //     );
+                //     await db.mutations.destroy(
+                //         {
+                //             where: {
+                //                 id: value.mutation_id,
+                //             },
+                //         },
+                //         { transaction: t },
+                //     );
+                // });
             }
+            prevStockTotal.map(async(value) => {
+                const data = await db.products.findByPk(value.product_id)
+                await db.products.update({
+                    total_stock: value.stock + data.total_stock
+                }, {
+                    where: {
+                        id: value.product_id
+                    }, transaction: t
+                })
+            })
             if (prevStock.length > 0) {
                 prevStock.map(async (value) => {
                     const data = await db.product_stocks.findOne({
@@ -769,9 +790,8 @@ module.exports = {
                             where: {
                                 product_id: value.product_id,
                                 warehouse_id: value.warehouse_id,
-                            },
-                        },
-                        { transaction: t },
+                            }, transaction: t
+                        }
                     );
                 });
             }
@@ -792,17 +812,10 @@ module.exports = {
                     { transaction: t },
                 );
             }
-            // const mutationId = new Set();
-            // const getMutationId = stockHistory.filter((item) => {
-            //     const isDuplicate = mutationId.has(item.mutation_id);
-            //     mutationId.add(item.mutation_id);
-            //     return !isDuplicate;
-            // });
 
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 3, order_id } },
-                { transaction: t },
+                { where: { status_id: 3, order_id }, transaction: t }
             );
             const createStatus = await db.order_statuses.create(
                 { status_id: 6, order_id, is_active: 1 },
@@ -831,7 +844,7 @@ module.exports = {
             const result = await db.order_statuses.findAll({
                 where: { order_id },
                 include: [{ model: orders }, { model: db.statuses }],
-                order: [['status_id', 'DESC']],
+                order: [['id', 'DESC']],
             });
             if (!result) {
                 return res.status(404).send({

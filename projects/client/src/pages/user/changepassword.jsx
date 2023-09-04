@@ -24,51 +24,47 @@ export default function ChangePasswordUser() {
     const changePassword = async () => {
         try {
             setDisabled(true);
-            if (
-                pattern.test(newPassword) === false ||
-                pattern.test(confirmPassword) === false
-            ) {
-                throw {
-                    message:
-                        'Password must be 8 characters, 1 uppercase, 1 lowercase and 1 number!',
-                };
-            } else if (newPassword !== confirmPassword) {
-                throw { message: "Password doesn't match" };
-            } else {
-                const updatePassword = await axios.patch(
-                    process.env.REACT_APP_API_BASE_URL +
-                        '/users/change-password',
-                    {
-                        prev_password: prevPassword,
-                        new_password: newPassword,
-                        confirm_password: confirmPassword,
-                    },
-                    {
-                        headers: {
-                            authorization: `Bearer ${token}`,
-                        },
-                    },
-                );
 
-                if (updatePassword.data.success) {
-                    setDisabled(false);
-                    toast.success('Password updated!', {
-                        position: 'top-center',
-                        duration: 2000,
-                        style: {
-                            border: '2px solid #000',
-                            borderRadius: '10px',
-                            background: '#0051BA',
-                            color: 'white',
-                        },
-                    });
-                    setPrevPassword('');
-                    setNewPassword('');
-                    setConfirmPassword('');
-                    setShowPassword(true);
-                    setShowNewPassword(true);
-                    setShowConfirmPassword(true);
-                }
+            if (pattern.test(newPassword) === false) {
+                throw {message: 'Password must be 8 characters, 1 uppercase, 1 lowercase and 1 number!'};
+            }
+
+            if (newPassword !== confirmPassword) {
+                throw { message: "Password doesn't match" };
+            }
+            
+            const updatePassword = await axios.patch(
+                process.env.REACT_APP_API_BASE_URL + '/users/change-password',
+                {
+                    prev_password: prevPassword,
+                    new_password: newPassword,
+                    confirm_password: confirmPassword,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+
+            if (updatePassword.data.success) {
+                setDisabled(false);
+                toast.success('Password updated!', {
+                    position: 'top-center',
+                    duration: 2000,
+                    style: {
+                        border: '2px solid #000',
+                        borderRadius: '10px',
+                        background: '#0051BA',
+                        color: 'white',
+                    },
+                });
+                setPrevPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
+                setShowPassword(true);
+                setShowNewPassword(true);
+                setShowConfirmPassword(true);
             }
         } catch (error) {
             setDisabled(false);
@@ -112,7 +108,9 @@ export default function ChangePasswordUser() {
                             <ProfileTabs />
                             <div className="w-full md:flex justify-center items-center mt-8">
                                 <div>
-                                    <h1 className='font-bold text-2xl mb-8'>CHANGE PASSWORD</h1>
+                                    <h1 className="font-bold text-2xl mb-8">
+                                        CHANGE PASSWORD
+                                    </h1>
                                     <form>
                                         <label className="block mb-3 w-full md:w-[500px]">
                                             <span className="block text-sm font-medium text-slate-700 mb-1">
