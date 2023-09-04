@@ -11,7 +11,7 @@ export default function CategoryCard(props) {
             }}
             className="hover:cursor-pointer hover:font-bold text-lg"
         >
-            <div className="w-[200px] h-[150px]">
+            <div className="md:w-[200px] md:h-[150px] max-md:w-[150px] max-md:w-[75px]">
                 <div>
                     <img
                         src={
@@ -21,7 +21,7 @@ export default function CategoryCard(props) {
                                 : props?.data?.image
                         }
                         alt="..."
-                        className="w-full h-[150px] rounded-lg transition-transform duration-300 ease-in-out transform scale-100 hover:scale-105"
+                        className="w-full md:h-[150px] max-md:h-[100px] rounded-lg transition-transform duration-300 ease-in-out transform scale-100 hover:scale-105"
                     />
                 </div>
             </div>

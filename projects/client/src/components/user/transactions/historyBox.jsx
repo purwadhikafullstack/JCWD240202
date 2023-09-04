@@ -63,8 +63,10 @@ export default function TransactionHistoryBox(props) {
                             <img
                                 src={
                                     props?.data?.value?.cart?.cart_products[0]
+                                        ?.image.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.value?.cart?.cart_products[0]
+                                        ?.image : props?.data?.value?.cart?.cart_products[0]
                                         ?.image
-                                }
+                                 }
                                 alt="product_image"
                                 className="max-md:hidden md:h-[200px] md:w-[200px]"
                             />

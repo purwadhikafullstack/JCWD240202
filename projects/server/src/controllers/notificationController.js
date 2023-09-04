@@ -83,7 +83,7 @@ const getUserNotification = async (req, res) => {
             where: { user_id },
             order: [['id', 'DESC']],
             limit,
-            offset: paginationOffset
+            offset: paginationOffset,
         });
 
         const countUnReadNotif = await notifications.findAndCountAll({
@@ -99,7 +99,7 @@ const getUserNotification = async (req, res) => {
                     notifications: getNotification,
                     unReadCount: countUnReadNotif.count,
                 },
-                totalPage
+                totalPage,
             });
         } else {
             res.status(400).send({
@@ -167,8 +167,7 @@ const userReadNotification = async (req, res) => {
         } else {
             const readNotif = await notifications.update(
                 { is_read: true },
-                { where: { id: findNotif.id } },
-                { transaction: t },
+                { where: { id: findNotif.id }, transaction: t },
             );
 
             await t.commit();

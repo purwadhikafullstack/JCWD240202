@@ -41,6 +41,8 @@ export default function WishlistCard(props) {
                             <img
                                 src={
                                     props?.data?.value?.product
+                                        ?.product_images[0].name ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.value?.product
+                                        ?.product_images[0].name : props?.data?.value?.product
                                         ?.product_images[0].name
                                 }
                                 alt="wishlist_image"

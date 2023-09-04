@@ -396,7 +396,7 @@ export default function ProductDetails() {
                         </div>
                     )}
                     <div className="pt-9 flex gap-9 max-md:w-screen max-md:overflow-auto">
-                        <RelatedProducts data={{ recommendation, loading }} />
+                        <RelatedProducts data={{ recommendation, loading, setQuantity }} />
                     </div>
                 </div>
             </div>

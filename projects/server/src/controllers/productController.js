@@ -384,7 +384,7 @@ const deleteProduct = async (req, res) => {
         const { id } = req.params;
 
         const checkData = await products.findOne({
-            where: { id },
+            where: { id: Number(id) },
         });
 
         if (!checkData)
@@ -399,25 +399,24 @@ const deleteProduct = async (req, res) => {
                 is_deleted: true,
             },
             {
-                where: { id },
+                where: { id: checkData.id },
+                transaction: t,
             },
-            { transaction: t },
         );
 
         const imageToDelete = await product_images.findAll({
             where: {
-                product_id: id,
+                product_id: checkData.id,
                 is_thumbnail: 0,
             },
         });
-        await imageToDelete.map((value) => {
-            product_images.destroy(
-                {
-                    where: { name: value?.dataValues.name },
-                },
-                { transaction: t },
-            );
-        });
+
+        for (let i = 0; i < imageToDelete.length; i++) {
+            const deleteImages = await product_images.destroy({
+                where: { id: imageToDelete[i]?.dataValues?.id },
+                transaction: t,
+            });
+        }
 
         deleteFilesPublic(imageToDelete);
 

@@ -36,7 +36,7 @@ export default function Wishlist() {
                 <div className="w-full flex justify-start">
                     <div className='md:w-3/4 max-md:w-full'>
                         <div className="font-bold text-3xl">Wishlists</div>
-                        <div className="md:w-1/6 max-md:w-full pt-4">
+                        <div className={`md:w-1/6 max-md:w-full pt-4 ${wishlistData?.data?.wishlists.length === 0 ? 'hidden' : ''}`}>
                             <Select onChange={(e) => setSort(e.target.value)}>
                                 <option value={'newest'}>Newest</option>
                                 <option value={'oldest'}>Oldest</option>

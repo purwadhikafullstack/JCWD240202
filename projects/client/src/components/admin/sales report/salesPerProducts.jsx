@@ -98,7 +98,7 @@ export default function SalesPerProducts(props) {
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     <div className='flex justify-center'>
-                                                        <div className='flex justify-start w-1/2'>
+                                                        <div className='flex justify-start w-2/3'>
                                                             Rp{' '}
                                                             {Number(
                                                                 value.totalSales,

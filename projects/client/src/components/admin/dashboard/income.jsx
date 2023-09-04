@@ -36,9 +36,12 @@ export default function Income(props) {
                     <div className="pt-4">
                         <div className="font-bold text-2xl">
                             Rp{' '}
-                            {Number(
-                                income?.data?.salesCurrentMonth[0]?.total_sales,
-                            ).toLocaleString('id-ID')}
+                            {income?.data?.salesCurrentMonth[0]?.total_sales
+                                ? Number(
+                                      income?.data?.salesCurrentMonth[0]
+                                          ?.total_sales,
+                                  ).toLocaleString('id-ID')
+                                : 0}
                         </div>
                     </div>
                 </div>

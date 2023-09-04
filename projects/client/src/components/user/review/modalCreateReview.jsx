@@ -125,7 +125,13 @@ export default function ModalCreateReview(props) {
                                             {' '}
                                             <div className="h-48 w-48 flex items-center">
                                                 <img
-                                                    src={value.image}
+                                                    src={
+                                                        value.image
+                                                            ? process.env
+                                                                  .REACT_APP_API_IMAGE_URL +
+                                                              value?.image
+                                                            : value?.image
+                                                    }
                                                     alt="product_image"
                                                 />
                                             </div>
@@ -207,7 +213,13 @@ export default function ModalCreateReview(props) {
                                             {' '}
                                             <div className="h-48 w-48 flex items-center">
                                                 <img
-                                                    src={value.image}
+                                                    src={
+                                                        value.image
+                                                            ? process.env
+                                                                  .REACT_APP_API_IMAGE_URL +
+                                                              value?.image
+                                                            : value?.image
+                                                    }
                                                     alt="product_image"
                                                 />
                                             </div>
@@ -256,8 +268,9 @@ export default function ModalCreateReview(props) {
                                                 <div className="w-full">
                                                     <Textarea
                                                         ref={_comment}
-                                                        placeholder="Write Your Review Here"
+                                                        placeholder="Write Your Review Here (max 100 characters)"
                                                         className="h-[100px]"
+                                                        maxLength={100}
                                                     ></Textarea>
                                                 </div>
                                                 <div>

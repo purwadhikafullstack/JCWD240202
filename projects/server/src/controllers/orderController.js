@@ -256,6 +256,7 @@ const postUserPaymentProof = async (req, res) => {
 };
 
 const userCancelOrder = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { order_id } = req.body;
@@ -273,36 +274,45 @@ const userCancelOrder = async (req, res) => {
                 },
             });
             if (getStatus) {
-                const cancelOrder = await order_statuses.create({
-                    order_id: findOrder.id,
-                    status_id: 6,
-                    is_active: true,
-                });
+                const cancelOrder = await order_statuses.create(
+                    {
+                        order_id: findOrder.id,
+                        status_id: 6,
+                        is_active: true,
+                    },
+                    { transaction: t },
+                );
                 const updatePrev = await order_statuses.update(
                     {
                         is_active: false,
                     },
-                    { where: { id: getStatus.id } },
+                    { where: { id: getStatus.id }, transaction: t },
                 );
 
-                const updateStock = findOrder.cart.cart_products.map(
-                    async (value) => {
-                        const getStock = await products.findOne({
-                            where: { id: value.product_id },
-                        });
+                for (let i = 0; i < findOrder.cart.cart_products.length; i++) {
+                    console.log(findOrder.cart.cart_products[i]);
+                    const getStock = await products.findOne({
+                        where: {
+                            id: findOrder.cart.cart_products[i].product_id,
+                        },
+                    });
 
-                        await products.update(
-                            {
-                                total_stock:
-                                    getStock.total_stock + value.quantity,
+                    await products.update(
+                        {
+                            total_stock:
+                                getStock.total_stock +
+                                findOrder.cart.cart_products[i].quantity,
+                        },
+                        {
+                            where: {
+                                id: findOrder.cart.cart_products[i].product_id,
                             },
-                            {
-                                where: { id: value.product_id },
-                            },
-                        );
-                    },
-                );
+                            transaction: t,
+                        },
+                    );
+                }
 
+                await t.commit();
                 res.status(200).send({
                     success: true,
                     message: 'order cancelled',
@@ -323,6 +333,7 @@ const userCancelOrder = async (req, res) => {
             });
         }
     } catch (error) {
+        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,

@@ -17,7 +17,9 @@ export const notificationSlice = createSlice({
 });
 
 export const getUserNotificationAsync = (data) => async (dispatch) => {
-    const getUser = JSON.parse(localStorage?.getItem('user'));
+    const getUser = localStorage.getItem('user')
+        ? JSON.parse(localStorage?.getItem('user'))
+        : null;
     try {
         const getNotifications = await axios.get(
             process.env.REACT_APP_API_BASE_URL +

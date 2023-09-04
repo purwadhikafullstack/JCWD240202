@@ -205,14 +205,12 @@ const removeReview = async (req, res) => {
             where: { id: review_id, user_id },
         });
         if (findReview) {
-            const removeReview = await reviews.destroy(
-                {
-                    where: {
-                        id: findReview.id,
-                    },
+            const removeReview = await reviews.destroy({
+                where: {
+                    id: findReview.id,
                 },
-                { transaction: t },
-            );
+                transaction: t,
+            });
 
             await t.commit();
             res.status(200).send({

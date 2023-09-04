@@ -155,12 +155,10 @@ const removeProductFromWishlist = async (req, res) => {
         const user_id = req.User.id;
         const { product_id } = req.params;
 
-        const remove = await wishlists.destroy(
-            {
-                where: { user_id, product_id },
-            },
-            { transaction: t },
-        );
+        const remove = await wishlists.destroy({
+            where: { user_id, product_id },
+            transaction: t,
+        });
 
         if (remove) {
             await t.commit();

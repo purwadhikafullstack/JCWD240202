@@ -5,7 +5,6 @@ export default function ServicesBox({ loading }) {
         <>
             {loading ? (
                 <div className="flex gap-9 mx-24">
-                    {/* pengantaran */}
                     <div className="border flex-1 p-9 bg-gray-200 flex justify-center">
                         <div className="text-center">
                             <div className="flex justify-center">
@@ -17,7 +16,6 @@ export default function ServicesBox({ loading }) {
                             </div>
                         </div>
                     </div>
-                    {/* perakitan */}
                     <div className="border flex-1 p-9 bg-gray-200">
                         <div className="text-center">
                             <div className="flex justify-center">
@@ -30,7 +28,6 @@ export default function ServicesBox({ loading }) {
                             </div>
                         </div>
                     </div>
-                    {/* Lacak pesanan */}
                     <div className="border flex-1 p-9 bg-gray-200">
                         <div className="text-center">
                             <div className="flex justify-center">

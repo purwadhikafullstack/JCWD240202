@@ -34,7 +34,6 @@ export default function CategoryProducts() {
 
     return (
         <>
-            {console.log('=>', colorId)}
             <div>
                 <Helmet>
                     <title>IKEWA | Category</title>

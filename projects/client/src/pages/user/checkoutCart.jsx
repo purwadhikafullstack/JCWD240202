@@ -46,7 +46,7 @@ export default function CheckoutCart() {
             setShippingFee(0);
         } else {
             setShippingMethod(e.target.value);
-            const fee = (closestWH.data.distanceInKm * 5000).toFixed(2);
+            const fee = (((closestWH.data.distanceInKm/10) * 6800) + 50000).toFixed(2);
             setShippingFee(fee);
         }
     };
