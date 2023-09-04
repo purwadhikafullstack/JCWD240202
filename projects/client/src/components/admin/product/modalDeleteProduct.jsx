@@ -1,5 +1,5 @@
 import { Modal } from 'flowbite-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteProductAsync } from '../../../redux/features/productSlice';
 
 

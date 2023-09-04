@@ -1,5 +1,5 @@
 import { MdDeleteForever } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SkeletonColorAdmin from './skeletonColorAdmin';
 
 export default function ComListColor(props) {

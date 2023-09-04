@@ -152,9 +152,6 @@ export const editImageCategoryAsync =
         try {
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
-            // let fd = new FormData();
-            // fd.append('images', imageCategory);
-
             const result = await axios.patch(
                 process.env.REACT_APP_API_BASE_URL + `/categories/images/${id}`,
                 { images: imageCategory },

@@ -62,10 +62,10 @@ export const userReadNotificationAsync = (data) => async (dispatch) => {
 };
 
 export const createNotificationAsync = (data) => async (dispatch) => {
-    const getUser = localStorage.getItem('user')
-        ? JSON.parse(localStorage?.getItem('user'))
-        : null;
     try {
+        const getUser = localStorage.getItem('user')
+            ? JSON.parse(localStorage?.getItem('user'))
+            : null;
         const createNotif = await axios.post(
             process.env.REACT_APP_API_BASE_URL + `/notifications`,
             {
