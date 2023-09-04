@@ -141,7 +141,7 @@ export default function ResetPassword() {
                                     <>
                                         <div className="border border-[#fd5c65] mt-2 w-[50px]"></div>
                                         <div className="text-[11px] text-[#fd5c65]">
-                                            password too short
+                                            weak password
                                         </div>
                                     </>
                                 )
