@@ -287,7 +287,7 @@ module.exports = {
             });
             await transporter.sendMail({
                 from: 'Admin',
-                to: 'jcwd2402@gmail.com',
+                to: email,
                 subject: 'Reset Password',
                 html: tempResult,
             });
