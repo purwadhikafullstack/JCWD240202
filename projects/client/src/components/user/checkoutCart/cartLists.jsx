@@ -3,7 +3,12 @@ export default function CartLists(props) {
         <div className="flex py-4 gap-9 max-md:h-[200px]">
             <div className="md:w-[200px] md:h-[150px] max-md:flex-2">
                 <img
-                    src={props?.data?.value?.image}
+                    src={
+                        props?.data?.value?.image.startsWith('PIMG')
+                            ? process.env.REACT_APP_API_IMAGE_URL +
+                              props?.data?.value?.image
+                            : props?.data?.value?.image
+                    }
                     alt="product_image"
                     className="md:w-[200px] md:h-[150px] max-md:w-[100px] max-md:h-[150px]"
                 />

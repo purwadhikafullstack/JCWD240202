@@ -18,6 +18,7 @@ export default function ProductsCard(props) {
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
     const navigate = useNavigate();
+    const addToCartProcess = useSelector((state) => state.cart.addToCart);
 
     return (
         <div className="lg:w-[400px] lg:h-[550px] min-[0px]:h-[420px] min-[0px]:w-full sm:w-inherit border flex flex-col p-2 relative shadow-lg mt-9">

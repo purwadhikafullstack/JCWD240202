@@ -7,7 +7,7 @@ export default function ShoppingItemLists(props) {
                         <div className="flex-1 md:w-[300px] pr-4 flex items-center gap-4">
                             <div className="md:w-[100px]">
                                 <img
-                                    src={value?.image}
+                                    src={value?.image ? process.env.REACT_APP_API_IMAGE_URL + value?.image : value?.image}
                                     className="h-[100px] w-[100px]"
                                     alt="image_shopping_list"
                                 />

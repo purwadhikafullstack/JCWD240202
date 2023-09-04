@@ -30,6 +30,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import { userAddToCartAsync } from '../../redux/features/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import SkeletonNewArrival from '../../components/user/productCard/skeletonNewArrival';
 
 export default function Homepage() {
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ export default function Homepage() {
         dispatch(getAllCategoriesAsync());
         dispatch(getBestSellerAsync());
         dispatch(getNewArrivalsAsync());
-        return () => dispatch(setLoading(false))
+        return () => dispatch(setLoading(false));
     }, []);
 
     return (
@@ -52,7 +53,7 @@ export default function Homepage() {
                 <title>IKEWA | Home of Furniture</title>
                 <meta name="description" content="homepage" />
             </Helmet>
-            <div className='w-full'>
+            <div className="w-full">
                 {loading ? (
                     <CarouselHome />
                 ) : (
@@ -70,7 +71,7 @@ export default function Homepage() {
                     </div>
                 )}
 
-                <div className="flex justify-evenly items-center gap-17 flex-wrap px-24">
+                <div className="flex justify-evenly items-center flex-wrap lg:px-24 max-lg:px-2">
                     {categories?.data?.map((value, index) => {
                         if (loading) {
                             return (
@@ -100,63 +101,80 @@ export default function Homepage() {
                 <div className="flex justify-center my-9 text-3xl font-bold">
                     New Arrivals
                 </div>
-                <div className="flex justify-center gap-14 md:px-24 max-md:px-2">
-                    <Swiper
-                        modules={[Navigation, Pagination, Scrollbar, A11y]}
-                        spaceBetween={100}
-                        slidesPerView={2}
-                        navigation
-                    >
-                        {newArrivals?.data?.map((value, index) => {
-                            return (
-                                <SwiperSlide key={index}>
-                                    <div className="rounded-xl shadow-2xl flex lg:flex-row max-lg:flex-col h-full">
-                                        <div className="w-full flex-1">
-                                            <img
-                                                src={
-                                                    value?.product_images[0]
-                                                        ?.name
-                                                }
-                                                alt="..."
-                                                className="lg:h-[400px] w-full"
-                                            />
-                                        </div>
-                                        <div className="w-full text-center flex-1 py-9 border-l bg-sky-700 text-yellow-300 px-4 relative flex flex-col gap-4">
-                                            <div className="font-bold text-lg">
-                                                {value?.name}
-                                            </div>
-                                            <div>
-                                                Rp{' '}
-                                                {(value?.price).toLocaleString(
-                                                    'id',
-                                                )}
-                                            </div>
-                                            <div className='max-lg:hidden'>{value?.description}</div>
-                                            <div className="absolute right-5 bottom-5 flex gap-4">
-                                                <div
-                                                    className="hover:cursor-pointer hover:border hover:rounded-full hover:p-4 hover:bg-yellow-200 hover:text-sky-700"
-                                                    onClick={() =>
-                                                        dispatch(
-                                                            userAddToCartAsync({
-                                                                product_id:
-                                                                    value.id,
-                                                                quantity: 1,
-                                                            }),
+                {loading ? (
+                    <div className="flex justify-center gap-14 md:px-24 max-md:px-2">
+                        <Swiper
+                            modules={[Navigation, Pagination, Scrollbar, A11y]}
+                            spaceBetween={100}
+                            slidesPerView={2}
+                            navigation
+                        >
+                            {newArrivals?.data?.map((value, index) => {
+                                return (
+                                    <SwiperSlide key={index}>
+                                        <div className="rounded-xl shadow-2xl flex lg:flex-row max-lg:flex-col h-full">
+                                            <div className="w-full flex-1">
+                                                <img
+                                                    src={
+                                                        value?.product_images[0]?.name.startsWith(
+                                                            'PIMG',
                                                         )
+                                                            ? process.env
+                                                                  .REACT_APP_API_IMAGE_URL +
+                                                              value
+                                                                  ?.product_images[0]
+                                                                  ?.name
+                                                            : value
+                                                                  ?.product_images[0]
+                                                                  ?.name
                                                     }
-                                                >
-                                                    <AiOutlineShoppingCart
-                                                        size={25}
-                                                    />
+                                                    alt="..."
+                                                    className="lg:h-[400px] w-full"
+                                                />
+                                            </div>
+                                            <div className="w-full text-center flex-1 py-9 border-l bg-sky-700 text-yellow-300 px-4 relative flex flex-col gap-4">
+                                                <div className="font-bold text-lg">
+                                                    {value?.name}
+                                                </div>
+                                                <div>
+                                                    Rp{' '}
+                                                    {(value?.price).toLocaleString(
+                                                        'id',
+                                                    )}
+                                                </div>
+                                                <div className="max-lg:hidden">
+                                                    {value?.description}
+                                                </div>
+                                                <div className="absolute right-5 bottom-5 flex gap-4">
+                                                    <div
+                                                        className="hover:cursor-pointer hover:border hover:rounded-full hover:p-4 hover:bg-yellow-200 hover:text-sky-700"
+                                                        onClick={() =>
+                                                            dispatch(
+                                                                userAddToCartAsync(
+                                                                    {
+                                                                        product_id:
+                                                                            value.id,
+                                                                        quantity: 1,
+                                                                    },
+                                                                ),
+                                                            )
+                                                        }
+                                                    >
+                                                        <AiOutlineShoppingCart
+                                                            size={25}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </SwiperSlide>
-                            );
-                        })}
-                    </Swiper>
-                </div>
+                                    </SwiperSlide>
+                                );
+                            })}
+                        </Swiper>
+                    </div>
+                ) : (
+                    <SkeletonNewArrival />
+                )}
             </div>
             <div className="pt-9">
                 {loading ? (
@@ -168,7 +186,7 @@ export default function Homepage() {
                         <div className="bg-gray-300 dark:bg-gray-300 w-52 h-8 rounded-lg animate-pulse"></div>
                     </div>
                 )}
-                <div className="flex justify-center flex-wrap gap-24 px-[100px]">
+                <div className="flex lg:justify-center max-lg:justify-evenly flex-wrap lg:gap-24 max-lg:gap-9 lg:px-[100px]">
                     {bestSeller?.data?.map((value, index) => {
                         if (loading) {
                             return (

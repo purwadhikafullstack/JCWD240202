@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineCaretDown } from 'react-icons/ai';
-import { AiOutlineCaretUp } from 'react-icons/ai';
+import { AiFillCaretRight } from 'react-icons/ai';
 
 export default function OrderStatus(props) {
     return (
@@ -18,7 +18,7 @@ export default function OrderStatus(props) {
                     {props?.state?.showHistoryStatus === true ? (
                         <AiOutlineCaretDown />
                     ) : (
-                        <AiOutlineCaretUp />
+                        <AiFillCaretRight />
                     )}
                 </div>
             </div>

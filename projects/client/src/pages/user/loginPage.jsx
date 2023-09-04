@@ -18,7 +18,6 @@ export default function LoginPage() {
 
     const userLogin = JSON.parse(localStorage.getItem('user'));
 
-    //call redux
     const isLogin = useSelector((state) => state.auth.isLogin);
 
     const onChange = (event) => {

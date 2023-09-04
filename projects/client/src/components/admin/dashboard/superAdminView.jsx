@@ -10,9 +10,9 @@ export default function SuperAdminView(props) {
     return (
         <div>
             <div className="flex flex-col sm:flex-row pt-9 gap-4 w-full">
-                <Income />
-                <TotalCustomer />
-                <NewCustomer />
+                <Income data={{loading: props?.state?.loading}}/>
+                <TotalCustomer data={{loading: props?.state?.loading}}/>
+                <NewCustomer data={{loading: props?.state?.loading}}/>
             </div>
             <div className="flex lg:flex-row max-lg:flex-col gap-9 pt-9">
                 <div className="flex-1 flex flex-col gap-4">
@@ -34,7 +34,7 @@ export default function SuperAdminView(props) {
                     />
                 </div>
                 <div className="flex-1">
-                    <ProductTotalStock />
+                    <ProductTotalStock data={{loading: props?.state?.loading}}/>
                 </div>
             </div>
         </div>

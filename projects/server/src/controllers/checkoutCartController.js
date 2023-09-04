@@ -133,7 +133,7 @@ const createUserOrder = async (req, res) => {
                 });
             } else {
                 const timestamp = new Date().getTime();
-                const invoiceNumber = `inv/${timestamp}`;
+                const invoiceNumber = `INV/${timestamp}`;
                 const currentTime = new Date();
 
                 const createOrder = await orders.create(

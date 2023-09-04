@@ -82,6 +82,10 @@ export default function ModalAddAddress(props) {
             city_id === ''
         ) {
             toast.error('Please fill all the fields');
+        } else if (phoneNumber.length < 12) {
+            toast.error('Phone Number Must be 12 Digits');
+        } else if (postCode.length < 5) {
+            toast.error('Postcode must be 5 Digits');
         } else {
             dispatch(
                 addNewAddressAsync({
