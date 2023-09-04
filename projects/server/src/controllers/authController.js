@@ -283,7 +283,7 @@ module.exports = {
             const tempCompile = await handlebars.compile(data);
             const tempResult = tempCompile({
                 email: email,
-                link: `http://localhost:3000/reset-password/${token}`,
+                link: `https://jcwd240202.purwadhikabootcamp.com/reset-password/${token}`,
             });
             await transporter.sendMail({
                 from: 'Admin',
