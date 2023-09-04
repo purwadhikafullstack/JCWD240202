@@ -8,7 +8,7 @@ module.exports = {
                 'https://api.rajaongkir.com/starter/province',
                 {
                     headers: {
-                        key: `${process.env.RO_API_KEY}`,
+                        key: `5d9d558139667b4cdd0ac0da451288fc`,
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
                 },
@@ -30,7 +30,7 @@ module.exports = {
                 'https://api.rajaongkir.com/starter/city',
                 {
                     headers: {
-                        key: `${process.env.RO_API_KEY}`,
+                        key: `5d9d558139667b4cdd0ac0da451288fc,
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
                 },
