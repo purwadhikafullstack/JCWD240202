@@ -10,6 +10,7 @@ const orders = db.orders;
 const order_statuses = db.order_statuses;
 
 const createNewReview = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { comment, rating, order_id, product_id } = req.body;
@@ -34,14 +35,18 @@ const createNewReview = async (req, res) => {
             });
 
             if (!checkReview) {
-                const createReview = await reviews.create({
-                    user_id,
-                    product_id,
-                    order_id,
-                    comment,
-                    rating,
-                });
+                const createReview = await reviews.create(
+                    {
+                        user_id,
+                        product_id,
+                        order_id,
+                        comment,
+                        rating,
+                    },
+                    { transaction: t },
+                );
 
+                await t.commit();
                 res.status(200).send({
                     success: true,
                     message: 'create new review success',
@@ -62,6 +67,7 @@ const createNewReview = async (req, res) => {
             });
         }
     } catch (error) {
+        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,
@@ -190,6 +196,7 @@ const getUserReviews = async (req, res) => {
 };
 
 const removeReview = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { review_id } = req.params;
@@ -202,8 +209,10 @@ const removeReview = async (req, res) => {
                 where: {
                     id: findReview.id,
                 },
+                transaction: t,
             });
 
+            await t.commit();
             res.status(200).send({
                 success: true,
                 message: 'review deleted',
@@ -217,6 +226,7 @@ const removeReview = async (req, res) => {
             });
         }
     } catch (error) {
+        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,

@@ -41,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
             last_name: DataTypes.STRING,
             email: {
                 type: DataTypes.STRING,
+                allowNull: false,
                 validate: {
                     isEmail: {
                         msg: 'Email must be valid!',
@@ -53,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
             phone_number: DataTypes.STRING,
             is_verified: { type: DataTypes.BOOLEAN, defaultValue: false },
             role_id: DataTypes.INTEGER,
-            token_verification: DataTypes.STRING,
-            token_password: DataTypes.STRING,
+            token_verification: DataTypes.STRING(500),
+            token_password: DataTypes.STRING(500),
             googleSignIn: { type: DataTypes.BOOLEAN, defaultValue: false },
         },
         {

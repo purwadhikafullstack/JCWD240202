@@ -17,6 +17,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import InvoiceSearch from '../../components/user/transactions/invoiceSearch';
 import { Helmet } from 'react-helmet';
 import SkeletonTransactionCard from '../../components/user/transactions/skeletonTransaction';
+import { Button } from 'flowbite-react';
 
 export default function UserTransactions() {
     const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function UserTransactions() {
     const [search, setSearch] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
     const [expiredTime, setExpiredTime] = useState(false);
-    const loading = useSelector((state) => state.order.loading)
+    const loading = useSelector((state) => state.order.loading);
  
     const pageChange = (event, value) => {
         setPage(value);
@@ -83,56 +84,76 @@ export default function UserTransactions() {
                 <title>IKEWA | Transactions</title>
                 <meta name="description" content="transactions" />
             </Helmet>
-            <div className="flex justify-center">
-                <div className="py-[80px] pl-[80px]">
+            <div className="flex justify-center gap-4 py-[80px] max-lg:flex-col max-lg:w-full max-lg:items-center max-lg:px-9 lg:flex-row">
+                <div className="md:w-1/4 flex justify-center">
                     <UserSidebar />
                 </div>
-                <div className="p-[80px] flex flex-col items-center">
-                    <div className="w-full">
-                        <div className="font-bold text-3xl">
-                            Transaction History
+                <div className="w-full md:flex md:justify-start">
+                    <div>
+                        <div className="">
+                            <div className="font-bold text-3xl">
+                                Transaction History
+                            </div>
                         </div>
-                    </div>
-                    <div className="py-9">
-                        <TransactionTabs
-                            state={{
-                                status_id,
-                                setStatusId,
-                                setPage,
-                                setStatusName,
-                            }}
-                        />
-                    </div>
-                    <div className="flex justify-between w-full items-center">
-                        <div className="flex items-center gap-4">
-                            <SortTransactionSelect
-                                state={{ setSortTransaction, sortTransaction }}
+                        <div className="py-9">
+                            <TransactionTabs
+                                state={{
+                                    status_id,
+                                    setStatusId,
+                                    setPage,
+                                    setStatusName,
+                                }}
                             />
                         </div>
-                        <div>
-                            <InvoiceSearch
-                                state={{ search, setSearch, setPage }}
-                            />
+                        <div className="flex sm:flex-row max-sm:flex-col max-md:gap-4 justify-between w-full items-center">
+                            <div className="flex items-center gap-4">
+                                <SortTransactionSelect
+                                    state={{
+                                        setSortTransaction,
+                                        sortTransaction,
+                                    }}
+                                />
+                            </div>
+                            <div className='max-sm:order-first'>
+                                <InvoiceSearch
+                                    state={{ search, setSearch, setPage }}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className=" p-9 flex flex-col gap-7 w-full">
-                        {!orderLists?.data?.data?.rows ? (
-                            <div className="flex items-center justify-center py-8">
-                                <div>
-                                    <div className="flex justify-center items-center font-semibold text-xl mb-6">
-                                        <h1 className="font-semibold text-2xl">
-                                            No Transaction Found
-                                        </h1>
-                                    </div>
-                                    <div className="w-full flex justify-center items-center">
-                                        <img
-                                            src="/images/not-found-user.png"
-                                            alt="not-found"
-                                            className="min-w-[200px] max-w-[400px]"
-                                        ></img>
+                        <div className=" p-9 flex flex-col gap-7 w-full">
+                            {!orderLists?.data?.data?.rows ? (
+                                <>
+                                <div className="h-full flex justify-center items-center font-bold text-lg">
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div className="flex items-center justify-center py-8">
+                                            <div>
+                                                <div className="flex justify-center items-center font-semibold text-xl mb-6">
+                                                    <h1 className="font-semibold text-2xl">
+                                                        No Transactions
+                                                    </h1>
+                                                </div>
+                                                <div className="w-full flex justify-center items-center">
+                                                    <img
+                                                        src="/images/not-found-user.png"
+                                                        alt="not-found"
+                                                        className="min-w-[200px] max-w-[400px]"
+                                                    ></img>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <Button
+                                                onClick={() =>
+                                                    navigate('/products')
+                                                }
+                                                color={'light'}
+                                            >
+                                                Browse Products Here
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </>
                         ) : (
                             orderLists?.data?.data?.rows?.map(
                                 (value, index) => {
@@ -159,23 +180,24 @@ export default function UserTransactions() {
                                 },
                             )
                         )}
-                    </div>
-
-                    {orderLists?.data?.data?.rows ? (
-                        <div>
-                            <PaginationButton
-                                data={{
-                                    totalPage: orderLists?.data?.totalPage,
-                                    page,
-                                    pageChange,
-                                }}
-                            />
                         </div>
-                    ) : (
-                        ''
-                    )}
+                        {orderLists?.data?.data?.rows ? (
+                            <div className="flex justify-center">
+                                <PaginationButton
+                                    data={{
+                                        totalPage: orderLists?.data?.totalPage,
+                                        page,
+                                        pageChange,
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            ''
+                        )}
+                    </div>
                 </div>
             </div>
+
             <ModalCancelOrder
                 state={{
                     setCancelOrder,

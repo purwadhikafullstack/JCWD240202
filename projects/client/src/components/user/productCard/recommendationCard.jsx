@@ -45,8 +45,10 @@ export default function RelatedProducts(props) {
                                                 product_id: value.id,
                                                 rating: '',
                                                 sort: '',
+                                                page:1
                                             }),
                                         );
+                                        props?.data?.setQuantity(1)
                                         navigate(`/products/${value.id}`);
                                     }}
                                     className="border-t flex justify-center py-2 bg-yellow-300 text-sky-700 hover:cursor-pointer hover:bg-yellow-400"

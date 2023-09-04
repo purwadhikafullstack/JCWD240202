@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 export default function SearchBar(props) {
@@ -8,13 +8,17 @@ export default function SearchBar(props) {
         props?.data?.searchChange(search);
     };
 
+    useEffect(() => {
+        _search.current.value = props.data?.search || '';
+    }, [props.data?.search]);
+
     return (
         <div className="flex gap-2 items-center">
-            <div>
+            <div className='w-full'>
                 <input
                     type="text"
                     placeholder="Search"
-                    className="input input-bordered w-full max-w-xs h-[45px]"
+                    className="input input-bordered w-full h-[45px] w-full"
                     ref={_search}
                 />
             </div>

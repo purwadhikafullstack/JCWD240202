@@ -3,7 +3,7 @@ const db = require('../models');
 const user = db.users;
 const { sequelize } = require('./../models');
 const { hashCompare, hashPassword } = require('../lib/hashBcrypt');
-const { googleRecaptcha } = require('./../helper/recaptcha')
+const { googleRecaptcha } = require('./../helper/recaptcha');
 
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -24,6 +24,18 @@ module.exports = {
                 where: {
                     email,
                 },
+                include: [
+                    {
+                        model: db.warehouses,
+                        attributes: [
+                            'id',
+                            'user_id',
+                            'city',
+                            'city_id',
+                            'is_deleted',
+                        ],
+                    },
+                ],
             });
 
             if (!result) {
@@ -35,6 +47,14 @@ module.exports = {
             }
 
             if (result.role_id === 1) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Unauthorized!',
+                    data: null,
+                });
+            }
+
+            if (result.role_id === 2 && result.warehouse === null) {
                 return res.status(404).send({
                     success: false,
                     message: 'Unauthorized!',
@@ -102,6 +122,21 @@ module.exports = {
                 });
             }
 
+            const checkEmail = await db.users.findOne({
+                where: {
+                    email,
+                },
+                transaction: t,
+            });
+
+            if (checkEmail) {
+                return res.status(406).send({
+                    success: false,
+                    message: 'Email is Already Used!',
+                    data: null,
+                });
+            }
+
             if (pattern.test(password) === false) {
                 return res.status(406).send({
                     success: false,
@@ -131,6 +166,7 @@ module.exports = {
                 where: {
                     email,
                 },
+                transaction: t,
             });
 
             const verifyRecaptcha = await googleRecaptcha(tokenRecaptcha);
@@ -158,19 +194,28 @@ module.exports = {
                         email,
                         phone_number,
                         password: createPassword,
+                        is_verified: 1,
                         role_id: 2,
                     },
                     { transaction: t },
                 );
+
+                if (!registerAdmin) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'Registered Failed!',
+                        data: null,
+                    });
+                } else {
+                    await t.commit();
+
+                    return res.status(200).send({
+                        success: true,
+                        message: 'Register success!',
+                        data: {},
+                    });
+                }
             }
-
-            await t.commit();
-
-            return res.status(200).send({
-                success: true,
-                message: 'Register success!',
-                data: {},
-            });
         } catch (error) {
             await t.rollback();
             res.status(500).send({

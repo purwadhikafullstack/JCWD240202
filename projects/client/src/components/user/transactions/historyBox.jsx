@@ -10,14 +10,11 @@ import ModalConfirmOrder from './modalConfirmOrder';
 import ModalCreateReview from '../review/modalCreateReview';
 import CurrentStatus from './currentStatus';
 import GenerateInvoice from './generateInvoice';
+import Countdown from './countdown';
 
 export default function TransactionHistoryBox(props) {
     const dispatch = useDispatch();
     const [modalConfirm, setModalConfirm] = useState(false);
-    const parseExpiredDate = new Date(
-        props?.data?.value?.order_statuses[0]?.expired,
-    );
-    const [countdown, setCountdown] = useState(parseExpiredDate - Date.now());
     const [modalReview, setModalReview] = useState(false);
     const [orderId, setOrderId] = useState(0);
 
@@ -27,48 +24,15 @@ export default function TransactionHistoryBox(props) {
         props?.state?.setStatusId(5);
     };
 
-    const formatTime = ({ timeInMs }) => {
-        const seconds = Math.floor((Number(timeInMs) / 1000) % 60);
-        const minutes = Math.floor((Number(timeInMs) / 1000 / 60) % 60);
-        const hours = Math.floor((Number(timeInMs) / 1000 / 60 / 60) % 24);
-        return `${hours}:${minutes}:${seconds}`;
+    const countdownExpired = () => {
+        props?.state?.setExpiredTime(false);
     };
-
-    useEffect(() => {
-        if (
-            countdown <= 1000 &&
-            props?.data?.value?.order_statuses[
-                props?.data?.value?.order_statuses.length - 1
-            ]?.status_id === 1
-        ) {
-            props?.state?.setExpiredTime(false);
-        } else if (
-            countdown > 1000 &&
-            props?.data?.value?.order_statuses[
-                props?.data?.value?.order_statuses.length - 1
-            ]?.status_id === 1
-        ) {
-            const interval = setInterval(() => {
-                setCountdown((prevTime) =>
-                    prevTime > 1000 ? prevTime - 1000 : 0,
-                );
-
-                return clearInterval(interval);
-            }, 1000);
-        }
-    }, [
-        countdown,
-        orderId,
-        props?.data?.value?.order_statuses[
-            props?.data?.value?.order_statuses.length - 1
-        ]?.status_id,
-    ]);
 
     return (
         <>
-            <div className="border w-full h-full shadow-xl rounded-2xl px-2">
-                <div className="flex justify-between gap-9 items-center border-b py-2 px-7 py-2">
-                    <div className="flex gap-9 items-center">
+            <div className="border h-full shadow-xl rounded-2xl px-2">
+                <div className="flex max-md:flex-col justify-between max-md:gap-4 md:gap-9 md:items-center border-b py-2 px-7 py-2">
+                    <div className="flex max-sm:flex-col max-sm:gap-2 sm:gap-9 sm:items-center">
                         <div>{props?.data?.value?.createdAt}</div>
                         <CurrentStatus
                             data={{
@@ -82,26 +46,29 @@ export default function TransactionHistoryBox(props) {
                     {props?.data?.value?.order_statuses[
                         props?.data?.value?.order_statuses.length - 1
                     ]?.status_id === 1 ? (
-                        <div className="border-2 border-black p-1 flex gap-1 w-[150px]">
-                            <div>Expired in</div>
-                            <div className="font-bold">
-                                {formatTime({ timeInMs: countdown })}
-                            </div>
-                        </div>
+                        <Countdown
+                            expiredDate={
+                                props?.data?.value?.order_statuses[0]?.expired
+                            }
+                            countdownExpired={countdownExpired}
+                        />
                     ) : (
                         ''
                     )}
                 </div>
-                <div className="flex justify-between px-7 py-4">
+                <div className="flex justify-between max-md:flex-col px-7 py-4">
                     <div className="pt-4 flex gap-9">
-                        <div className=" h-[200px] w-[200px]">
+                        <div className=" max-md:hidden md:h-[200px]
+                         md:w-[200px]">
                             <img
                                 src={
                                     props?.data?.value?.cart?.cart_products[0]
+                                        ?.image.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + props?.data?.value?.cart?.cart_products[0]
+                                        ?.image : props?.data?.value?.cart?.cart_products[0]
                                         ?.image
-                                }
+                                 }
                                 alt="product_image"
-                                className="h-[200px] w-[200px]"
+                                className="max-md:hidden md:h-[200px] md:w-[200px]"
                             />
                         </div>
                         <div className="pt-4 ">
@@ -137,7 +104,7 @@ export default function TransactionHistoryBox(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="border-l px-9 flex flex-col justify-center gap-2">
+                    <div className="md:border-l max-md:border-t max-md:pt-4 md:px-9 flex flex-col justify-center gap-2">
                         <div className="border-b">Total</div>
                         <div className="font-bold">
                             Rp{' '}
@@ -145,8 +112,8 @@ export default function TransactionHistoryBox(props) {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-between items-center border-t px-7 py-2">
-                    <div className="text-sky-700 font-bold flex gap-9 py-2">
+                <div className="flex md:flex-row max-md:flex-col md:justify-between md:items-center border-t px-7 py-2">
+                    <div className="text-sky-700 font-bold flex max-sm:flex-col max-sm:items-start max-md:gap-2 md:gap-9 py-2">
                         <Link to={`/orders/${props?.data?.value?.id}`}>
                             <Button className="px-2 bg-sky-700 text-yellow-200 hover:cursor-pointer hover:bg-sky-900">
                                 Transaction Details
@@ -157,7 +124,7 @@ export default function TransactionHistoryBox(props) {
                         ]?.status_id >= 3 &&
                         props?.data?.value?.order_statuses[
                             props?.data?.value?.order_statuses.length - 1
-                        ]?.status_id !== 6 ? (
+                        ]?.status_id < 6 ? (
                             <GenerateInvoice
                                 data={{ order: props?.data?.value }}
                             />
@@ -168,7 +135,7 @@ export default function TransactionHistoryBox(props) {
                     {props?.data?.value?.order_statuses[
                         props?.data?.value?.order_statuses.length - 1
                     ]?.status_id === 1 ? (
-                        <div className="flex gap-4">
+                        <div className="flex max-sm:flex-col gap-4">
                             <Link to={`/orders/${props?.data?.value?.id}`}>
                                 <Button className="px-2 bg-yellow-200 text-sky-700 hover:cursor-pointer hover:bg-sky-700 hover:text-yellow-200">
                                     Upload Payment Receipt

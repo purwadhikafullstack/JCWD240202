@@ -76,7 +76,7 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                             <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                 <button
                                     className="bg-[#0051BA] enabled:hover:bg-gray-400 rounded-lg text-white py-2 text-sm p-3 disabled:cursor-not-allowed"
-                                    disabled={!reduceQty}
+                                    disabled={!reduceQty || Number(reduceQty) <= 0}
                                     onClick={() => {
                                         setConfirm(true);
                                     }}
@@ -144,6 +144,7 @@ export default function ReduceQuantityModal({ showModal, selected, params }) {
                                                 selected?.product_stocks[0]?.id,
                                                 reduceQty,
                                                 params,
+                                                selected?.product_stocks[0]?.stock
                                             ),
                                         );
                                     }}

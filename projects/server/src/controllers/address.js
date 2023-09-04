@@ -103,7 +103,8 @@ module.exports = {
             const dataAddress = await address.findAll({
                 where: {
                     user_id: id,
-                },
+                }, 
+                transaction: t
             });
 
             if (dataAddress.length <= 0) {
@@ -191,7 +192,7 @@ module.exports = {
             const checkAddress = await db.user_addresses.findOne({
                 where: {
                     id: address_id,
-                },
+                }, transaction: t
             });
 
             if (checkAddress.user_id !== id) {
@@ -264,8 +265,7 @@ module.exports = {
                     longitude: latLong.data?.results[0].geometry.lng,
                     latitude: latLong.data?.results[0].geometry.lat,
                 },
-                { where: { id: address_id } },
-                { transaction: t },
+                { where: { id: address_id }, transaction: t },
             );
 
             await t.commit();
@@ -302,7 +302,7 @@ module.exports = {
             const checkAddress = await db.user_addresses.findOne({
                 where: {
                     id: address_id,
-                },
+                }, transaction: t
             });
 
             if (checkAddress.user_id !== id) {
@@ -318,9 +318,9 @@ module.exports = {
                 {
                     where: {
                         id: address_id,
-                    },
+                    }, 
+                    transaction: t
                 },
-                { transaction: t },
             );
 
             await t.commit();
@@ -358,6 +358,7 @@ module.exports = {
                 where: {
                     id: address_id,
                 },
+                transaction: t
             });
 
             if (checkAddress.user_id !== id) {
@@ -377,8 +378,8 @@ module.exports = {
                         is_primary: true,
                         user_id: id,
                     },
+                    transaction: t
                 },
-                { transaction: t },
             );
 
             const changeNotPrimary = await address.update(
@@ -389,8 +390,8 @@ module.exports = {
                     where: {
                         id: address_id,
                     },
+                    transaction: t
                 },
-                { transaction: t },
             );
 
             await t.commit();
@@ -423,20 +424,19 @@ module.exports = {
             if (findAddressId) {
                 findCurrentChosenAddress = await address.findOne({
                     where: { user_id: user_id, is_chosen: true },
+                    transaction: t
                 });
 
                 if (findCurrentChosenAddress) {
                     removeChosen = await address.update(
                         { is_chosen: false },
-                        { where: { user_id: user_id, is_chosen: true } },
-                        { transaction: t },
+                        { where: { user_id: user_id, is_chosen: true }, transaction: t},
                     );
 
                     if (removeChosen) {
                         updateChosen = await address.update(
                             { is_chosen: true },
-                            { where: { user_id: user_id, id: address_id } },
-                            { transaction: t },
+                            { where: { user_id: user_id, id: address_id }, transaction: t },
                         );
 
                         t.commit();
@@ -455,11 +455,10 @@ module.exports = {
                 } else {
                     updateChosen = await address.update(
                         { is_chosen: true },
-                        { where: { user_id: user_id } },
-                        { transaction: t },
+                        { where: { user_id: user_id }, transaction: t },
                     );
 
-                    t.commit();
+                    await t.commit();
                     res.status(200).send({
                         success: true,
                         message: 'choose address success',
@@ -474,6 +473,7 @@ module.exports = {
                 });
             }
         } catch (error) {
+            await t.rollback();
             res.status(500).send({
                 success: false,
                 message: error.message,

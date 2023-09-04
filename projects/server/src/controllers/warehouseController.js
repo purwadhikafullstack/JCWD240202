@@ -127,6 +127,20 @@ module.exports = {
             } = req.body;
             const { warehouse_id } = req.params;
 
+            const checkWarehouse = await warehouse.findOne({
+                where: {
+                    id,
+                }, transaction: t
+            })
+
+            if(!checkWarehouse) {
+                res.status(404).send({
+                    success: false,
+                    message: 'Warehouse Not Found!',
+                    data: null,
+                });
+            }
+
             if (
                 !province ||
                 !province_id ||
@@ -174,8 +188,7 @@ module.exports = {
                     longitude: latLong.data?.results[0].geometry.lng,
                     latitude: latLong.data?.results[0].geometry.lat,
                 },
-                { where: { id: warehouse_id } },
-                { transaction: t },
+                { where: { id: warehouse_id }, transaction: t },
             );
 
             await t.commit();
@@ -203,7 +216,7 @@ module.exports = {
             const findWh = await warehouse.findOne({
                 where: {
                     id: warehouse_id,
-                },
+                }, transaction: t
             });
 
             if (!findWh) {
@@ -221,7 +234,7 @@ module.exports = {
             const findStock = await db.product_stocks.findAll({
                 where: {
                     warehouse_id: findWh.id,
-                },
+                }, transaction: t
             });
 
             // mapping stock dan product_id wh yang akan didelete
@@ -237,7 +250,7 @@ module.exports = {
                 where: {
                     warehouse_id: 3,
                     product_id: product_id,
-                },
+                }, transaction: t
             });
 
             // mapping stock wh jakarta untuk update stocknya
@@ -259,8 +272,8 @@ module.exports = {
                             warehouse_id: 3,
                             product_id: item.product_id,
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
             }
 
@@ -314,8 +327,8 @@ module.exports = {
                         mutation_id: mutationId[index],
                         user_id: id,
                         warehouse_id: 3,
-                        type_id: 3,
-                        information_id: 1,
+                        type_id: 1,
+                        information_id: 3,
                     };
                 },
             );
@@ -336,8 +349,8 @@ module.exports = {
                         mutation_id: mutationId[index],
                         user_id: id,
                         warehouse_id: findWh.id,
-                        type_id: 3,
-                        information_id: 2,
+                        type_id: 2,
+                        information_id: 3,
                     };
                 },
             );
@@ -355,8 +368,8 @@ module.exports = {
                     where: {
                         warehouse_id: findWh.id,
                     },
+                    transaction: t
                 },
-                { transaction: t },
             );
 
             // delete warehouse
@@ -369,8 +382,8 @@ module.exports = {
                     where: {
                         id: warehouse_id,
                     },
+                    transaction: t
                 },
-                { transaction: t },
             );
 
             await t.commit();
@@ -391,7 +404,7 @@ module.exports = {
     },
     getAllDataWarehouse: async (req, res) => {
         try {
-            let order = [['createdAt', 'DESC']];
+            let order = [['id', 'DESC']];
             let where = { is_deleted: false };
             let uname = undefined;
             const { page, search, sort, warehouses } = req.query;
@@ -407,9 +420,9 @@ module.exports = {
                     } else if (sort === 'name-desc') {
                         order = [['city', 'DESC']];
                     } else if (sort === 'newest') {
-                        order = [['createdAt', 'DESC']];
+                        order = [['id', 'DESC']];
                     } else if (sort === 'oldest') {
-                        order = [['createdAt', 'ASC']];
+                        order = [['id', 'ASC']];
                     }
                 }
             }
@@ -496,7 +509,7 @@ module.exports = {
 
                 if (checkAdminWh) {
                     where = {
-                        user_id: { [Op.ne]: id },
+                        id: { [Op.ne]: checkAdminWh.id },
                         is_deleted: false,
                     };
                 } else {
@@ -581,13 +594,13 @@ module.exports = {
             const checkWarehouse = await warehouse.findOne({
                 where: {
                     id: warehouse_id,
-                },
+                }, transaction: t
             });
 
             const checkUser = await user.findOne({
                 where: {
                     id: user_id,
-                },
+                }, transaction: t
             });
 
             if (checkUser === null) {
@@ -621,8 +634,8 @@ module.exports = {
                         where: {
                             id: warehouse_id,
                         },
-                    },
-                    { transaction: t },
+                        transaction: t
+                    }, 
                 );
 
                 await t.commit();
@@ -651,13 +664,13 @@ module.exports = {
             const checkWarehouse = await warehouse.findOne({
                 where: {
                     id: warehouse_id,
-                },
+                }, transaction: t
             });
 
             const checkUser = await user.findOne({
                 where: {
                     id: user_id,
-                },
+                }, transaction: t
             });
 
             if (checkUser === null) {
@@ -692,15 +705,15 @@ module.exports = {
                             id: warehouse_id,
                             user_id,
                         },
-                    },
-                    { transaction: t },
+                        transaction: t
+                    }, 
                 );
 
                 await t.commit();
 
                 return res.status(200).send({
                     success: true,
-                    message: 'Assign Warehouse Admin Success!',
+                    message: 'Unassign Warehouse Admin Success!',
                     data: unassignAdmin,
                 });
             }

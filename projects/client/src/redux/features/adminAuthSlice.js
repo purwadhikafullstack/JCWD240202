@@ -32,22 +32,17 @@ export const adminLogin = (email, password) => async (dispatch) => {
             },
         );
 
-        if (result) {
-            localStorage?.setItem(
-                'user',
-                JSON.stringify(result.data.data.token),
-            );
-            toast.success(result.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#0051BA',
-                    color: 'white',
-                },
-            });
-        }
+        localStorage?.setItem('user', JSON.stringify(result.data.data.token));
+        toast.success(result.data.message, {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#0051BA',
+                color: 'white',
+            },
+        });
     } catch (error) {
         dispatch(setDisabledButton(false));
         if (error.response) {
@@ -87,7 +82,7 @@ export const adminRegister =
         password,
         confirm_password,
         params,
-        tokenRecaptcha
+        tokenRecaptcha,
     ) =>
     async (dispatch) => {
         try {
@@ -122,7 +117,7 @@ export const adminRegister =
                     phone_number,
                     password,
                     confirm_password,
-                    tokenRecaptcha
+                    tokenRecaptcha,
                 },
                 {
                     headers: {
@@ -167,7 +162,7 @@ export const adminRegister =
                     },
                 });
             } else {
-                toast.error(error.message, {
+                toast.error('Registered Failed!', {
                     position: 'top-center',
                     duration: 2000,
                     style: {

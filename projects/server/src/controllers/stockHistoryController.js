@@ -1,6 +1,5 @@
 const db = require('../models');
 const log = db.stock_histories;
-const { sequelize } = require('./../models');
 const { Op } = require('sequelize');
 const moment = require('moment');
 
@@ -58,6 +57,7 @@ module.exports = {
                 const findWhAdmin = await db.warehouses.findOne({
                     where: {
                         user_id: id,
+                        is_deleted: false,
                     },
                 });
                 if (findWhAdmin) {
@@ -75,6 +75,7 @@ module.exports = {
                 const findWh = await db.warehouses.findOne({
                     where: {
                         city: warehouse.replace(/%/g, ' '),
+                        is_deleted: false,
                     },
                 });
 
@@ -95,9 +96,9 @@ module.exports = {
                 } else if (sort === 'name-desc') {
                     order = [['name', 'DESC']];
                 } else if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -117,12 +118,10 @@ module.exports = {
                 add += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id:
-                            wh
-                                ? { [Op.in]: [1, 3, 4] }
-                                : { [Op.in]: [1, 4] },
+                        information_id:
+                            wh ? { [Op.in]: [1, 3, 4] } : { [Op.in]: [1, 4] },
                         ...wh,
-                        information_id: 1,
+                        type_id: 1,
                         createdAt: {
                             [Op.lt]: moment(dates).add(1, 'month').toDate(),
                             [Op.gte]: dates,
@@ -134,12 +133,12 @@ module.exports = {
                 reduc += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id:
+                        information_id:
                             wh 
                                 ? { [Op.in]: [1, 2, 3] }
                                 : { [Op.in]: [1, 2] },
                         ...wh,
-                        information_id: 2,
+                        type_id: 2,
                         createdAt: {
                             [Op.lt]: moment(dates).add(1, 'month').toDate(),
                             [Op.gte]: dates,
@@ -151,9 +150,9 @@ module.exports = {
                 after_add += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id: { [Op.in]: [1, 3, 4] },
+                        information_id: { [Op.in]: [1, 3, 4] },
                         ...wh,
-                        information_id: 1,
+                        type_id: 1,
                         createdAt: {
                             [Op.gte]: moment(dates).add(1, 'month').toDate(),
                         },
@@ -164,9 +163,9 @@ module.exports = {
                 after_reduc += await log.sum('quantity', {
                     where: {
                         product_id: item.id,
-                        type_id: { [Op.in]: [1, 2, 3] },
+                        information_id: { [Op.in]: [1, 2, 3] },
                         ...wh,
-                        information_id: 2,
+                        type_id: 2,
                         createdAt: {
                             [Op.gte]: moment(dates).add(1, 'month').toDate(),
                         },
@@ -212,7 +211,7 @@ module.exports = {
     },
     getStockLog: async (req, res) => {
         try {
-            const { page, date, search, warehouse, sort } = req.query;
+            const { page, date, search, warehouse, sort, types, informations } = req.query;
             const { id, role_id } = req.User;
             const paginationLimit = 10;
             const paginationOffset =
@@ -221,9 +220,11 @@ module.exports = {
                 ? moment(new Date(date)).format('MM/01/YYYY')
                 : moment(new Date()).format('MM/01/YYYY');
 
-            let order = [['createdAt', 'DESC']];
+            let order = [['id', 'DESC']];
             let productName = undefined;
             let where = undefined;
+            let information = undefined;
+            let type = undefined;
 
             if (role_id === 2) {
                 const findWhAdmin = await db.warehouses.findOne({
@@ -249,10 +250,19 @@ module.exports = {
                 productName = { name: { [Op.substring]: [search] } };
             }
 
+            if (informations) {
+                information = { name: informations.replace(/%/g, ' ')}
+            }
+
+            if (types) {
+                type = { name: types}
+            }
+
             if (warehouse) {
                 const findWh = await db.warehouses.findOne({
                     where: {
                         city: warehouse.replace(/%/g, ' '),
+                        is_deleted: false,
                     },
                 });
 
@@ -277,9 +287,9 @@ module.exports = {
 
             if (sort) {
                 if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -313,14 +323,16 @@ module.exports = {
                     },
                     {
                         model: db.warehouses,
-                        attributes: ['id', 'city', 'city_id'],
+                        attributes: ['id', 'city', 'city_id', 'is_deleted'],
                     },
                     {
                         model: db.types,
+                        where: type,
                         attributes: { exclude: ['createdAt', 'updatedAt'] },
                     },
                     {
                         model: db.informations,
+                        where: information,
                         attributes: { exclude: ['createdAt', 'updatedAt'] },
                     },
                 ],
@@ -354,7 +366,7 @@ module.exports = {
                     },
                     {
                         model: db.warehouses,
-                        attributes: ['id', 'city', 'city_id'],
+                        attributes: ['id', 'city', 'city_id', 'is_deleted'],
                     },
                     {
                         model: db.types,
@@ -385,4 +397,40 @@ module.exports = {
             });
         }
     },
+    getTypes: async(req, res) => {
+        try {
+            const types = await db.types.findAll({
+                attributes: ['id', 'name']
+            })
+            return res.status(200).send({
+                success: true,
+                message: 'Fetch Types Success!',
+                data: types
+            })
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    getInformations: async(req, res) => {
+        try {
+            const informations = await db.informations.findAll({
+                attributes: ['id', 'name']
+            })
+            return res.status(200).send({
+                success: true,
+                message: 'Fetch Types Success!',
+                data: informations
+            }) 
+        } catch (error) {
+            res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    }
 };

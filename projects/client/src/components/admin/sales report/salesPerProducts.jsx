@@ -97,10 +97,16 @@ export default function SalesPerProducts(props) {
                                                     {value.totalQuantity}
                                                 </Table.Cell>
                                                 <Table.Cell>
-                                                    Rp{' '}
-                                                    {Number(
-                                                        value.totalSales,
-                                                    ).toLocaleString('id-ID')}
+                                                    <div className='flex justify-center'>
+                                                        <div className='flex justify-start w-2/3'>
+                                                            Rp{' '}
+                                                            {Number(
+                                                                value.totalSales,
+                                                            ).toLocaleString(
+                                                                'id-ID',
+                                                            )}
+                                                        </div>
+                                                    </div>
                                                 </Table.Cell>
                                             </Table.Row>
                                         );

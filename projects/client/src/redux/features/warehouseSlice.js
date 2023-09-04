@@ -106,8 +106,8 @@ export const setWhAdmin =
                 dispatch(
                     getDataAdminUser(
                         params.page,
-                        params.search,
                         params.sort,
+                        params.search,
                         params.warehouse,
                     ),
                 );
@@ -115,7 +115,7 @@ export const setWhAdmin =
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
-            toast.error(error.message, {
+            toast.error('Assign Admin Failed!', {
                 position: 'top-center',
                 duration: 2000,
                 style: {
@@ -165,8 +165,8 @@ export const unassignWhAdmin =
                 dispatch(
                     getDataAdminUser(
                         params.page,
-                        params.search,
                         params.sort,
+                        params.search,
                         params.warehouse,
                     ),
                 );
@@ -174,7 +174,7 @@ export const unassignWhAdmin =
         } catch (error) {
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
-            toast.error(error.message, {
+            toast.error('Unassign Admin Failed!', {
                 position: 'top-center',
                 duration: 2000,
                 style: {
@@ -308,7 +308,7 @@ export const addWarehouse =
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
             if (error.response) {
-                toast.error(error.response.data.message, {
+                toast.error('', {
                     position: 'top-center',
                     duration: 2000,
                     style: {
@@ -418,7 +418,7 @@ export const editWarehouse =
                     },
                 });
             } else {
-                toast.error(error.message, {
+                toast.error('Edit Warehouse Failed!', {
                     position: 'top-center',
                     duration: 2000,
                     style: {

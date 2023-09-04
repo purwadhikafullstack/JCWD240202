@@ -7,8 +7,6 @@ import { auth } from '../../firebase/firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 const provider = new GoogleAuthProvider();
 
-
-
 const initialState = {
     auth: null,
     isLogin: false,

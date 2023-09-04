@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
             order_id: DataTypes.INTEGER,
             expired: { type: DataTypes.DATE },
             is_rejected: { type: DataTypes.BOOLEAN, defaultValue: false },
-            is_active: { type: DataTypes.BOOLEAN },
+            is_active: { type: DataTypes.BOOLEAN, defaultValue: true },
         },
         {
             sequelize,

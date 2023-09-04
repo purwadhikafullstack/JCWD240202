@@ -39,6 +39,9 @@ import NotLoginRoute from './components/admin/protectedRoute/notLoginRoute';
 import { useEffect } from 'react';
 import { getDataLogin } from './redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import UserNotifications from './pages/user/notificationsPage';
+import CategoryProducts from './pages/user/categoryProducts';
+import AboutUs from './pages/user/aboutUs';
 
 function App() {
     const dispatch = useDispatch();
@@ -88,6 +91,15 @@ function App() {
                     }
                 />
                 <Route
+                    path="/categories/:id"
+                    element={
+                        <NotLoginRoute
+                            component={<CategoryProducts />}
+                            dataLogin={dataLogin}
+                        />
+                    }
+                />
+                <Route
                     path="/register"
                     element={
                         <NotLoginRoute
@@ -123,6 +135,7 @@ function App() {
                         />
                     }
                 />
+                <Route path="/about" element={<NotLoginRoute component={<AboutUs/>} dataLogin={dataLogin}/>}/>
 
                 {/* User Login */}
                 <Route
@@ -189,6 +202,10 @@ function App() {
                     }
                 />
                 <Route path="/users/wishlists" element={<Wishlist />} />
+                <Route
+                    path="/users/notifications"
+                    element={<UserNotifications />}
+                />
 
                 {/* Admin */}
                 <Route path="/admins/login" element={<AdminLoginPage />} />
@@ -296,6 +313,7 @@ function App() {
                         />
                     }
                 />
+
                 <Route path="/*" element={<NotFoundPage />} />
             </Routes>
 

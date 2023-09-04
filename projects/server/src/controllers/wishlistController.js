@@ -8,6 +8,7 @@ const users = db.users;
 const colors = db.colors;
 
 const addNewWishlist = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const { product_id } = req.body;
         const user_id = req.User.id;
@@ -20,11 +21,15 @@ const addNewWishlist = async (req, res) => {
                 where: { product_id: findProduct.id, user_id: user_id },
             });
             if (!checkWishlist) {
-                const createWishlist = await wishlists.create({
-                    product_id: findProduct.id,
-                    user_id: user_id,
-                });
+                const createWishlist = await wishlists.create(
+                    {
+                        product_id: findProduct.id,
+                        user_id: user_id,
+                    },
+                    { transaction: t },
+                );
 
+                await t.commit();
                 res.status(200).send({
                     success: true,
                     message: 'Product Added to Wishlist',
@@ -45,6 +50,7 @@ const addNewWishlist = async (req, res) => {
             });
         }
     } catch (error) {
+        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,
@@ -144,15 +150,18 @@ const getUserWishlist = async (req, res) => {
 };
 
 const removeProductFromWishlist = async (req, res) => {
+    const t = await sequelize.transaction();
     try {
         const user_id = req.User.id;
         const { product_id } = req.params;
 
         const remove = await wishlists.destroy({
             where: { user_id, product_id },
+            transaction: t,
         });
 
         if (remove) {
+            await t.commit();
             res.status(200).send({
                 success: true,
                 message: 'product remove from wishlist',
@@ -166,6 +175,7 @@ const removeProductFromWishlist = async (req, res) => {
             });
         }
     } catch (error) {
+        await t.rollback();
         res.status(500).send({
             success: false,
             message: error.message,

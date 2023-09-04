@@ -274,7 +274,8 @@ export default function RequestMutation({ showModal, dataLogin, params }) {
                                         !products ||
                                         !stock ||
                                         !reqMutationQty ||
-                                        setDisabledButton
+                                        setDisabledButton ||
+                                        Number(reqMutationQty) === 0
                                     }
                                     onClick={() => {
                                         dispatch(

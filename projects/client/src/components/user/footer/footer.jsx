@@ -11,7 +11,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export default function Footer(props) {
     const { pathname } = useLocation();
     const userLogin = JSON.parse(localStorage.getItem('user'));
-    const navigate = useNavigate();
 
     const paths = ['/login', '/register', '/admins/login'];
 
@@ -51,12 +50,12 @@ export default function Footer(props) {
 
     return (
         <>
-            <div className="border-t bg-black px-[30px] py-[30px] sm:px-[80px] sm:py-[40px] text-white mt-10">
+            <div className="border-t bg-black w-full px-[30px] py-[30px] sm:px-[80px] sm:py-[40px] text-white">
                 <div className="md:flex justify-between items-center">
-                    <div className="w-24 mb-6 sm:mb-0">
+                    <div className="w-24 mb-6 md:mb-0">
                         <img src="/logo2.png" alt="footer logo" />
                     </div>
-                    <div className="flex gap-9 mb-6 sm:mb-0">
+                    <div className="flex gap-9 mb-6 md:mb-0">
                         <div>
                             <AiOutlineInstagram size={'40px'} />
                         </div>
@@ -101,12 +100,12 @@ export default function Footer(props) {
                 </div>
             </div>
             <div className="w-full flex flex-col sm:flex-row gap-6 sm:justify-between px-[30px] py-[30px] sm:px-[80px] sm:py-[40px] text-xs bg-gray-200">
-                <div className=''>
+                <div className="">
                     IKEWA Indonesia - Jl. BSD Green Office Park, GOP 9 - G Floor
                     BSD City, Sampora, Kec. Cisauk, Kabupaten Tangerang, Banten
                     15345
                 </div>
-                <div className='flex gap-4'>
+                <div className="flex gap-4">
                     <div>Privacy Policy</div>
                     <div>Cookie Policy</div>
                     <div>Cookie Settings</div>

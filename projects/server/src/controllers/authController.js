@@ -15,6 +15,7 @@ const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
 module.exports = {
     registration: async (req, res) => {
+    const t = await sequelize.transaction();
         try {
             const { email, tokenRecaptcha } = req.body;
 
@@ -29,6 +30,7 @@ module.exports = {
                 where: {
                     email,
                 },
+                transaction: t
             });
 
             const verifyRecaptcha = await googleRecaptcha(tokenRecaptcha)
@@ -50,7 +52,7 @@ module.exports = {
                 const result = await user.create({
                     email,
                     role_id: 1
-                });
+                }, { transaction: t });
 
                 const data = await fs.readFileSync(
                     path.resolve(
@@ -74,7 +76,7 @@ module.exports = {
                     {
                         where: {
                             id: result.id,
-                        },
+                        }, transaction: t
                     },
                 );
 
@@ -85,10 +87,11 @@ module.exports = {
                 });
                 await transporter.sendMail({
                     from: 'Admin',
-                    to: 'jcwd2402@gmail.com',
+                    to: email,
                     subject: 'Verification Account',
                     html: tempResult,
                 });
+                await t.commit();
                 return res.status(201).send({
                     success: true,
                     message:
@@ -97,6 +100,7 @@ module.exports = {
                 });
             }
         } catch (error) {
+            await t.rollback();
             return res.status(500).send({
                 success: false,
                 message: error.message,
@@ -105,6 +109,7 @@ module.exports = {
         }
     },
     verification: async (req, res) => {
+    const t = await sequelize.transaction();
         try {
             const { password, confirmPassword } = req.body;
             const uid = req.User.id;
@@ -137,7 +142,7 @@ module.exports = {
                 where: {
                     id: uid,
                     is_verified: true,
-                },
+                }, transaction: t
             });
 
             if (isVerif)
@@ -157,14 +162,17 @@ module.exports = {
                     where: {
                         id: uid,
                     },
+                    transaction: t
                 },
             );
+        await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Verification success!',
                 data: result,
             });
         } catch (error) {
+            await t.rollback();
             return res.status(500).send({
                 success: false,
                 message: error.message,
@@ -186,6 +194,7 @@ module.exports = {
             const result = await user.findOne({
                 where: {
                     email,
+                    role_id: 1,
                 },
             });
             if (!result)
@@ -226,6 +235,7 @@ module.exports = {
         }
     },
     reqForgotPassword: async (req, res) => {
+    const t = await sequelize.transaction();
         try {
             const { email } = req.body;
 
@@ -233,7 +243,7 @@ module.exports = {
                 where: {
                     email: email,
                     googleSignIn: false
-                },
+                }, transaction: t,
             });
 
             if (!result)
@@ -266,6 +276,7 @@ module.exports = {
                     where: {
                         id: result.id,
                     },
+                    transaction: t,
                 },
             );
 
@@ -277,15 +288,17 @@ module.exports = {
             await transporter.sendMail({
                 from: 'Admin',
                 to: 'jcwd2402@gmail.com',
-                subject: 'Verification Account',
+                subject: 'Reset Password',
                 html: tempResult,
             });
+            await t.commit();
             return res.status(201).send({
                 success: true,
                 message: 'Check your email to reset your password!',
                 data: null,
             });
         } catch (error) {
+        await t.rollback();
             return res.status(500).send({
                 success: false,
                 message: error.message,
@@ -294,6 +307,7 @@ module.exports = {
         }
     },
     forgotPassword: async (req, res) => {
+    const t = await sequelize.transaction();
         try {
             const { password, confirmPassword } = req.body;
             const uid = req.User.id;
@@ -326,7 +340,7 @@ module.exports = {
                 where: {
                     id: uid,
                     token_password: '0',
-                },
+                }, transaction: t
             });
             if (checkRequest)
                 return res.status(401).send({
@@ -344,16 +358,17 @@ module.exports = {
                 {
                     where: {
                         id: uid,
-                    },
+                    }, transaction: t
                 },
             );
-
+        await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Reset password success!!',
                 data: result,
             });
         } catch (error) {
+        await t.rollback();
             return res.status(500).send({
                 success: false,
                 message: error.message,
@@ -403,7 +418,7 @@ module.exports = {
         try {
             const {data} = req.body
             const checkUser = await user.findOne({
-                where: {email: data.email, googleSignIn: true}
+                where: {email: data.email}, transaction: t
             })
             if (!checkUser) {
                 const createUser = await user.create({
@@ -414,7 +429,6 @@ module.exports = {
                     role_id: 1,
                     googleSignIn: true
                 }, { transaction: t })
-
                 let payload = {
                     id: createUser.id,
                     email: createUser.email,
@@ -438,7 +452,6 @@ module.exports = {
             const token = jwt.sign(payload, 'coding-its-easy', {
                 expiresIn: '1d',
             });
-            await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Login Success!',

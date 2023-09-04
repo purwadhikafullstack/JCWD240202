@@ -29,7 +29,7 @@ export const getUserCartAsync = () => async (dispatch) => {
         ? JSON.parse(localStorage?.getItem('user'))
         : null;
     try {
-        dispatch(setLoading(false))
+        dispatch(setLoading(false));
         const getCart = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/carts`,
             {
@@ -44,8 +44,7 @@ export const getUserCartAsync = () => async (dispatch) => {
         }, 1000);
         dispatch(setCart(getCart.data));
     } catch (error) {
-        dispatch(setLoading(false))
-        console.log('error => ', error.message);
+        dispatch(setLoading(false));
     }
 };
 
@@ -73,7 +72,7 @@ export const userAddToCartAsync = (data) => async (dispatch) => {
         }
         dispatch(getUserCartAsync());
     } catch (error) {
-        toast.error('Please Login/Register To Add Product');
+        toast.error(error.message);
     }
 };
 
@@ -95,7 +94,9 @@ export const userDeleteProductCartAsync = (data) => async (dispatch) => {
             toast.success('Product remove from cart');
         }
         dispatch(getUserCartAsync());
-    } catch (error) {}
+    } catch (error) {
+        toast.error(error.message)
+    }
 };
 
 export const modifyQuantityAsync = (data) => async (dispatch) => {
@@ -127,10 +128,9 @@ export const modifyQuantityAsync = (data) => async (dispatch) => {
 };
 
 export const getNewItemsAsync = () => async (dispatch) => {
-    const getUser = localStorage.getItem('user')
-        ? JSON.parse(localStorage?.getItem('user'))
-        : null;
     try {
+        const getUser = JSON.parse(localStorage?.getItem('user'));
+
         const newItem = await axios.get(
             process.env.REACT_APP_API_BASE_URL + `/carts/newest`,
             {

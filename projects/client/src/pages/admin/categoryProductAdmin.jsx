@@ -35,7 +35,7 @@ export default function CategoryProductAdmin() {
             <div>
                 <div className="sm:flex">
                     <SideBarAdmin />
-                    <div className="p-8 w-full">
+                    <div className="sm:p-8 p-3 w-full">
                         <div className="font-bold text-2xl mt-2">
                             <h1>CATEGORY PRODUCTS</h1>
                         </div>
@@ -43,8 +43,6 @@ export default function CategoryProductAdmin() {
                         <div className="mt-3 p-3 bg-white drop-shadow-lg rounded-lg">
                             <div className="flex justify-between items-center w-full mb-4">
                                 <div className="flex">
-                                    {/* <FilterButton data={{ categoryChange }} />
-                                    <SortButton data={{ sortChange }} /> */}
                                 </div>
                                 <button
                                     onClick={() => setOpenModalAdd(true)}
@@ -52,7 +50,6 @@ export default function CategoryProductAdmin() {
                                 >
                                     + ADD NEW CATEGORY
                                 </button>
-                                {/* <SearchBar data={{ searchChange }} /> */}
                             </div>
                             <div className="relative overflow-x-auto shadow-m rounded-lg">
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -86,13 +83,6 @@ export default function CategoryProductAdmin() {
                                     </tbody>
                                 </table>
                                 <div className="pt-9 flex justify-center">
-                                    {/* <PaginationButton
-                                        data={{
-                                            totalPage: products?.totalPage,
-                                            page,
-                                            pageChange,
-                                        }}
-                                    /> */}
                                 </div>
                             </div>
                         </div>

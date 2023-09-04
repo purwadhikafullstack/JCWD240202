@@ -15,7 +15,6 @@ export default function RegisterPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [isAgree, setIsAgree] = useState(false);
-    // const [loading, setLoading] = useState(false);
 
     const userLogin = JSON.parse(localStorage.getItem('user'));
 
@@ -63,8 +62,6 @@ export default function RegisterPage() {
                 </div>
             ));
             navigate('/');
-            // setTimeout(() => {
-            // },1000);
         }
     };
 
@@ -83,7 +80,7 @@ export default function RegisterPage() {
                 <title>IKEWA | Register</title>
                 <meta name="description" content="register" />
             </Helmet>
-            <div className="flex flex-col md:flex-row my-20 mx-10 md:mx-20">
+            <div className="flex flex-col md:flex-row my-10 mx-10 md:mx-20">
                 <div className="flex-1 flex justify-center text-center md:text-start">
                     <div>
                         <div className="text-4xl font-bold mb-10 w-72">
@@ -165,7 +162,7 @@ export default function RegisterPage() {
                         <button
                             onClick={() => {dispatch(register(email, tokenRecaptcha)); resetRecaptcha()}}
                             type="submit"
-                            className="bg-[#0051BA] hover:bg-gray-400 rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
+                            className="bg-[#0051BA] border border-[#0051BA] hover:bg-[#d7d9db] rounded-full text-white py-2 mt-2 text-sm p-3 disabled:cursor-not-allowed disabled:bg-[#0051BA]"
                             disabled={
                                 !email ||
                                 !email.includes('@') ||
@@ -176,13 +173,13 @@ export default function RegisterPage() {
                         >
                             Create account
                         </button>
-                        <div className="flex justify-center">
-                            <Link
-                                to="/login"
-                                className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"
-                            >
-                                Have an account? Login here
-                            </Link>
+                        <div className='flex justify-center'>
+                        <Link
+                            to="/login"
+                            className="text-[#0258a3] text-center my-3 text-[13px] hover:text-black cursor-pointer"                         
+                        >
+                            Have an account? Login here
+                        </Link>
                         </div>
                     </div>
                 </div>
@@ -196,12 +193,12 @@ export default function RegisterPage() {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex justify-center items-center fixed bottom-0">
                 <img
-                    src="/images/banner-ikewa.png"
-                    alt="not-found"
-                    className="min-w-[200px]"
-                ></img>
+                    src="/images/banner-ikewa-login.png"
+                    alt="banner"
+                    className="max-h-[250px] object-fill w-full"
+                />
             </div>
         </>
     );

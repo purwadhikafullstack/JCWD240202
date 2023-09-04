@@ -7,7 +7,7 @@ module.exports = {
     getStock: async (req, res) => {
         try {
             let where = { is_deleted: false };
-            let order = undefined;
+            let order = [['name', 'ASC']];
             let wh = undefined;
             const { id, role_id } = req.User;
             const { page, warehouse, search, sort, category } = req.query;
@@ -82,6 +82,7 @@ module.exports = {
                 const checkWh = await db.warehouses.findOne({
                     where: {
                         city: warehouse.replace(/%/g, ' '),
+                        is_deleted: false,
                     },
                 });
                 if (role_id === 3) {
@@ -107,9 +108,9 @@ module.exports = {
                 } else if (sort === 'name-desc') {
                     order = [['name', 'DESC']];
                 } else if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -180,18 +181,28 @@ module.exports = {
                 where: {
                     user_id: id,
                 },
+                transaction: t
             });
 
             const checkProduct = await stock.findOne({
                 where: {
                     id: product_stock_id,
                 },
+                transaction: t
             });
 
             if (!checkProduct) {
                 return res.status(404).send({
                     success: false,
                     message: 'Product Not Found!',
+                    data: null,
+                });
+            }
+
+            if (Number(quantity) <= 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Please input the correct quantity!',
                     data: null,
                 });
             }
@@ -213,14 +224,14 @@ module.exports = {
                     where: {
                         id: checkProduct.product_id,
                     },
+                    transaction: t
                 });
 
                 var addQuantity = await stock.update(
                     {
                         stock: Number(checkProduct.stock) + Number(quantity),
                     },
-                    { where: { id: product_stock_id } },
-                    { transaction: t },
+                    { where: { id: product_stock_id }, transaction: t },
                 );
 
                 // Update total_stock in products table
@@ -233,8 +244,8 @@ module.exports = {
                         where: {
                             id: findProduct.id,
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
 
                 await db.stock_histories.create(
@@ -280,18 +291,36 @@ module.exports = {
                 where: {
                     user_id: id,
                 },
+                transaction: t
             });
 
             const checkProduct = await stock.findOne({
                 where: {
                     id: product_stock_id,
                 },
+                transaction: t
             });
 
             if (!checkProduct) {
                 return res.status(404).send({
                     success: false,
                     message: 'Product Not Found!',
+                    data: null,
+                });
+            }
+
+            if (quantity > checkProduct.stock) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Quantity Exceeds Available Stock!',
+                    data: null,
+                });
+            }
+
+            if (Number(quantity) <= 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Please input the correct quantity!',
                     data: null,
                 });
             }
@@ -313,14 +342,14 @@ module.exports = {
                     where: {
                         id: checkProduct.product_id,
                     },
+                    transaction: t
                 });
 
                 var reduceQuantity = await stock.update(
                     {
                         stock: Number(checkProduct.stock) - Number(quantity),
                     },
-                    { where: { id: product_stock_id } },
-                    { transaction: t },
+                    { where: { id: product_stock_id }, transaction: t },
                 );
 
                 var updateTotalStock = await db.products.update(
@@ -332,16 +361,16 @@ module.exports = {
                         where: {
                             id: findProduct.id,
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
 
                 await db.stock_histories.create(
                     {
                         product_id: checkProduct.product_id,
                         quantity,
-                        type_id: 1,
-                        information_id: 2,
+                        type_id: 2,
+                        information_id: 1,
                         user_id: id,
                         warehouse_id: checkProduct.warehouse_id,
                     },

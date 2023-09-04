@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useState } from 'react';
 import {
     FcCalendar,
     FcFinePrint,
@@ -7,25 +6,25 @@ import {
     FcViewDetails,
     FcVoicePresentation,
 } from 'react-icons/fc';
-import { useDispatch } from "react-redux";
-import { cancelShipping, sendUserOrder } from '../../../redux/features/transactionSlice';
 import SkeletonTransactionAdmin from './skeletonTransactionAdmin';
+import CountdownAdmin from './countdownAdmin';
 
 export default function TransactionCard(props) {
-    const dispatch = useDispatch()
+    const countdownExpired = () => {
+        props?.time?.setExpiredTime(false);
+    };
     return (
         <>
             {props?.transaction?.data?.rows?.length !== 0 ? (
                 props?.transaction?.data?.rows?.map((value, index) => {
-                    if(props.loading) {
+                    if(props?.loading) {
                     return (
                         <div
                             key={index}
                             className="border p-2 rounded-lg shadow-lg mt-3"
                         >
-                            {/* {()=>setStatus(value?.order_statuses[0]?.status_id)} */}
                             <div className="flex flex-col gap-2 md:flex-row md:justify-between md:gap-0 border-b py-2">
-                                <div className="md:w-72 flex justify-center md:justify-start">
+                                <div className="md:w-72 flex flex-col md:flex-row items-center justify-center md:justify-start">
                                     <div
                                         className={`border truncate w-fit rounded-full px-3 flex items-center
                                     ${
@@ -68,6 +67,7 @@ export default function TransactionCard(props) {
                                     >
                                         {value?.order_statuses[0]?.status?.name}
                                     </div>
+                                    {value?.order_statuses[0]?.status_id === 1 ? <CountdownAdmin expiredDate={value?.order_statuses[0]?.expired } countdownExpired={countdownExpired}/> : null}
                                 </div>
                                 <div className="flex-1 flex md:justify-center items-center">
                                     <FcViewDetails className="text-[22px]" />
@@ -92,10 +92,7 @@ export default function TransactionCard(props) {
                                 <div className="flex justify-between md:justify-start md:w-96">
                                     <div className="w-[120px] h-[120px]">
                                         <img
-                                            src={
-                                                value?.cart?.cart_products[0]
-                                                    ?.image
-                                            }
+                                            src={value?.cart?.cart_products[0]?.image.startsWith('PIMG') ? process.env.REACT_APP_API_IMAGE_URL + value?.cart?.cart_products[0]?.image : value?.cart?.cart_products[0]?.image}
                                         />
                                     </div>
                                     <div className="m-3 flex flex-col items-end md:items-start">
@@ -175,18 +172,16 @@ export default function TransactionCard(props) {
                                         ) : null}
                                     </div>
                                 </div>
-                                {value?.order_statuses[0]?.status_id === 3 ? (
+                                {props.transaction.roleId === 2 && value?.order_statuses[0]?.status_id === 3 ? (
                                     <div className="flex-1 flex justify-end gap-5 mr-5">
                                         <button
-                                            // onClick={()=> dispatch(sendUserOrder(value.id))}
                                             onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(3); props.confirm?.setValueConfirm(value.id)}}
                                                 className={`bg-[#0051BA] hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36`}
                                             >
                                                 Ready To Ship
                                             </button>
                                             <button
-                                            // onClick={() => dispatch(cancelShipping(value.id))}
-                                            onClick={() => { props.confirm?.setShowConfirm(true); props.confirm?.setFuncConfirm(4); props.confirm?.setValueConfirm(value.id)}}
+                                            onClick={() => { props.notification?.setModalNotification(true); props.confirm?.setFuncConfirm(4); props.confirm?.setValueConfirm(value.id)}}
                                             className="bg-red-600 hover:bg-gray-400 rounded-lg text-white py-1 text-sm p-3 w-36">
                                                 Cancel
                                             </button>
@@ -196,7 +191,7 @@ export default function TransactionCard(props) {
                             </div>
                         );
                     } else {
-                        return <SkeletonTransactionAdmin key={index}/>
+                        return <SkeletonTransactionAdmin key={index} />;
                     }
                 })
             ) : (
@@ -210,7 +205,7 @@ export default function TransactionCard(props) {
                                 src="/images/not-found-3.png"
                                 alt="not-found"
                                 className="min-w-[200px] max-w-[400px]"
-                            ></img>
+                            />
                         </div>
                     </div>
                 </div>

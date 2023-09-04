@@ -2,6 +2,9 @@ const { Op } = require('sequelize');
 const { sequelize } = require('../models');
 const db = require('../models');
 const categories = db.categories;
+const products = db.products;
+const product_images = db.product_images;
+const colors = db.colors;
 const { deleteSingleFile } = require('./../helper/deleteFiles');
 
 module.exports = {
@@ -9,7 +12,7 @@ module.exports = {
         try {
             const findCategories = await categories.findAll({
                 attributes: ['id', 'name', 'image'],
-                order : [['name', 'ASC']]
+                order: [['name', 'ASC']],
             });
 
             if (findCategories) {
@@ -36,7 +39,7 @@ module.exports = {
     addCategory: async (req, res) => {
         const t = await sequelize.transaction();
         try {
-            const data = JSON.parse(req.body.data)
+            const data = JSON.parse(req.body.data);
             const image = req.files?.images[0]?.filename;
 
             if (!data.name || !image)
@@ -89,10 +92,8 @@ module.exports = {
         try {
             const { id } = req.params;
             const { name } = req.body;
-            // const image = req.files?.images[0]?.filename;
 
             if (!name) {
-                // deleteSingleFile(req.files?.images[0]?.path);
                 return res.status(406).send({
                     success: false,
                     message: 'Name are required!',
@@ -116,7 +117,7 @@ module.exports = {
             const checkName = await categories.findOne({
                 where: {
                     name,
-                    [Op.not]: [{id: id}],
+                    [Op.not]: [{ id: id }],
                 },
             });
 
@@ -141,8 +142,6 @@ module.exports = {
                 },
             );
 
-            // deleteSingleFile(`src/public/images/${data?.image}`);
-
             await t.commit();
 
             return res.status(200).send({
@@ -152,7 +151,6 @@ module.exports = {
             });
         } catch (error) {
             await t.rollback();
-            // deleteSingleFile(req.files?.images[0]?.path);
             return res.status(500).send({
                 success: false,
                 message: error.message,
@@ -177,31 +175,30 @@ module.exports = {
                     message: 'Data not found',
                     data: null,
                 });
-            
-                const result = await categories.update(
-                    {
-                        image: req.files?.images[0]?.filename,
-                    },
-                    {
-                        where: {
-                            id: id,
-                        },
-                    },
-                    {
-                        transaction: t,
-                    },
-                );
-    
-                deleteSingleFile(`src/public/images/${data?.image}`);
-    
-                await t.commit();
-    
-                return res.status(200).send({
-                    success: true,
-                    message: 'Update category success!',
-                    data: result,
-                });
 
+            const result = await categories.update(
+                {
+                    image: req.files?.images[0]?.filename,
+                },
+                {
+                    where: {
+                        id: id,
+                    },
+                },
+                {
+                    transaction: t,
+                },
+            );
+
+            deleteSingleFile(`src/public/images/${data?.image}`);
+
+            await t.commit();
+
+            return res.status(200).send({
+                success: true,
+                message: 'Update category success!',
+                data: result,
+            });
         } catch (error) {
             await t.rollback();
             deleteSingleFile(req.files?.images[0]?.path);
@@ -219,7 +216,8 @@ module.exports = {
 
             const checkData = await db.products.findOne({
                 where: {
-                    category_id: id, is_deleted: false
+                    category_id: id,
+                    is_deleted: false,
                 },
             });
 
@@ -228,6 +226,7 @@ module.exports = {
                     success: false,
                     message: 'This category is currently being used!',
                 });
+            const prev = await categories.findByPk(id);
 
             const result = await categories.destroy(
                 {
@@ -239,7 +238,7 @@ module.exports = {
             );
 
             if (result) {
-                deleteSingleFile(`src/public/images/${checkData.image}`);
+                deleteSingleFile(`src/public/images/${prev.image}`);
             }
 
             await t.commit();
@@ -253,6 +252,73 @@ module.exports = {
             await t.rollback();
             deleteSingleFile(req.files?.images[0]?.path);
             return res.status(500).send({
+                success: false,
+                message: error.message,
+                data: null,
+            });
+        }
+    },
+    getDetailCategory: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { page, colorId } = req.query;
+
+            const checkId = await categories.findOne({ where: { id: id } });
+            let where = {};
+            if (colorId) {
+                where = { id: colorId };
+            }
+
+            if (checkId) {
+                const paginationLimit = 8;
+                const paginationOffset =
+                    (Number(page ? page : 1) - 1) * paginationLimit;
+
+                const getData = await categories.findOne({
+                    where: { id: checkId.id },
+                    include: [
+                        {
+                            model: products,
+                            as: 'products',
+                            limit: paginationLimit,
+                            offset: paginationOffset,
+                            include: [
+                                {
+                                    model: product_images,
+                                    where: { is_thumbnail: true },
+                                },
+                                {
+                                    model: colors,
+                                    where,
+                                },
+                            ],
+                        },
+                    ],
+                });
+
+                const count = await products.count({
+                    where: { category_id: checkId.id },
+                    include: [{ model: colors, where }],
+                    distinct: true,
+                });
+
+                const totalPage = Math.ceil(count / paginationLimit);
+
+                res.status(200).send({
+                    success: true,
+                    message: 'get category products success',
+                    data: getData,
+                    totalPage,
+                });
+            } else {
+                res.status(400).send({
+                    success: false,
+                    message: 'invalid category id',
+                    data: null,
+                });
+            }
+        } catch (error) {
+            res.status(500).send({
                 success: false,
                 message: error.message,
                 data: null,

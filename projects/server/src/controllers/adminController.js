@@ -16,7 +16,7 @@ module.exports = {
         try {
             const { page, sort, search, warehouse } = req.query;
 
-            let order = [['createdAt', 'DESC']];
+            let order = [['id', 'DESC']];
             let where = { role_id: 2 };
 
             const paginationLimit = 5;
@@ -59,9 +59,9 @@ module.exports = {
                 } else if (sort === 'name-desc') {
                     order = [['first_name', 'DESC']];
                 } else if (sort === 'newest') {
-                    order = [['createdAt', 'DESC']];
+                    order = [['id', 'DESC']];
                 } else if (sort === 'oldest') {
-                    order = [['createdAt', 'ASC']];
+                    order = [['id', 'ASC']];
                 }
             }
 
@@ -135,9 +135,17 @@ module.exports = {
                     where: {
                         id,
                     },
-                },
-                { transaction: t },
+                    transaction: t
+                }, 
             );
+
+            if(updateDataAdmin[0] === 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Edit Profile Failed!',
+                    data: null,
+                });
+            }
 
             await t.commit();
 
@@ -183,10 +191,7 @@ module.exports = {
                 });
             }
 
-            if (
-                pattern.test(new_password) === false ||
-                pattern.test(confirm_password) === false
-            ) {
+            if (pattern.test(new_password) === false) {
                 return res.status(406).send({
                     success: false,
                     message:
@@ -212,11 +217,16 @@ module.exports = {
                     where: {
                         id,
                     },
+                    transaction: t
                 },
-                { transaction: t },
             );
 
-            if (changePass) {
+            if (changePass[0] === 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: "Update Password Failed!",
+                });
+            } else {
                 const data = fs.readFileSync(
                     './src/email_template/resetPasswordAdmin.html',
                     'utf-8',
@@ -230,7 +240,7 @@ module.exports = {
 
                 await transporter.sendMail({
                     sender: 'IKEWA User Support Team',
-                    to: 'jcwd2402@gmail.com',
+                    to: checkUser.email,
                     subject: 'Your New Password',
                     html: tempResult,
                 });
@@ -256,6 +266,21 @@ module.exports = {
         const t = await sequelize.transaction();
         try {
             const { id } = req.params;
+
+            const checkWhAdmin = await db.users.findOne({
+                where: {
+                    id,
+                },
+            })
+
+            if (!checkWhAdmin) {
+                return res.status(404).send({
+                    success: true,
+                    message: 'Admin Not Found!',
+                    data: null,
+                });
+            }
+
             const checkWarehouseAdmin = await warehouses.findOne({
                 where: {
                     user_id: id,
@@ -266,10 +291,10 @@ module.exports = {
                 const deleteData = await user.destroy(
                     {
                         where: {
-                            id,
+                            id
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
 
                 const updateWarehouseStatus = await warehouses.update(
@@ -278,11 +303,12 @@ module.exports = {
                     },
                     {
                         where: {
-                            user_id: id,
+                            user_id: id
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
+
                 await t.commit();
 
                 return res.status(200).send({
@@ -296,11 +322,20 @@ module.exports = {
                         where: {
                             id,
                         },
+                        transaction: t
                     },
-                    { transaction: t },
                 );
-                await t.commit();
 
+                if(!deleteDataAdmin) {
+                    return res.status(400).send({
+                        success: true,
+                        message: 'Delete Admin Failed!',
+                        data: null,
+                    });
+                }
+
+                await t.commit();
+                
                 return res.status(200).send({
                     success: true,
                     message: 'Admin deleted!',

@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     product_images.init(
         {
             product_id: DataTypes.INTEGER,
-            name: DataTypes.STRING,
-            is_thumbnail: DataTypes.BOOLEAN,
+            name: DataTypes.STRING(500),
+            is_thumbnail: {type: DataTypes.BOOLEAN, defaultValue: false},
         },
         {
             sequelize,

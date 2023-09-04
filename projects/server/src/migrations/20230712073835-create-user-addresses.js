@@ -17,13 +17,25 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            receiver_number: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             province: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            province_id: {
+                type: Sequelize.INTEGER,
+                defaultValue: 0,
+            },
             city: {
                 type: Sequelize.STRING,
                 allowNull: false,
+            },
+            city_id: {
+                type: Sequelize.INTEGER,
+                defaultValue: 0,
             },
             subdistrict: {
                 type: Sequelize.STRING,
@@ -46,6 +58,14 @@ module.exports = {
                 allowNull: false,
             },
             is_primary: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: true,
+            },
+            is_deleted: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false,
+            },
+            is_chosen: {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false,
             },

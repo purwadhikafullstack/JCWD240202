@@ -75,7 +75,7 @@ export default function ProductDetails() {
         <>
             <div className="divide-y mb-16">
                 <Toaster />
-                <div className="flex px-[200px] justify-evenly gap-14 pt-9">
+                <div className="flex min-[0px]:flex-col min-[0px]:mb-9 xl:flex-row xl:px-[200px] min-[0px]:px-4 justify-evenly gap-14 pt-9">
                     <div className="flex-1">
                         <div className="h-[700px]">
                             {loading ? (
@@ -149,7 +149,7 @@ export default function ProductDetails() {
                             <div className="w-full h-16 rounded-lg bg-gray-300 dark:bg-gray-700 mb-1 mt-9 mb-9 animate-pulse"></div>
                         )}
                     </div>
-                    <div className="flex-2 w-[500px]">
+                    <div className="flex-2 xl:w-[500px]">
                         {loading ? (
                             <ProductDescription
                                 data={{ proDetails: proDetails.data }}
@@ -295,13 +295,14 @@ export default function ProductDetails() {
                                                 pill
                                                 className="w-full p-4 bg-sky-700 text-yellow-200"
                                                 onClick={() => {
+                                                    userLogin ?
                                                     dispatch(
                                                         userAddToCartAsync({
                                                             product_id:
                                                                 Number(id),
                                                             quantity: quantity,
                                                         }),
-                                                    );
+                                                    ) : toast.error('Please Login/Register First')
                                                 }}
                                             >
                                                 <div className="text-xl">
@@ -384,7 +385,7 @@ export default function ProductDetails() {
                         )}
                     </div>
                 </div>
-                <div className="px-[200px]">
+                <div className="xl:px-[200px] sm:px-[50px]">
                     {loading ? (
                         <div className="pt-9 text-3xl font-bold">
                             Related Products
@@ -394,8 +395,8 @@ export default function ProductDetails() {
                             <div className="w-52 h-10 rounded-lg bg-gray-300 dark:bg-gray-700 mb-1"></div>
                         </div>
                     )}
-                    <div className="pt-9 flex gap-9">
-                        <RelatedProducts data={{ recommendation, loading }} />
+                    <div className="pt-9 flex gap-9 max-md:w-screen max-md:overflow-auto">
+                        <RelatedProducts data={{ recommendation, loading, setQuantity }} />
                     </div>
                 </div>
             </div>
