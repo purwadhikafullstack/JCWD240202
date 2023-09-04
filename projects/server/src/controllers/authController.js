@@ -83,7 +83,7 @@ module.exports = {
                 const tempCompile = await handlebars.compile(data);
                 const tempResult = tempCompile({
                     email: email,
-                    link: `http://localhost:3000/verification/${token}`,
+                    link: `https://jcwd240202.purwadhikabootcamp.com/verification/${token}`,
                 });
                 await transporter.sendMail({
                     from: 'Admin',
@@ -283,11 +283,11 @@ module.exports = {
             const tempCompile = await handlebars.compile(data);
             const tempResult = tempCompile({
                 email: email,
-                link: `http://localhost:3000/reset-password/${token}`,
+                link: `https://jcwd240202.purwadhikabootcamp.com/reset-password/${token}`,
             });
             await transporter.sendMail({
                 from: 'Admin',
-                to: 'jcwd2402@gmail.com',
+                to: email,
                 subject: 'Reset Password',
                 html: tempResult,
             });
