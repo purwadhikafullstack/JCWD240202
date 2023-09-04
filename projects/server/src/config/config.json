@@ -1,8 +1,8 @@
 {
     "development": {
-        "username": "jcwd240202",
-        "password": "group02",
-        "database": "jcwd240202",
+        "username": "root",
+        "password": "jcwd2402",
+        "database": "warehouse_project",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },
