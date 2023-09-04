@@ -61,7 +61,7 @@ export default function ForgotPassword() {
                 <title>IKEWA | Forgot Password</title>
                 <meta name="description" content="forgot-password" />
             </Helmet>
-            <div className="flex flex-col my-20 mx-10 md:mx-20">
+            <div className="flex flex-col my-24 mx-10 md:mx-20">
                 <div className="flex justify-center">
                     <div>
                         <div className="text-4xl text-center font-bold mb-10 ">
