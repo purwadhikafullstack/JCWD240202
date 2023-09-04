@@ -1,7 +1,7 @@
 const multer = require('multer');
 const fs = require('fs');
 
-let defaultPath = 'src/public';
+let defaultPath = './src/public';
 var storage = multer.diskStorage({
     destination: async (req, file, cb) => {
         let isDirectoryExist = fs.existsSync(
