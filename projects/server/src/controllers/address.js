@@ -91,9 +91,7 @@ module.exports = {
             }
 
             const latLong = await axios.get(
-                `https://api.opencagedata.com/geocode/v1/json?key=${
-                    process.env.OC_API_KEY
-                }&q=${city
+                `https://api.opencagedata.com/geocode/v1/json?key=7bf4b7dba6ff4b3c80d41d6989807877&q=${city
                     .split(' ')
                     .splice(1)
                     .toString()
@@ -242,9 +240,7 @@ module.exports = {
             }
 
             const latLong = await axios.get(
-                `https://api.opencagedata.com/geocode/v1/json?key=${
-                    process.env.OC_API_KEY
-                }&q=${city
+                `https://api.opencagedata.com/geocode/v1/json?key=7bf4b7dba6ff4b3c80d41d6989807877&q=${city
                     .split(' ')
                     .splice(1)
                     .toString()
