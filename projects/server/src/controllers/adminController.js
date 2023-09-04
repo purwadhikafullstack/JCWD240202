@@ -8,6 +8,7 @@ const { Op } = require('sequelize');
 const handlebars = require('handlebars');
 const fs = require('fs');
 const transporter = require('../helper/nodemailer');
+const path = require('path');
 
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -227,10 +228,7 @@ module.exports = {
                     message: "Update Password Failed!",
                 });
             } else {
-                const data = fs.readFileSync(
-                    './src/email_template/resetPasswordAdmin.html',
-                    'utf-8',
-                );
+                const data = fs.readFileSync(path.resolve(__dirname, '../email_template/resetPasswordAdmin.html'), 'utf-8');
 
                 const tempCompile = await handlebars.compile(data);
                 const tempResult = tempCompile({
