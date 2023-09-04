@@ -87,8 +87,8 @@ module.exports = {
                     where: {
                         id,
                     },
+                    transaction: t,
                 },
-                { transaction: t },
             );
 
             await t.commit();
@@ -116,6 +116,7 @@ module.exports = {
                 where: {
                     id,
                 },
+                transaction: t,
             });
 
             const updateImage = await user.update(
@@ -124,17 +125,25 @@ module.exports = {
                 },
                 {
                     where: {
-                        id,
+                        id: null,
                     },
+                    transaction: t,
                 },
-                { transaction: t },
             );
+
+            if (updateImage[0] === 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Update profile picture failed!',
+                    data: null,
+                });
+            }
 
             deleteSingleFile(`src/public/images/${result.profile_picture}`);
 
             await t.commit();
 
-            res.status(201).send({
+            return res.status(201).send({
                 success: true,
                 message: 'Update profile picture success!',
                 data: null,
@@ -159,6 +168,7 @@ module.exports = {
                 where: {
                     id,
                 },
+                transaction: t,
             });
 
             const checkPassword = await bcrypt.compare(
@@ -191,10 +201,7 @@ module.exports = {
                 });
             }
 
-            if (
-                pattern.test(new_password) === false ||
-                pattern.test(confirm_password) === false
-            ) {
+            if (pattern.test(new_password) === false) {
                 return res.status(406).send({
                     success: false,
                     message:
@@ -221,15 +228,21 @@ module.exports = {
                     where: {
                         id,
                     },
-                },
-                {
                     transaction: t,
                 },
             );
 
+            if (changePassword[0] === 0) {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Update password failed!',
+                    data: null,
+                });
+            }
+
             await t.commit();
 
-            res.status(200).send({
+            return res.status(200).send({
                 success: true,
                 message: 'Update password success!',
                 data: changePassword,

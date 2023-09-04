@@ -166,7 +166,7 @@ export const reduceQuantity =
             dispatch(setDisabledButton(false));
             dispatch(setModal(false));
             if (error.response) {
-                toast.error("Update Quantity Failed", {
+                toast.error("Update Quantity Failed!", {
                     position: 'top-center',
                     duration: 2000,
                     style: {

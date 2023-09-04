@@ -31,7 +31,7 @@ export const adminSlice = createSlice({
 export const getDataAdminUser =
     (page, sort, search, warehouse) => async (dispatch) => {
         try {
-            dispatch(setLoading(false))
+            dispatch(setLoading(false));
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
 
             const admins = await axios.get(
@@ -50,11 +50,11 @@ export const getDataAdminUser =
             );
 
             setTimeout(() => {
-                dispatch(setLoading(true))
+                dispatch(setLoading(true));
             }, 1000);
             dispatch(setDataAdmin(admins?.data));
         } catch (error) {
-            dispatch(setLoading(false))
+            dispatch(setLoading(false));
             console.log(error);
         }
     };
@@ -144,13 +144,8 @@ export const changePasswordWarehouseAdmin =
             const dataLogin = JSON.parse(localStorage?.getItem('user'));
             const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-            if (
-                pattern.test(new_password) === false ||
-                pattern.test(confirm_password) === false
-            ) {
-                throw new Error(
-                    'Password must be 8 characters, 1 uppercase, 1 lowercase and 1 number!',
-                );
+            if (pattern.test(new_password) === false) {
+                throw new Error('Password must be 8 characters, 1 uppercase, 1 lowercase and 1 number!');
             }
 
             if (new_password !== confirm_password) {
@@ -255,34 +250,22 @@ export const deleteWarehouseAdmin = (id) => async (dispatch) => {
     } catch (error) {
         dispatch(setDisabledButton(false));
         dispatch(setModal(false));
-        if (error.response) {
-            toast.error(error.response.data.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#DC2626',
-                    color: 'white',
-                },
-            });
-        } else {
-            toast.error(error.message, {
-                position: 'top-center',
-                duration: 2000,
-                style: {
-                    border: '2px solid #000',
-                    borderRadius: '10px',
-                    background: '#DC2626',
-                    color: 'white',
-                },
-            });
-        }
+        toast.error('Delete Failed!', {
+            position: 'top-center',
+            duration: 2000,
+            style: {
+                border: '2px solid #000',
+                borderRadius: '10px',
+                background: '#DC2626',
+                color: 'white',
+            },
+        });
     } finally {
         dispatch(setDisabledButton(false));
         dispatch(setModal(false));
     }
 };
 
-export const { setDataAdmin, setDisabledButton, setModal, setLoading } = adminSlice.actions;
+export const { setDataAdmin, setDisabledButton, setModal, setLoading } =
+    adminSlice.actions;
 export default adminSlice.reducer;

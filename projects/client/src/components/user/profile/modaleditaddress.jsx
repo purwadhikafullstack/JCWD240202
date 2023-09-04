@@ -146,7 +146,7 @@ export default function EditModal({ showModal, selected }) {
         } catch (error) {
             setDisabled(false);
             setOpen(false);
-            toast.error(error.message, {
+            toast.error('Edit Address Failed!', {
                 position: 'top-center',
                 duration: 2000,
                 style: {
