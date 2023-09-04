@@ -37,7 +37,8 @@ app.use(cors());
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('src/public/images'));
+// app.use(express.static('src/public/images'));
+app.use(express.static(path.join(__dirname, 'public/images')));
 app.use(express.static('public'));
 // app.use(express.static(path.join(__dirname, 'public')));
 
