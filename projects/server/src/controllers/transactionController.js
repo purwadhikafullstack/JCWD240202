@@ -96,7 +96,7 @@ module.exports = {
                                 [Op.gte]: new Date(startDate),
                             },
                         };
-                    }else {
+                    } else {
                         where = {
                             warehouse_id: whId.dataValues.id,
                             invoice_number: { [Op.substring]: [search] },
@@ -207,7 +207,7 @@ module.exports = {
                 },
             });
             const findNearestWh = await warehouses.findAll({
-                where: {is_deleted: false},
+                where: { is_deleted: false },
                 attributes: [
                     'id',
                     [
@@ -405,34 +405,45 @@ module.exports = {
                             value.warehouse_destination_id ===
                                 val.warehouse_destination_id
                         ) {
-                            const mut = await db.mutations.create({
-                                product_id: value.product_id,
-                                warehouse_origin_id: value.warehouse_origin_id,
-                                user_id,
-                                is_approved: value.is_approved,
-                            },{ transaction: t });
-                            const mutTail = await db.mutation_details.create({
-                                warehouse_destination_id:
-                                    val.warehouse_destination_id,
-                                mutation_id: mut.id,
-                                quantity: val.quantity,
-                            },{ transaction: t });
+                            const mut = await db.mutations.create(
+                                {
+                                    product_id: value.product_id,
+                                    warehouse_origin_id:
+                                        value.warehouse_origin_id,
+                                    user_id,
+                                    is_approved: value.is_approved,
+                                },
+                                { transaction: t },
+                            );
+                            const mutTail = await db.mutation_details.create(
+                                {
+                                    warehouse_destination_id:
+                                        val.warehouse_destination_id,
+                                    mutation_id: mut.id,
+                                    quantity: val.quantity,
+                                },
+                                { transaction: t },
+                            );
                             historyMut.map(async (value) => {
                                 if (
                                     value.cek ===
                                         mutTail.warehouse_destination_id &&
                                     value.product_id === mut.product_id
                                 ) {
-                                    const sH = await db.stock_histories.create({
-                                        product_id: value.product_id,
-                                        warehouse_id: value.warehouse_id,
-                                        quantity: value.quantity,
-                                        mutation_id: mut.id,
-                                        order_id: data.id,
-                                        user_id,
-                                        type_id: value.type_id,
-                                        information_id: value.information_id,
-                                    },{ transaction: t });
+                                    const sH = await db.stock_histories.create(
+                                        {
+                                            product_id: value.product_id,
+                                            warehouse_id: value.warehouse_id,
+                                            quantity: value.quantity,
+                                            mutation_id: mut.id,
+                                            order_id: data.id,
+                                            user_id,
+                                            type_id: value.type_id,
+                                            information_id:
+                                                value.information_id,
+                                        },
+                                        { transaction: t },
+                                    );
                                 }
                             });
                         }
@@ -447,8 +458,9 @@ module.exports = {
                     {
                         where: {
                             id: value.product_stock_id,
-                        }, transaction: t
-                    }
+                        },
+                        transaction: t,
+                    },
                 );
             });
 
@@ -464,7 +476,8 @@ module.exports = {
                 {
                     order_id: data.id,
                     user_id: data.cart.user_id,
-                    message: 'Your payment has been confirmed by admin and your order is being processed',
+                    message:
+                        'Your payment has been confirmed by admin and your order is being processed',
                     title: 'Payment Success',
                 },
                 { transaction: t },
@@ -515,13 +528,11 @@ module.exports = {
             } else {
                 const changeStatus = await db.order_statuses.update(
                     { is_active: 0, is_rejected: 1 },
-                    { where: { id: findData.id } },
-                    { transaction: t },
+                    { where: { id: findData.id }, transaction: t },
                 );
                 const removeImage = await orders.update(
                     { payment_proof: null },
-                    { where: { id: dataOrder.id } },
-                    { transaction: t },
+                    { where: { id: dataOrder.id }, transaction: t },
                 );
                 const createStatus = await db.order_statuses.create(
                     {
@@ -649,9 +660,9 @@ module.exports = {
             END;`);
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 3, order_id }, transaction: t }
-                );
-                await t.commit();
+                { where: { status_id: 3, order_id }, transaction: t },
+            );
+            await t.commit();
             return res.status(200).send({
                 success: true,
                 message: 'Sending users order!',
@@ -675,7 +686,7 @@ module.exports = {
             const { order_id } = req.body;
             let prevStock = [];
             let stockHis = [];
-            let prevStockTotal = []
+            let prevStockTotal = [];
             const data = await orders.findOne({
                 where: {
                     id: order_id,
@@ -732,8 +743,9 @@ module.exports = {
                                     where: {
                                         product_id: product.product_id,
                                         warehouse_id: data.warehouse_id,
-                                    }, transaction: t
-                                }
+                                    },
+                                    transaction: t,
+                                },
                             );
                             totalFromMut = 0;
                         } else {
@@ -764,16 +776,20 @@ module.exports = {
                 //     );
                 // });
             }
-            prevStockTotal.map(async(value) => {
-                const data = await db.products.findByPk(value.product_id)
-                await db.products.update({
-                    total_stock: value.stock + data.total_stock
-                }, {
-                    where: {
-                        id: value.product_id
-                    }, transaction: t
-                })
-            })
+            prevStockTotal.map(async (value) => {
+                const data = await db.products.findByPk(value.product_id);
+                await db.products.update(
+                    {
+                        total_stock: value.stock + data.total_stock,
+                    },
+                    {
+                        where: {
+                            id: value.product_id,
+                        },
+                        transaction: t,
+                    },
+                );
+            });
             if (prevStock.length > 0) {
                 prevStock.map(async (value) => {
                     const data = await db.product_stocks.findOne({
@@ -790,8 +806,9 @@ module.exports = {
                             where: {
                                 product_id: value.product_id,
                                 warehouse_id: value.warehouse_id,
-                            }, transaction: t
-                        }
+                            },
+                            transaction: t,
+                        },
                     );
                 });
             }
@@ -815,7 +832,7 @@ module.exports = {
 
             await db.order_statuses.update(
                 { is_active: 0 },
-                { where: { status_id: 3, order_id }, transaction: t }
+                { where: { status_id: 3, order_id }, transaction: t },
             );
             const createStatus = await db.order_statuses.create(
                 { status_id: 6, order_id, is_active: 1 },
